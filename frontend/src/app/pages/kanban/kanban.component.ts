@@ -665,6 +665,56 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
       font-size: 12px;
       text-transform: uppercase;
     }
+    
+    /* CSS para dropdown de prioridade */
+    .priority-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .priority-clickable {
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .priority-clickable:hover {
+      background-color: #f4f5f7;
+    }
+    .dropdown-arrow {
+      font-size: 10px;
+      color: #6b778c;
+    }
+    .priority-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid #dfe1e6;
+      border-radius: 3px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      min-width: 150px;
+      overflow: hidden;
+    }
+    .priority-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border-bottom: 1px solid #f4f5f7;
+    }
+    .priority-option:last-child {
+      border-bottom: none;
+    }
+    .priority-option:hover {
+      background-color: #f4f5f7;
+    }
+    .priority-option.selected {
+      background-color: #e4e6ea;
+      font-weight: 500;
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
@@ -697,6 +747,15 @@ export class KanbanComponent implements OnInit {
   // Propriedades para adicionar cartão estilo Trello
   addingToColumn: { [key: string]: boolean } = {};
   newCardTitle: { [key: string]: string } = {};
+  
+  // Propriedades para dropdown de prioridade
+  showPriorityDropdown = false;
+  priorityOptions = [
+    { value: TaskPriority.NONE, label: 'Sem prioridade' },
+    { value: TaskPriority.LOW, label: 'Baixa' },
+    { value: TaskPriority.MEDIUM, label: 'Média' },
+    { value: TaskPriority.HIGH, label: 'Alta' }
+  ];
 
   constructor(private taskService: TaskService) {}
 
@@ -885,6 +944,7 @@ export class KanbanComponent implements OnInit {
     this.showModal = false;
     this.modalTask = null;
     this.editingTask = null;
+    this.showPriorityDropdown = false;
   }
 
   startEdit(): void {
@@ -1034,6 +1094,37 @@ export class KanbanComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao mover tarefa:', error);
+      }
+    });
+  }
+
+  // Métodos para dropdown de prioridade
+  togglePriorityDropdown(): void {
+    this.showPriorityDropdown = !this.showPriorityDropdown;
+  }
+
+  changePriority(newPriority: TaskPriority): void {
+    if (!this.modalTask) return;
+
+    const updateData: UpdateTaskRequest = {
+      priority: newPriority
+    };
+
+    this.taskService.updateTask(this.modalTask.id, updateData).subscribe({
+      next: (updatedTask) => {
+        // Atualiza a task no array local
+        const index = this.tasks.findIndex(t => t.id === this.modalTask!.id);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask;
+        }
+        // Atualiza a task do modal
+        this.modalTask = updatedTask;
+        // Fecha o dropdown
+        this.showPriorityDropdown = false;
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar prioridade:', error);
+        this.showPriorityDropdown = false;
       }
     });
   }
