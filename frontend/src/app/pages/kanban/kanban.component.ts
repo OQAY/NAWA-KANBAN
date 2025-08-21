@@ -149,6 +149,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       margin: 0 0 8px 0;
       font-size: 14px;
       font-weight: 600;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .task-card p {
       margin: 0 0 8px 0;
@@ -242,7 +247,9 @@ export class KanbanComponent implements OnInit {
   }
 
   getTasksByStatus(status: TaskStatus): Task[] {
-    return this.tasks.filter(task => task.status === status);
+    return this.tasks
+      .filter(task => task.status === status)
+      .sort((a, b) => b.priority - a.priority);
   }
 
   getStatusLabel(status: TaskStatus): string {
@@ -338,7 +345,11 @@ export class KanbanComponent implements OnInit {
     // Atualizar localmente primeiro para feedback instantâneo
     const index = this.tasks.findIndex(t => t.id === oldTask.id);
     if (index !== -1) {
-      this.tasks[index] = { ...this.tasks[index], status: newStatus };
+      this.tasks[index] = { 
+        ...this.tasks[index], 
+        status: newStatus,
+        updatedAt: new Date()
+      };
     }
 
     // Depois atualizar no servidor
