@@ -39,32 +39,61 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
                  draggable="true"
                  (dragstart)="onDragStart(task)"
                  (dragend)="onDragEnd()"
-                 (click)="showTaskDetails(task)">
+                 (click)="openTaskModal(task)">
               <div class="task-content">
-                <div *ngIf="editingTask?.id !== task.id">
-                  <h4>{{ task.title }}</h4>
-                  <p>{{ task.description }}</p>
-                </div>
-                <div *ngIf="editingTask?.id === task.id" class="edit-form">
-                  <input [(ngModel)]="editForm.title" class="edit-input" placeholder="Título">
-                  <textarea [(ngModel)]="editForm.description" class="edit-textarea" placeholder="Descrição"></textarea>
-                  <div class="edit-actions">
-                    <button (click)="saveEdit()" class="btn-save">Salvar</button>
-                    <button (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
-                  </div>
-                </div>
+                <h4>{{ task.title }}</h4>
+                <p>{{ task.description }}</p>
               </div>
               <div class="task-meta">
                 <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
-                <div class="task-actions" *ngIf="editingTask?.id !== task.id">
-                  <button (click)="editTask(task); $event.stopPropagation()" class="btn-edit">Editar</button>
-                  <button (click)="deleteTask(task.id); $event.stopPropagation()" class="btn-delete">Excluir</button>
-                </div>
               </div>
             </div>
             
             <div *ngIf="getTasksByStatus(status).length === 0" class="empty-column">
               Nenhuma tarefa
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modal Task Details -->
+      <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h2 *ngIf="!editingTask">{{ modalTask?.title }}</h2>
+            <input *ngIf="editingTask" [(ngModel)]="editForm.title" class="modal-title-input">
+            <button class="close-btn" (click)="closeModal()">✕</button>
+          </div>
+          
+          <div class="modal-body">
+            <div class="modal-section">
+              <h3>Descrição</h3>
+              <p *ngIf="!editingTask">{{ modalTask?.description || 'Sem descrição' }}</p>
+              <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="modal-description-input"></textarea>
+            </div>
+            
+            <div class="modal-section">
+              <h3>Informações</h3>
+              <div class="task-info">
+                <span class="info-item">
+                  <strong>Prioridade:</strong> 
+                  <span class="priority priority-{{ modalTask?.priority }}">{{ getPriorityLabel(modalTask?.priority!) }}</span>
+                </span>
+                <span class="info-item">
+                  <strong>Status:</strong> {{ getStatusLabel(modalTask?.status!) }}
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <div *ngIf="!editingTask" class="modal-actions">
+              <button (click)="startEdit()" class="btn-edit-modal">Editar</button>
+              <button (click)="deleteTask(modalTask!.id)" class="btn-delete-modal">Excluir</button>
+            </div>
+            <div *ngIf="editingTask" class="modal-actions">
+              <button (click)="saveModalEdit()" class="btn-save-modal">Salvar</button>
+              <button (click)="cancelModalEdit()" class="btn-cancel-modal">Cancelar</button>
             </div>
           </div>
         </div>
@@ -263,6 +292,130 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       font-style: italic;
       padding: 20px;
     }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .modal-title-input {
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid #ddd;
+      padding: 8px;
+      border-radius: 4px;
+      flex: 1;
+      margin-right: 10px;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+    .close-btn:hover {
+      color: #000;
+    }
+    .modal-body {
+      padding: 20px;
+    }
+    .modal-section {
+      margin-bottom: 25px;
+    }
+    .modal-section h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #555;
+    }
+    .modal-section p {
+      margin: 0;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #333;
+    }
+    .modal-description-input {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-footer {
+      padding: 20px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-edit-modal, .btn-delete-modal, .btn-save-modal, .btn-cancel-modal {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-edit-modal {
+      background: #ffc107;
+      color: #000;
+    }
+    .btn-delete-modal {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-save-modal {
+      background: #28a745;
+      color: white;
+    }
+    .btn-cancel-modal {
+      background: #6c757d;
+      color: white;
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
@@ -287,6 +440,8 @@ export class KanbanComponent implements OnInit {
     title: '',
     description: ''
   };
+  showModal = false;
+  modalTask: Task | null = null;
 
   constructor(private taskService: TaskService) {}
 
@@ -463,8 +618,55 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  showTaskDetails(task: Task): void {
-    const details = `Título: ${task.title}\n\nDescrição: ${task.description}\n\nPrioridade: ${this.getPriorityLabel(task.priority)}\nStatus: ${this.getStatusLabel(task.status)}`;
-    alert(details);
+  openTaskModal(task: Task): void {
+    this.modalTask = task;
+    this.showModal = true;
+    this.editingTask = null;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.modalTask = null;
+    this.editingTask = null;
+  }
+
+  startEdit(): void {
+    if (!this.modalTask) return;
+    this.editingTask = this.modalTask;
+    this.editForm = {
+      title: this.modalTask.title,
+      description: this.modalTask.description
+    };
+  }
+
+  saveModalEdit(): void {
+    if (!this.editingTask || !this.modalTask) return;
+    
+    const hasChanges = this.editForm.title !== this.editingTask.title || 
+                      this.editForm.description !== this.editingTask.description;
+    
+    if (hasChanges && this.editForm.title.trim()) {
+      this.taskService.updateTask(this.editingTask.id, {
+        title: this.editForm.title,
+        description: this.editForm.description
+      }).subscribe({
+        next: (updatedTask) => {
+          const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
+          if (index !== -1) this.tasks[index] = updatedTask;
+          this.modalTask = updatedTask;
+          this.editingTask = null;
+        },
+        error: (error) => {
+          console.error('Error updating task:', error);
+          this.editingTask = null;
+        }
+      });
+    } else {
+      this.editingTask = null;
+    }
+  }
+
+  cancelModalEdit(): void {
+    this.editingTask = null;
   }
 }
