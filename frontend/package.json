@@ -7,7 +7,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "clean-cache": "ng cache clean",
+    "cache-info": "ng cache info"
   },
   "dependencies": {
     "@angular/animations": "^18.2.0",

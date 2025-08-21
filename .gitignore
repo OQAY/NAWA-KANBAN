@@ -39,4 +39,28 @@ debug/
 
 # Docker
 docker-compose.override.yml
-frontend/.angular/cache/
+
+# Angular cache and build artifacts
+frontend/.angular/
+backend/.angular/
+*/.angular/
+.angular/
+
+# Build outputs
+frontend/dist/
+backend/dist/
+*/dist/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Angular specific
+frontend/tmp/
+backend/tmp/
+
+# Webpack bundles
+*.bundle.js
+*.chunk.js
+
+# Scripts folder (temporary files)
+scripts/

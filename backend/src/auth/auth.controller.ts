@@ -41,21 +41,4 @@ export class AuthController {
     };
   }
 
-  @Post('create-first-admin')
-  @ApiOperation({ summary: 'Create first admin (only if no admin exists)' })
-  @ApiResponse({ status: 200, description: 'First admin created successfully' })
-  @ApiResponse({ status: 409, description: 'Admin already exists' })
-  async createFirstAdmin(@Body() createAdminDto: { email: string; password: string; name: string }) {
-    return this.authService.createFirstAdmin(createAdminDto);
-  }
-
-  @Patch('promote-to-admin/:userId')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Promote user to admin (admin only)' })
-  @ApiResponse({ status: 200, description: 'User promoted to admin' })
-  @ApiResponse({ status: 403, description: 'Forbidden - admin access required' })
-  async promoteToAdmin(@Request() req, @Param('userId') userId: string) {
-    return this.authService.promoteToAdmin(req.user.id, userId);
-  }
 }
