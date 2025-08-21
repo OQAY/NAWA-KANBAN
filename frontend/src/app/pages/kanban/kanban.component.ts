@@ -260,7 +260,12 @@ export class KanbanComponent implements OnInit {
   createTask(): void {
     if (!this.newTask.title.trim()) return;
     
-    this.taskService.createTask(this.newTask).subscribe({
+    const taskData = {
+      ...this.newTask,
+      priority: Number(this.newTask.priority)
+    };
+    
+    this.taskService.createTask(taskData).subscribe({
       next: (task) => {
         this.tasks.push(task);
         this.resetForm();
