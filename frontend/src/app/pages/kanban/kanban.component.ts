@@ -31,8 +31,14 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
             <span class="task-count">{{ getTasksByStatus(status).length }}</span>
           </div>
           
-          <div class="column-content">
-            <div class="task-card" *ngFor="let task of getTasksByStatus(status)">
+          <div class="column-content"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop($event, status)">
+            <div class="task-card" 
+                 *ngFor="let task of getTasksByStatus(status)"
+                 draggable="true"
+                 (dragstart)="onDragStart(task)"
+                 (dragend)="onDragEnd()">
               <h4>{{ task.title }}</h4>
               <p>{{ task.description }}</p>
               <div class="task-meta">
@@ -128,7 +134,10 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       border-radius: 6px;
       margin-bottom: 10px;
       border: 1px solid #dee2e6;
-      cursor: pointer;
+      cursor: grab;
+    }
+    .task-card:active {
+      cursor: grabbing;
     }
     .task-card:hover {
       border-color: #1976d2;
@@ -204,6 +213,8 @@ export class KanbanComponent implements OnInit {
     priority: TaskPriority.MEDIUM,
     projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
   };
+  
+  draggedTask: Task | null = null;
 
   constructor(private taskService: TaskService) {}
 
@@ -280,5 +291,37 @@ export class KanbanComponent implements OnInit {
       priority: TaskPriority.MEDIUM,
       projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
     };
+  }
+
+  onDragStart(task: Task): void {
+    this.draggedTask = task;
+  }
+
+  onDragEnd(): void {
+    this.draggedTask = null;
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent, newStatus: TaskStatus): void {
+    event.preventDefault();
+    
+    if (!this.draggedTask || this.draggedTask.status === newStatus) {
+      return;
+    }
+
+    this.taskService.updateTask(this.draggedTask.id, { status: newStatus }).subscribe({
+      next: (updatedTask) => {
+        const index = this.tasks.findIndex(t => t.id === this.draggedTask!.id);
+        if (index !== -1) this.tasks[index] = updatedTask;
+        this.draggedTask = null;
+      },
+      error: (error) => {
+        console.error('Error updating task status:', error);
+        this.draggedTask = null;
+      }
+    });
   }
 }
