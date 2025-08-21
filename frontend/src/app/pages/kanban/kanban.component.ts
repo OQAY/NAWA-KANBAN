@@ -41,12 +41,22 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
                  (dragend)="onDragEnd()"
                  (click)="showTaskDetails(task)">
               <div class="task-content">
-                <h4>{{ task.title }}</h4>
-                <p>{{ task.description }}</p>
+                <div *ngIf="editingTask?.id !== task.id">
+                  <h4>{{ task.title }}</h4>
+                  <p>{{ task.description }}</p>
+                </div>
+                <div *ngIf="editingTask?.id === task.id" class="edit-form">
+                  <input [(ngModel)]="editForm.title" class="edit-input" placeholder="Título">
+                  <textarea [(ngModel)]="editForm.description" class="edit-textarea" placeholder="Descrição"></textarea>
+                  <div class="edit-actions">
+                    <button (click)="saveEdit()" class="btn-save">Salvar</button>
+                    <button (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
+                  </div>
+                </div>
               </div>
               <div class="task-meta">
                 <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
-                <div class="task-actions">
+                <div class="task-actions" *ngIf="editingTask?.id !== task.id">
                   <button (click)="editTask(task); $event.stopPropagation()" class="btn-edit">Editar</button>
                   <button (click)="deleteTask(task.id); $event.stopPropagation()" class="btn-delete">Excluir</button>
                 </div>
@@ -203,6 +213,40 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       background: #dc3545;
       color: white;
     }
+    .edit-form {
+      padding: 5px 0;
+    }
+    .edit-input, .edit-textarea {
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .edit-textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+    .edit-actions {
+      display: flex;
+      gap: 5px;
+    }
+    .btn-save, .btn-cancel {
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .btn-save {
+      background: #28a745;
+      color: white;
+    }
+    .btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
     .priority {
       padding: 2px 6px;
       border-radius: 3px;
@@ -238,6 +282,11 @@ export class KanbanComponent implements OnInit {
   };
   
   draggedTask: Task | null = null;
+  editingTask: Task | null = null;
+  editForm = {
+    title: '',
+    description: ''
+  };
 
   constructor(private taskService: TaskService) {}
 
@@ -301,26 +350,41 @@ export class KanbanComponent implements OnInit {
   }
 
   editTask(task: Task): void {
-    const newTitle = prompt('Novo título:', task.title);
-    if (newTitle === null) return; // Cancelou
+    this.editingTask = task;
+    this.editForm = {
+      title: task.title,
+      description: task.description
+    };
+  }
+
+  saveEdit(): void {
+    if (!this.editingTask) return;
     
-    const newDescription = prompt('Nova descrição:', task.description);
-    if (newDescription === null) return; // Cancelou
+    const hasChanges = this.editForm.title !== this.editingTask.title || 
+                      this.editForm.description !== this.editingTask.description;
     
-    const hasChanges = newTitle !== task.title || newDescription !== task.description;
-    
-    if (hasChanges) {
-      this.taskService.updateTask(task.id, { 
-        title: newTitle,
-        description: newDescription 
+    if (hasChanges && this.editForm.title.trim()) {
+      this.taskService.updateTask(this.editingTask.id, {
+        title: this.editForm.title,
+        description: this.editForm.description
       }).subscribe({
         next: (updatedTask) => {
-          const index = this.tasks.findIndex(t => t.id === task.id);
+          const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
           if (index !== -1) this.tasks[index] = updatedTask;
+          this.editingTask = null;
         },
-        error: (error) => console.error('Error updating task:', error)
+        error: (error) => {
+          console.error('Error updating task:', error);
+          this.editingTask = null;
+        }
       });
+    } else {
+      this.editingTask = null;
     }
+  }
+
+  cancelEdit(): void {
+    this.editingTask = null;
   }
 
   deleteTask(taskId: string): void {
