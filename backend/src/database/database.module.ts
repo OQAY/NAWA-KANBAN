@@ -11,11 +11,12 @@ import { Comment } from './entities/comment.entity';
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST', 'localhost'),
-        port: configService.get('DB_PORT', 5432),
-        username: configService.get('DB_USERNAME', 'kanban_user'),
-        password: configService.get('DB_PASSWORD', 'kanban_pass'),
-        database: configService.get('DB_NAME', 'kanban_db'),
+        host: configService.get('DB_HOST'),
+        port: parseInt(configService.get('DB_PORT', '5432')),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        ssl: { rejectUnauthorized: false },
         entities: [User, Task, Project, Comment],
         synchronize: configService.get('NODE_ENV') !== 'production',
         logging: configService.get('NODE_ENV') === 'development',
