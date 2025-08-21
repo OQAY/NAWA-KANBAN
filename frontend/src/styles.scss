@@ -1,0 +1,12 @@
+/* NASA STANDARD: Global styles - minimal and clean */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+}
