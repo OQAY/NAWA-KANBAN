@@ -56,8 +56,14 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     const { email, password } = loginDto;
 
-    // Find user
-    const user = await this.userRepository.findOne({ where: { email } });
+    // Find user by email OR name
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.email = :emailOrName OR user.name = :emailOrName', { 
+        emailOrName: email 
+      })
+      .getOne();
+
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
