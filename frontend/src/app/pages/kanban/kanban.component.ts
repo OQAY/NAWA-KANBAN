@@ -94,7 +94,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
               <div class="title-section">
                 <h2 *ngIf="!editingTask" (dblclick)="startEdit()">{{ modalTask?.title }}</h2>
                 <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input" 
-                          (input)="autoResize($event)" #titleTextarea></textarea>
+                          (input)="autoResize($event); checkForChanges()" #titleTextarea></textarea>
               </div>
               
               <div class="description-section">
@@ -106,7 +106,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
                   </button>
                 </div>
                 <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="description-edit-input" 
-                          placeholder="Adicione uma descrição..." (input)="autoResize($event)" #descriptionTextarea></textarea>
+                          placeholder="Adicione uma descrição..." (input)="autoResize($event); checkForChanges()" #descriptionTextarea></textarea>
               </div>
             </div>
             
@@ -149,6 +149,33 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação para Alterações Não Salvas -->
+    <div class="modal-overlay" *ngIf="showSaveConfirmModal" (click)="cancelSaveConfirm()">
+      <div class="save-confirm-modal" (click)="$event.stopPropagation()">
+        <div class="confirm-header">
+          <h3>Alterações não salvas</h3>
+          <span class="warning-icon">⚠️</span>
+        </div>
+        <div class="confirm-body">
+          <p>Você fez alterações que não foram salvas. O que deseja fazer?</p>
+        </div>
+        <div class="confirm-actions">
+          <button class="btn-save-changes" (click)="saveAndClose()">
+            <span class="btn-icon">💾</span>
+            Salvar alterações
+          </button>
+          <button class="btn-discard-changes" (click)="discardAndClose()">
+            <span class="btn-icon">🗑️</span>
+            Descartar alterações
+          </button>
+          <button class="btn-cancel-close" (click)="cancelSaveConfirm()">
+            <span class="btn-icon">↩️</span>
+            Continuar editando
+          </button>
         </div>
       </div>
     </div>
@@ -768,6 +795,100 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
       background-color: #e4e6ea;
       font-weight: 500;
     }
+    
+    /* CSS para modal de confirmação */
+    .save-confirm-modal {
+      background: white;
+      border-radius: 12px;
+      max-width: 450px;
+      width: 90%;
+      margin: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      overflow: hidden;
+      animation: modalSlideIn 0.3s ease-out;
+    }
+    @keyframes modalSlideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .confirm-header {
+      background: linear-gradient(135deg, #ffc107, #ff9800);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .confirm-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .warning-icon {
+      font-size: 24px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .confirm-body {
+      padding: 24px;
+      text-align: center;
+    }
+    .confirm-body p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .confirm-actions {
+      padding: 0 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .confirm-actions button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-save-changes {
+      background: #28a745;
+      color: white;
+    }
+    .btn-save-changes:hover {
+      background: #218838;
+      transform: translateY(-1px);
+    }
+    .btn-discard-changes {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-discard-changes:hover {
+      background: #c82333;
+      transform: translateY(-1px);
+    }
+    .btn-cancel-close {
+      background: #f8f9fa;
+      color: #495057;
+      border: 1px solid #dee2e6;
+    }
+    .btn-cancel-close:hover {
+      background: #e9ecef;
+      transform: translateY(-1px);
+    }
+    .btn-icon {
+      font-size: 16px;
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
@@ -812,6 +933,11 @@ export class KanbanComponent implements OnInit {
   
   // Propriedades para lixeira drag and drop
   isDragOverTrash = false;
+  
+  // Propriedades para confirmação de alterações
+  hasUnsavedChanges = false;
+  showSaveConfirmModal = false;
+  originalEditForm = { title: '', description: '' };
 
   constructor(private taskService: TaskService) {}
 
@@ -892,7 +1018,9 @@ export class KanbanComponent implements OnInit {
     if (hasChanges && this.editForm.title.trim()) {
       this.taskService.updateTask(this.editingTask.id, {
         title: this.editForm.title,
-        description: this.editForm.description
+        description: this.editForm.description,
+        priority: this.editingTask.priority,
+        status: this.editingTask.status
       }).subscribe({
         next: (updatedTask) => {
           const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
@@ -992,10 +1120,23 @@ export class KanbanComponent implements OnInit {
   }
 
   closeModal(): void {
+    // Se está editando e tem mudanças não salvas, mostra confirmação
+    if (this.editingTask && this.hasUnsavedChanges) {
+      this.showSaveConfirmModal = true;
+      return;
+    }
+    
+    // Fecha normalmente se não há mudanças
+    this.forceCloseModal();
+  }
+
+  private forceCloseModal(): void {
     this.showModal = false;
     this.modalTask = null;
     this.editingTask = null;
     this.showPriorityDropdown = false;
+    this.hasUnsavedChanges = false;
+    this.showSaveConfirmModal = false;
   }
 
   startEdit(): void {
@@ -1005,6 +1146,12 @@ export class KanbanComponent implements OnInit {
       title: this.modalTask.title,
       description: this.modalTask.description
     };
+    // Salva estado original para comparação
+    this.originalEditForm = {
+      title: this.modalTask.title,
+      description: this.modalTask.description
+    };
+    this.hasUnsavedChanges = false;
     
     // Auto-resize textareas após o Angular renderizar
     setTimeout(() => {
@@ -1025,7 +1172,9 @@ export class KanbanComponent implements OnInit {
     if (hasChanges && this.editForm.title.trim()) {
       this.taskService.updateTask(this.editingTask.id, {
         title: this.editForm.title,
-        description: this.editForm.description
+        description: this.editForm.description,
+        priority: this.editingTask.priority,
+        status: this.editingTask.status
       }).subscribe({
         next: (updatedTask) => {
           const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
@@ -1172,7 +1321,8 @@ export class KanbanComponent implements OnInit {
 
     // Envia para o servidor em background
     const updateData: UpdateTaskRequest = {
-      priority: newPriority
+      priority: newPriority,
+      status: this.modalTask.status
     };
 
     this.taskService.updateTask(this.modalTask.id, updateData).subscribe({
@@ -1234,5 +1384,30 @@ export class KanbanComponent implements OnInit {
         console.error('Erro ao deletar tarefa:', error);
       }
     });
+  }
+
+  // Métodos para confirmação de alterações
+  checkForChanges(): void {
+    this.hasUnsavedChanges = 
+      this.editForm.title !== this.originalEditForm.title ||
+      this.editForm.description !== this.originalEditForm.description;
+  }
+
+  cancelSaveConfirm(): void {
+    this.showSaveConfirmModal = false;
+  }
+
+  saveAndClose(): void {
+    this.saveModalEdit();
+    this.showSaveConfirmModal = false;
+    this.forceCloseModal();
+  }
+
+  discardAndClose(): void {
+    // Reverte as mudanças para o estado original
+    this.editForm = { ...this.originalEditForm };
+    this.hasUnsavedChanges = false;
+    this.showSaveConfirmModal = false;
+    this.forceCloseModal();
   }
 }
