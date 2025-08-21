@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/task.model';
+import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 
 @Component({
   selector: 'app-kanban',
@@ -11,18 +11,6 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
   template: `
     <div class="kanban-board">
       <h2>Kanban Board</h2>
-      
-      <div class="new-task-form">
-        <h3>Nova Tarefa</h3>
-        <input [(ngModel)]="newTask.title" placeholder="Título da tarefa" class="form-input">
-        <textarea [(ngModel)]="newTask.description" placeholder="Descrição" class="form-textarea"></textarea>
-        <select [(ngModel)]="newTask.priority" class="form-select">
-          <option [value]="0">Baixa</option>
-          <option [value]="1">Média</option>
-          <option [value]="2">Alta</option>
-        </select>
-        <button (click)="createTask()" class="btn-create">Criar Tarefa</button>
-      </div>
       
       <div class="columns">
         <div class="column" *ngFor="let status of statuses">
@@ -51,6 +39,28 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
             
             <div *ngIf="getTasksByStatus(status).length === 0" class="empty-column">
               Nenhuma tarefa
+            </div>
+            
+            <!-- Botão adicionar cartão estilo Trello -->
+            <div class="add-card-container">
+              <div *ngIf="!addingToColumn[status]" class="add-card-btn" (click)="startAddingCard(status)">
+                <span class="plus-icon">+</span>
+                <span class="add-text">Adicionar um cartão</span>
+              </div>
+              
+              <div *ngIf="addingToColumn[status]" class="add-card-form">
+                <textarea 
+                  [(ngModel)]="newCardTitle[status]"
+                  placeholder="Insira um título para este cartão..."
+                  class="card-title-input"
+                  (keydown)="onCardTitleKeydown($event, status)"
+                  #cardInput>
+                </textarea>
+                <div class="add-card-actions">
+                  <button (click)="confirmAddCard(status)" class="btn-add-card">Adicionar cartão</button>
+                  <button (click)="cancelAddCard(status)" class="btn-cancel-add">✕</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -106,7 +116,21 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
                 <h3>Detalhes</h3>
                 <div class="detail-item">
                   <strong>Prioridade</strong>
-                  <span class="priority priority-{{ modalTask?.priority }}">{{ getPriorityLabel(modalTask?.priority!) }}</span>
+                  <div class="priority-dropdown" (click)="$event.stopPropagation()">
+                    <span class="priority priority-{{ modalTask?.priority }} priority-clickable" 
+                          (click)="togglePriorityDropdown()">
+                      {{ getPriorityLabel(modalTask?.priority!) }}
+                      <span class="dropdown-arrow">▼</span>
+                    </span>
+                    <div class="priority-options" *ngIf="showPriorityDropdown">
+                      <div class="priority-option" 
+                           *ngFor="let priority of priorityOptions"
+                           (click)="changePriority(priority.value)"
+                           [class.selected]="priority.value === modalTask?.priority">
+                        <span class="priority priority-{{ priority.value }}">{{ priority.label }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="detail-item">
                   <strong>Status</strong>
@@ -125,69 +149,64 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       max-width: 1400px;
       margin: 0 auto;
     }
-    .new-task-form {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns: 1fr 2fr 1fr 1fr;
-      gap: 10px;
-      align-items: end;
-    }
-    .new-task-form h3 {
-      grid-column: 1 / -1;
-      margin: 0 0 10px 0;
-    }
-    .form-input, .form-textarea, .form-select {
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    .form-textarea {
-      resize: vertical;
-      min-height: 60px;
-    }
-    .btn-create {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
     .columns {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
       gap: 20px;
       margin-top: 20px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    .columns::-webkit-scrollbar {
+      height: 8px;
+    }
+    .columns::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .columns::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    .columns::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
     .column {
-      background: #f8f9fa;
-      border-radius: 8px;
-      min-height: 400px;
+      background: transparent;
+      border-radius: 12px;
+      width: 300px;
+      min-width: 300px;
+      flex-shrink: 0;
     }
     .column-header {
-      background: #e9ecef;
-      padding: 15px;
-      border-radius: 8px 8px 0 0;
+      background: #f1f2f4;
+      padding: 12px 16px;
+      border-radius: 12px 12px 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid #e4e6ea;
     }
     .column-header h3 {
       margin: 0;
-      font-size: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #172b4d;
     }
     .task-count {
-      background: #6c757d;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 12px;
+      background: #ddd;
+      color: #5e6c84;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      min-width: 18px;
+      text-align: center;
     }
     .column-content {
-      padding: 15px;
+      background: #f1f2f4;
+      padding: 8px;
+      border-radius: 0 0 12px 12px;
+      min-height: 50px;
     }
     .task-card {
       background: white;
@@ -302,14 +321,96 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       font-weight: 500;
       text-transform: uppercase;
     }
-    .priority-0 { background: #d1ecf1; color: #0c5460; }
-    .priority-1 { background: #fff3cd; color: #856404; }
-    .priority-2 { background: #f8d7da; color: #721c24; }
+    .priority-0 { background: #f0f0f0; color: #6c757d; }
+    .priority-1 { background: #d1ecf1; color: #0c5460; }
+    .priority-2 { background: #fff3cd; color: #856404; }
+    .priority-3 { background: #f8d7da; color: #721c24; }
     .empty-column {
       text-align: center;
       color: #6c757d;
       font-style: italic;
       padding: 20px;
+    }
+    
+    /* CSS para adicionar cartão estilo Trello */
+    .add-card-container {
+      margin-top: 8px;
+    }
+    .add-card-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #5e6c84;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      width: 100%;
+      text-align: left;
+    }
+    .add-card-btn:hover {
+      background: #e4e6ea;
+      color: #172b4d;
+    }
+    .plus-icon {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .add-text {
+      flex: 1;
+    }
+    .add-card-form {
+      background: white;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    }
+    .card-title-input {
+      width: 100%;
+      min-height: 54px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 3px;
+      font-size: 14px;
+      line-height: 20px;
+      resize: none;
+      box-shadow: inset 0 0 0 2px #0079bf;
+      outline: none;
+      font-family: inherit;
+    }
+    .add-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-add-card {
+      background: #0079bf;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 3px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 400;
+    }
+    .btn-add-card:hover {
+      background: #005a8b;
+    }
+    .btn-cancel-add {
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      font-size: 20px;
+      color: #6b778c;
+      border-radius: 3px;
+    }
+    .btn-cancel-add:hover {
+      background: #ddd;
     }
     .modal-overlay {
       position: fixed;
@@ -390,10 +491,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       line-height: 1.3;
       word-wrap: break-word;
       cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
     }
     .title-section h2:hover {
-      background: #f8f9fa;
-      padding: 5px;
+      border: 2px solid #1976d2;
       border-radius: 4px;
     }
     .title-edit-input {
@@ -422,9 +524,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       padding: 10px;
       border-radius: 4px;
       margin: -10px;
+      border: 2px solid transparent;
     }
     .description-view:hover {
-      background: #f8f9fa;
+      border: 2px solid #1976d2;
+      border-radius: 4px;
     }
     .description-view p {
       margin: 0;
@@ -575,7 +679,7 @@ export class KanbanComponent implements OnInit {
   newTask: CreateTaskRequest = {
     title: '',
     description: '',
-    priority: TaskPriority.MEDIUM,
+    priority: TaskPriority.NONE,
     projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
   };
   
@@ -589,6 +693,10 @@ export class KanbanComponent implements OnInit {
   modalTask: Task | null = null;
   descriptionTruncated = true;
   isSelecting = false;
+  
+  // Propriedades para adicionar cartão estilo Trello
+  addingToColumn: { [key: string]: boolean } = {};
+  newCardTitle: { [key: string]: string } = {};
 
   constructor(private taskService: TaskService) {}
 
@@ -627,6 +735,7 @@ export class KanbanComponent implements OnInit {
 
   getPriorityLabel(priority: TaskPriority): string {
     const labels = {
+      [TaskPriority.NONE]: 'Sem prioridade',
       [TaskPriority.LOW]: 'Baixa',
       [TaskPriority.MEDIUM]: 'Média',
       [TaskPriority.HIGH]: 'Alta'
@@ -704,7 +813,7 @@ export class KanbanComponent implements OnInit {
     this.newTask = {
       title: '',
       description: '',
-      priority: TaskPriority.MEDIUM,
+      priority: TaskPriority.NONE,
       projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
     };
   }
@@ -854,5 +963,78 @@ export class KanbanComponent implements OnInit {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  // Métodos para adicionar cartão estilo Trello
+  startAddingCard(status: TaskStatus): void {
+    this.addingToColumn[status] = true;
+    this.newCardTitle[status] = '';
+    // Focus no textarea após o Angular renderizar
+    setTimeout(() => {
+      const textarea = document.querySelector('.card-title-input') as HTMLTextAreaElement;
+      if (textarea) {
+        textarea.focus();
+      }
+    });
+  }
+
+  cancelAddCard(status: TaskStatus): void {
+    this.addingToColumn[status] = false;
+    this.newCardTitle[status] = '';
+  }
+
+  confirmAddCard(status: TaskStatus): void {
+    const title = this.newCardTitle[status]?.trim();
+    if (!title) return;
+
+    const taskData: CreateTaskRequest = {
+      title: title,
+      description: '', // Descrição vazia inicialmente
+      priority: TaskPriority.NONE,
+      projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+    };
+
+    this.taskService.createTask(taskData).subscribe({
+      next: (task) => {
+        this.tasks.push(task);
+        // Move para o status correto se necessário
+        if (task.status !== status) {
+          this.moveTaskToStatus(task, status);
+        }
+        this.cancelAddCard(status);
+      },
+      error: (error) => {
+        console.error('Erro ao criar tarefa:', error);
+      }
+    });
+  }
+
+  onCardTitleKeydown(event: KeyboardEvent, status: TaskStatus): void {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      this.confirmAddCard(status);
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      this.cancelAddCard(status);
+    }
+  }
+
+  private moveTaskToStatus(task: Task, newStatus: TaskStatus): void {
+    const updateData: UpdateTaskRequest = {
+      status: newStatus,
+      priority: task.priority
+    };
+
+    this.taskService.updateTask(task.id, updateData).subscribe({
+      next: (updatedTask) => {
+        const index = this.tasks.findIndex(t => t.id === task.id);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao mover tarefa:', error);
+      }
+    });
   }
 }
