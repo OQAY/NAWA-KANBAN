@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { ProjectsModule } from './projects/projects.module';
+import { CommentsModule } from './comments/comments.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -18,6 +19,7 @@ import { AppService } from './app.service';
     TasksModule,
     UsersModule,
     ProjectsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
