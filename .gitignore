@@ -39,3 +39,4 @@ debug/
 
 # Docker
 docker-compose.override.yml
+frontend/.angular/cache/
