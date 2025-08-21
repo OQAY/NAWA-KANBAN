@@ -983,6 +983,212 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       display: inline-block;
       vertical-align: middle;
     }
+
+    /* Estilos para seção de comentários */
+    .comments-section {
+      margin-top: 25px;
+      border-top: 1px solid #dfe1e6;
+      padding-top: 20px;
+    }
+    .comments-section h3 {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+      color: #5e6c84;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    /* Botão adicionar comentário */
+    .add-comment-btn {
+      width: 100%;
+      padding: 8px 12px;
+      background: #f4f5f7;
+      border: 1px solid #dfe1e6;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #5e6c84;
+      text-align: left;
+      transition: all 0.2s ease;
+      margin-bottom: 15px;
+    }
+    .add-comment-btn:hover {
+      background: #e4e6ea;
+      border-color: #c1c7d0;
+    }
+    .add-comment-btn.active {
+      background: #fff;
+      border-color: #0079bf;
+      color: #172b4d;
+    }
+    
+    /* Formulário de comentário */
+    .comment-form {
+      margin-bottom: 20px;
+    }
+    .comment-input {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px;
+      border: 2px solid #dfe1e6;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    .comment-input:focus {
+      outline: none;
+      border-color: #0079bf;
+    }
+    .comment-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-save-comment, .btn-cancel-comment {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .btn-save-comment {
+      background: #0079bf;
+      color: white;
+    }
+    .btn-save-comment:hover:not(:disabled) {
+      background: #026aa7;
+    }
+    .btn-save-comment:disabled {
+      background: #c1c7d0;
+      cursor: not-allowed;
+    }
+    .btn-cancel-comment {
+      background: #f4f5f7;
+      color: #5e6c84;
+    }
+    .btn-cancel-comment:hover {
+      background: #e4e6ea;
+    }
+    
+    /* Lista de comentários */
+    .comments-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .comment-item {
+      margin-bottom: 15px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 3px solid #dfe1e6;
+      transition: all 0.2s ease;
+    }
+    .comment-item:hover {
+      background: #f4f5f7;
+      border-left-color: #0079bf;
+    }
+    .comment-item.editing {
+      background: #fff;
+      border: 2px solid #0079bf;
+      border-left: 3px solid #0079bf;
+    }
+    
+    /* Visualização do comentário */
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .comment-author {
+      font-weight: 600;
+      color: #172b4d;
+      font-size: 12px;
+    }
+    .comment-date {
+      font-size: 11px;
+      color: #6b778c;
+    }
+    .comment-content {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #172b4d;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .comment-content:hover {
+      color: #0079bf;
+    }
+    .comment-content.expandable {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Edição do comentário */
+    .comment-edit-input {
+      width: 100%;
+      min-height: 60px;
+      padding: 8px;
+      border: 1px solid #dfe1e6;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .comment-edit-input:focus {
+      outline: none;
+      border-color: #0079bf;
+    }
+    .comment-edit-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .btn-save-edit, .btn-cancel-edit, .btn-delete-comment {
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .btn-save-edit {
+      background: #0079bf;
+      color: white;
+    }
+    .btn-save-edit:hover {
+      background: #026aa7;
+    }
+    .btn-cancel-edit {
+      background: #f4f5f7;
+      color: #5e6c84;
+    }
+    .btn-cancel-edit:hover {
+      background: #e4e6ea;
+    }
+    .btn-delete-comment {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-delete-comment:hover {
+      background: #c82333;
+    }
+    
+    /* Estado vazio */
+    .no-comments {
+      text-align: center;
+      color: #6b778c;
+      font-size: 13px;
+      font-style: italic;
+      padding: 20px;
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
