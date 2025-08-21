@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
+import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
+import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 
 @Component({
   selector: 'app-kanban',
@@ -145,6 +147,81 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
                 <div class="detail-item">
                   <strong>Status</strong>
                   <span>{{ getStatusLabel(modalTask?.status!) }}</span>
+                </div>
+              </div>
+
+              <!-- Seção de Comentários -->
+              <div class="comments-section">
+                <h3>Comentários</h3>
+                
+                <!-- Botão Adicionar Comentário -->
+                <div class="add-comment-container">
+                  <button class="add-comment-btn" 
+                          (click)="toggleAddComment()" 
+                          [class.active]="showAddComment">
+                    + Adicionar um comentário
+                  </button>
+                </div>
+
+                <!-- Formulário de Novo Comentário -->
+                <div class="comment-form" *ngIf="showAddComment">
+                  <textarea 
+                    [(ngModel)]="newCommentContent"
+                    placeholder="Escreva um comentário..."
+                    class="comment-input"
+                    (keydown)="onCommentKeydown($event)"
+                    (blur)="onCommentBlur()"
+                    #commentTextarea>
+                  </textarea>
+                  <div class="comment-actions">
+                    <button (click)="saveComment()" class="btn-save-comment" [disabled]="!newCommentContent?.trim()">
+                      Salvar
+                    </button>
+                    <button (click)="cancelComment()" class="btn-cancel-comment">
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Lista de Comentários -->
+                <div class="comments-list">
+                  <div class="comment-item" 
+                       *ngFor="let comment of taskComments; trackBy: trackComment"
+                       [class.editing]="editingCommentId === comment.id">
+                    
+                    <!-- Visualização do Comentário -->
+                    <div class="comment-view" *ngIf="editingCommentId !== comment.id">
+                      <div class="comment-header">
+                        <span class="comment-author">{{ comment.user?.name || 'Usuário' }}</span>
+                        <span class="comment-date">{{ formatCommentDate(comment.createdAt) }}</span>
+                      </div>
+                      <div class="comment-content" 
+                           (click)="startEditComment(comment)"
+                           [class.expandable]="isCommentLong(comment.content)">
+                        {{ comment.content }}
+                      </div>
+                    </div>
+
+                    <!-- Edição do Comentário -->
+                    <div class="comment-edit" *ngIf="editingCommentId === comment.id">
+                      <textarea 
+                        [(ngModel)]="editingCommentContent"
+                        class="comment-edit-input"
+                        (keydown)="onEditCommentKeydown($event, comment)"
+                        (blur)="onEditCommentBlur(comment)"
+                        #editCommentTextarea>
+                      </textarea>
+                      <div class="comment-edit-actions">
+                        <button (click)="saveEditComment(comment)" class="btn-save-edit">Salvar</button>
+                        <button (click)="cancelEditComment()" class="btn-cancel-edit">Cancelar</button>
+                        <button (click)="deleteComment(comment.id)" class="btn-delete-comment">Excluir</button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="no-comments" *ngIf="taskComments.length === 0">
+                    Nenhum comentário ainda.
+                  </div>
                 </div>
               </div>
             </div>
@@ -956,7 +1033,17 @@ export class KanbanComponent implements OnInit {
   showSaveConfirmModal = false;
   originalEditForm = { title: '', description: '' };
 
-  constructor(private taskService: TaskService) {}
+  // Propriedades para comentários
+  taskComments: Comment[] = [];
+  showAddComment = false;
+  newCommentContent = '';
+  editingCommentId: string | null = null;
+  editingCommentContent = '';
+
+  constructor(
+    private taskService: TaskService,
+    private commentService: CommentService
+  ) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -1134,6 +1221,8 @@ export class KanbanComponent implements OnInit {
     this.showModal = true;
     this.editingTask = null;
     this.descriptionTruncated = true;
+    this.loadTaskComments(task.id);
+    this.resetCommentState();
   }
 
   closeModal(): void {
@@ -1426,5 +1515,176 @@ export class KanbanComponent implements OnInit {
     this.hasUnsavedChanges = false;
     this.showSaveConfirmModal = false;
     this.forceCloseModal();
+  }
+
+  // ===== MÉTODOS DE COMENTÁRIOS =====
+
+  loadTaskComments(taskId: string): void {
+    this.commentService.getCommentsByTask(taskId).subscribe({
+      next: (comments) => {
+        this.taskComments = comments;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar comentários:', error);
+        this.taskComments = [];
+      }
+    });
+  }
+
+  resetCommentState(): void {
+    this.showAddComment = false;
+    this.newCommentContent = '';
+    this.editingCommentId = null;
+    this.editingCommentContent = '';
+  }
+
+  toggleAddComment(): void {
+    this.showAddComment = !this.showAddComment;
+    if (this.showAddComment) {
+      this.newCommentContent = '';
+      // Focus no textarea após renderização
+      setTimeout(() => {
+        const textarea = document.querySelector('.comment-input') as HTMLTextAreaElement;
+        if (textarea) textarea.focus();
+      }, 100);
+    }
+  }
+
+  saveComment(): void {
+    if (!this.newCommentContent?.trim() || !this.modalTask) return;
+
+    const commentData: CreateCommentRequest = {
+      content: this.newCommentContent.trim()
+    };
+
+    this.commentService.createComment(this.modalTask.id, commentData).subscribe({
+      next: (comment) => {
+        this.taskComments.unshift(comment); // Adiciona no início da lista
+        this.newCommentContent = '';
+        this.showAddComment = false;
+      },
+      error: (error) => {
+        console.error('Erro ao salvar comentário:', error);
+      }
+    });
+  }
+
+  cancelComment(): void {
+    this.newCommentContent = '';
+    this.showAddComment = false;
+  }
+
+  startEditComment(comment: Comment): void {
+    this.editingCommentId = comment.id;
+    this.editingCommentContent = comment.content;
+    // Focus no textarea após renderização
+    setTimeout(() => {
+      const textarea = document.querySelector('.comment-edit-input') as HTMLTextAreaElement;
+      if (textarea) {
+        textarea.focus();
+        textarea.select();
+      }
+    }, 100);
+  }
+
+  saveEditComment(comment: Comment): void {
+    if (!this.editingCommentContent?.trim()) return;
+
+    const updateData: UpdateCommentRequest = {
+      content: this.editingCommentContent.trim()
+    };
+
+    this.commentService.updateComment(comment.id, updateData).subscribe({
+      next: (updatedComment) => {
+        const index = this.taskComments.findIndex(c => c.id === comment.id);
+        if (index !== -1) {
+          this.taskComments[index] = updatedComment;
+        }
+        this.cancelEditComment();
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar comentário:', error);
+      }
+    });
+  }
+
+  cancelEditComment(): void {
+    this.editingCommentId = null;
+    this.editingCommentContent = '';
+  }
+
+  deleteComment(commentId: string): void {
+    if (confirm('Tem certeza que deseja excluir este comentário?')) {
+      this.commentService.deleteComment(commentId).subscribe({
+        next: () => {
+          this.taskComments = this.taskComments.filter(c => c.id !== commentId);
+          this.cancelEditComment();
+        },
+        error: (error) => {
+          console.error('Erro ao excluir comentário:', error);
+        }
+      });
+    }
+  }
+
+  // Auto-save ao sair do campo (blur)
+  onCommentBlur(): void {
+    // Implementar auto-save se necessário
+    // Por enquanto, não faz nada
+  }
+
+  onEditCommentBlur(comment: Comment): void {
+    // Auto-save ao sair do campo de edição
+    setTimeout(() => {
+      if (this.editingCommentId === comment.id && this.editingCommentContent?.trim()) {
+        this.saveEditComment(comment);
+      }
+    }, 200); // Delay para permitir clique nos botões
+  }
+
+  // Tratamento de teclado
+  onCommentKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.cancelComment();
+    } else if (event.key === 'Enter' && event.ctrlKey) {
+      this.saveComment();
+    }
+  }
+
+  onEditCommentKeydown(event: KeyboardEvent, comment: Comment): void {
+    if (event.key === 'Escape') {
+      this.cancelEditComment();
+    } else if (event.key === 'Enter' && event.ctrlKey) {
+      this.saveEditComment(comment);
+    }
+  }
+
+  // Utilitários
+  trackComment(index: number, comment: Comment): string {
+    return comment.id;
+  }
+
+  formatCommentDate(dateString: string): string {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return 'agora';
+    if (diffMins < 60) return `${diffMins}m`;
+    if (diffHours < 24) return `${diffHours}h`;
+    if (diffDays < 7) return `${diffDays}d`;
+    
+    return date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  }
+
+  isCommentLong(content: string): boolean {
+    return content.length > 100;
   }
 }
