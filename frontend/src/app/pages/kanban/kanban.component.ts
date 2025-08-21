@@ -135,6 +135,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       margin-bottom: 10px;
       border: 1px solid #dee2e6;
       cursor: grab;
+      max-height: 120px;
+      overflow: hidden;
     }
     .task-card:active {
       cursor: grabbing;
@@ -153,6 +155,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       font-size: 12px;
       color: #6c757d;
       line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .task-meta {
       display: flex;
@@ -326,13 +333,28 @@ export class KanbanComponent implements OnInit {
       return;
     }
 
-    this.taskService.updateTask(this.draggedTask.id, { status: newStatus }).subscribe({
+    const oldTask = this.draggedTask;
+    
+    // Atualizar localmente primeiro para feedback instantâneo
+    const index = this.tasks.findIndex(t => t.id === oldTask.id);
+    if (index !== -1) {
+      this.tasks[index] = { ...this.tasks[index], status: newStatus };
+    }
+
+    // Depois atualizar no servidor
+    this.taskService.updateTask(oldTask.id, { status: newStatus }).subscribe({
       next: (updatedTask) => {
-        const index = this.tasks.findIndex(t => t.id === this.draggedTask!.id);
-        if (index !== -1) this.tasks[index] = updatedTask;
+        // Já foi atualizado localmente, só garantir que está sincronizado
+        const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
+        if (currentIndex !== -1) this.tasks[currentIndex] = updatedTask;
         this.draggedTask = null;
       },
       error: (error) => {
+        // Reverter mudança local em caso de erro
+        const currentIndex = this.tasks.findIndex(t => t.id === oldTask.id);
+        if (currentIndex !== -1) {
+          this.tasks[currentIndex] = { ...this.tasks[currentIndex], status: oldTask.status };
+        }
         console.error('Error updating task status:', error);
         this.draggedTask = null;
       }
