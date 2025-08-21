@@ -327,7 +327,7 @@ export class LoginComponent {
 
       this.authService.login(loginData).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/kanban']);
         },
         error: (error) => {
           console.error('Login error:', error);
@@ -356,7 +356,7 @@ export class LoginComponent {
         name: formValue.username,
         email: formValue.email,
         password: formValue.password,
-        role: UserRole.DEVELOPER
+        role: UserRole.VIEWER
       };
       
       this.authService.register(registerData).subscribe({

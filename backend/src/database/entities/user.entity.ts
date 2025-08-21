@@ -23,7 +23,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column({ type: 'enum', enum: UserRole, default: UserRole.DEVELOPER })
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.VIEWER })
   role: UserRole;
 
   @OneToMany(() => Task, task => task.assignee)
