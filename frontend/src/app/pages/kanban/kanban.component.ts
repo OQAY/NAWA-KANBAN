@@ -56,44 +56,61 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
         </div>
       </div>
       
-      <!-- Modal Task Details -->
+      <!-- Modal Task Details - Estilo Trello -->
       <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
+          <!-- Header pequeno: 10% -->
           <div class="modal-header">
-            <h2 *ngIf="!editingTask">{{ modalTask?.title }}</h2>
-            <input *ngIf="editingTask" [(ngModel)]="editForm.title" class="modal-title-input">
-            <button class="close-btn" (click)="closeModal()">✕</button>
+            <div class="header-info">
+              <span class="current-status">{{ getStatusLabel(modalTask?.status!) }}</span>
+              <button class="close-btn" (click)="closeModal()">✕</button>
+            </div>
           </div>
           
+          <!-- Body principal: 2 colunas -->
           <div class="modal-body">
-            <div class="modal-section">
-              <h3>Descrição</h3>
-              <p *ngIf="!editingTask">{{ modalTask?.description || 'Sem descrição' }}</p>
-              <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="modal-description-input"></textarea>
-            </div>
-            
-            <div class="modal-section">
-              <h3>Informações</h3>
-              <div class="task-info">
-                <span class="info-item">
-                  <strong>Prioridade:</strong> 
-                  <span class="priority priority-{{ modalTask?.priority }}">{{ getPriorityLabel(modalTask?.priority!) }}</span>
-                </span>
-                <span class="info-item">
-                  <strong>Status:</strong> {{ getStatusLabel(modalTask?.status!) }}
-                </span>
+            <!-- Coluna esquerda: 60% - Título e Descrição -->
+            <div class="left-column">
+              <div class="title-section">
+                <h2 *ngIf="!editingTask">{{ modalTask?.title }}</h2>
+                <input *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input">
+              </div>
+              
+              <div class="description-section">
+                <h3>Descrição</h3>
+                <div *ngIf="!editingTask" class="description-view">
+                  <p [class.truncated]="descriptionTruncated">{{ modalTask?.description || 'Adicione uma descrição mais detalhada...' }}</p>
+                  <button *ngIf="shouldShowDescriptionToggle()" (click)="toggleDescription()" class="toggle-btn">
+                    {{ descriptionTruncated ? 'Mostrar mais' : 'Mostrar menos' }}
+                  </button>
+                </div>
+                <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="description-edit-input" placeholder="Adicione uma descrição..."></textarea>
               </div>
             </div>
-          </div>
-          
-          <div class="modal-footer">
-            <div *ngIf="!editingTask" class="modal-actions">
-              <button (click)="startEdit()" class="btn-edit-modal">Editar</button>
-              <button (click)="deleteTask(modalTask!.id)" class="btn-delete-modal">Excluir</button>
-            </div>
-            <div *ngIf="editingTask" class="modal-actions">
-              <button (click)="saveModalEdit()" class="btn-save-modal">Salvar</button>
-              <button (click)="cancelModalEdit()" class="btn-cancel-modal">Cancelar</button>
+            
+            <!-- Coluna direita: 40% - Ações e Info -->
+            <div class="right-column">
+              <div class="actions-section">
+                <h3>Ações</h3>
+                <div class="action-buttons">
+                  <button *ngIf="!editingTask" (click)="startEdit()" class="action-btn edit-btn">Editar</button>
+                  <button (click)="deleteTask(modalTask!.id)" class="action-btn delete-btn">Excluir</button>
+                  <button *ngIf="editingTask" (click)="saveModalEdit()" class="action-btn save-btn">Salvar</button>
+                  <button *ngIf="editingTask" (click)="cancelModalEdit()" class="action-btn cancel-btn">Cancelar</button>
+                </div>
+              </div>
+              
+              <div class="info-section">
+                <h3>Detalhes</h3>
+                <div class="detail-item">
+                  <strong>Prioridade</strong>
+                  <span class="priority priority-{{ modalTask?.priority }}">{{ getPriorityLabel(modalTask?.priority!) }}</span>
+                </div>
+                <div class="detail-item">
+                  <strong>Status</strong>
+                  <span>{{ getStatusLabel(modalTask?.status!) }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -307,32 +324,32 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
     .modal-content {
       background: white;
       border-radius: 8px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
+      width: 60%;
+      height: 80vh;
+      margin: 10vh 20%;
       overflow-y: auto;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
     }
     .modal-header {
-      padding: 20px;
+      padding: 15px 20px;
       border-bottom: 1px solid #eee;
+      background: #f8f9fa;
+      flex-shrink: 0;
+    }
+    .header-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .modal-header h2 {
-      margin: 0;
-      font-size: 24px;
-      color: #333;
-    }
-    .modal-title-input {
-      font-size: 24px;
-      font-weight: bold;
-      border: 1px solid #ddd;
-      padding: 8px;
+    .current-status {
+      background: #e9ecef;
+      padding: 4px 8px;
       border-radius: 4px;
-      flex: 1;
-      margin-right: 10px;
+      font-size: 12px;
+      color: #495057;
+      font-weight: 500;
     }
     .close-btn {
       background: none;
@@ -348,30 +365,75 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       color: #000;
     }
     .modal-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .left-column {
+      flex: 1;
       padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #eee;
     }
-    .modal-section {
-      margin-bottom: 25px;
+    .right-column {
+      width: 40%;
+      padding: 20px;
+      background: #f8f9fa;
+      overflow-y: auto;
     }
-    .modal-section h3 {
+    .title-section h2 {
+      margin: 0 0 20px 0;
+      font-size: 24px;
+      color: #333;
+      line-height: 1.3;
+      word-wrap: break-word;
+    }
+    .title-edit-input {
+      width: 100%;
+      font-size: 24px;
+      font-weight: bold;
+      border: 2px solid #0079bf;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .description-section h3 {
       margin: 0 0 10px 0;
       font-size: 16px;
-      color: #555;
+      color: #5e6c84;
+      font-weight: 600;
     }
-    .modal-section p {
+    .description-view p {
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.6;
       white-space: pre-wrap;
       color: #333;
+      font-size: 14px;
     }
-    .modal-description-input {
+    .description-view p.truncated {
+      display: -webkit-box;
+      -webkit-line-clamp: 15;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #0079bf;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      text-decoration: underline;
+    }
+    .description-edit-input {
       width: 100%;
-      min-height: 100px;
+      min-height: 150px;
       padding: 10px;
-      border: 1px solid #ddd;
+      border: 2px solid #0079bf;
       border-radius: 4px;
       resize: vertical;
       font-family: inherit;
+      font-size: 14px;
     }
     .task-info {
       display: flex;
@@ -416,6 +478,65 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       background: #6c757d;
       color: white;
     }
+    .actions-section, .info-section {
+      margin-bottom: 25px;
+    }
+    .actions-section h3, .info-section h3 {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+      color: #5e6c84;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .action-btn {
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+    }
+    .edit-btn {
+      background: #f4f5f7;
+      color: #42526e;
+    }
+    .edit-btn:hover {
+      background: #e4e6ea;
+    }
+    .delete-btn {
+      background: #f4f5f7;
+      color: #42526e;
+    }
+    .delete-btn:hover {
+      background: #ffebe6;
+      color: #de350b;
+    }
+    .save-btn {
+      background: #0079bf;
+      color: white;
+    }
+    .cancel-btn {
+      background: #f4f5f7;
+      color: #42526e;
+    }
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .detail-item strong {
+      color: #5e6c84;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
@@ -442,6 +563,7 @@ export class KanbanComponent implements OnInit {
   };
   showModal = false;
   modalTask: Task | null = null;
+  descriptionTruncated = true;
 
   constructor(private taskService: TaskService) {}
 
@@ -622,6 +744,7 @@ export class KanbanComponent implements OnInit {
     this.modalTask = task;
     this.showModal = true;
     this.editingTask = null;
+    this.descriptionTruncated = true;
   }
 
   closeModal(): void {
@@ -668,5 +791,15 @@ export class KanbanComponent implements OnInit {
 
   cancelModalEdit(): void {
     this.editingTask = null;
+  }
+
+  shouldShowDescriptionToggle(): boolean {
+    if (!this.modalTask?.description) return false;
+    const lines = this.modalTask.description.split('\n').length;
+    return lines > 15;
+  }
+
+  toggleDescription(): void {
+    this.descriptionTruncated = !this.descriptionTruncated;
   }
 }
