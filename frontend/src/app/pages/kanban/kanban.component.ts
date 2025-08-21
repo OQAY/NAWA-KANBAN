@@ -73,7 +73,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
             <div class="left-column">
               <div class="title-section">
                 <h2 *ngIf="!editingTask" (dblclick)="startEdit()">{{ modalTask?.title }}</h2>
-                <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input"></textarea>
+                <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input" 
+                          (input)="autoResize($event)" #titleTextarea></textarea>
               </div>
               
               <div class="description-section">
@@ -84,7 +85,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
                     {{ descriptionTruncated ? 'Mostrar mais' : 'Mostrar menos' }}
                   </button>
                 </div>
-                <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="description-edit-input" placeholder="Adicione uma descrição..."></textarea>
+                <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="description-edit-input" 
+                          placeholder="Adicione uma descrição..." (input)="autoResize($event)" #descriptionTextarea></textarea>
               </div>
             </div>
             
@@ -406,7 +408,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       white-space: pre-wrap;
       overflow-wrap: break-word;
       min-height: 40px;
-      resize: vertical;
+      resize: none;
+      overflow: hidden;
     }
     .description-section h3 {
       margin: 0 0 10px 0;
@@ -451,9 +454,10 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       padding: 10px;
       border: 2px solid #0079bf;
       border-radius: 4px;
-      resize: vertical;
+      resize: none;
       font-family: inherit;
       font-size: 14px;
+      overflow: hidden;
     }
     .task-info {
       display: flex;
@@ -781,6 +785,15 @@ export class KanbanComponent implements OnInit {
       title: this.modalTask.title,
       description: this.modalTask.description
     };
+    
+    // Auto-resize textareas após o Angular renderizar
+    setTimeout(() => {
+      const titleTextarea = document.querySelector('.title-edit-input') as HTMLTextAreaElement;
+      const descTextarea = document.querySelector('.description-edit-input') as HTMLTextAreaElement;
+      
+      if (titleTextarea) this.autoResize({ target: titleTextarea });
+      if (descTextarea) this.autoResize({ target: descTextarea });
+    }, 0);
   }
 
   saveModalEdit(): void {
@@ -835,5 +848,11 @@ export class KanbanComponent implements OnInit {
       this.closeModal();
     }
     this.isSelecting = false;
+  }
+
+  autoResize(event: any): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
   }
 }
