@@ -10,7 +10,17 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
   imports: [CommonModule, FormsModule],
   template: `
     <div class="kanban-board">
-      <h2>Kanban Board</h2>
+      <div class="header-section">
+        <h2>Kanban Board</h2>
+        <div class="trash-zone" 
+             [class.drag-over]="isDragOverTrash"
+             (dragover)="onTrashDragOver($event)"
+             (dragleave)="onTrashDragLeave($event)"
+             (drop)="onTrashDrop($event)">
+          <span class="trash-icon">🗑️</span>
+          <span class="trash-text">Arraste aqui para deletar</span>
+        </div>
+      </div>
       
       <div class="columns">
         <div class="column" *ngFor="let status of statuses">
@@ -148,6 +158,45 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
       padding: 20px;
       max-width: 1400px;
       margin: 0 auto;
+    }
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header-section h2 {
+      margin: 0;
+    }
+    .trash-zone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 200px;
+      justify-content: center;
+    }
+    .trash-zone:hover,
+    .trash-zone.drag-over {
+      border-color: #dc3545;
+      background: #fff5f5;
+      transform: scale(1.05);
+    }
+    .trash-icon {
+      font-size: 20px;
+    }
+    .trash-text {
+      font-size: 14px;
+      color: #6c757d;
+    }
+    .trash-zone.drag-over .trash-text {
+      color: #dc3545;
+      font-weight: 600;
     }
     .columns {
       display: flex;
@@ -760,6 +809,9 @@ export class KanbanComponent implements OnInit {
     { value: TaskPriority.MEDIUM, label: 'Média' },
     { value: TaskPriority.HIGH, label: 'Alta' }
   ];
+  
+  // Propriedades para lixeira drag and drop
+  isDragOverTrash = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -863,12 +915,7 @@ export class KanbanComponent implements OnInit {
 
   deleteTask(taskId: string): void {
     if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-      this.taskService.deleteTask(taskId).subscribe({
-        next: () => {
-          this.tasks = this.tasks.filter(t => t.id !== taskId);
-        },
-        error: (error) => console.error('Error deleting task:', error)
-      });
+      this.deleteTaskAndCloseModal(taskId);
     }
   }
 
@@ -1147,6 +1194,44 @@ export class KanbanComponent implements OnInit {
         if (taskIndex !== -1) {
           this.tasks[taskIndex] = { ...this.tasks[taskIndex], priority: oldPriority };
         }
+      }
+    });
+  }
+
+  // Métodos para lixeira drag and drop
+  onTrashDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragOverTrash = true;
+  }
+
+  onTrashDragLeave(event: DragEvent): void {
+    this.isDragOverTrash = false;
+  }
+
+  onTrashDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragOverTrash = false;
+    
+    if (this.draggedTask) {
+      this.deleteTaskAndCloseModal(this.draggedTask.id);
+    }
+  }
+
+  private deleteTaskAndCloseModal(taskId: string): void {
+    this.taskService.deleteTask(taskId).subscribe({
+      next: () => {
+        // Remove da lista local
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+        
+        // Fecha modal se a task deletada estava aberta
+        if (this.modalTask && this.modalTask.id === taskId) {
+          this.closeModal();
+        }
+        
+        console.log('Tarefa deletada com sucesso');
+      },
+      error: (error) => {
+        console.error('Erro ao deletar tarefa:', error);
       }
     });
   }
