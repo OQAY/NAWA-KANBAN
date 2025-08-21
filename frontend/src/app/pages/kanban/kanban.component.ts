@@ -250,7 +250,7 @@ export class KanbanComponent implements OnInit {
   getTasksByStatus(status: TaskStatus): Task[] {
     return this.tasks
       .filter(task => task.status === status)
-      .sort((a, b) => b.priority - a.priority);
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0));
   }
 
   getStatusLabel(status: TaskStatus): string {
@@ -353,8 +353,11 @@ export class KanbanComponent implements OnInit {
       };
     }
 
-    // Depois atualizar no servidor
-    this.taskService.updateTask(oldTask.id, { status: newStatus }).subscribe({
+    // Depois atualizar no servidor - preservar prioridade
+    this.taskService.updateTask(oldTask.id, { 
+      status: newStatus,
+      priority: oldTask.priority
+    }).subscribe({
       next: (updatedTask) => {
         console.log('Task updated from server:', updatedTask);
         console.log('Priority value:', updatedTask.priority, 'Type:', typeof updatedTask.priority);
