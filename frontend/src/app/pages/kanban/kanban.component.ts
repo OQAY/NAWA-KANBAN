@@ -17,9 +17,9 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
         <input [(ngModel)]="newTask.title" placeholder="Título da tarefa" class="form-input">
         <textarea [(ngModel)]="newTask.description" placeholder="Descrição" class="form-textarea"></textarea>
         <select [(ngModel)]="newTask.priority" class="form-select">
-          <option value="low">Baixa</option>
-          <option value="medium">Média</option>
-          <option value="high">Alta</option>
+          <option [value]="1">Baixa</option>
+          <option [value]="2">Média</option>
+          <option [value]="3">Alta</option>
         </select>
         <button (click)="createTask()" class="btn-create">Criar Tarefa</button>
       </div>
@@ -42,7 +42,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
               <h4>{{ task.title }}</h4>
               <p>{{ task.description }}</p>
               <div class="task-meta">
-                <span class="priority priority-{{ task.priority }}">{{ task.priority }}</span>
+                <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
                 <div class="task-actions">
                   <button (click)="editTask(task)" class="btn-edit">Editar</button>
                   <button (click)="deleteTask(task.id)" class="btn-delete">Excluir</button>
@@ -187,9 +187,9 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       font-weight: 500;
       text-transform: uppercase;
     }
-    .priority-low { background: #d1ecf1; color: #0c5460; }
-    .priority-medium { background: #fff3cd; color: #856404; }
-    .priority-high { background: #f8d7da; color: #721c24; }
+    .priority-1 { background: #d1ecf1; color: #0c5460; }
+    .priority-2 { background: #fff3cd; color: #856404; }
+    .priority-3 { background: #f8d7da; color: #721c24; }
     .empty-column {
       text-align: center;
       color: #6c757d;
@@ -246,6 +246,15 @@ export class KanbanComponent implements OnInit {
       [TaskStatus.DONE]: 'Concluído'
     };
     return labels[status];
+  }
+
+  getPriorityLabel(priority: TaskPriority): string {
+    const labels = {
+      [TaskPriority.LOW]: 'Baixa',
+      [TaskPriority.MEDIUM]: 'Média',
+      [TaskPriority.HIGH]: 'Alta'
+    };
+    return labels[priority];
   }
 
   createTask(): void {
