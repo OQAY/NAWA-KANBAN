@@ -1,7 +1,5 @@
 # Backup and work files
 BACKUP/
-backend/
-apps/
 
 # Claude files and roadmap
 .claude/
