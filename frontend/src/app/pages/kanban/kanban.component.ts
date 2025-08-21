@@ -17,9 +17,9 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
         <input [(ngModel)]="newTask.title" placeholder="Título da tarefa" class="form-input">
         <textarea [(ngModel)]="newTask.description" placeholder="Descrição" class="form-textarea"></textarea>
         <select [(ngModel)]="newTask.priority" class="form-select">
-          <option [value]="1">Baixa</option>
-          <option [value]="2">Média</option>
-          <option [value]="3">Alta</option>
+          <option [value]="0">Baixa</option>
+          <option [value]="1">Média</option>
+          <option [value]="2">Alta</option>
         </select>
         <button (click)="createTask()" class="btn-create">Criar Tarefa</button>
       </div>
@@ -199,9 +199,9 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       font-weight: 500;
       text-transform: uppercase;
     }
-    .priority-1 { background: #d1ecf1; color: #0c5460; }
-    .priority-2 { background: #fff3cd; color: #856404; }
-    .priority-3 { background: #f8d7da; color: #721c24; }
+    .priority-0 { background: #d1ecf1; color: #0c5460; }
+    .priority-1 { background: #fff3cd; color: #856404; }
+    .priority-2 { background: #f8d7da; color: #721c24; }
     .empty-column {
       text-align: center;
       color: #6c757d;
@@ -238,6 +238,7 @@ export class KanbanComponent implements OnInit {
     this.taskService.getTasks().subscribe({
       next: (response) => {
         this.tasks = response.data || response;
+        console.log('Tasks loaded:', this.tasks);
       },
       error: (error) => {
         console.error('Error loading tasks:', error);
@@ -355,6 +356,8 @@ export class KanbanComponent implements OnInit {
     // Depois atualizar no servidor
     this.taskService.updateTask(oldTask.id, { status: newStatus }).subscribe({
       next: (updatedTask) => {
+        console.log('Task updated from server:', updatedTask);
+        console.log('Priority value:', updatedTask.priority, 'Type:', typeof updatedTask.priority);
         // Já foi atualizado localmente, só garantir que está sincronizado
         const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
         if (currentIndex !== -1) this.tasks[currentIndex] = updatedTask;
