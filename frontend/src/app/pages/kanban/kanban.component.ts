@@ -302,8 +302,18 @@ export class KanbanComponent implements OnInit {
 
   editTask(task: Task): void {
     const newTitle = prompt('Novo título:', task.title);
-    if (newTitle && newTitle !== task.title) {
-      this.taskService.updateTask(task.id, { title: newTitle }).subscribe({
+    if (newTitle === null) return; // Cancelou
+    
+    const newDescription = prompt('Nova descrição:', task.description);
+    if (newDescription === null) return; // Cancelou
+    
+    const hasChanges = newTitle !== task.title || newDescription !== task.description;
+    
+    if (hasChanges) {
+      this.taskService.updateTask(task.id, { 
+        title: newTitle,
+        description: newDescription 
+      }).subscribe({
         next: (updatedTask) => {
           const index = this.tasks.findIndex(t => t.id === task.id);
           if (index !== -1) this.tasks[index] = updatedTask;
