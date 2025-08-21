@@ -19,7 +19,8 @@ import { User } from '../../models/user.model';
       
       <div class="content">
         <h2>Dashboard</h2>
-        <p>Sistema funcionando. Próximo passo: Kanban board</p>
+        <p>Sistema funcionando!</p>
+        <button (click)="goToKanban()" class="kanban-btn">Ver Kanban Board</button>
       </div>
     </div>
   `,
@@ -49,6 +50,15 @@ import { User } from '../../models/user.model';
       border: 1px solid #ddd;
       border-radius: 5px;
     }
+    .kanban-btn {
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   `]
 })
 export class DashboardComponent implements OnInit {
@@ -71,5 +81,9 @@ export class DashboardComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  goToKanban(): void {
+    this.router.navigate(['/kanban']);
   }
 }
