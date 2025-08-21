@@ -483,6 +483,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
       padding: 20px;
       background: #f8f9fa;
       overflow-y: auto;
+      overflow-x: hidden;
     }
     .title-section h2 {
       margin: 0 0 20px 0;
@@ -655,8 +656,9 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
     }
     .detail-item {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      gap: 12px;
       margin-bottom: 10px;
       font-size: 14px;
     }
@@ -664,6 +666,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
       color: #5e6c84;
       font-size: 12px;
       text-transform: uppercase;
+      min-width: 80px;
+      flex-shrink: 0;
     }
     
     /* CSS para dropdown de prioridade */
@@ -1106,25 +1110,43 @@ export class KanbanComponent implements OnInit {
   changePriority(newPriority: TaskPriority): void {
     if (!this.modalTask) return;
 
+    // Atualização instantânea local para melhor UX
+    const oldPriority = this.modalTask.priority;
+    
+    // Atualiza imediatamente na interface
+    this.modalTask = { ...this.modalTask, priority: newPriority };
+    const taskIndex = this.tasks.findIndex(t => t.id === this.modalTask!.id);
+    if (taskIndex !== -1) {
+      this.tasks[taskIndex] = { ...this.tasks[taskIndex], priority: newPriority };
+    }
+    
+    // Fecha o dropdown imediatamente
+    this.showPriorityDropdown = false;
+
+    // Envia para o servidor em background
     const updateData: UpdateTaskRequest = {
       priority: newPriority
     };
 
     this.taskService.updateTask(this.modalTask.id, updateData).subscribe({
       next: (updatedTask) => {
-        // Atualiza a task no array local
-        const index = this.tasks.findIndex(t => t.id === this.modalTask!.id);
-        if (index !== -1) {
-          this.tasks[index] = updatedTask;
+        // Sincroniza com resposta do servidor (caso haja diferenças)
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = updatedTask;
         }
-        // Atualiza a task do modal
-        this.modalTask = updatedTask;
-        // Fecha o dropdown
-        this.showPriorityDropdown = false;
+        if (this.modalTask && this.modalTask.id === updatedTask.id) {
+          this.modalTask = updatedTask;
+        }
       },
       error: (error) => {
         console.error('Erro ao atualizar prioridade:', error);
-        this.showPriorityDropdown = false;
+        // Reverte a mudança em caso de erro
+        if (this.modalTask) {
+          this.modalTask = { ...this.modalTask, priority: oldPriority };
+        }
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = { ...this.tasks[taskIndex], priority: oldPriority };
+        }
       }
     });
   }
