@@ -57,8 +57,8 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       </div>
       
       <!-- Modal Task Details - Estilo Trello -->
-      <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-        <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-overlay" *ngIf="showModal" (mousedown)="onOverlayMouseDown($event)" (mouseup)="onOverlayMouseUp($event)">
+        <div class="modal-content" (click)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()" (mouseup)="$event.stopPropagation()">
           <!-- Header pequeno: 10% -->
           <div class="modal-header">
             <div class="header-info">
@@ -72,15 +72,15 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
             <!-- Coluna esquerda: 60% - Título e Descrição -->
             <div class="left-column">
               <div class="title-section">
-                <h2 *ngIf="!editingTask">{{ modalTask?.title }}</h2>
-                <input *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input">
+                <h2 *ngIf="!editingTask" (dblclick)="startEdit()">{{ modalTask?.title }}</h2>
+                <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input"></textarea>
               </div>
               
               <div class="description-section">
                 <h3>Descrição</h3>
-                <div *ngIf="!editingTask" class="description-view">
+                <div *ngIf="!editingTask" class="description-view" (dblclick)="startEdit()">
                   <p [class.truncated]="descriptionTruncated">{{ modalTask?.description || 'Adicione uma descrição mais detalhada...' }}</p>
-                  <button *ngIf="shouldShowDescriptionToggle()" (click)="toggleDescription()" class="toggle-btn">
+                  <button *ngIf="shouldShowDescriptionToggle()" (click)="toggleDescription(); $event.stopPropagation()" class="toggle-btn">
                     {{ descriptionTruncated ? 'Mostrar mais' : 'Mostrar menos' }}
                   </button>
                 </div>
@@ -387,6 +387,12 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       color: #333;
       line-height: 1.3;
       word-wrap: break-word;
+      cursor: pointer;
+    }
+    .title-section h2:hover {
+      background: #f8f9fa;
+      padding: 5px;
+      border-radius: 4px;
     }
     .title-edit-input {
       width: 100%;
@@ -396,12 +402,26 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       padding: 10px;
       border-radius: 4px;
       margin-bottom: 20px;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      min-height: 40px;
+      resize: vertical;
     }
     .description-section h3 {
       margin: 0 0 10px 0;
       font-size: 16px;
       color: #5e6c84;
       font-weight: 600;
+    }
+    .description-view {
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 4px;
+      margin: -10px;
+    }
+    .description-view:hover {
+      background: #f8f9fa;
     }
     .description-view p {
       margin: 0;
@@ -491,7 +511,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
     .action-buttons {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 15px;
     }
     .action-btn {
       width: 100%;
@@ -564,6 +584,7 @@ export class KanbanComponent implements OnInit {
   showModal = false;
   modalTask: Task | null = null;
   descriptionTruncated = true;
+  isSelecting = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -801,5 +822,18 @@ export class KanbanComponent implements OnInit {
 
   toggleDescription(): void {
     this.descriptionTruncated = !this.descriptionTruncated;
+  }
+
+  onOverlayMouseDown(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.isSelecting = true;
+    }
+  }
+
+  onOverlayMouseUp(event: MouseEvent): void {
+    if (event.target === event.currentTarget && this.isSelecting) {
+      this.closeModal();
+    }
+    this.isSelecting = false;
   }
 }
