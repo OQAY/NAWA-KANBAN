@@ -38,14 +38,17 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
                  *ngFor="let task of getTasksByStatus(status)"
                  draggable="true"
                  (dragstart)="onDragStart(task)"
-                 (dragend)="onDragEnd()">
-              <h4>{{ task.title }}</h4>
-              <p>{{ task.description }}</p>
+                 (dragend)="onDragEnd()"
+                 (click)="showTaskDetails(task)">
+              <div class="task-content">
+                <h4>{{ task.title }}</h4>
+                <p>{{ task.description }}</p>
+              </div>
               <div class="task-meta">
                 <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
                 <div class="task-actions">
-                  <button (click)="editTask(task)" class="btn-edit">Editar</button>
-                  <button (click)="deleteTask(task.id)" class="btn-delete">Excluir</button>
+                  <button (click)="editTask(task); $event.stopPropagation()" class="btn-edit">Editar</button>
+                  <button (click)="deleteTask(task.id); $event.stopPropagation()" class="btn-delete">Excluir</button>
                 </div>
               </div>
             </div>
@@ -135,8 +138,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
       margin-bottom: 10px;
       border: 1px solid #dee2e6;
       cursor: grab;
-      max-height: 120px;
-      overflow: hidden;
+      min-height: 100px;
+      max-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .task-card:active {
       cursor: grabbing;
@@ -144,6 +150,11 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/
     .task-card:hover {
       border-color: #1976d2;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .task-content {
+      flex: 1;
+      overflow: hidden;
+      margin-bottom: 8px;
     }
     .task-card h4 {
       margin: 0 0 8px 0;
@@ -376,5 +387,10 @@ export class KanbanComponent implements OnInit {
         this.draggedTask = null;
       }
     });
+  }
+
+  showTaskDetails(task: Task): void {
+    const details = `Título: ${task.title}\n\nDescrição: ${task.description}\n\nPrioridade: ${this.getPriorityLabel(task.priority)}\nStatus: ${this.getStatusLabel(task.status)}`;
+    alert(details);
   }
 }
