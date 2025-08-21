@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { Task, TaskStatus } from '../../models/task.model';
+import { Task, TaskStatus, TaskPriority, CreateTaskRequest } from '../../models/task.model';
 
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="kanban-board">
       <h2>Kanban Board</h2>
+      
+      <div class="new-task-form">
+        <h3>Nova Tarefa</h3>
+        <input [(ngModel)]="newTask.title" placeholder="Título da tarefa" class="form-input">
+        <textarea [(ngModel)]="newTask.description" placeholder="Descrição" class="form-textarea"></textarea>
+        <select [(ngModel)]="newTask.priority" class="form-select">
+          <option value="low">Baixa</option>
+          <option value="medium">Média</option>
+          <option value="high">Alta</option>
+        </select>
+        <button (click)="createTask()" class="btn-create">Criar Tarefa</button>
+      </div>
       
       <div class="columns">
         <div class="column" *ngFor="let status of statuses">
@@ -24,6 +37,10 @@ import { Task, TaskStatus } from '../../models/task.model';
               <p>{{ task.description }}</p>
               <div class="task-meta">
                 <span class="priority priority-{{ task.priority }}">{{ task.priority }}</span>
+                <div class="task-actions">
+                  <button (click)="editTask(task)" class="btn-edit">Editar</button>
+                  <button (click)="deleteTask(task.id)" class="btn-delete">Excluir</button>
+                </div>
               </div>
             </div>
             
@@ -40,6 +57,37 @@ import { Task, TaskStatus } from '../../models/task.model';
       padding: 20px;
       max-width: 1400px;
       margin: 0 auto;
+    }
+    .new-task-form {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr 1fr;
+      gap: 10px;
+      align-items: end;
+    }
+    .new-task-form h3 {
+      grid-column: 1 / -1;
+      margin: 0 0 10px 0;
+    }
+    .form-input, .form-textarea, .form-select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    .btn-create {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
     }
     .columns {
       display: grid;
@@ -101,6 +149,27 @@ import { Task, TaskStatus } from '../../models/task.model';
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .task-actions {
+      display: flex;
+      gap: 5px;
+    }
+    .btn-edit, .btn-delete {
+      padding: 2px 6px;
+      border: none;
+      border-radius: 3px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .btn-edit {
+      background: #ffc107;
+      color: #000;
+    }
+    .btn-delete {
+      background: #dc3545;
+      color: white;
     }
     .priority {
       padding: 2px 6px;
@@ -128,6 +197,13 @@ export class KanbanComponent implements OnInit {
     TaskStatus.TESTING,
     TaskStatus.DONE
   ];
+  
+  newTask: CreateTaskRequest = {
+    title: '',
+    description: '',
+    priority: TaskPriority.MEDIUM,
+    projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+  };
 
   constructor(private taskService: TaskService) {}
 
@@ -159,5 +235,50 @@ export class KanbanComponent implements OnInit {
       [TaskStatus.DONE]: 'Concluído'
     };
     return labels[status];
+  }
+
+  createTask(): void {
+    if (!this.newTask.title.trim()) return;
+    
+    this.taskService.createTask(this.newTask).subscribe({
+      next: (task) => {
+        this.tasks.push(task);
+        this.resetForm();
+      },
+      error: (error) => console.error('Error creating task:', error)
+    });
+  }
+
+  editTask(task: Task): void {
+    const newTitle = prompt('Novo título:', task.title);
+    if (newTitle && newTitle !== task.title) {
+      this.taskService.updateTask(task.id, { title: newTitle }).subscribe({
+        next: (updatedTask) => {
+          const index = this.tasks.findIndex(t => t.id === task.id);
+          if (index !== -1) this.tasks[index] = updatedTask;
+        },
+        error: (error) => console.error('Error updating task:', error)
+      });
+    }
+  }
+
+  deleteTask(taskId: string): void {
+    if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+      this.taskService.deleteTask(taskId).subscribe({
+        next: () => {
+          this.tasks = this.tasks.filter(t => t.id !== taskId);
+        },
+        error: (error) => console.error('Error deleting task:', error)
+      });
+    }
+  }
+
+  private resetForm(): void {
+    this.newTask = {
+      title: '',
+      description: '',
+      priority: TaskPriority.MEDIUM,
+      projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+    };
   }
 }
