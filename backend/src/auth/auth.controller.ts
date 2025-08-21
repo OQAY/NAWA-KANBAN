@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Request, Patch, Param } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -39,5 +39,23 @@ export class AuthController {
       name: req.user.name,
       role: req.user.role,
     };
+  }
+
+  @Post('create-first-admin')
+  @ApiOperation({ summary: 'Create first admin (only if no admin exists)' })
+  @ApiResponse({ status: 200, description: 'First admin created successfully' })
+  @ApiResponse({ status: 409, description: 'Admin already exists' })
+  async createFirstAdmin(@Body() createAdminDto: { email: string; password: string; name: string }) {
+    return this.authService.createFirstAdmin(createAdminDto);
+  }
+
+  @Patch('promote-to-admin/:userId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Promote user to admin (admin only)' })
+  @ApiResponse({ status: 200, description: 'User promoted to admin' })
+  @ApiResponse({ status: 403, description: 'Forbidden - admin access required' })
+  async promoteToAdmin(@Request() req, @Param('userId') userId: string) {
+    return this.authService.promoteToAdmin(req.user.id, userId);
   }
 }
