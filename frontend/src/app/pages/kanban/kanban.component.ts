@@ -29,7 +29,6 @@ interface ColumnData {
              (dragleave)="onTrashDragLeave($event)"
              (drop)="onTrashDrop($event)">
           <span class="trash-icon">🗑️</span>
-          <span class="trash-text">Arraste aqui para deletar</span>
         </div>
       </div>
       
@@ -445,21 +444,21 @@ interface ColumnData {
     .header-section h2 {
       margin: 0;
       color: #1e293b;
-      font-size: 28px;
+      font-size: 19.6px;
       font-weight: 600;
     }
     .trash-zone {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
+      justify-content: center;
+      padding: 12px;
       border: 2px dashed rgba(221, 221, 221, 0.8);
       border-radius: 8px;
       background: rgba(249, 249, 249, 0.9);
       cursor: pointer;
       transition: all 0.3s ease;
-      min-width: 200px;
-      justify-content: center;
+      width: 48px;
+      height: 48px;
       backdrop-filter: blur(5px);
     }
     .trash-zone:hover,
