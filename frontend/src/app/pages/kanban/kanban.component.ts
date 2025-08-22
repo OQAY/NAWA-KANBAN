@@ -80,6 +80,31 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
             </div>
           </div>
         </div>
+        
+        <!-- Coluna para adicionar nova coluna -->
+        <div class="column add-column-container">
+          <div class="column-header">
+            <h3 *ngIf="!addingColumn" (click)="startAddingColumn()" class="add-column-title">+ Adicionar uma coluna</h3>
+            <div *ngIf="addingColumn" class="add-column-form">
+              <input 
+                [(ngModel)]="newColumnTitle"
+                placeholder="Digite o título da coluna..."
+                class="column-title-input"
+                (keydown)="onColumnTitleKeydown($event)"
+                #columnInput>
+              <div class="add-column-actions">
+                <button (click)="confirmAddColumn()" class="btn-add-column">Adicionar</button>
+                <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="column-content" *ngIf="!addingColumn">
+            <div class="empty-column">
+              Clique acima para adicionar
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Modal Task Details - Estilo Trello -->
@@ -712,6 +737,64 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .btn-cancel-add:hover {
       background: #ddd;
+    }
+    
+    /* CSS para adicionar coluna */
+    .add-column-container {
+      border: 2px dashed #ddd;
+      background: rgba(255, 255, 255, 0.1);
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+    }
+    .add-column-container:hover {
+      border-color: #ccc;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .add-column-title {
+      color: #6b778c;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      margin: 0;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .add-column-title:hover {
+      color: #172b4d;
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .add-column-form {
+      width: 100%;
+    }
+    .column-title-input {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #0079bf;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .add-column-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-add-column {
+      background: #0079bf;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .btn-add-column:hover {
+      background: #005a8b;
     }
     .modal-overlay {
       position: fixed;
@@ -1708,6 +1791,11 @@ export class KanbanComponent implements OnInit {
   // Propriedades para adicionar cartão estilo Trello
   addingToColumn: { [key: string]: boolean } = {};
   newCardTitle: { [key: string]: string } = {};
+  
+  // Propriedades para adicionar coluna
+  addingColumn = false;
+  newColumnTitle = '';
+  customColumns: { status: string; label: string }[] = [];
   
   // Propriedades para dropdown de prioridade
   showPriorityDropdown = false;
@@ -2754,5 +2842,46 @@ export class KanbanComponent implements OnInit {
 
   closeMobilePanel(): void {
     this.showMobilePanel = false;
+  }
+
+  // Métodos para adicionar coluna
+  startAddingColumn(): void {
+    this.addingColumn = true;
+    this.newColumnTitle = '';
+    setTimeout(() => {
+      const input = document.querySelector('.column-title-input') as HTMLInputElement;
+      if (input) {
+        input.focus();
+      }
+    });
+  }
+
+  cancelAddColumn(): void {
+    this.addingColumn = false;
+    this.newColumnTitle = '';
+  }
+
+  confirmAddColumn(): void {
+    const title = this.newColumnTitle.trim();
+    if (!title) return;
+
+    // Adiciona a nova coluna personalizada
+    const newColumn = {
+      status: `custom_${Date.now()}`,
+      label: title
+    };
+    
+    this.customColumns.push(newColumn);
+    this.cancelAddColumn();
+  }
+
+  onColumnTitleKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.confirmAddColumn();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      this.cancelAddColumn();
+    }
   }
 }
