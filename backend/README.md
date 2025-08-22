@@ -227,16 +227,106 @@ npm run test:e2e
 npm run test:watch
 ```
 
-### **Estrutura de Testes**
+### **Estrutura de Testes (Prontos para Implementação)**
 
+#### **Testes Unitários**
 ```typescript
-// tasks.service.spec.ts
-describe('TasksService', () => {
-  it('should create a task', async () => {
-    const task = await service.create(createTaskDto);
-    expect(task).toHaveProperty('id');
-    expect(task.title).toBe(createTaskDto.title);
+// Exemplo: auth.service.spec.ts
+describe('AuthService', () => {
+  it('should register a new user', async () => {
+    const userData = { email: 'test@example.com', password: '123456', name: 'Test User' };
+    const result = await service.register(userData);
+    expect(result).toHaveProperty('access_token');
+    expect(result.user.email).toBe(userData.email);
   });
+
+  it('should login with valid credentials', async () => {
+    const loginData = { email: 'test@example.com', password: '123456' };
+    const result = await service.login(loginData);
+    expect(result).toHaveProperty('access_token');
+  });
+
+  it('should throw error for invalid credentials', async () => {
+    const loginData = { email: 'invalid@example.com', password: 'wrong' };
+    await expect(service.login(loginData)).rejects.toThrow('Invalid credentials');
+  });
+});
+```
+
+#### **Testes E2E (End-to-End)**
+```typescript
+// test/auth.e2e-spec.ts
+describe('Authentication (e2e)', () => {
+  it('/auth/register (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/auth/register')
+      .send({
+        email: 'e2e@test.com',
+        password: 'password123',
+        name: 'E2E Test User'
+      })
+      .expect(201)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('access_token');
+        expect(res.body.user.email).toBe('e2e@test.com');
+      });
+  });
+
+  it('/auth/login (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: 'e2e@test.com', password: 'password123' })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('access_token');
+      });
+  });
+});
+```
+
+#### **Configuração de Testes**
+```javascript
+// jest.config.js (para testes unitários)
+module.exports = {
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  rootDir: 'src',
+  testRegex: '.*\\.spec\\.ts$',
+  transform: { '^.+\\.(t|j)s$': 'ts-jest' },
+  collectCoverageFrom: ['**/*.(t|j)s'],
+  coverageDirectory: '../coverage',
+  testEnvironment: 'node',
+};
+
+// test/jest-e2e.json (para testes E2E)
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": { "^.+\\.(t|j)s$": "ts-jest" }
+}
+```
+
+#### **Mocks e Factories para Testes**
+```typescript
+// test/mocks/user.mock.ts
+export const mockUser = {
+  id: '123e4567-e89b-12d3-a456-426614174000',
+  email: 'test@example.com',
+  name: 'Test User',
+  role: UserRole.DEVELOPER,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+// test/factories/task.factory.ts
+export const createTaskFactory = (overrides = {}) => ({
+  title: 'Test Task',
+  description: 'Test Description',
+  status: TaskStatus.PENDING,
+  priority: 1,
+  createdById: '123e4567-e89b-12d3-a456-426614174000',
+  ...overrides,
 });
 ```
 
@@ -295,6 +385,72 @@ NODE_ENV=development
 3. Clique em "Authorize" 🔐
 4. Cole o token (sem "Bearer")
 5. Teste qualquer endpoint protegido
+
+### **Exemplos de Uso da API**
+
+#### **1. Registrar e Fazer Login**
+```bash
+# Registrar novo usuário
+curl -X POST http://localhost:3000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "João Silva",
+    "email": "joao@empresa.com",
+    "password": "senha123",
+    "role": "developer"
+  }'
+
+# Fazer login
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "joao@empresa.com",
+    "password": "senha123"
+  }'
+```
+
+#### **2. Criar e Gerenciar Tarefas**
+```bash
+# Criar tarefa (use o token do login)
+curl -X POST http://localhost:3000/tasks \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Implementar autenticação",
+    "description": "Adicionar sistema de login JWT",
+    "status": "pending",
+    "priority": 2
+  }'
+
+# Listar todas as tarefas
+curl -X GET http://localhost:3000/tasks \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+
+# Filtrar tarefas por status
+curl -X GET "http://localhost:3000/tasks?status=pending&page=1&limit=10" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+
+# Atualizar status da tarefa
+curl -X PATCH http://localhost:3000/tasks/TASK_ID \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "in_progress"}'
+```
+
+#### **3. Sistema de Comentários**
+```bash
+# Adicionar comentário a uma tarefa
+curl -X POST http://localhost:3000/tasks/TASK_ID/comments \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "Progresso: implementação 50% concluída"
+  }'
+
+# Listar comentários de uma tarefa
+curl -X GET http://localhost:3000/tasks/TASK_ID/comments \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+```
 
 ---
 
