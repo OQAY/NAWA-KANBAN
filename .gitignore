@@ -64,3 +64,36 @@ backend/tmp/
 
 # Scripts folder (temporary files)
 scripts/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+*.swo
+*~
+
+# Logs and output files
+*.out
+*.err
+
+# IDE temporary files
+.vscode/settings.json
+.vscode/launch.json
+.idea/workspace.xml
+.idea/tasks.xml
+
+# OS temporary files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Project documentation temporary files
+CLAUDE.md
+*-temp.*
+*-debug.*
+*-test.*
+temp-*
+debug-*
+test-*

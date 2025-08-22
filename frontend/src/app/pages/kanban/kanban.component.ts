@@ -1076,8 +1076,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     
     /* Lista de comentários */
     .comments-list {
-      max-height: 300px;
-      overflow-y: auto;
+      /* Removido max-height e overflow-y para usar scrollbar única da lateral direita */
     }
     .comment-item {
       margin-bottom: 15px;
@@ -1877,16 +1876,17 @@ export class KanbanComponent implements OnInit {
     const diffMins = Math.floor(diffMs / (1000 * 60));
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
-
-    if (diffMins < 1) return 'agora';
-    if (diffMins < 60) return `${diffMins}m`;
-    if (diffHours < 24) return `${diffHours}h`;
-    if (diffDays < 7) return `${diffDays}d`;
     
+    // Formato similar ao Trello
+    if (diffMins < 1) return 'agora';
+    if (diffMins < 60) return `${diffMins} min`;
+    if (diffHours < 24) return `${diffHours}h`;
+    if (diffDays < 30) return `${diffDays}d`;
+    
+    // Para comentários mais antigos, mostrar data
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+      month: '2-digit'
     });
   }
 
