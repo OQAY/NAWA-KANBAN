@@ -6,6 +6,15 @@ import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 
+// ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
+interface ColumnData {
+  id: string;
+  status: string;
+  label: string;
+  type: 'standard' | 'custom';
+  order: number;
+}
+
 @Component({
   selector: 'app-kanban',
   standalone: true,
@@ -25,31 +34,32 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       </div>
       
       <div class="columns">
-        <div class="column" *ngFor="let status of statuses; let i = index" 
+        <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
+        <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
              [class.drag-over-column]="dragOverColumnIndex === i"
-             (dragover)="onColumnDragOver($event, i)"
+             (dragover)="onColumnDragOver($event, column.id, i)"
              (dragleave)="onColumnDragLeave()"
-             (drop)="onColumnDrop($event, i)">
+             (drop)="onColumnDrop($event, column.id, i)">
           <div class="column-header" 
                draggable="true"
-               (dragstart)="onColumnDragStart($event, { status: status, label: getStatusLabel(status) }, i)"
+               (dragstart)="onColumnDragStart($event, column.id, i)"
                (dragend)="onColumnDragEnd()">
-            <h3>{{ getStatusLabel(status) }}</h3>
-            <span class="task-count">{{ getTasksByStatus(status).length }}</span>
+            <h3>{{ column.label }}</h3>
+            <span class="task-count">{{ getTasksByStatusString(column.status).length }}</span>
           </div>
           
           <div class="column-content"
                (dragover)="onDragOver($event)"
-               (drop)="onDrop($event, status)"
-      [attr.data-status]="status">
+               (drop)="onDrop($event, column.status)"
+               [attr.data-status]="column.status">
             <div class="task-card" 
-                 *ngFor="let task of getTasksByStatus(status)"
+                 *ngFor="let task of getTasksByStatusString(column.status)"
                  draggable="true"
                  (dragstart)="onDragStart(task)"
                  (dragend)="onDragEnd()"
                  (touchstart)="onTouchStart($event, task)"
                  (touchmove)="onTouchMove($event)"
-                 (touchend)="onTouchEnd($event, status)"
+                 (touchend)="onTouchEnd($event, column.status)"
                  (click)="openTaskModal(task)">
               <div class="task-content">
                 <h4>{{ task.title }}</h4>
@@ -60,92 +70,28 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
               </div>
             </div>
             
-            <div *ngIf="getTasksByStatus(status).length === 0" class="empty-column">
+            <div *ngIf="getTasksByStatusString(column.status).length === 0" class="empty-column">
               Nenhuma tarefa
             </div>
             
             <!-- Botão adicionar cartão estilo Trello -->
             <div class="add-card-container">
-              <div *ngIf="!addingToColumn[status]" class="add-card-btn" (click)="startAddingCard(status)">
+              <div *ngIf="!addingToColumn[column.status]" class="add-card-btn" (click)="startAddingCard(column.status)">
                 <span class="plus-icon">+</span>
                 <span class="add-text">Adicionar um cartão</span>
               </div>
               
-              <div *ngIf="addingToColumn[status]" class="add-card-form">
+              <div *ngIf="addingToColumn[column.status]" class="add-card-form">
                 <textarea 
-                  [(ngModel)]="newCardTitle[status]"
+                  [(ngModel)]="newCardTitle[column.status]"
                   placeholder="Insira um título para este cartão..."
                   class="card-title-input"
-                  (keydown)="onCardTitleKeydown($event, status)"
+                  (keydown)="onCardTitleKeydown($event, column.status)"
                   #cardInput>
                 </textarea>
                 <div class="add-card-actions">
-                  <button (click)="confirmAddCard(status)" class="btn-add-card">Adicionar cartão</button>
-                  <button (click)="cancelAddCard(status)" class="btn-cancel-add">✕</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Colunas customizadas -->
-        <div class="column" *ngFor="let customCol of customColumns; let i = index" 
-             [class.drag-over-column]="dragOverColumnIndex === getCustomColumnRealIndex(i)"
-             (dragover)="onColumnDragOver($event, getCustomColumnRealIndex(i))"
-             (dragleave)="onColumnDragLeave()"
-             (drop)="onColumnDrop($event, getCustomColumnRealIndex(i))">
-          <div class="column-header" 
-               draggable="true"
-               (dragstart)="onColumnDragStart($event, customCol, getCustomColumnRealIndex(i))"
-               (dragend)="onColumnDragEnd()">
-            <h3>{{ customCol.label }}</h3>
-            <span class="task-count">{{ getTasksByStatusString(customCol.status).length }}</span>
-          </div>
-          
-          <div class="column-content"
-               (dragover)="onDragOver($event)"
-               (drop)="onDrop($event, customCol.status)"
-               [attr.data-status]="customCol.status">
-            <div class="task-card" 
-                 *ngFor="let task of getTasksByStatusString(customCol.status)"
-                 draggable="true"
-                 (dragstart)="onDragStart(task)"
-                 (dragend)="onDragEnd()"
-                 (touchstart)="onTouchStart($event, task)"
-                 (touchmove)="onTouchMove($event)"
-                 (touchend)="onTouchEnd($event, customCol.status)"
-                 (click)="openTaskModal(task)">
-              <div class="task-content">
-                <h4>{{ task.title }}</h4>
-                <p>{{ task.description }}</p>
-              </div>
-              <div class="task-meta">
-                <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
-              </div>
-            </div>
-            
-            <div *ngIf="getTasksByStatusString(customCol.status).length === 0" class="empty-column">
-              Nenhuma tarefa
-            </div>
-            
-            <!-- Botão adicionar cartão estilo Trello -->
-            <div class="add-card-container">
-              <div *ngIf="!addingToColumn[customCol.status]" class="add-card-btn" (click)="startAddingCard(customCol.status)">
-                <span class="plus-icon">+</span>
-                <span class="add-text">Adicionar um cartão</span>
-              </div>
-              
-              <div *ngIf="addingToColumn[customCol.status]" class="add-card-form">
-                <textarea 
-                  [(ngModel)]="newCardTitle[customCol.status]"
-                  placeholder="Insira um título para este cartão..."
-                  class="card-title-input"
-                  (keydown)="onCardTitleKeydown($event, customCol.status)"
-                  #cardInput>
-                </textarea>
-                <div class="add-card-actions">
-                  <button (click)="confirmAddCard(customCol.status)" class="btn-add-card">Adicionar cartão</button>
-                  <button (click)="cancelAddCard(customCol.status)" class="btn-cancel-add">✕</button>
+                  <button (click)="confirmAddCard(column.status)" class="btn-add-card">Adicionar cartão</button>
+                  <button (click)="cancelAddCard(column.status)" class="btn-cancel-add">✕</button>
                 </div>
               </div>
             </div>
@@ -1869,8 +1815,8 @@ export class KanbanComponent implements OnInit {
   draggedTask: Task | null = null;
   editingTask: Task | null = null;
   
-  // Propriedades para drag-and-drop de colunas
-  draggedColumn: { status: string; label: string; index: number } | null = null;
+  // ENTERPRISE DRAG PROPERTIES: ID-based
+  draggedColumn: ColumnData & { index: number } | null = null;
   dragOverColumnIndex: number = -1;
   editForm = {
     title: '',
@@ -1888,7 +1834,9 @@ export class KanbanComponent implements OnInit {
   // Propriedades para adicionar coluna
   addingColumn = false;
   newColumnTitle = '';
-  customColumns: { status: string; label: string }[] = [];
+  
+  // ENTERPRISE ARCHITECTURE: Single source of truth para colunas
+  private _columns: ColumnData[] = [];
   
   // Propriedades para dropdown de prioridade
   showPriorityDropdown = false;
@@ -1945,8 +1893,43 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCustomColumns();
+    this.initializeColumns();
+    this.loadSavedColumns();
     this.loadTasks();
+  }
+
+  // ENTERPRISE METHOD: Inicialização das colunas padrão
+  private initializeColumns(): void {
+    this._columns = [
+      {
+        id: 'pending',
+        status: 'pending',
+        label: this.getStatusLabel(TaskStatus.PENDING),
+        type: 'standard',
+        order: 0
+      },
+      {
+        id: 'in_progress',
+        status: 'in_progress',
+        label: this.getStatusLabel(TaskStatus.IN_PROGRESS),
+        type: 'standard',
+        order: 1
+      },
+      {
+        id: 'testing',
+        status: 'testing',
+        label: this.getStatusLabel(TaskStatus.TESTING),
+        type: 'standard',
+        order: 2
+      },
+      {
+        id: 'done',
+        status: 'done',
+        label: this.getStatusLabel(TaskStatus.DONE),
+        type: 'standard',
+        order: 3
+      }
+    ];
   }
 
   loadTasks(): void {
@@ -1963,7 +1946,7 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  getTasksByStatus(status: TaskStatus): Task[] {
+  getTasksByStatus(status: TaskStatus | string): Task[] {
     return this.tasks
       .filter(task => task.status === status)
       .sort((a, b) => (b.priority || 0) - (a.priority || 0));
@@ -2073,34 +2056,34 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  // Métodos para drag-and-drop de colunas
-  onColumnDragStart(event: DragEvent, columnData: { status: string; label: string }, index: number): void {
-    event.stopPropagation(); // Evita conflito com drag de tarefas
-    this.draggedColumn = { ...columnData, index };
-    console.log('Column drag started:', this.draggedColumn);
-    console.log('All columns status:', { 
-      statuses: this.statuses, 
-      customColumns: this.customColumns,
-      totalColumns: this.statuses.length + this.customColumns.length 
+  // ENTERPRISE DRAG METHODS: Baseados em ID, não em índice
+  onColumnDragStart(event: DragEvent, columnId: string, index: number): void {
+    event.stopPropagation();
+    const column = this._columns.find(col => col.id === columnId);
+    if (!column) return;
+    
+    this.draggedColumn = { ...column, index };
+    console.log('🚀 ENTERPRISE DRAG START:', { 
+      columnId, 
+      index, 
+      column,
+      allColumns: this.columns.map((col, i) => ({ i, id: col.id, status: col.status, order: col.order }))
     });
+    
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData('text/plain', 'column');
+      event.dataTransfer.setData('text/plain', columnId);
     }
   }
 
-  onColumnDragOver(event: DragEvent, index: number): void {
-    if (this.draggedColumn) {
+  onColumnDragOver(event: DragEvent, targetColumnId: string, targetIndex: number): void {
+    if (this.draggedColumn && this.draggedColumn.id !== targetColumnId) {
       event.preventDefault();
       event.stopPropagation();
-      this.dragOverColumnIndex = index;
-      console.log('Drag over column index:', index, 'from:', this.draggedColumn.index);
+      this.dragOverColumnIndex = targetIndex;
       
-      // Só permite drag sobre colunas que não são a origem
-      if (this.draggedColumn.index !== index) {
-        if (event.dataTransfer) {
-          event.dataTransfer.dropEffect = 'move';
-        }
+      if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = 'move';
       }
     }
   }
@@ -2109,54 +2092,50 @@ export class KanbanComponent implements OnInit {
     this.dragOverColumnIndex = -1;
   }
 
-  onColumnDrop(event: DragEvent, targetIndex: number): void {
+  onColumnDrop(event: DragEvent, targetColumnId: string, targetIndex: number): void {
     event.preventDefault();
     event.stopPropagation();
     
-    console.log('Column drop attempt:', { draggedColumn: this.draggedColumn, targetIndex });
-    
-    if (!this.draggedColumn || this.draggedColumn.index === targetIndex) {
-      console.log('Drop cancelled - same position or no dragged column');
+    if (!this.draggedColumn || this.draggedColumn.id === targetColumnId) {
       this.draggedColumn = null;
       this.dragOverColumnIndex = -1;
       return;
     }
 
-    const sourceIndex = this.draggedColumn.index;
-    
-    // Criar array combinado de todas as colunas para reorganização
-    const allColumns = [
-      ...this.statuses.map(status => ({ status, label: this.getStatusLabel(status), isStandard: true })),
-      ...this.customColumns.map(col => ({ ...col, isStandard: false }))
-    ];
+    console.log('🎯 ENTERPRISE DROP:', { 
+      from: { id: this.draggedColumn.id, order: this.draggedColumn.order },
+      to: { id: targetColumnId, index: targetIndex }
+    });
 
-    // Remove a coluna da posição original
-    const [movedColumn] = allColumns.splice(sourceIndex, 1);
+    // ENTERPRISE LOGIC: Reordenação baseada em order, não em splice
+    this.reorderColumns(this.draggedColumn.id, targetIndex);
+    this.saveColumns();
     
-    // Insere na nova posição
-    allColumns.splice(targetIndex, 0, movedColumn);
+    this.draggedColumn = null;
+    this.dragOverColumnIndex = -1;
+  }
+
+  private reorderColumns(draggedId: string, targetIndex: number): void {
+    const sortedColumns = this.columns;
+    const draggedColumn = sortedColumns.find(col => col.id === draggedId);
+    if (!draggedColumn) return;
+
+    // Remove da posição atual e reordena
+    const columnsWithoutDragged = this._columns.filter(col => col.id !== draggedId);
     
-    // Separar novamente em colunas padrão e customizadas
-    const newStandardColumns: string[] = [];
-    const newCustomColumns: { status: string; label: string }[] = [];
-    
-    allColumns.forEach(col => {
-      if (col.isStandard) {
-        newStandardColumns.push(col.status);
+    // Recalcula orders
+    columnsWithoutDragged.forEach((col, index) => {
+      if (index >= targetIndex) {
+        col.order = index + 1;
       } else {
-        newCustomColumns.push({ status: col.status, label: col.label });
+        col.order = index;
       }
     });
     
-    // Atualizar as arrays
-    this.statuses = newStandardColumns as any;
-    this.customColumns = newCustomColumns;
-    this.saveCustomColumns(); // Salva a nova ordem
+    // Insere na nova posição
+    draggedColumn.order = targetIndex;
     
-    console.log('Columns reordered successfully:', { newStandardColumns, newCustomColumns });
-
-    this.draggedColumn = null;
-    this.dragOverColumnIndex = -1;
+    console.log('✨ Reordered columns:', this.columns.map(col => ({ id: col.id, order: col.order })));
   }
 
   onColumnDragEnd(): void {
@@ -3065,44 +3044,53 @@ export class KanbanComponent implements OnInit {
     const title = this.newColumnTitle.trim();
     if (!title) return;
 
-    // Adiciona a nova coluna personalizada
-    const newColumn = {
+    // ENTERPRISE: Adiciona nova coluna ao final
+    const maxOrder = Math.max(...this._columns.map(col => col.order), -1);
+    const newColumn: ColumnData = {
+      id: `custom_${Date.now()}`,
       status: `custom_${Date.now()}`,
-      label: title
+      label: title,
+      type: 'custom',
+      order: maxOrder + 1
     };
     
-    this.customColumns.push(newColumn);
-    this.saveCustomColumns(); // Salva no localStorage
+    this._columns.push(newColumn);
+    this.saveColumns();
     this.cancelAddColumn();
   }
 
-  // Métodos para persistência de colunas customizadas
-  private saveCustomColumns(): void {
+  // ENTERPRISE PERSISTENCE: Single source of truth
+  private saveColumns(): void {
     try {
-      localStorage.setItem('kanban_custom_columns', JSON.stringify(this.customColumns));
-      localStorage.setItem('kanban_statuses_order', JSON.stringify(this.statuses));
+      localStorage.setItem('kanban_columns_enterprise', JSON.stringify(this._columns));
+      console.log('💾 Columns saved:', this._columns.map(col => ({ id: col.id, order: col.order })));
     } catch (error) {
-      console.error('Erro ao salvar colunas customizadas:', error);
+      console.error('Erro ao salvar colunas:', error);
     }
   }
 
-  private loadCustomColumns(): void {
+  private loadSavedColumns(): void {
     try {
-      const savedCustomColumns = localStorage.getItem('kanban_custom_columns');
-      const savedStatusesOrder = localStorage.getItem('kanban_statuses_order');
-      
-      if (savedCustomColumns) {
-        this.customColumns = JSON.parse(savedCustomColumns);
-        console.log('Loaded custom columns:', this.customColumns);
-      }
-      
-      if (savedStatusesOrder) {
-        this.statuses = JSON.parse(savedStatusesOrder);
-        console.log('Loaded statuses order:', this.statuses);
+      const savedColumns = localStorage.getItem('kanban_columns_enterprise');
+      if (savedColumns) {
+        const loadedColumns: ColumnData[] = JSON.parse(savedColumns);
+        
+        // Mescla com colunas padrão, preservando customizações
+        loadedColumns.forEach(savedCol => {
+          const existingCol = this._columns.find(col => col.id === savedCol.id);
+          if (existingCol) {
+            // Atualiza ordem da coluna padrão
+            existingCol.order = savedCol.order;
+          } else {
+            // Adiciona coluna customizada
+            this._columns.push(savedCol);
+          }
+        });
+        
+        console.log('📂 Columns loaded:', this._columns.map(col => ({ id: col.id, order: col.order })));
       }
     } catch (error) {
-      console.error('Erro ao carregar colunas customizadas:', error);
-      this.customColumns = [];
+      console.error('Erro ao carregar colunas:', error);
     }
   }
 
@@ -3142,19 +3130,29 @@ export class KanbanComponent implements OnInit {
     }
   }
 
-  // Getter para todas as colunas (padrão + customizadas)
-  get allColumns(): { status: string; label: string }[] {
-    const defaultColumns = this.statuses.map(status => ({
-      status: status,
-      label: this.getStatusLabel(status)
-    }));
-    
-    return [...defaultColumns, ...this.customColumns];
+  // ENTERPRISE GETTER: Reactive sem side effects
+  get columns(): ColumnData[] {
+    return [...this._columns].sort((a, b) => a.order - b.order);
   }
 
-  // Método auxiliar para obter o índice real de uma coluna customizada
-  getCustomColumnRealIndex(customIndex: number): number {
-    return this.statuses.length + customIndex;
+  // TrackBy function para otimização Angular
+  trackByColumn(index: number, column: ColumnData): string {
+    return column.id;
+  }
+
+  // ENTERPRISE COMPATIBILITY: Mantém compatibilidade com statuses antigos
+  get statuses(): TaskStatus[] {
+    return this._columns
+      .filter(col => col.type === 'standard')
+      .sort((a, b) => a.order - b.order)
+      .map(col => col.status as TaskStatus);
+  }
+
+  get customColumns(): { status: string; label: string }[] {
+    return this._columns
+      .filter(col => col.type === 'custom')
+      .sort((a, b) => a.order - b.order)
+      .map(col => ({ status: col.status, label: col.label }));
   }
 
   // Método para obter tarefas por status (aceita string também)
