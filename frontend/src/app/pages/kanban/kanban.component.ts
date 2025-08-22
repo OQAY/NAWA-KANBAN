@@ -429,6 +429,7 @@ interface ColumnData {
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      height: calc(100vh - 120px);
     }
     .header-section {
       display: flex;
