@@ -90,13 +90,13 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
         
         <!-- Colunas customizadas -->
         <div class="column" *ngFor="let customCol of customColumns; let i = index" 
-             [class.drag-over-column]="dragOverColumnIndex === (statuses.length + i)"
-             (dragover)="onColumnDragOver($event, statuses.length + i)"
+             [class.drag-over-column]="dragOverColumnIndex === getCustomColumnRealIndex(i)"
+             (dragover)="onColumnDragOver($event, getCustomColumnRealIndex(i))"
              (dragleave)="onColumnDragLeave()"
-             (drop)="onColumnDrop($event, statuses.length + i)">
+             (drop)="onColumnDrop($event, getCustomColumnRealIndex(i))">
           <div class="column-header" 
                draggable="true"
-               (dragstart)="onColumnDragStart($event, customCol, statuses.length + i)"
+               (dragstart)="onColumnDragStart($event, customCol, getCustomColumnRealIndex(i))"
                (dragend)="onColumnDragEnd()">
             <h3>{{ customCol.label }}</h3>
             <span class="task-count">{{ getTasksByStatusString(customCol.status).length }}</span>
@@ -2078,6 +2078,11 @@ export class KanbanComponent implements OnInit {
     event.stopPropagation(); // Evita conflito com drag de tarefas
     this.draggedColumn = { ...columnData, index };
     console.log('Column drag started:', this.draggedColumn);
+    console.log('All columns status:', { 
+      statuses: this.statuses, 
+      customColumns: this.customColumns,
+      totalColumns: this.statuses.length + this.customColumns.length 
+    });
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('text/plain', 'column');
@@ -3088,10 +3093,12 @@ export class KanbanComponent implements OnInit {
       
       if (savedCustomColumns) {
         this.customColumns = JSON.parse(savedCustomColumns);
+        console.log('Loaded custom columns:', this.customColumns);
       }
       
       if (savedStatusesOrder) {
         this.statuses = JSON.parse(savedStatusesOrder);
+        console.log('Loaded statuses order:', this.statuses);
       }
     } catch (error) {
       console.error('Erro ao carregar colunas customizadas:', error);
@@ -3143,6 +3150,11 @@ export class KanbanComponent implements OnInit {
     }));
     
     return [...defaultColumns, ...this.customColumns];
+  }
+
+  // Método auxiliar para obter o índice real de uma coluna customizada
+  getCustomColumnRealIndex(customIndex: number): number {
+    return this.statuses.length + customIndex;
   }
 
   // Método para obter tarefas por status (aceita string também)
