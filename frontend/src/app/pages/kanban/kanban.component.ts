@@ -105,6 +105,63 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
             </div>
           </div>
         </div>
+        
+        <!-- Colunas customizadas -->
+        <div class="column" *ngFor="let customCol of customColumns; let i = index">
+          <div class="column-header">
+            <h3>{{ customCol.label }}</h3>
+            <span class="task-count">{{ getTasksByStatusString(customCol.status).length }}</span>
+          </div>
+          
+          <div class="column-content"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop($event, customCol.status)"
+               [attr.data-status]="customCol.status">
+            <div class="task-card" 
+                 *ngFor="let task of getTasksByStatusString(customCol.status)"
+                 draggable="true"
+                 (dragstart)="onDragStart(task)"
+                 (dragend)="onDragEnd()"
+                 (touchstart)="onTouchStart($event, task)"
+                 (touchmove)="onTouchMove($event)"
+                 (touchend)="onTouchEnd($event, customCol.status)"
+                 (click)="openTaskModal(task)">
+              <div class="task-content">
+                <h4>{{ task.title }}</h4>
+                <p>{{ task.description }}</p>
+              </div>
+              <div class="task-meta">
+                <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
+              </div>
+            </div>
+            
+            <div *ngIf="getTasksByStatusString(customCol.status).length === 0" class="empty-column">
+              Nenhuma tarefa
+            </div>
+            
+            <!-- Botão adicionar cartão estilo Trello -->
+            <div class="add-card-container">
+              <div *ngIf="!addingToColumn[customCol.status]" class="add-card-btn" (click)="startAddingCard(customCol.status)">
+                <span class="plus-icon">+</span>
+                <span class="add-text">Adicionar um cartão</span>
+              </div>
+              
+              <div *ngIf="addingToColumn[customCol.status]" class="add-card-form">
+                <textarea 
+                  [(ngModel)]="newCardTitle[customCol.status]"
+                  placeholder="Insira um título para este cartão..."
+                  class="card-title-input"
+                  (keydown)="onCardTitleKeydown($event, customCol.status)"
+                  #cardInput>
+                </textarea>
+                <div class="add-card-actions">
+                  <button (click)="confirmAddCard(customCol.status)" class="btn-add-card">Adicionar cartão</button>
+                  <button (click)="cancelAddCard(customCol.status)" class="btn-cancel-add">✕</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Modal Task Details - Estilo Trello -->
@@ -2037,7 +2094,7 @@ export class KanbanComponent implements OnInit {
     }
   }
   
-  onTouchEnd(event: TouchEvent, originalStatus: TaskStatus): void {
+  onTouchEnd(event: TouchEvent, originalStatus: TaskStatus | string): void {
     // Para auto-scroll
     if (this.autoScrollInterval) {
       clearInterval(this.autoScrollInterval);
@@ -2159,7 +2216,7 @@ export class KanbanComponent implements OnInit {
     }
   }
 
-  onDrop(event: DragEvent, newStatus: TaskStatus): void {
+  onDrop(event: DragEvent, newStatus: TaskStatus | string): void {
     event.preventDefault();
     
     // Remove highlight de todas as colunas
@@ -2180,7 +2237,7 @@ export class KanbanComponent implements OnInit {
     if (index !== -1) {
       this.tasks[index] = {
         ...this.tasks[index],
-        status: newStatus,
+        status: newStatus as any,
         updatedAt: new Date()
       };
     }
@@ -2190,7 +2247,7 @@ export class KanbanComponent implements OnInit {
 
     // Atualiza no servidor em background (sem bloquear UI)
     this.taskService.updateTask(oldTask.id, { 
-      status: newStatus,
+      status: newStatus as any,
       priority: oldTask.priority
     }).subscribe({
       next: (updatedTask) => {
@@ -2340,7 +2397,7 @@ export class KanbanComponent implements OnInit {
   }
 
   // Métodos para adicionar cartão estilo Trello
-  startAddingCard(status: TaskStatus): void {
+  startAddingCard(status: TaskStatus | string): void {
     this.addingToColumn[status] = true;
     this.newCardTitle[status] = '';
     // Focus no textarea após o Angular renderizar
@@ -2352,12 +2409,12 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  cancelAddCard(status: TaskStatus): void {
+  cancelAddCard(status: TaskStatus | string): void {
     this.addingToColumn[status] = false;
     this.newCardTitle[status] = '';
   }
 
-  confirmAddCard(status: TaskStatus): void {
+  confirmAddCard(status: TaskStatus | string): void {
     const title = this.newCardTitle[status]?.trim();
     if (!title) return;
 
@@ -2373,7 +2430,9 @@ export class KanbanComponent implements OnInit {
         this.tasks.push(task);
         // Move para o status correto se necessário
         if (task.status !== status) {
-          this.moveTaskToStatus(task, status);
+          if (Object.values(TaskStatus).includes(status as TaskStatus)) {
+            this.moveTaskToStatus(task, status as TaskStatus);
+          }
         }
         this.cancelAddCard(status);
       },
@@ -2383,7 +2442,7 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  onCardTitleKeydown(event: KeyboardEvent, status: TaskStatus): void {
+  onCardTitleKeydown(event: KeyboardEvent, status: TaskStatus | string): void {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       this.confirmAddCard(status);
@@ -2401,7 +2460,7 @@ export class KanbanComponent implements OnInit {
     if (index !== -1) {
       this.tasks[index] = {
         ...this.tasks[index],
-        status: newStatus,
+        status: newStatus as any,
         updatedAt: new Date()
       };
     }
@@ -2416,7 +2475,7 @@ export class KanbanComponent implements OnInit {
 
     // Atualiza no servidor em background
     const updateData: UpdateTaskRequest = {
-      status: newStatus,
+      status: newStatus as any,
       priority: task.priority
     };
 
@@ -2526,7 +2585,7 @@ export class KanbanComponent implements OnInit {
 
     // Envia para o servidor em background
     const updateData: UpdateTaskRequest = {
-      status: newStatus,
+      status: newStatus as any,
       priority: this.modalTask.priority
     };
 
@@ -2883,5 +2942,20 @@ export class KanbanComponent implements OnInit {
       event.preventDefault();
       this.cancelAddColumn();
     }
+  }
+
+  // Getter para todas as colunas (padrão + customizadas)
+  get allColumns(): { status: string; label: string }[] {
+    const defaultColumns = this.statuses.map(status => ({
+      status: status,
+      label: this.getStatusLabel(status)
+    }));
+    
+    return [...defaultColumns, ...this.customColumns];
+  }
+
+  // Método para obter tarefas por status (aceita string também)
+  getTasksByStatusString(status: string): Task[] {
+    return this.tasks.filter(task => task.status === status);
   }
 }
