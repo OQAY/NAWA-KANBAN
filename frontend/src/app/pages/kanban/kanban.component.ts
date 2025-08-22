@@ -9,7 +9,7 @@ import { TaskCardComponent } from '../../components/task-card/task-card.componen
 import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
 import { KanbanHeaderComponent } from '../../components/kanban-header/kanban-header.component';
 import { KanbanColumnComponent } from '../../components/kanban-column/kanban-column.component';
-import { TaskModalComponent } from '../../components/task-modal/task-modal.component';
+// import { TaskModalComponent } from '../../components/task-modal/task-modal.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -29,7 +29,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent, TaskModalComponent],
+  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent],
   template: `
     <div class="kanban-board">
       <app-kanban-header
@@ -388,16 +388,7 @@ interface ColumnData {
       </div>
     </div>
 
-    <!-- NOVO TASKMODAL COMPONENT -->
-    <app-task-modal
-      [task]="modalTask"
-      [isVisible]="showModal"
-      (close)="handleModalClose()"
-      (save)="handleModalSave($event)"
-      (delete)="handleModalDelete($event)"
-      (statusChange)="handleModalStatusChange($event)"
-      (priorityChange)="handleModalPriorityChange($event)">
-    </app-task-modal>
+    <!-- TASKMODAL SERÁ ADICIONADO AQUI DEPOIS -->
   `,
   styles: [`
     .kanban-board {
@@ -508,102 +499,7 @@ interface ColumnData {
     .column-content::-webkit-scrollbar-thumb:hover {
       background: rgba(0, 0, 0, 0.5);
     }
-    .column {
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      width: 240px;
-      min-width: 240px;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      max-height: calc(100vh - 300px);
-    }
-
-    /* 👻 GHOST COLUMN ANIMATION: Indicadores visuais de inserção */
-    .column.being-dragged {
-      opacity: 0.5;
-      transform: scale(0.95);
-      z-index: 1000;
-    }
-
-    .column.ghost-left::before {
-      content: '';
-      position: absolute;
-      left: -18px;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      background: linear-gradient(to bottom, #007bff, #0056b3);
-      border-radius: 3px;
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-      animation: ghostPulse 1s ease-in-out infinite;
-      z-index: 10;
-    }
-
-    .column.ghost-right::after {
-      content: '';
-      position: absolute;
-      right: -18px;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      background: linear-gradient(to bottom, #007bff, #0056b3);
-      border-radius: 3px;
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-      animation: ghostPulse 1s ease-in-out infinite;
-      z-index: 10;
-    }
-
-    @keyframes ghostPulse {
-      0%, 100% {
-        opacity: 0.7;
-        transform: scaleY(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scaleY(1.02);
-      }
-    }
-    .column-header {
-      background: rgba(241, 242, 244, 0.95);
-      padding: 12px 16px;
-      border-radius: 12px 12px 0 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(228, 230, 234, 0.8);
-      backdrop-filter: blur(5px);
-    }
-    .column-header h3 {
-      margin: 0;
-      font-size: 11px;
-      font-weight: 600;
-      color: #172b4d;
-    }
-    .task-count {
-      background: #ddd;
-      color: #5e6c84;
-      padding: 2px 6px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 500;
-      min-width: 18px;
-      text-align: center;
-    }
-    
-    /* Estilos para drag-and-drop de colunas */
-    .column-header[draggable="true"] {
-      cursor: move;
-      transition: all 0.2s ease;
-    }
-    
-    .column-header[draggable="true"]:hover {
-      background: rgba(241, 242, 244, 1);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+    /* ESTILOS DA COLUMN REMOVIDOS - AGORA ESTÃO NO KanbanColumnComponent */
     
     .column.drag-over-column {
       transform: scale(1.02);
@@ -628,66 +524,7 @@ interface ColumnData {
       background: #e3f2fd;
       border: 2px dashed #2196f3;
     }
-    .task-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(222, 226, 230, 0.6);
-      cursor: grab;
-      min-height: 100px;
-      max-height: 140px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      touch-action: none;
-      -webkit-user-select: none;
-      user-select: none;
-      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
-      will-change: transform;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .task-card:active {
-      cursor: grabbing;
-    }
-    .task-card.dragging {
-      opacity: 0.5;
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      z-index: 1000;
-      cursor: grabbing;
-    }
-    .task-card:hover {
-      border-color: #1976d2;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .task-content {
-      flex: 1;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .task-card h4 {
-      margin: 0 0 8px 0;
-      font-size: 11px;
-      font-weight: 600;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .task-card p {
-      margin: 0 0 8px 0;
-      font-size: 10px;
-      color: #6c757d;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    /* ESTILOS DO TASK-CARD REMOVIDOS - AGORA ESTÃO NO TaskCardComponent */
     .task-meta {
       display: flex;
       justify-content: space-between;
@@ -1770,9 +1607,7 @@ interface ColumnData {
         position: relative;
       }
       
-      .task-card.dragging {
-        pointer-events: none;
-      }
+      /* ESTILOS MOBILE DO TASK-CARD REMOVIDOS - ESTÃO NO TaskCardComponent */
     }
     
     /* Mobile (até 425px) */
@@ -3342,5 +3177,26 @@ export class KanbanComponent implements OnInit {
         return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
       });
   }
+
+  // HANDLERS DO NOVO TASKMODAL COMPONENT (TEMPORARIAMENTE COMENTADOS)
+  // handleModalClose(): void {
+  //   this.closeModal();
+  // }
+
+  // handleModalSave(event: {task: Task, changes: Partial<Task>}): void {
+  //   // this.updateTask(event.task.id, event.changes);
+  // }
+
+  // handleModalDelete(taskId: string): void {
+  //   // this.deleteTask(taskId);
+  // }
+
+  // handleModalStatusChange(event: {taskId: string, newStatus: TaskStatus}): void {
+  //   // this.changeStatus(event.newStatus, event.taskId);
+  // }
+
+  // handleModalPriorityChange(event: {taskId: string, newPriority: TaskPriority}): void {
+  //   // this.changePriority(event.newPriority, event.taskId);
+  // }
 
 }
