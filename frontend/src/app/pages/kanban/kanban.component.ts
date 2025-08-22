@@ -33,7 +33,8 @@ interface ColumnData {
         </div>
       </div>
       
-      <div class="columns">
+      <div class="columns-container">
+        <div class="columns">
         <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
         <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
              [class.drag-over-column]="dragOverColumnIndex === i"
@@ -120,6 +121,7 @@ interface ColumnData {
               <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
             </div>
           </div>
+        </div>
         </div>
       </div>
       
@@ -412,6 +414,7 @@ interface ColumnData {
   styles: [`
     .kanban-board {
       padding: 20px;
+      padding-bottom: 30px;
       max-width: 1400px;
       margin: 0 auto;
       min-height: 100vh;
@@ -466,14 +469,20 @@ interface ColumnData {
       color: #dc3545;
       font-weight: 600;
     }
+    .columns-container {
+      height: calc(100vh - 140px);
+      margin-top: 20px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
     .columns {
       display: flex;
       gap: 15px;
-      margin-top: 20px;
       overflow-x: auto;
-      padding-bottom: calc(10px + env(safe-area-inset-bottom));
-      position: relative;
-      min-height: calc(100vh - 200px);
+      height: 100%;
+      padding-bottom: 20px;
+      box-sizing: border-box;
     }
     .columns::-webkit-scrollbar {
       height: 8px;
@@ -489,14 +498,28 @@ interface ColumnData {
     .columns::-webkit-scrollbar-thumb:hover {
       background: #a8a8a8;
     }
+
+    /* Scrollbar vertical para conteúdo das colunas */
+    .column-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    .column-content::-webkit-scrollbar-track {
+      background: rgba(241, 242, 244, 0.3);
+      border-radius: 3px;
+    }
+    .column-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+    }
+    .column-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
     .column {
-      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       border-radius: 12px;
       width: 240px;
       min-width: 240px;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       transition: all 0.2s ease;
       position: relative;
     }
