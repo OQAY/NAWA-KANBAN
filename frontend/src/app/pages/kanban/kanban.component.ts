@@ -1386,6 +1386,44 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       font-style: italic;
       padding: 20px;
     }
+
+    /* ===== RESPONSIVIDADE PROFISSIONAL DO MODAL ===== */
+    
+    /* Large Desktop (1200px+) */
+    @media (min-width: 1200px) {
+      .modal-content {
+        width: 85%;
+        max-width: 1000px;
+        margin: 8vh auto;
+      }
+    }
+    
+    /* Desktop (992px - 1199px) */
+    @media (max-width: 1199px) and (min-width: 992px) {
+      .modal-content {
+        width: 90%;
+        max-width: 1000px;
+        margin: 6vh auto;
+      }
+    }
+    
+    /* Tablet Landscape (768px - 991px) */
+    @media (max-width: 991px) and (min-width: 768px) {
+      .modal-content {
+        width: 85%;
+        margin: 4vh auto;
+        min-width: 700px;
+      }
+    }
+    
+    /* Tablet Portrait (426px - 767px) */
+    @media (max-width: 767px) and (min-width: 426px) {
+      .modal-content {
+        width: 90%;
+        margin: 3vh auto;
+        min-width: 400px;
+      }
+    }
   `]
 })
 export class KanbanComponent implements OnInit {
