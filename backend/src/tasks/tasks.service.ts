@@ -14,31 +14,43 @@ export class TasksService {
     private taskRepository: Repository<Task>,
   ) {}
 
+  /**
+   * Cria uma nova tarefa com atribuição automática do criador
+   * Regra de Negócio: Todas as tarefas devem ter um criador (createdById)
+   */
   async create(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     const taskData: any = {
       ...createTaskDto,
-      createdById: user.id,
+      createdById: user.id, // Atribui automaticamente o usuário atual como criador
     };
     
+    // Converte string de data para objeto Date para armazenamento no banco
     if (createTaskDto.dueDate) {
       taskData.dueDate = new Date(createTaskDto.dueDate);
     }
     
     const task = this.taskRepository.create(taskData);
     const savedTask = await this.taskRepository.save(task);
+    // Trata caso onde TypeORM pode retornar array ao invés de entidade única
     return Array.isArray(savedTask) ? savedTask[0] : savedTask;
   }
 
+  /**
+   * Lista tarefas com filtros e paginação
+   * Implementa RBAC: Developers só veem suas próprias tarefas
+   */
   async findAll(query: TaskQueryDto, user: User) {
     const { page = 1, limit = 10, status, projectId, assigneeId } = query;
-    const skip = (page - 1) * limit;
+    const skip = (page - 1) * limit; // Calcula offset para paginação
 
+    // Constrói query com joins para carregar relacionamentos
     const queryBuilder = this.taskRepository
       .createQueryBuilder('task')
       .leftJoinAndSelect('task.assignee', 'assignee')
       .leftJoinAndSelect('task.createdBy', 'createdBy')
       .leftJoinAndSelect('task.project', 'project');
 
+    // Aplica filtros opcionais
     if (status) {
       queryBuilder.andWhere('task.status = :status', { status });
     }
@@ -51,7 +63,8 @@ export class TasksService {
       queryBuilder.andWhere('task.assigneeId = :assigneeId', { assigneeId });
     }
 
-    // Role-based filtering
+    // Filtragem baseada em permissões (RBAC)
+    // Developers só podem ver tarefas que criaram ou foram atribuídas a eles
     if (user.role === UserRole.DEVELOPER) {
       queryBuilder.andWhere(
         '(task.assigneeId = :userId OR task.createdById = :userId)',
@@ -60,11 +73,12 @@ export class TasksService {
     }
 
     const [tasks, total] = await queryBuilder
-      .orderBy('task.createdAt', 'DESC')
+      .orderBy('task.createdAt', 'DESC') // Ordena por data de criação (mais recente primeiro)
       .skip(skip)
       .take(limit)
       .getManyAndCount();
 
+    // Retorna dados paginados com metadados
     return {
       data: tasks,
       total,
@@ -74,40 +88,55 @@ export class TasksService {
     };
   }
 
+  /**
+   * Busca uma tarefa por ID com verificação de permissão
+   * Carrega todos os relacionamentos necessários
+   */
   async findOne(id: string, user: User): Promise<Task> {
     const task = await this.taskRepository.findOne({
       where: { id },
-      relations: ['assignee', 'createdBy', 'project', 'comments'],
+      relations: ['assignee', 'createdBy', 'project', 'comments'], // Carrega relacionamentos
     });
 
     if (!task) {
       throw new NotFoundException('Task not found');
     }
 
+    // Verifica se o usuário tem permissão para ver esta tarefa
     this.checkTaskAccess(task, user);
     return task;
   }
 
+  /**
+   * Atualiza uma tarefa existente
+   * Regra de Negócio: Viewers não podem editar tarefas
+   */
   async update(id: string, updateTaskDto: UpdateTaskDto, user: User): Promise<Task> {
-    const task = await this.findOne(id, user);
+    const task = await this.findOne(id, user); // Busca e verifica permissão
     
-    // Check permissions for update
+    // Verifica permissões para atualização
     if (user.role === UserRole.VIEWER) {
       throw new ForbiddenException('Viewers cannot update tasks');
     }
 
+    // Atualiza os campos da tarefa
     Object.assign(task, {
       ...updateTaskDto,
+      // Converte data string para Date object se fornecida
       dueDate: updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : task.dueDate,
     });
 
     return this.taskRepository.save(task);
   }
 
+  /**
+   * Remove uma tarefa do sistema
+   * Regra de Negócio: Apenas admin, manager ou criador da tarefa podem deletar
+   */
   async remove(id: string, user: User): Promise<void> {
     const task = await this.findOne(id, user);
 
-    // Only admin, manager, or task creator can delete
+    // Verifica permissões para exclusão (hierarquia de permissões)
     if (
       user.role !== UserRole.ADMIN &&
       user.role !== UserRole.MANAGER &&
@@ -119,6 +148,10 @@ export class TasksService {
     await this.taskRepository.remove(task);
   }
 
+  /**
+   * Move uma tarefa para outro projeto
+   * Funcionalidade para reorganização de projetos
+   */
   async moveTask(id: string, newProjectId: string, user: User): Promise<Task> {
     const task = await this.findOne(id, user);
 
@@ -130,13 +163,19 @@ export class TasksService {
     return this.taskRepository.save(task);
   }
 
+  /**
+   * Método privado para verificar acesso à tarefa baseado no RBAC
+   * Hierarquia: Admin/Manager (acesso total) > Developer (próprias tarefas) > Viewer (somente leitura)
+   */
   private checkTaskAccess(task: Task, user: User): void {
+    // Admin e Manager têm acesso total
     if (user.role === UserRole.ADMIN || user.role === UserRole.MANAGER) {
-      return; // Full access
+      return; 
     }
 
+    // Developers podem acessar apenas tarefas que criaram ou foram atribuídas a eles
     if (task.assigneeId === user.id || task.createdById === user.id) {
-      return; // Access to own tasks
+      return; 
     }
 
     throw new ForbiddenException('Access denied to this task');

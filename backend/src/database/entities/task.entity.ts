@@ -3,13 +3,21 @@ import { User } from './user.entity';
 import { Project } from './project.entity';
 import { Comment } from './comment.entity';
 
+/**
+ * Estados possíveis de uma tarefa no fluxo Kanban
+ * Representa o ciclo de vida completo de uma tarefa
+ */
 export enum TaskStatus {
-  PENDING = 'pending',
-  IN_PROGRESS = 'in_progress',
-  TESTING = 'testing',
-  DONE = 'done',
+  PENDING = 'pending',       // Tarefa criada, aguardando início
+  IN_PROGRESS = 'in_progress', // Em desenvolvimento
+  TESTING = 'testing',       // Em fase de testes/QA
+  DONE = 'done',            // Concluída
 }
 
+/**
+ * Entidade principal do sistema Kanban
+ * Representa uma tarefa com todos os seus relacionamentos e metadados
+ */
 @Entity('tasks')
 export class Task {
   @PrimaryGeneratedColumn('uuid')
@@ -45,6 +53,7 @@ export class Task {
   @Column({ name: 'created_by' })
   createdById: string;
 
+  // Prioridade: 0=baixa, 1=média, 2=alta
   @Column({ default: 0 })
   priority: number;
 
