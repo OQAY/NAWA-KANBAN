@@ -665,12 +665,11 @@ interface ColumnData {
       background: rgba(241, 242, 244, 0.9);
       padding: 8px;
       border-radius: 0 0 12px 12px;
-      min-height: 50px;
       transition: all 0.3s ease;
       backdrop-filter: blur(5px);
-      flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
+      max-height: calc(100vh - 350px);
     }
     .column-content.drag-over {
       background: #e3f2fd;
