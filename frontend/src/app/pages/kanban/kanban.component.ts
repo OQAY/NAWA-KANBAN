@@ -112,17 +112,8 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
               </div>
             </div>
             
-            <!-- Botão mobile para abrir painel lateral -->
-            <button class="mobile-toggle-btn" (click)="toggleMobilePanel()" *ngIf="!showMobilePanel">
-              ⚙️
-            </button>
-            
             <!-- Coluna direita: 40% - Ações e Info -->
-            <div class="right-column" [class.mobile-visible]="showMobilePanel">
-              <!-- Botão de fechar painel mobile -->
-              <button class="mobile-close-btn" (click)="closeMobilePanel()" *ngIf="showMobilePanel">
-                ✕
-              </button>
+            <div class="right-column">
               
               <div class="actions-section">
                 <h3>Ações</h3>
@@ -371,7 +362,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .columns {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       margin-top: 20px;
       overflow-x: auto;
       padding-bottom: 10px;
@@ -690,13 +681,15 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     .modal-body {
       display: flex;
       flex: 1;
-      overflow: hidden;
+      overflow: visible;
+      align-items: flex-start;
     }
     .left-column {
-      flex: 1;
+      flex: 0 1 auto;
       padding: 20px;
-      overflow-y: auto;
+      overflow-y: visible;
       border-right: 1px solid #eee;
+      align-self: flex-start;
     }
     .right-column {
       width: 40%;
@@ -704,6 +697,8 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       background: #f8f9fa;
       overflow-y: auto;
       overflow-x: hidden;
+      align-self: stretch;
+      flex: 1;
     }
     .title-section h2 {
       margin: 0 0 20px 0;
@@ -1405,83 +1400,48 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
         width: 90%;
         margin: 4vh auto;
         min-width: unset;
+        height: auto;
+        max-height: 92vh;
+        overflow-y: auto;
       }
       
       .modal-body {
         flex-direction: column;
         position: relative;
+        overflow: visible;
       }
       
       .left-column {
         width: 100%;
         padding: 16px;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 0;
       }
       
       .right-column {
-        position: fixed;
-        top: 4vh;
-        right: -90%;
-        width: 90%;
-        height: 92vh;
-        background: white;
-        z-index: 1001;
-        transition: right 0.3s ease;
-        overflow-y: auto;
+        width: 100%;
         padding: 16px;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        background: white;
+        position: relative;
+        top: auto;
+        right: auto;
+        height: auto;
+        z-index: auto;
+        transition: none;
+        overflow: visible;
+        border-radius: 0;
+        box-shadow: none;
+        align-self: auto;
+        flex: none;
       }
-      
-      .right-column.mobile-visible {
-        right: 5%;
-      }
-      
-      .mobile-toggle-btn {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 44px;
-        height: 44px;
-        background: #0079bf;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1002;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.2s ease;
-      }
-      
-      .mobile-toggle-btn:hover {
-        background: #026aa7;
-        transform: scale(1.05);
-      }
-      
+    }
+    
+    /* Ocultar botões mobile apenas no mobile (coluna única) */
+    @media (max-width: 425px) {
+      .mobile-toggle-btn,
       .mobile-close-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 36px;
-        height: 36px;
-        background: #f4f5f7;
-        color: #5e6c84;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1003;
-        font-size: 18px;
-        transition: all 0.2s ease;
-      }
-      
-      .mobile-close-btn:hover {
-        background: #e4e6ea;
-        color: #172b4d;
+        display: none;
       }
     }
     
@@ -1586,8 +1546,9 @@ export class KanbanComponent implements OnInit {
   editingCommentContent = '';
   expandedComment: Comment | null = null;
 
-  // Propriedade para controle mobile
+  // Propriedade para controle mobile (mantida para futuro uso)
   showMobilePanel = false;
+
 
   constructor(
     private taskService: TaskService,
@@ -1826,17 +1787,20 @@ export class KanbanComponent implements OnInit {
                       this.editForm.description !== this.editingTask.description;
     
     if (hasChanges && this.editForm.title.trim()) {
-      this.taskService.updateTask(this.editingTask.id, {
+      const taskId = this.editingTask.id; // Salvar o ID antes da chamada assíncrona
+      
+      this.taskService.updateTask(taskId, {
         title: this.editForm.title,
         description: this.editForm.description,
         priority: this.editingTask.priority,
         status: this.editingTask.status
       }).subscribe({
         next: (updatedTask) => {
-          const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
+          const index = this.tasks.findIndex(t => t.id === taskId);
           if (index !== -1) this.tasks[index] = updatedTask;
           this.modalTask = updatedTask;
           this.editingTask = null;
+          this.hasUnsavedChanges = false;
         },
         error: (error) => {
           console.error('Error updating task:', error);
@@ -1845,6 +1809,7 @@ export class KanbanComponent implements OnInit {
       });
     } else {
       this.editingTask = null;
+      this.hasUnsavedChanges = false;
     }
   }
 
@@ -2267,7 +2232,7 @@ export class KanbanComponent implements OnInit {
     }
   }
 
-  // Métodos para controle do painel mobile
+  // Métodos para controle do painel mobile (mantidos para compatibilidade)
   toggleMobilePanel(): void {
     this.showMobilePanel = !this.showMobilePanel;
   }
