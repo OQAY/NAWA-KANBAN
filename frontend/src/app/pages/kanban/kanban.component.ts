@@ -103,23 +103,32 @@ interface ColumnData {
         
         <!-- Adicionar nova coluna - sempre em último lugar -->
         <div class="column add-column-interface">
-          <div *ngIf="!addingColumn" class="add-column-btn" (click)="startAddingColumn()">
-            <span class="plus-icon">+</span>
-            <span class="add-text">Adicionar uma lista</span>
+          <div class="column-header">
+            <h3>Adicionar uma lista</h3>
+            <span class="task-count">+</span>
           </div>
           
-          <div *ngIf="addingColumn" class="add-column-form">
-            <input 
-              [(ngModel)]="newColumnTitle"
-              placeholder="Insira o título da lista..."
-              class="column-title-input"
-              (keydown)="onColumnTitleKeydown($event)"
-              maxlength="50">
-            <div class="add-column-actions">
-              <button (click)="confirmAddColumn()" class="btn-add-column">Adicionar lista</button>
-              <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
+          <div class="column-content">
+            <div *ngIf="!addingColumn" class="add-card-container">
+              <div class="add-card-btn" (click)="startAddingColumn()">
+                <span class="plus-icon">+</span>
+                <span class="add-text">Adicionar uma lista</span>
+              </div>
             </div>
-          </div>
+            
+            <div *ngIf="addingColumn" class="add-card-form">
+              <textarea 
+                [(ngModel)]="newColumnTitle"
+                placeholder="Insira o título da lista..."
+                class="card-title-input"
+                (keydown)="onColumnTitleKeydown($event)"
+                maxlength="50">
+              </textarea>
+              <div class="add-card-actions">
+                <button (click)="confirmAddColumn()" class="btn-add-card">Adicionar lista</button>
+                <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
