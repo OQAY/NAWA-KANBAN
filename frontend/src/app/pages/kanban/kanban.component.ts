@@ -6,7 +6,13 @@ import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 
-// ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
+/**
+ * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
+ * Define a estrutura padrão para todas as colunas do sistema (padrão + customizadas)
+ * - 'standard': Colunas pré-definidas do sistema (pending, in_progress, testing, done)
+ * - 'custom': Colunas criadas dinamicamente pelo usuário
+ * - 'order': Controla a sequência de exibição das colunas no board
+ */
 interface ColumnData {
   id: string;
   status: string;
@@ -2050,10 +2056,15 @@ export class KanbanComponent implements OnInit {
     });
   }
 
+  /**
+   * BUSINESS LOGIC: Retorna tarefas filtradas por status com ordenação por prioridade
+   * Implementa ordenação decrescente (alta -> baixa) para exibir tarefas importantes primeiro
+   * TODO: Considerar adicionar ordenação secundária por data de criação
+   */
   getTasksByStatus(status: TaskStatus | string): Task[] {
     return this.tasks
       .filter(task => task.status === status)
-      .sort((a, b) => (b.priority || 0) - (a.priority || 0));
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0)); // Prioridade alta (3) primeiro
   }
 
   getStatusLabel(status: TaskStatus): string {
@@ -2632,12 +2643,20 @@ export class KanbanComponent implements OnInit {
     this.descriptionTruncated = !this.descriptionTruncated;
   }
 
+  /**
+   * UI INTERACTION: Detecção de clique fora do modal para fechamento
+   * Implementa padrão click-outside-to-close com prevenção de fechamento acidental
+   */
   onOverlayMouseDown(event: MouseEvent): void {
     if (event.target === event.currentTarget) {
-      this.isSelecting = true;
+      this.isSelecting = true; // Marca início da seleção no overlay
     }
   }
 
+  /**
+   * UI INTERACTION: Completa a detecção de click-outside
+   * Só fecha o modal se mousedown E mouseup foram no mesmo overlay (evita arrastar)
+   */
   onOverlayMouseUp(event: MouseEvent): void {
     if (event.target === event.currentTarget && this.isSelecting) {
       this.closeModal();
