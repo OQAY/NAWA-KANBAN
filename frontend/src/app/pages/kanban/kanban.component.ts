@@ -6,6 +6,7 @@ import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
+import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -25,7 +26,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent],
+  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent],
   template: `
     <div class="kanban-board">
       <div class="header-section">
@@ -78,27 +79,14 @@ interface ColumnData {
               Nenhuma tarefa
             </div>
             
-            <!-- Botão adicionar cartão estilo Trello -->
-            <div class="add-card-container">
-              <div *ngIf="!addingToColumn[column.status]" class="add-card-btn" (click)="startAddingCard(column.status)">
-                <span class="plus-icon">+</span>
-                <span class="add-text">Adicionar um cartão</span>
-              </div>
-              
-              <div *ngIf="addingToColumn[column.status]" class="add-card-form">
-                <textarea 
-                  [(ngModel)]="newCardTitle[column.status]"
-                  placeholder="Insira um título para este cartão..."
-                  class="card-title-input"
-                  (keydown)="onCardTitleKeydown($event, column.status)"
-                  #cardInput>
-                </textarea>
-                <div class="add-card-actions">
-                  <button (click)="confirmAddCard(column.status)" class="btn-add-card">Adicionar cartão</button>
-                  <button (click)="cancelAddCard(column.status)" class="btn-cancel-add">✕</button>
-                </div>
-              </div>
-            </div>
+            <!-- Componente AddCardForm -->
+            <app-add-card-form
+              [isActive]="addingToColumn[column.status] || false"
+              [columnStatus]="column.status"
+              (startAddCard)="handleStartAddCard($event)"
+              (confirmAddCard)="handleConfirmAddCard($event)"
+              (cancelAddCard)="handleCancelAddCard($event)">
+            </app-add-card-form>
           </div>
         </div>
         
@@ -2437,6 +2425,21 @@ export class KanbanComponent implements OnInit {
   handleTaskTouchEnd(data: {event: TouchEvent, task: Task, status?: string}): void {
     const status = data.status || 'pending';
     this.onTouchEnd(data.event, status);
+  }
+
+  // Handlers para AddCardForm component
+  handleStartAddCard(status: string): void {
+    this.startAddingCard(status);
+  }
+
+  handleConfirmAddCard(data: {status: string, title: string}): void {
+    // Simula o comportamento original
+    this.newCardTitle[data.status] = data.title;
+    this.confirmAddCard(data.status);
+  }
+
+  handleCancelAddCard(status: string): void {
+    this.cancelAddCard(status);
   }
   
   // Método para auto-scroll nas bordas
