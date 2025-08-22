@@ -987,13 +987,15 @@ interface ColumnData {
       align-items: flex-start;
     }
     .left-column {
-      flex: 0 1 auto;
+      flex: 0 0 60%;
+      min-width: 60%;
       padding: 20px;
       overflow-y: visible;
       border-right: 1px solid #eee;
       align-self: flex-start;
     }
     .right-column {
+      flex: 0 0 40%;
       width: 40%;
       padding: 20px;
       background: #f8f9fa;
@@ -3322,7 +3324,16 @@ export class KanbanComponent implements OnInit {
 
   // Método para obter tarefas por status (aceita string também)
   getTasksByStatusString(status: string): Task[] {
-    return this.tasks.filter(task => task.status === status);
+    return this.tasks
+      .filter(task => task.status === status)
+      .sort((a, b) => {
+        // Ordenação por prioridade: Alta (2) -> Média (1) -> Baixa (0)
+        if (b.priority !== a.priority) {
+          return b.priority - a.priority;
+        }
+        // Se prioridade igual, ordena por data de criação (mais recente primeiro)
+        return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+      });
   }
 
 }
