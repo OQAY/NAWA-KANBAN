@@ -476,6 +476,11 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       padding: 8px;
       border-radius: 0 0 12px 12px;
       min-height: 50px;
+      transition: all 0.3s ease;
+    }
+    .column-content.drag-over {
+      background: #e3f2fd;
+      border: 2px dashed #2196f3;
     }
     .task-card {
       background: white;
@@ -1554,13 +1559,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       
       .column-content {
         min-height: 200px;
-        transition: background-color 0.3s ease;
         position: relative;
-      }
-      
-      .column-content.drag-over {
-        background: #e3f2fd;
-        border: 2px dashed #2196f3;
       }
       
       .task-card.dragging {
@@ -1870,6 +1869,10 @@ export class KanbanComponent implements OnInit {
 
   onDragEnd(): void {
     this.draggedTask = null;
+    // Remove highlight de todas as colunas
+    document.querySelectorAll('.column-content').forEach(col => {
+      col.classList.remove('drag-over');
+    });
   }
   
   // Métodos para touch/drag no mobile
@@ -2040,10 +2043,26 @@ export class KanbanComponent implements OnInit {
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
+    
+    // Adiciona highlight visual na coluna
+    const columnContent = (event.currentTarget as HTMLElement);
+    if (columnContent && columnContent.classList.contains('column-content')) {
+      // Remove highlight de todas as colunas
+      document.querySelectorAll('.column-content').forEach(col => {
+        col.classList.remove('drag-over');
+      });
+      // Adiciona highlight na coluna atual
+      columnContent.classList.add('drag-over');
+    }
   }
 
   onDrop(event: DragEvent, newStatus: TaskStatus): void {
     event.preventDefault();
+    
+    // Remove highlight de todas as colunas
+    document.querySelectorAll('.column-content').forEach(col => {
+      col.classList.remove('drag-over');
+    });
     
     if (!this.draggedTask || this.draggedTask.status === newStatus) {
       this.draggedTask = null;
