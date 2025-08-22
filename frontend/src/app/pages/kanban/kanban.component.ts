@@ -133,15 +133,6 @@ interface ColumnData {
         </div>
       </div>
 
-      <!-- Scrollbar horizontal customizada fixa -->
-      <div class="fixed-horizontal-scrollbar" #fixedScrollbar (mousedown)="onScrollbarMouseDown($event)">
-        <div class="fixed-horizontal-scrollbar-thumb" 
-             #scrollbarThumb 
-             [style.width.%]="scrollThumbWidth" 
-             [style.left.%]="scrollThumbLeft"
-             (mousedown)="onThumbMouseDown($event)"></div>
-      </div>
-      
       <!-- Modal Task Details - Estilo Trello -->
       <div class="modal-overlay" *ngIf="showModal" (mousedown)="onOverlayMouseDown($event)" (mouseup)="onOverlayMouseUp($event)">
         <div class="modal-content" (click)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()" (mouseup)="$event.stopPropagation()">
@@ -493,12 +484,21 @@ interface ColumnData {
       overflow-x: auto;
       overflow-y: hidden;
       padding-bottom: 30px;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
     }
     
     .columns-container::-webkit-scrollbar {
-      display: none;
+      height: 8px;
+    }
+    .columns-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .columns-container::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    .columns-container::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
 
     .columns {
@@ -507,38 +507,10 @@ interface ColumnData {
       box-sizing: border-box;
       position: relative;
       white-space: normal;
+      min-width: 2000px;
     }
     
 
-    /* Nova scrollbar horizontal fixa no bottom da página */
-    .fixed-horizontal-scrollbar {
-      position: fixed;
-      bottom: 10px;
-      left: 20px;
-      right: 20px;
-      height: 12px;
-      background: rgba(241, 242, 244, 0.9);
-      border-radius: 6px;
-      z-index: 1000;
-      cursor: pointer;
-    }
-    
-    .fixed-horizontal-scrollbar-thumb {
-      height: 100%;
-      background: rgba(193, 193, 193, 1);
-      border-radius: 6px;
-      transition: background 0.2s ease;
-      cursor: grab;
-    }
-    
-    .fixed-horizontal-scrollbar-thumb:hover {
-      background: rgba(168, 168, 168, 1);
-    }
-    
-    .fixed-horizontal-scrollbar-thumb:active {
-      cursor: grabbing;
-      background: rgba(128, 128, 128, 1);
-    }
 
     /* Scrollbar vertical para conteúdo das colunas */
     .column-content::-webkit-scrollbar {
@@ -1879,6 +1851,16 @@ interface ColumnData {
       }
     }
     
+    /* Large screens and below (1024px and down) */
+    @media (max-width: 1024px) {
+      .header-section h2 {
+        font-size: 15px;
+        padding: 6px;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+    
     /* Large Desktop (1200px+) */
     @media (min-width: 1200px) {
       .modal-content {
@@ -1946,9 +1928,6 @@ export class KanbanComponent implements OnInit {
   descriptionTruncated = true;
   isSelecting = false;
   
-  // Propriedades para scrollbar horizontal customizada
-  scrollThumbWidth = 20; // Largura do thumb em %
-  scrollThumbLeft = 0;   // Posição do thumb em %
   
   // Propriedades para adicionar cartão estilo Trello
   addingToColumn: { [key: string]: boolean } = {};
@@ -2020,6 +1999,7 @@ export class KanbanComponent implements OnInit {
     this.loadSavedColumns();
     this.loadTasks();
   }
+
 
   // ENTERPRISE METHOD: Inicialização das colunas padrão
   private initializeColumns(): void {
@@ -3320,53 +3300,4 @@ export class KanbanComponent implements OnInit {
     return this.tasks.filter(task => task.status === status);
   }
 
-  // MÉTODOS PARA SCROLLBAR HORIZONTAL CUSTOMIZADA
-  onScrollbarMouseDown(event: MouseEvent): void {
-    // Clique na track da scrollbar - move para posição
-    const scrollbarElement = event.currentTarget as HTMLElement;
-    const rect = scrollbarElement.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    const percentage = (clickX / rect.width) * 100;
-    
-    // Move o thumb para a posição clicada
-    this.scrollThumbLeft = Math.max(0, Math.min(100 - this.scrollThumbWidth, percentage - this.scrollThumbWidth / 2));
-    this.syncScrollPosition();
-  }
-
-  onThumbMouseDown(event: MouseEvent): void {
-    event.stopPropagation();
-    event.preventDefault();
-    
-    const startX = event.clientX;
-    const startLeft = this.scrollThumbLeft;
-    
-    const onMouseMove = (e: MouseEvent) => {
-      const deltaX = e.clientX - startX;
-      const scrollbarWidth = window.innerWidth - 40; // Considera os 20px de margem de cada lado
-      const deltaPercentage = (deltaX / scrollbarWidth) * 100;
-      
-      this.scrollThumbLeft = Math.max(0, Math.min(100 - this.scrollThumbWidth, startLeft + deltaPercentage));
-      this.syncScrollPosition();
-    };
-    
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-    
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  }
-
-  private syncScrollPosition(): void {
-    // Encontra o elemento columns-container
-    const columnsContainer = document.querySelector('.columns-container') as HTMLElement;
-    if (!columnsContainer) return;
-    
-    // Calcula a posição de scroll baseada na posição do thumb
-    const maxScrollLeft = columnsContainer.scrollWidth - columnsContainer.clientWidth;
-    const scrollLeft = (this.scrollThumbLeft / (100 - this.scrollThumbWidth)) * maxScrollLeft;
-    
-    columnsContainer.scrollLeft = scrollLeft;
-  }
 }
