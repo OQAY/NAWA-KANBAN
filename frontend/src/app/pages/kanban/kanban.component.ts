@@ -384,8 +384,8 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     .column {
       background: transparent;
       border-radius: 12px;
-      width: 300px;
-      min-width: 300px;
+      width: 240px;
+      min-width: 240px;
       flex-shrink: 0;
     }
     .column-header {
@@ -399,7 +399,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .column-header h3 {
       margin: 0;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 600;
       color: #172b4d;
     }
@@ -446,7 +446,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .task-card h4 {
       margin: 0 0 8px 0;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 600;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -456,7 +456,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .task-card p {
       margin: 0 0 8px 0;
-      font-size: 12px;
+      font-size: 10px;
       color: #6c757d;
       line-height: 1.4;
       display: -webkit-box;
@@ -557,7 +557,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       border: none;
       cursor: pointer;
       color: #5e6c84;
-      font-size: 14px;
+      font-size: 11px;
       transition: all 0.2s ease;
       width: 100%;
       text-align: left;
@@ -585,8 +585,8 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       padding: 8px 12px;
       border: none;
       border-radius: 3px;
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 11px;
+      line-height: 16px;
       resize: none;
       box-shadow: inset 0 0 0 2px #0079bf;
       outline: none;
@@ -604,7 +604,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       border: none;
       padding: 6px 12px;
       border-radius: 3px;
-      font-size: 14px;
+      font-size: 11px;
       cursor: pointer;
       font-weight: 400;
     }
