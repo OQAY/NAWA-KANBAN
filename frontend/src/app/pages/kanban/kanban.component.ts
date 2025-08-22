@@ -25,8 +25,15 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       </div>
       
       <div class="columns">
-        <div class="column" *ngFor="let status of statuses">
-          <div class="column-header">
+        <div class="column" *ngFor="let status of statuses; let i = index" 
+             [class.drag-over-column]="dragOverColumnIndex === i"
+             (dragover)="onColumnDragOver($event, i)"
+             (dragleave)="onColumnDragLeave()"
+             (drop)="onColumnDrop($event, i)">
+          <div class="column-header" 
+               draggable="true"
+               (dragstart)="onColumnDragStart($event, { status: status, label: getStatusLabel(status) }, i)"
+               (dragend)="onColumnDragEnd()">
             <h3>{{ getStatusLabel(status) }}</h3>
             <span class="task-count">{{ getTasksByStatus(status).length }}</span>
           </div>
@@ -81,34 +88,16 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
           </div>
         </div>
         
-        <!-- Coluna para adicionar nova coluna -->
-        <div class="column add-column-container">
-          <div class="column-header">
-            <h3 *ngIf="!addingColumn" (click)="startAddingColumn()" class="add-column-title">+ Adicionar uma coluna</h3>
-            <div *ngIf="addingColumn" class="add-column-form">
-              <input 
-                [(ngModel)]="newColumnTitle"
-                placeholder="Digite o título da coluna..."
-                class="column-title-input"
-                (keydown)="onColumnTitleKeydown($event)"
-                #columnInput>
-              <div class="add-column-actions">
-                <button (click)="confirmAddColumn()" class="btn-add-column">Adicionar</button>
-                <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="column-content" *ngIf="!addingColumn">
-            <div class="empty-column">
-              Clique acima para adicionar
-            </div>
-          </div>
-        </div>
-        
         <!-- Colunas customizadas -->
-        <div class="column" *ngFor="let customCol of customColumns; let i = index">
-          <div class="column-header">
+        <div class="column" *ngFor="let customCol of customColumns; let i = index" 
+             [class.drag-over-column]="dragOverColumnIndex === (statuses.length + i)"
+             (dragover)="onColumnDragOver($event, statuses.length + i)"
+             (dragleave)="onColumnDragLeave()"
+             (drop)="onColumnDrop($event, statuses.length + i)">
+          <div class="column-header" 
+               draggable="true"
+               (dragstart)="onColumnDragStart($event, customCol, statuses.length + i)"
+               (dragend)="onColumnDragEnd()">
             <h3>{{ customCol.label }}</h3>
             <span class="task-count">{{ getTasksByStatusString(customCol.status).length }}</span>
           </div>
@@ -159,6 +148,27 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
                   <button (click)="cancelAddCard(customCol.status)" class="btn-cancel-add">✕</button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Adicionar nova coluna - sempre em último lugar -->
+        <div class="column add-column-interface">
+          <div *ngIf="!addingColumn" class="add-column-btn" (click)="startAddingColumn()">
+            <span class="plus-icon">+</span>
+            <span class="add-text">Adicionar uma lista</span>
+          </div>
+          
+          <div *ngIf="addingColumn" class="add-column-form">
+            <input 
+              [(ngModel)]="newColumnTitle"
+              placeholder="Insira o título da lista..."
+              class="column-title-input"
+              (keydown)="onColumnTitleKeydown($event)"
+              maxlength="50">
+            <div class="add-column-actions">
+              <button (click)="confirmAddColumn()" class="btn-add-column">Adicionar lista</button>
+              <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
             </div>
           </div>
         </div>
@@ -564,6 +574,28 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       font-weight: 500;
       min-width: 18px;
       text-align: center;
+    }
+    
+    /* Estilos para drag-and-drop de colunas */
+    .column-header[draggable="true"] {
+      cursor: move;
+      transition: all 0.2s ease;
+    }
+    
+    .column-header[draggable="true"]:hover {
+      background: rgba(241, 242, 244, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .column.drag-over-column {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
+      border: 2px dashed #007bff;
+    }
+    
+    .column-header:active {
+      opacity: 0.7;
     }
     .column-content {
       background: rgba(241, 242, 244, 0.9);
@@ -1836,6 +1868,10 @@ export class KanbanComponent implements OnInit {
   
   draggedTask: Task | null = null;
   editingTask: Task | null = null;
+  
+  // Propriedades para drag-and-drop de colunas
+  draggedColumn: { status: string; label: string; index: number } | null = null;
+  dragOverColumnIndex: number = -1;
   editForm = {
     title: '',
     description: ''
@@ -2033,6 +2069,91 @@ export class KanbanComponent implements OnInit {
     document.querySelectorAll('.column-content').forEach(col => {
       col.classList.remove('drag-over');
     });
+  }
+
+  // Métodos para drag-and-drop de colunas
+  onColumnDragStart(event: DragEvent, columnData: { status: string; label: string }, index: number): void {
+    event.stopPropagation(); // Evita conflito com drag de tarefas
+    this.draggedColumn = { ...columnData, index };
+    console.log('Column drag started:', this.draggedColumn);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', 'column');
+    }
+  }
+
+  onColumnDragOver(event: DragEvent, index: number): void {
+    if (this.draggedColumn) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.dragOverColumnIndex = index;
+      console.log('Drag over column index:', index, 'from:', this.draggedColumn.index);
+      
+      // Só permite drag sobre colunas que não são a origem
+      if (this.draggedColumn.index !== index) {
+        if (event.dataTransfer) {
+          event.dataTransfer.dropEffect = 'move';
+        }
+      }
+    }
+  }
+
+  onColumnDragLeave(): void {
+    this.dragOverColumnIndex = -1;
+  }
+
+  onColumnDrop(event: DragEvent, targetIndex: number): void {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    console.log('Column drop attempt:', { draggedColumn: this.draggedColumn, targetIndex });
+    
+    if (!this.draggedColumn || this.draggedColumn.index === targetIndex) {
+      console.log('Drop cancelled - same position or no dragged column');
+      this.draggedColumn = null;
+      this.dragOverColumnIndex = -1;
+      return;
+    }
+
+    const sourceIndex = this.draggedColumn.index;
+    
+    // Criar array combinado de todas as colunas para reorganização
+    const allColumns = [
+      ...this.statuses.map(status => ({ status, label: this.getStatusLabel(status), isStandard: true })),
+      ...this.customColumns.map(col => ({ ...col, isStandard: false }))
+    ];
+
+    // Remove a coluna da posição original
+    const [movedColumn] = allColumns.splice(sourceIndex, 1);
+    
+    // Insere na nova posição
+    allColumns.splice(targetIndex, 0, movedColumn);
+    
+    // Separar novamente em colunas padrão e customizadas
+    const newStandardColumns: string[] = [];
+    const newCustomColumns: { status: string; label: string }[] = [];
+    
+    allColumns.forEach(col => {
+      if (col.isStandard) {
+        newStandardColumns.push(col.status);
+      } else {
+        newCustomColumns.push({ status: col.status, label: col.label });
+      }
+    });
+    
+    // Atualizar as arrays
+    this.statuses = newStandardColumns as any;
+    this.customColumns = newCustomColumns;
+    
+    console.log('Columns reordered successfully:', { newStandardColumns, newCustomColumns });
+
+    this.draggedColumn = null;
+    this.dragOverColumnIndex = -1;
+  }
+
+  onColumnDragEnd(): void {
+    this.draggedColumn = null;
+    this.dragOverColumnIndex = -1;
   }
   
   // Métodos para touch/drag no mobile
