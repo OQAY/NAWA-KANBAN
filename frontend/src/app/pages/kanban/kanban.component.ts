@@ -1741,6 +1741,7 @@ export class KanbanComponent implements OnInit {
   touchStartY = 0;
   currentTouchTask: Task | null = null;
   isDraggingTouch = false;
+  autoScrollInterval: any = null;
 
 
   constructor(
@@ -1878,25 +1879,15 @@ export class KanbanComponent implements OnInit {
     this.currentTouchTask = task;
     this.isDraggingTouch = false;
     
-    // Reduz delay para 100ms para mais responsividade
-    setTimeout(() => {
-      if (this.currentTouchTask === task) {
-        this.isDraggingTouch = true;
-        const element = event.target as HTMLElement;
-        element.classList.add('dragging');
-        
-        // Desabilita scroll horizontal durante drag
-        const columnsElement = document.querySelector('.columns');
-        if (columnsElement) {
-          columnsElement.classList.add('dragging-active');
-        }
-        
-        // Vibração de feedback (se suportado)
-        if ('vibrate' in navigator) {
-          navigator.vibrate(30);
-        }
-      }
-    }, 100);
+    // Ativa drag imediatamente após movimento mínimo
+    this.isDraggingTouch = true;
+    const element = event.target as HTMLElement;
+    
+    // Desabilita scroll horizontal durante drag
+    const columnsElement = document.querySelector('.columns');
+    if (columnsElement) {
+      columnsElement.classList.add('dragging-active');
+    }
   }
   
   onTouchMove(event: TouchEvent): void {
@@ -1908,23 +1899,31 @@ export class KanbanComponent implements OnInit {
     const moveX = touch.clientX - this.touchStartX;
     const moveY = touch.clientY - this.touchStartY;
     
-    // Movimento mínimo para considerar drag
-    if (Math.abs(moveX) > 5 || Math.abs(moveY) > 5) {
-      const element = event.currentTarget as HTMLElement;
-      element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-      element.style.zIndex = '9999';
-      element.style.position = 'relative';
+    // Aplica transformação imediatamente
+    const element = event.currentTarget as HTMLElement;
+    element.classList.add('dragging');
+    element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+    element.style.zIndex = '9999';
+    element.style.position = 'relative';
+    
+    // Auto-scroll nas bordas
+    this.handleAutoScroll(touch.clientX);
+    
+    // Detecção baseada na posição do dedo
+    element.style.pointerEvents = 'none';
+    const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+    element.style.pointerEvents = '';
+    
+    if (elementBelow) {
+      // Remove highlight de todas as colunas
+      document.querySelectorAll('.column-content').forEach(col => {
+        col.classList.remove('drag-over');
+      });
       
-      // Destaca a coluna sob o toque
-      const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-      if (elementBelow) {
-        // Remove highlight de todas as colunas
-        document.querySelectorAll('.column-content').forEach(col => {
-          col.classList.remove('drag-over');
-        });
-        
-        // Adiciona highlight na coluna atual
-        const columnContent = elementBelow.closest('.column-content');
+      // Procura coluna mais próxima
+      const column = elementBelow.closest('.column');
+      if (column) {
+        const columnContent = column.querySelector('.column-content');
         if (columnContent) {
           columnContent.classList.add('drag-over');
         }
@@ -1933,6 +1932,12 @@ export class KanbanComponent implements OnInit {
   }
   
   onTouchEnd(event: TouchEvent, originalStatus: TaskStatus): void {
+    // Para auto-scroll
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+      this.autoScrollInterval = null;
+    }
+    
     // Reabilita scroll horizontal
     const columnsElement = document.querySelector('.columns');
     if (columnsElement) {
@@ -1950,6 +1955,7 @@ export class KanbanComponent implements OnInit {
     element.style.transform = '';
     element.style.zIndex = '';
     element.style.position = '';
+    element.style.pointerEvents = '';
     
     if (!this.currentTouchTask || !this.isDraggingTouch) {
       // Se não estava arrastando, abre o modal
@@ -1963,26 +1969,23 @@ export class KanbanComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     
-    // Detecta qual coluna está sob o toque
+    // Detecta coluna baseada na posição do dedo
     const touch = event.changedTouches[0];
     
-    // Esconde temporariamente o elemento sendo arrastado para detectar o que está embaixo
-    element.style.display = 'none';
+    // Torna elemento invisível para detecção
+    element.style.pointerEvents = 'none';
     const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-    element.style.display = '';
+    element.style.pointerEvents = '';
     
     if (elementBelow) {
-      // Procura por column-content ou column
-      const columnContent = elementBelow.closest('.column-content');
       const column = elementBelow.closest('.column');
       
-      if (columnContent || column) {
-        // Encontra o índice da coluna
+      if (column) {
         const allColumns = document.querySelectorAll('.column');
         let targetIndex = -1;
         
         allColumns.forEach((col, index) => {
-          if (col === column || col.contains(columnContent || elementBelow)) {
+          if (col === column) {
             targetIndex = index;
           }
         });
@@ -1993,9 +1996,9 @@ export class KanbanComponent implements OnInit {
           if (targetStatus !== originalStatus) {
             this.moveTaskToStatus(this.currentTouchTask, targetStatus);
             
-            // Vibração de confirmação
+            // Vibração curta de confirmação
             if ('vibrate' in navigator) {
-              navigator.vibrate([30, 20, 30]);
+              navigator.vibrate(20);
             }
           }
         }
@@ -2004,6 +2007,35 @@ export class KanbanComponent implements OnInit {
     
     this.currentTouchTask = null;
     this.isDraggingTouch = false;
+  }
+  
+  // Método para auto-scroll nas bordas
+  private handleAutoScroll(clientX: number): void {
+    const columnsElement = document.querySelector('.columns') as HTMLElement;
+    if (!columnsElement) return;
+    
+    const rect = columnsElement.getBoundingClientRect();
+    const scrollZone = 50; // Área de 50px nas bordas para ativar scroll
+    const scrollSpeed = 10; // Velocidade do scroll
+    
+    // Para scroll anterior se existir
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+      this.autoScrollInterval = null;
+    }
+    
+    // Scroll para esquerda
+    if (clientX < rect.left + scrollZone) {
+      this.autoScrollInterval = setInterval(() => {
+        columnsElement.scrollLeft -= scrollSpeed;
+      }, 30);
+    }
+    // Scroll para direita
+    else if (clientX > rect.right - scrollZone) {
+      this.autoScrollInterval = setInterval(() => {
+        columnsElement.scrollLeft += scrollSpeed;
+      }, 30);
+    }
   }
 
   onDragOver(event: DragEvent): void {
