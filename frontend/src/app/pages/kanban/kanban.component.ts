@@ -33,12 +33,16 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
           
           <div class="column-content"
                (dragover)="onDragOver($event)"
-               (drop)="onDrop($event, status)">
+               (drop)="onDrop($event, status)"
+      [attr.data-status]="status">
             <div class="task-card" 
                  *ngFor="let task of getTasksByStatus(status)"
                  draggable="true"
                  (dragstart)="onDragStart(task)"
                  (dragend)="onDragEnd()"
+                 (touchstart)="onTouchStart($event, task)"
+                 (touchmove)="onTouchMove($event)"
+                 (touchend)="onTouchEnd($event, status)"
                  (click)="openTaskModal(task)">
               <div class="task-content">
                 <h4>{{ task.title }}</h4>
@@ -119,9 +123,9 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
                 <h3>Ações</h3>
                 <div class="action-buttons">
                   <button *ngIf="!editingTask" (click)="startEdit()" class="action-btn edit-btn">Editar</button>
-                  <button (click)="deleteTask(modalTask!.id)" class="action-btn delete-btn">Excluir</button>
                   <button *ngIf="editingTask" (click)="saveModalEdit()" class="action-btn save-btn">Salvar</button>
                   <button *ngIf="editingTask" (click)="cancelModalEdit()" class="action-btn cancel-btn">Cancelar</button>
+                  <button (click)="showDeleteConfirm(modalTask!.id)" class="action-btn delete-btn">Excluir</button>
                 </div>
               </div>
               
@@ -147,7 +151,21 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
                 </div>
                 <div class="detail-item">
                   <strong>Status</strong>
-                  <span>{{ getStatusLabel(modalTask?.status!) }}</span>
+                  <div class="status-dropdown" (click)="$event.stopPropagation()">
+                    <span class="status status-{{ modalTask?.status }} status-clickable" 
+                          (click)="toggleStatusDropdown()">
+                      {{ getStatusLabel(modalTask?.status!) }}
+                      <span class="dropdown-arrow">▼</span>
+                    </span>
+                    <div class="status-options" *ngIf="showStatusDropdown">
+                      <div class="status-option" 
+                           *ngFor="let status of statusOptions"
+                           (click)="changeStatus(status.value)"
+                           [class.selected]="status.value === modalTask?.status">
+                        <span class="status status-{{ status.value }}">{{ status.label }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -288,6 +306,41 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       </div>
     </div>
 
+    <!-- Modal de Confirmação para Exclusão -->
+    <div class="modal-overlay" *ngIf="showDeleteConfirmModal" (click)="cancelDeleteConfirm()">
+      <div class="save-confirm-modal" (click)="$event.stopPropagation()">
+        <div class="confirm-header">
+          <h3>Excluir tarefa</h3>
+          <svg class="warning-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L22 20H2L12 2Z" stroke="#dc3545" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 9V13" stroke="#dc3545" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 17H12.01" stroke="#dc3545" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="confirm-body">
+          <p>Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.</p>
+        </div>
+        <div class="confirm-actions">
+          <button class="btn-delete-confirm" (click)="confirmDelete()">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="currentColor" stroke-width="2"/>
+              <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2"/>
+              <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Excluir tarefa
+          </button>
+          <button class="btn-cancel-close" (click)="cancelDeleteConfirm()">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 14L4 9L9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal do Comentário Expandido -->
     <div class="modal-overlay" *ngIf="expandedComment" (click)="closeExpandedComment()">
       <div class="expanded-comment-modal" (click)="$event.stopPropagation()">
@@ -320,6 +373,9 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       padding: 20px;
       max-width: 1400px;
       margin: 0 auto;
+      min-height: 100vh;
+      box-sizing: border-box;
+      position: relative;
     }
     .header-section {
       display: flex;
@@ -365,7 +421,9 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       gap: 15px;
       margin-top: 20px;
       overflow-x: auto;
-      padding-bottom: 10px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      position: relative;
+      min-height: calc(100vh - 200px);
     }
     .columns::-webkit-scrollbar {
       height: 8px;
@@ -431,8 +489,20 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
     }
     .task-card:active {
+      cursor: grabbing;
+    }
+    .task-card.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
       cursor: grabbing;
     }
     .task-card:hover {
@@ -854,12 +924,12 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       background: #e4e6ea;
     }
     .delete-btn {
-      background: #f4f5f7;
-      color: #42526e;
+      background: #ffebee;
+      color: #d32f2f;
     }
     .delete-btn:hover {
-      background: #ffebe6;
-      color: #de350b;
+      background: #ffcdd2;
+      color: #c62828;
     }
     .save-btn {
       background: #0079bf;
@@ -935,6 +1005,63 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       font-weight: 500;
     }
     
+    /* CSS para dropdown de status */
+    .status-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .status-clickable {
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-clickable:hover {
+      background-color: #f4f5f7;
+    }
+    .status-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid #dfe1e6;
+      border-radius: 3px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      min-width: 150px;
+      overflow: hidden;
+    }
+    .status-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border-bottom: 1px solid #f4f5f7;
+    }
+    .status-option:last-child {
+      border-bottom: none;
+    }
+    .status-option:hover {
+      background-color: #f4f5f7;
+    }
+    .status-option.selected {
+      background-color: #e4e6ea;
+      font-weight: 500;
+    }
+    .status {
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .status-0 { background: #e9ecef; color: #495057; }
+    .status-1 { background: #fff3cd; color: #856404; }
+    .status-2 { background: #d1ecf1; color: #0c5460; }
+    .status-3 { background: #d4edda; color: #155724; }
+    
     /* CSS para modal de confirmação */
     .save-confirm-modal {
       background: white;
@@ -951,12 +1078,13 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       to { transform: translateY(0); opacity: 1; }
     }
     .confirm-header {
-      background: linear-gradient(135deg, #ffc107, #ff9800);
+      background: #f1f2f4;
       padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
+      color: #172b4d;
+      border-bottom: 1px solid #e4e6ea;
     }
     .confirm-header h3 {
       margin: 0;
@@ -1000,19 +1128,19 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       transition: all 0.2s ease;
     }
     .btn-save-changes {
-      background: #28a745;
+      background: #0079bf;
       color: white;
     }
     .btn-save-changes:hover {
-      background: #218838;
+      background: #026aa7;
       transform: translateY(-1px);
     }
     .btn-discard-changes {
-      background: #dc3545;
+      background: #6b778c;
       color: white;
     }
     .btn-discard-changes:hover {
-      background: #c82333;
+      background: #5e6c84;
       transform: translateY(-1px);
     }
     .btn-cancel-close {
@@ -1022,6 +1150,14 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
     }
     .btn-cancel-close:hover {
       background: #e9ecef;
+      transform: translateY(-1px);
+    }
+    .btn-delete-confirm {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-delete-confirm:hover {
+      background: #c82333;
       transform: translateY(-1px);
     }
     .btn-icon {
@@ -1394,6 +1530,44 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
 
     /* ===== RESPONSIVIDADE PROFISSIONAL DO MODAL ===== */
     
+    /* Estilos específicos para mobile drag and drop */
+    @media (max-width: 768px) {
+      .task-card {
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+      
+      .columns {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+      
+      .columns.dragging-active {
+        overflow-x: hidden;
+        touch-action: none;
+      }
+      
+      .column {
+        position: relative;
+      }
+      
+      .column-content {
+        min-height: 200px;
+        transition: background-color 0.3s ease;
+        position: relative;
+      }
+      
+      .column-content.drag-over {
+        background: #e3f2fd;
+        border: 2px dashed #2196f3;
+      }
+      
+      .task-card.dragging {
+        pointer-events: none;
+      }
+    }
+    
     /* Mobile (até 425px) */
     @media (max-width: 425px) {
       .modal-content {
@@ -1530,6 +1704,15 @@ export class KanbanComponent implements OnInit {
     { value: TaskPriority.HIGH, label: 'Alta' }
   ];
   
+  // Propriedades para dropdown de status
+  showStatusDropdown = false;
+  statusOptions = [
+    { value: TaskStatus.PENDING, label: 'Pendente' },
+    { value: TaskStatus.IN_PROGRESS, label: 'Em Progresso' },
+    { value: TaskStatus.TESTING, label: 'Teste' },
+    { value: TaskStatus.DONE, label: 'Concluído' }
+  ];
+  
   // Propriedades para lixeira drag and drop
   isDragOverTrash = false;
   
@@ -1537,6 +1720,10 @@ export class KanbanComponent implements OnInit {
   hasUnsavedChanges = false;
   showSaveConfirmModal = false;
   originalEditForm = { title: '', description: '' };
+  
+  // Propriedades para confirmação de exclusão
+  showDeleteConfirmModal = false;
+  taskToDeleteId: string | null = null;
 
   // Propriedades para comentários
   taskComments: Comment[] = [];
@@ -1548,6 +1735,12 @@ export class KanbanComponent implements OnInit {
 
   // Propriedade para controle mobile (mantida para futuro uso)
   showMobilePanel = false;
+  
+  // Propriedades para touch/drag mobile
+  touchStartX = 0;
+  touchStartY = 0;
+  currentTouchTask: Task | null = null;
+  isDraggingTouch = false;
 
 
   constructor(
@@ -1677,6 +1870,141 @@ export class KanbanComponent implements OnInit {
   onDragEnd(): void {
     this.draggedTask = null;
   }
+  
+  // Métodos para touch/drag no mobile
+  onTouchStart(event: TouchEvent, task: Task): void {
+    this.touchStartX = event.touches[0].clientX;
+    this.touchStartY = event.touches[0].clientY;
+    this.currentTouchTask = task;
+    this.isDraggingTouch = false;
+    
+    // Reduz delay para 100ms para mais responsividade
+    setTimeout(() => {
+      if (this.currentTouchTask === task) {
+        this.isDraggingTouch = true;
+        const element = event.target as HTMLElement;
+        element.classList.add('dragging');
+        
+        // Desabilita scroll horizontal durante drag
+        const columnsElement = document.querySelector('.columns');
+        if (columnsElement) {
+          columnsElement.classList.add('dragging-active');
+        }
+        
+        // Vibração de feedback (se suportado)
+        if ('vibrate' in navigator) {
+          navigator.vibrate(30);
+        }
+      }
+    }, 100);
+  }
+  
+  onTouchMove(event: TouchEvent): void {
+    if (!this.currentTouchTask || !this.isDraggingTouch) return;
+    
+    event.preventDefault();
+    event.stopPropagation();
+    const touch = event.touches[0];
+    const moveX = touch.clientX - this.touchStartX;
+    const moveY = touch.clientY - this.touchStartY;
+    
+    // Movimento mínimo para considerar drag
+    if (Math.abs(moveX) > 5 || Math.abs(moveY) > 5) {
+      const element = event.currentTarget as HTMLElement;
+      element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+      element.style.zIndex = '9999';
+      element.style.position = 'relative';
+      
+      // Destaca a coluna sob o toque
+      const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (elementBelow) {
+        // Remove highlight de todas as colunas
+        document.querySelectorAll('.column-content').forEach(col => {
+          col.classList.remove('drag-over');
+        });
+        
+        // Adiciona highlight na coluna atual
+        const columnContent = elementBelow.closest('.column-content');
+        if (columnContent) {
+          columnContent.classList.add('drag-over');
+        }
+      }
+    }
+  }
+  
+  onTouchEnd(event: TouchEvent, originalStatus: TaskStatus): void {
+    // Reabilita scroll horizontal
+    const columnsElement = document.querySelector('.columns');
+    if (columnsElement) {
+      columnsElement.classList.remove('dragging-active');
+    }
+    
+    // Remove highlight de todas as colunas
+    document.querySelectorAll('.column-content').forEach(col => {
+      col.classList.remove('drag-over');
+    });
+    
+    // Limpa estilos do elemento
+    const element = event.currentTarget as HTMLElement;
+    element.classList.remove('dragging');
+    element.style.transform = '';
+    element.style.zIndex = '';
+    element.style.position = '';
+    
+    if (!this.currentTouchTask || !this.isDraggingTouch) {
+      // Se não estava arrastando, abre o modal
+      if (this.currentTouchTask && !this.isDraggingTouch) {
+        this.openTaskModal(this.currentTouchTask);
+      }
+      this.currentTouchTask = null;
+      return;
+    }
+    
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Detecta qual coluna está sob o toque
+    const touch = event.changedTouches[0];
+    
+    // Esconde temporariamente o elemento sendo arrastado para detectar o que está embaixo
+    element.style.display = 'none';
+    const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+    element.style.display = '';
+    
+    if (elementBelow) {
+      // Procura por column-content ou column
+      const columnContent = elementBelow.closest('.column-content');
+      const column = elementBelow.closest('.column');
+      
+      if (columnContent || column) {
+        // Encontra o índice da coluna
+        const allColumns = document.querySelectorAll('.column');
+        let targetIndex = -1;
+        
+        allColumns.forEach((col, index) => {
+          if (col === column || col.contains(columnContent || elementBelow)) {
+            targetIndex = index;
+          }
+        });
+        
+        if (targetIndex >= 0 && targetIndex < this.statuses.length) {
+          const targetStatus = this.statuses[targetIndex];
+          
+          if (targetStatus !== originalStatus) {
+            this.moveTaskToStatus(this.currentTouchTask, targetStatus);
+            
+            // Vibração de confirmação
+            if ('vibrate' in navigator) {
+              navigator.vibrate([30, 20, 30]);
+            }
+          }
+        }
+      }
+    }
+    
+    this.currentTouchTask = null;
+    this.isDraggingTouch = false;
+  }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -1686,42 +2014,50 @@ export class KanbanComponent implements OnInit {
     event.preventDefault();
     
     if (!this.draggedTask || this.draggedTask.status === newStatus) {
+      this.draggedTask = null;
       return;
     }
 
-    const oldTask = this.draggedTask;
+    const oldTask = { ...this.draggedTask };
+    const oldStatus = oldTask.status;
     
-    // Atualizar localmente primeiro para feedback instantâneo
+    // Atualização instantânea local
     const index = this.tasks.findIndex(t => t.id === oldTask.id);
     if (index !== -1) {
-      this.tasks[index] = { 
-        ...this.tasks[index], 
+      this.tasks[index] = {
+        ...this.tasks[index],
         status: newStatus,
         updatedAt: new Date()
       };
     }
+    
+    // Limpa o estado de drag imediatamente
+    this.draggedTask = null;
 
-    // Depois atualizar no servidor - preservar prioridade
+    // Atualiza no servidor em background (sem bloquear UI)
     this.taskService.updateTask(oldTask.id, { 
       status: newStatus,
       priority: oldTask.priority
     }).subscribe({
       next: (updatedTask) => {
-        console.log('Task updated from server:', updatedTask);
-        console.log('Priority value:', updatedTask.priority, 'Type:', typeof updatedTask.priority);
-        // Já foi atualizado localmente, só garantir que está sincronizado
+        // Sincroniza silenciosamente com o servidor
         const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
-        if (currentIndex !== -1) this.tasks[currentIndex] = updatedTask;
-        this.draggedTask = null;
+        if (currentIndex !== -1) {
+          this.tasks[currentIndex] = updatedTask;
+        }
       },
       error: (error) => {
-        // Reverter mudança local em caso de erro
+        console.error('Error updating task status:', error);
+        // Reverte apenas em caso de erro
         const currentIndex = this.tasks.findIndex(t => t.id === oldTask.id);
         if (currentIndex !== -1) {
-          this.tasks[currentIndex] = { ...this.tasks[currentIndex], status: oldTask.status };
+          this.tasks[currentIndex] = {
+            ...this.tasks[currentIndex],
+            status: oldStatus
+          };
         }
-        console.error('Error updating task status:', error);
-        this.draggedTask = null;
+        // Notifica o usuário sobre o erro
+        alert('Erro ao mover tarefa. A alteração foi revertida.');
       }
     });
   }
@@ -1751,8 +2087,11 @@ export class KanbanComponent implements OnInit {
     this.modalTask = null;
     this.editingTask = null;
     this.showPriorityDropdown = false;
+    this.showStatusDropdown = false;
     this.hasUnsavedChanges = false;
     this.showSaveConfirmModal = false;
+    this.showDeleteConfirmModal = false;
+    this.taskToDeleteId = null;
     this.showMobilePanel = false;
   }
 
@@ -1901,6 +2240,27 @@ export class KanbanComponent implements OnInit {
   }
 
   private moveTaskToStatus(task: Task, newStatus: TaskStatus): void {
+    const oldStatus = task.status;
+    
+    // Atualização instantânea local
+    const index = this.tasks.findIndex(t => t.id === task.id);
+    if (index !== -1) {
+      this.tasks[index] = {
+        ...this.tasks[index],
+        status: newStatus,
+        updatedAt: new Date()
+      };
+    }
+    
+    // Se está no modal, atualiza também
+    if (this.modalTask && this.modalTask.id === task.id) {
+      this.modalTask = {
+        ...this.modalTask,
+        status: newStatus
+      };
+    }
+
+    // Atualiza no servidor em background
     const updateData: UpdateTaskRequest = {
       status: newStatus,
       priority: task.priority
@@ -1908,13 +2268,31 @@ export class KanbanComponent implements OnInit {
 
     this.taskService.updateTask(task.id, updateData).subscribe({
       next: (updatedTask) => {
-        const index = this.tasks.findIndex(t => t.id === task.id);
-        if (index !== -1) {
-          this.tasks[index] = updatedTask;
+        // Sincroniza silenciosamente
+        const currentIndex = this.tasks.findIndex(t => t.id === task.id);
+        if (currentIndex !== -1) {
+          this.tasks[currentIndex] = updatedTask;
+        }
+        if (this.modalTask && this.modalTask.id === updatedTask.id) {
+          this.modalTask = updatedTask;
         }
       },
       error: (error) => {
         console.error('Erro ao mover tarefa:', error);
+        // Reverte em caso de erro
+        const currentIndex = this.tasks.findIndex(t => t.id === task.id);
+        if (currentIndex !== -1) {
+          this.tasks[currentIndex] = {
+            ...this.tasks[currentIndex],
+            status: oldStatus
+          };
+        }
+        if (this.modalTask && this.modalTask.id === task.id) {
+          this.modalTask = {
+            ...this.modalTask,
+            status: oldStatus
+          };
+        }
       }
     });
   }
@@ -1922,6 +2300,13 @@ export class KanbanComponent implements OnInit {
   // Métodos para dropdown de prioridade
   togglePriorityDropdown(): void {
     this.showPriorityDropdown = !this.showPriorityDropdown;
+    this.showStatusDropdown = false; // Fecha o dropdown de status
+  }
+  
+  // Métodos para dropdown de status
+  toggleStatusDropdown(): void {
+    this.showStatusDropdown = !this.showStatusDropdown;
+    this.showPriorityDropdown = false; // Fecha o dropdown de prioridade
   }
 
   changePriority(newPriority: TaskPriority): void {
@@ -1964,6 +2349,51 @@ export class KanbanComponent implements OnInit {
         }
         if (taskIndex !== -1) {
           this.tasks[taskIndex] = { ...this.tasks[taskIndex], priority: oldPriority };
+        }
+      }
+    });
+  }
+  
+  changeStatus(newStatus: TaskStatus): void {
+    if (!this.modalTask) return;
+
+    // Atualização instantânea local para melhor UX
+    const oldStatus = this.modalTask.status;
+    
+    // Atualiza imediatamente na interface
+    this.modalTask = { ...this.modalTask, status: newStatus };
+    const taskIndex = this.tasks.findIndex(t => t.id === this.modalTask!.id);
+    if (taskIndex !== -1) {
+      this.tasks[taskIndex] = { ...this.tasks[taskIndex], status: newStatus };
+    }
+    
+    // Fecha o dropdown imediatamente
+    this.showStatusDropdown = false;
+
+    // Envia para o servidor em background
+    const updateData: UpdateTaskRequest = {
+      status: newStatus,
+      priority: this.modalTask.priority
+    };
+
+    this.taskService.updateTask(this.modalTask.id, updateData).subscribe({
+      next: (updatedTask) => {
+        // Sincroniza com resposta do servidor (caso haja diferenças)
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = updatedTask;
+        }
+        if (this.modalTask && this.modalTask.id === updatedTask.id) {
+          this.modalTask = updatedTask;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar status:', error);
+        // Reverte a mudança em caso de erro
+        if (this.modalTask) {
+          this.modalTask = { ...this.modalTask, status: oldStatus };
+        }
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = { ...this.tasks[taskIndex], status: oldStatus };
         }
       }
     });
@@ -2030,6 +2460,25 @@ export class KanbanComponent implements OnInit {
     this.hasUnsavedChanges = false;
     this.showSaveConfirmModal = false;
     this.forceCloseModal();
+  }
+
+  // Métodos para confirmação de exclusão
+  showDeleteConfirm(taskId: string): void {
+    this.taskToDeleteId = taskId;
+    this.showDeleteConfirmModal = true;
+  }
+
+  cancelDeleteConfirm(): void {
+    this.showDeleteConfirmModal = false;
+    this.taskToDeleteId = null;
+  }
+
+  confirmDelete(): void {
+    if (this.taskToDeleteId) {
+      this.deleteTaskAndCloseModal(this.taskToDeleteId);
+      this.showDeleteConfirmModal = false;
+      this.taskToDeleteId = null;
+    }
   }
 
   // ===== MÉTODOS DE COMENTÁRIOS =====
