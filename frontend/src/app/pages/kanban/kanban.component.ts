@@ -3327,7 +3327,7 @@ export class KanbanComponent implements OnInit {
     return this.tasks
       .filter(task => task.status === status)
       .sort((a, b) => {
-        // Ordenação por prioridade: Alta (2) -> Média (1) -> Baixa (0)
+        // Ordenação por prioridade: Alta (3) -> Média (2) -> Baixa (1) -> Normal (0)
         if (b.priority !== a.priority) {
           return b.priority - a.priority;
         }

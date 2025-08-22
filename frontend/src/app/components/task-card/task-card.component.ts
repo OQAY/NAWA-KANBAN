@@ -73,9 +73,10 @@ import { Task, TaskPriority } from '../../models/task.model';
       text-transform: uppercase;
     }
 
-    .priority-0 { background: #e3f2fd; color: #1976d2; }
-    .priority-1 { background: #fff3e0; color: #f57c00; }
-    .priority-2 { background: #ffebee; color: #d32f2f; }
+    .priority-0 { background: #f5f5f5; color: #757575; }  /* Normal - Cinza */
+    .priority-1 { background: #e8f5e8; color: #2e7d32; }  /* Baixa - Verde */
+    .priority-2 { background: #fff3e0; color: #f57c00; }  /* Média - Laranja */
+    .priority-3 { background: #ffebee; color: #d32f2f; }  /* Alta - Vermelho */
   `]
 })
 export class TaskCardComponent {
@@ -116,9 +117,10 @@ export class TaskCardComponent {
 
   getPriorityLabel(priority: TaskPriority): string {
     switch(priority) {
-      case 0: return 'Baixa';
-      case 1: return 'Média';  
-      case 2: return 'Alta';
+      case 0: return 'Normal';   // NONE
+      case 1: return 'Baixa';    // LOW
+      case 2: return 'Média';    // MEDIUM  
+      case 3: return 'Alta';     // HIGH
       default: return 'Normal';
     }
   }
