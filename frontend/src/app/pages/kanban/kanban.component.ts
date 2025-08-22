@@ -112,8 +112,18 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
               </div>
             </div>
             
+            <!-- Botão mobile para abrir painel lateral -->
+            <button class="mobile-toggle-btn" (click)="toggleMobilePanel()" *ngIf="!showMobilePanel">
+              ⚙️
+            </button>
+            
             <!-- Coluna direita: 40% - Ações e Info -->
-            <div class="right-column">
+            <div class="right-column" [class.mobile-visible]="showMobilePanel">
+              <!-- Botão de fechar painel mobile -->
+              <button class="mobile-close-btn" (click)="closeMobilePanel()" *ngIf="showMobilePanel">
+                ✕
+              </button>
+              
               <div class="actions-section">
                 <h3>Ações</h3>
                 <div class="action-buttons">
@@ -1389,6 +1399,100 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
 
     /* ===== RESPONSIVIDADE PROFISSIONAL DO MODAL ===== */
     
+    /* Mobile (até 425px) */
+    @media (max-width: 425px) {
+      .modal-content {
+        width: 90%;
+        margin: 4vh auto;
+        min-width: unset;
+      }
+      
+      .modal-body {
+        flex-direction: column;
+        position: relative;
+      }
+      
+      .left-column {
+        width: 100%;
+        padding: 16px;
+      }
+      
+      .right-column {
+        position: fixed;
+        top: 4vh;
+        right: -90%;
+        width: 90%;
+        height: 92vh;
+        background: white;
+        z-index: 1001;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .right-column.mobile-visible {
+        right: 5%;
+      }
+      
+      .mobile-toggle-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        background: #0079bf;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1002;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+      }
+      
+      .mobile-toggle-btn:hover {
+        background: #026aa7;
+        transform: scale(1.05);
+      }
+      
+      .mobile-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        background: #f4f5f7;
+        color: #5e6c84;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1003;
+        font-size: 18px;
+        transition: all 0.2s ease;
+      }
+      
+      .mobile-close-btn:hover {
+        background: #e4e6ea;
+        color: #172b4d;
+      }
+    }
+    
+    /* Ocultar botões mobile em telas maiores */
+    @media (min-width: 426px) {
+      .mobile-toggle-btn,
+      .mobile-close-btn {
+        display: none;
+      }
+    }
+    
     /* Large Desktop (1200px+) */
     @media (min-width: 1200px) {
       .modal-content {
@@ -1481,6 +1585,9 @@ export class KanbanComponent implements OnInit {
   editingCommentId: string | null = null;
   editingCommentContent = '';
   expandedComment: Comment | null = null;
+
+  // Propriedade para controle mobile
+  showMobilePanel = false;
 
   constructor(
     private taskService: TaskService,
@@ -1685,6 +1792,7 @@ export class KanbanComponent implements OnInit {
     this.showPriorityDropdown = false;
     this.hasUnsavedChanges = false;
     this.showSaveConfirmModal = false;
+    this.showMobilePanel = false;
   }
 
   startEdit(): void {
@@ -2157,5 +2265,14 @@ export class KanbanComponent implements OnInit {
       this.deleteComment(this.expandedComment.id);
       this.closeExpandedComment();
     }
+  }
+
+  // Métodos para controle do painel mobile
+  toggleMobilePanel(): void {
+    this.showMobilePanel = !this.showMobilePanel;
+  }
+
+  closeMobilePanel(): void {
+    this.showMobilePanel = false;
   }
 }
