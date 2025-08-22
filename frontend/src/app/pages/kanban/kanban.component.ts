@@ -37,6 +37,9 @@ interface ColumnData {
         <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
         <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
              [class.drag-over-column]="dragOverColumnIndex === i"
+             [class.being-dragged]="draggedColumn?.id === column.id"
+             [class.ghost-left]="shouldShowGhost(i, 'left')"
+             [class.ghost-right]="shouldShowGhost(i, 'right')"
              (dragover)="onColumnDragOver($event, column.id, i)"
              (dragleave)="onColumnDragLeave()"
              (drop)="onColumnDrop($event, column.id, i)">
@@ -494,6 +497,54 @@ interface ColumnData {
       min-width: 240px;
       flex-shrink: 0;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    /* 👻 GHOST COLUMN ANIMATION: Indicadores visuais de inserção */
+    .column.being-dragged {
+      opacity: 0.5;
+      transform: scale(0.95);
+      z-index: 1000;
+    }
+
+    .column.ghost-left::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+      animation: ghostPulse 1s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    .column.ghost-right::after {
+      content: '';
+      position: absolute;
+      right: -18px;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+      animation: ghostPulse 1s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes ghostPulse {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scaleY(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleY(1.02);
+      }
     }
     .column-header {
       background: rgba(241, 242, 244, 0.95);
@@ -1798,12 +1849,6 @@ interface ColumnData {
 })
 export class KanbanComponent implements OnInit {
   tasks: Task[] = [];
-  statuses: TaskStatus[] = [
-    TaskStatus.PENDING,
-    TaskStatus.IN_PROGRESS,
-    TaskStatus.TESTING,
-    TaskStatus.DONE
-  ];
   
   newTask: CreateTaskRequest = {
     title: '',
@@ -1815,9 +1860,11 @@ export class KanbanComponent implements OnInit {
   draggedTask: Task | null = null;
   editingTask: Task | null = null;
   
-  // ENTERPRISE DRAG PROPERTIES: ID-based
+  // ENTERPRISE DRAG PROPERTIES: ID-based com detecção de posição
   draggedColumn: ColumnData & { index: number } | null = null;
   dragOverColumnIndex: number = -1;
+  dropPosition: 'left' | 'right' | null = null; // Detecta lado do drop
+  insertIndex: number = -1; // Índice real de inserção
   editForm = {
     title: '',
     description: ''
@@ -2082,6 +2129,15 @@ export class KanbanComponent implements OnInit {
       event.stopPropagation();
       this.dragOverColumnIndex = targetIndex;
       
+      // 🎯 DETECÇÃO INTELIGENTE DE POSIÇÃO PARA GHOST COLUMN
+      const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+      const mouseX = event.clientX;
+      const centerX = rect.left + rect.width / 2;
+      
+      // Detecta se mouse está na metade esquerda ou direita
+      this.dropPosition = mouseX < centerX ? 'left' : 'right';
+      this.insertIndex = this.dropPosition === 'left' ? targetIndex : targetIndex + 1;
+      
       if (event.dataTransfer) {
         event.dataTransfer.dropEffect = 'move';
       }
@@ -2090,6 +2146,8 @@ export class KanbanComponent implements OnInit {
 
   onColumnDragLeave(): void {
     this.dragOverColumnIndex = -1;
+    this.dropPosition = null;
+    this.insertIndex = -1;
   }
 
   onColumnDrop(event: DragEvent, targetColumnId: string, targetIndex: number): void {
@@ -2097,22 +2155,22 @@ export class KanbanComponent implements OnInit {
     event.stopPropagation();
     
     if (!this.draggedColumn || this.draggedColumn.id === targetColumnId) {
-      this.draggedColumn = null;
-      this.dragOverColumnIndex = -1;
+      this.cleanupDragState();
       return;
     }
 
     console.log('🎯 ENTERPRISE DROP:', { 
       from: { id: this.draggedColumn.id, order: this.draggedColumn.order },
-      to: { id: targetColumnId, index: targetIndex }
+      to: { id: targetColumnId, index: targetIndex },
+      insertIndex: this.insertIndex,
+      dropPosition: this.dropPosition
     });
 
     // ENTERPRISE LOGIC: Reordenação baseada em order, não em splice
-    this.reorderColumns(this.draggedColumn.id, targetIndex);
+    this.reorderColumns(this.draggedColumn.id, this.insertIndex >= 0 ? this.insertIndex : targetIndex);
     this.saveColumns();
     
-    this.draggedColumn = null;
-    this.dragOverColumnIndex = -1;
+    this.cleanupDragState();
   }
 
   private reorderColumns(draggedId: string, targetIndex: number): void {
@@ -2138,9 +2196,35 @@ export class KanbanComponent implements OnInit {
     console.log('✨ Reordered columns:', this.columns.map(col => ({ id: col.id, order: col.order })));
   }
 
-  onColumnDragEnd(): void {
+  private cleanupDragState(): void {
     this.draggedColumn = null;
     this.dragOverColumnIndex = -1;
+    this.dropPosition = null;
+    this.insertIndex = -1;
+  }
+
+  onColumnDragEnd(): void {
+    this.cleanupDragState();
+  }
+
+  // 👻 GHOST ANIMATION: Determina quando mostrar indicador visual de inserção
+  shouldShowGhost(columnIndex: number, side: 'left' | 'right'): boolean {
+    if (!this.draggedColumn || this.insertIndex === -1 || this.dropPosition === null) {
+      return false;
+    }
+
+    // Não mostra ghost se é a própria coluna sendo arrastada
+    const currentColumn = this.columns[columnIndex];
+    if (currentColumn && currentColumn.id === this.draggedColumn.id) {
+      return false;
+    }
+
+    // Mostra ghost baseado na posição detectada
+    if (side === 'left') {
+      return this.insertIndex === columnIndex && this.dropPosition === 'left';
+    } else {
+      return this.insertIndex === columnIndex + 1 && this.dropPosition === 'right';
+    }
   }
   
   // Métodos para touch/drag no mobile
