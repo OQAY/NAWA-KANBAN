@@ -22,6 +22,7 @@ export class TasksService {
     const taskData: any = {
       ...createTaskDto,
       createdById: user.id, // Atribui automaticamente o usuário atual como criador
+      assigneeId: createTaskDto.assigneeId || user.id, // Se não especificado, atribui a si mesmo
     };
     
     // Converte string de data para objeto Date para armazenamento no banco
@@ -63,14 +64,12 @@ export class TasksService {
       queryBuilder.andWhere('task.assigneeId = :assigneeId', { assigneeId });
     }
 
-    // Filtragem baseada em permissões (RBAC)
-    // Developers só podem ver tarefas que criaram ou foram atribuídas a eles
-    if (user.role === UserRole.DEVELOPER) {
-      queryBuilder.andWhere(
-        '(task.assigneeId = :userId OR task.createdById = :userId)',
-        { userId: user.id }
-      );
-    }
+    // CORREÇÃO CRÍTICA DE SEGURANÇA: TODOS os usuários só veem suas próprias tarefas
+    // Cada usuário só pode ver tarefas que criou ou foram atribuídas a ele
+    queryBuilder.andWhere(
+      '(task.assigneeId = :userId OR task.createdById = :userId)',
+      { userId: user.id }
+    );
 
     const [tasks, total] = await queryBuilder
       .orderBy('task.createdAt', 'DESC') // Ordena por data de criação (mais recente primeiro)
@@ -168,12 +167,8 @@ export class TasksService {
    * Hierarquia: Admin/Manager (acesso total) > Developer (próprias tarefas) > Viewer (somente leitura)
    */
   private checkTaskAccess(task: Task, user: User): void {
-    // Admin e Manager têm acesso total
-    if (user.role === UserRole.ADMIN || user.role === UserRole.MANAGER) {
-      return; 
-    }
-
-    // Developers podem acessar apenas tarefas que criaram ou foram atribuídas a eles
+    // CORREÇÃO CRÍTICA: TODOS os usuários só veem suas próprias tarefas
+    // Sistema Kanban pessoal - cada usuário tem seu painel privado
     if (task.assigneeId === user.id || task.createdById === user.id) {
       return; 
     }
