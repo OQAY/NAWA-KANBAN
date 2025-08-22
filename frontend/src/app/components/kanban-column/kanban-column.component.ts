@@ -169,11 +169,28 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
     }
     
     .column-content {
+      background: rgba(241, 242, 244, 0.9);
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
       padding: 8px;
       border-radius: 0 0 12px 12px;
+    }
+
+    .column-content::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .column-content::-webkit-scrollbar-track {
+      background: rgba(241, 242, 244, 0.3);
+      border-radius: 3px;
+    }
+    .column-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+    }
+    .column-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
     }
     
     .empty-column {

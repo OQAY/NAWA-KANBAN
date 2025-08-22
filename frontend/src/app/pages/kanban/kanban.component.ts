@@ -9,6 +9,7 @@ import { TaskCardComponent } from '../../components/task-card/task-card.componen
 import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
 import { KanbanHeaderComponent } from '../../components/kanban-header/kanban-header.component';
 import { KanbanColumnComponent } from '../../components/kanban-column/kanban-column.component';
+import { TaskModalComponent } from '../../components/task-modal/task-modal.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -28,7 +29,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent],
+  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent, TaskModalComponent],
   template: `
     <div class="kanban-board">
       <app-kanban-header
@@ -386,6 +387,17 @@ interface ColumnData {
         </div>
       </div>
     </div>
+
+    <!-- NOVO TASKMODAL COMPONENT -->
+    <app-task-modal
+      [task]="modalTask"
+      [isVisible]="showModal"
+      (close)="handleModalClose()"
+      (save)="handleModalSave($event)"
+      (delete)="handleModalDelete($event)"
+      (statusChange)="handleModalStatusChange($event)"
+      (priorityChange)="handleModalPriorityChange($event)">
+    </app-task-modal>
   `,
   styles: [`
     .kanban-board {
