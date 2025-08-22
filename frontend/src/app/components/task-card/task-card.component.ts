@@ -80,13 +80,14 @@ import { Task, TaskPriority } from '../../models/task.model';
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Input() columnStatus!: string;
   
   // Eventos que o componente pai precisa tratar
   @Output() dragStart = new EventEmitter<Task>();
   @Output() dragEnd = new EventEmitter<void>();
   @Output() touchStart = new EventEmitter<{event: TouchEvent, task: Task}>();
   @Output() touchMove = new EventEmitter<TouchEvent>();
-  @Output() touchEnd = new EventEmitter<{event: TouchEvent, task: Task}>();
+  @Output() touchEnd = new EventEmitter<{event: TouchEvent, task: Task, status?: string}>();
   @Output() cardClick = new EventEmitter<Task>();
 
   onDragStart(): void {
@@ -106,7 +107,7 @@ export class TaskCardComponent {
   }
 
   onTouchEnd(event: TouchEvent): void {
-    this.touchEnd.emit({ event, task: this.task });
+    this.touchEnd.emit({ event, task: this.task, status: this.columnStatus });
   }
 
   onClick(): void {

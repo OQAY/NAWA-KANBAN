@@ -5,6 +5,7 @@ import { TaskService } from '../../services/task.service';
 import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
+import { TaskCardComponent } from '../../components/task-card/task-card.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -24,7 +25,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TaskCardComponent],
   template: `
     <div class="kanban-board">
       <div class="header-section">
@@ -61,23 +62,17 @@ interface ColumnData {
                (dragover)="onDragOver($event)"
                (drop)="onDrop($event, column.status)"
                [attr.data-status]="column.status">
-            <div class="task-card" 
-                 *ngFor="let task of getTasksByStatusString(column.status)"
-                 draggable="true"
-                 (dragstart)="onDragStart(task)"
-                 (dragend)="onDragEnd()"
-                 (touchstart)="onTouchStart($event, task)"
-                 (touchmove)="onTouchMove($event)"
-                 (touchend)="onTouchEnd($event, column.status)"
-                 (click)="openTaskModal(task)">
-              <div class="task-content">
-                <h4>{{ task.title }}</h4>
-                <p>{{ task.description }}</p>
-              </div>
-              <div class="task-meta">
-                <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
-              </div>
-            </div>
+            <app-task-card 
+              *ngFor="let task of getTasksByStatusString(column.status)"
+              [task]="task"
+              [columnStatus]="column.status"
+              (dragStart)="onDragStart($event)"
+              (dragEnd)="onDragEnd()"
+              (touchStart)="handleTaskTouchStart($event)"
+              (touchMove)="onTouchMove($event)"
+              (touchEnd)="handleTaskTouchEnd($event)"
+              (cardClick)="openTaskModal($event)">
+            </app-task-card>
             
             <div *ngIf="getTasksByStatusString(column.status).length === 0" class="empty-column">
               Nenhuma tarefa
@@ -2430,6 +2425,16 @@ export class KanbanComponent implements OnInit {
     
     this.currentTouchTask = null;
     this.isDraggingTouch = false;
+  }
+
+  // Handlers para TaskCard component
+  handleTaskTouchStart(data: {event: TouchEvent, task: Task}): void {
+    this.onTouchStart(data.event, data.task);
+  }
+
+  handleTaskTouchEnd(data: {event: TouchEvent, task: Task, status?: string}): void {
+    const status = data.status || 'pending';
+    this.onTouchEnd(data.event, status);
   }
   
   // Método para auto-scroll nas bordas
