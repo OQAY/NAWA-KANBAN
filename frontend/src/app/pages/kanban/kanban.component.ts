@@ -8,6 +8,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
 import { KanbanHeaderComponent } from '../../components/kanban-header/kanban-header.component';
+import { KanbanColumnComponent } from '../../components/kanban-column/kanban-column.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -27,7 +28,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent],
+  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent],
   template: `
     <div class="kanban-board">
       <app-kanban-header
@@ -40,53 +41,33 @@ interface ColumnData {
       
       <div class="columns-container">
         <div class="columns">
-        <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
-        <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
-             [class.drag-over-column]="dragOverColumnIndex === i"
-             [class.being-dragged]="draggedColumn?.id === column.id"
-             [class.ghost-left]="shouldShowGhost(i, 'left')"
-             [class.ghost-right]="shouldShowGhost(i, 'right')"
-             (dragover)="onColumnDragOver($event, column.id, i)"
-             (dragleave)="onColumnDragLeave()"
-             (drop)="onColumnDrop($event, column.id, i)">
-          <div class="column-header" 
-               draggable="true"
-               (dragstart)="onColumnDragStart($event, column.id, i)"
-               (dragend)="onColumnDragEnd()">
-            <h3>{{ column.label }}</h3>
-            <span class="task-count">{{ getTasksByStatusString(column.status).length }}</span>
-          </div>
-          
-          <div class="column-content"
-               (dragover)="onDragOver($event)"
-               (drop)="onDrop($event, column.status)"
-               [attr.data-status]="column.status">
-            <app-task-card 
-              *ngFor="let task of getTasksByStatusString(column.status)"
-              [task]="task"
-              [columnStatus]="column.status"
-              (dragStart)="onDragStart($event)"
-              (dragEnd)="onDragEnd()"
-              (touchStart)="handleTaskTouchStart($event)"
-              (touchMove)="onTouchMove($event)"
-              (touchEnd)="handleTaskTouchEnd($event)"
-              (cardClick)="openTaskModal($event)">
-            </app-task-card>
-            
-            <div *ngIf="getTasksByStatusString(column.status).length === 0" class="empty-column">
-              Nenhuma tarefa
-            </div>
-            
-            <!-- Componente AddCardForm -->
-            <app-add-card-form
-              [isActive]="addingToColumn[column.status] || false"
-              [columnStatus]="column.status"
-              (startAddCard)="handleStartAddCard($event)"
-              (confirmAddCard)="handleConfirmAddCard($event)"
-              (cancelAddCard)="handleCancelAddCard($event)">
-            </app-add-card-form>
-          </div>
-        </div>
+        <!-- COMPONENTE EXTRAÍDO: KanbanColumn -->
+        <app-kanban-column
+          *ngFor="let column of columns; trackBy: trackByColumn; let i = index"
+          [column]="column"
+          [tasks]="getTasksByStatusString(column.status)"
+          [isAddingCard]="addingToColumn[column.status] || false"
+          [isDragOverColumn]="dragOverColumnIndex === i"
+          [isBeingDragged]="draggedColumn?.id === column.id"
+          [showGhostLeft]="shouldShowGhost(i, 'left')"
+          [showGhostRight]="shouldShowGhost(i, 'right')"
+          (columnDragOver)="onColumnDragOver($event.event, $event.columnId, i)"
+          (columnDragLeave)="onColumnDragLeave()"
+          (columnDrop)="onColumnDrop($event.event, $event.columnId, i)"
+          (columnDragStart)="onColumnDragStart($event.event, $event.columnId, i)"
+          (columnDragEnd)="onColumnDragEnd()"
+          (taskDragStart)="onDragStart($event)"
+          (taskDragEnd)="onDragEnd()"
+          (taskDragOver)="onDragOver($event)"
+          (taskDrop)="onDrop($event.event, $event.status)"
+          (taskClick)="openTaskModal($event)"
+          (taskTouchStart)="handleTaskTouchStart($event)"
+          (taskTouchMove)="onTouchMove($event)"
+          (taskTouchEnd)="handleTaskTouchEnd($event)"
+          (startAddCard)="handleStartAddCard($event)"
+          (confirmAddCard)="handleConfirmAddCard($event)"
+          (cancelAddCard)="handleCancelAddCard($event)">
+        </app-kanban-column>
         
         <!-- Adicionar nova coluna - sempre em último lugar -->
         <div class="column add-column-interface">
