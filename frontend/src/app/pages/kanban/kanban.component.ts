@@ -429,6 +429,7 @@ interface ColumnData {
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
     .header-section {
       display: flex;
@@ -480,7 +481,7 @@ interface ColumnData {
     }
     .columns-container {
       position: relative;
-      margin-bottom: 10px;
+      flex: 1;
       overflow-x: auto;
       overflow-y: hidden;
       padding-bottom: 30px;
@@ -556,7 +557,7 @@ interface ColumnData {
       position: relative;
       display: flex;
       flex-direction: column;
-      max-height: calc(100vh - 140px);
+      max-height: calc(100vh - 300px);
     }
 
     /* 👻 GHOST COLUMN ANIMATION: Indicadores visuais de inserção */
@@ -1906,7 +1907,10 @@ interface ColumnData {
         min-width: 400px;
       }
     }
-  `]
+  `],
+  host: {
+    '(document:load)': 'disablePageScroll()'
+  }
 })
 export class KanbanComponent implements OnInit {
   tasks: Task[] = [];
