@@ -7,6 +7,7 @@ import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } 
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
+import { KanbanHeaderComponent } from '../../components/kanban-header/kanban-header.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -26,19 +27,16 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent],
+  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent],
   template: `
     <div class="kanban-board">
-      <div class="header-section">
-        <h2>Dashboard</h2>
-        <div class="trash-zone" 
-             [class.drag-over]="isDragOverTrash"
-             (dragover)="onTrashDragOver($event)"
-             (dragleave)="onTrashDragLeave($event)"
-             (drop)="onTrashDrop($event)">
-          <span class="trash-icon">🗑️</span>
-        </div>
-      </div>
+      <app-kanban-header
+        [title]="'Dashboard'"
+        [isDragOverTrash]="isDragOverTrash"
+        (trashDragOver)="handleTrashDragOver($event)"
+        (trashDragLeave)="handleTrashDragLeave($event)"
+        (trashDrop)="handleTrashDrop($event)">
+      </app-kanban-header>
       
       <div class="columns-container">
         <div class="columns">
@@ -2440,6 +2438,19 @@ export class KanbanComponent implements OnInit {
 
   handleCancelAddCard(status: string): void {
     this.cancelAddCard(status);
+  }
+
+  // Handlers para KanbanHeader component
+  handleTrashDragOver(event: DragEvent): void {
+    this.isDragOverTrash = true;
+  }
+
+  handleTrashDragLeave(event: DragEvent): void {
+    this.isDragOverTrash = false;
+  }
+
+  handleTrashDrop(event: DragEvent): void {
+    this.onTrashDrop(event);
   }
   
   // Método para auto-scroll nas bordas
