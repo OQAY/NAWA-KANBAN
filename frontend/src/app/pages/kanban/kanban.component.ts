@@ -1945,6 +1945,7 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadCustomColumns();
     this.loadTasks();
   }
 
@@ -1952,6 +1953,7 @@ export class KanbanComponent implements OnInit {
     this.taskService.getTasks().subscribe({
       next: (response) => {
         this.tasks = response.data || response;
+        this.loadCustomTasks(); // Carrega tarefas customizadas
         console.log('Tasks loaded:', this.tasks);
       },
       error: (error) => {
@@ -2144,6 +2146,7 @@ export class KanbanComponent implements OnInit {
     // Atualizar as arrays
     this.statuses = newStandardColumns as any;
     this.customColumns = newCustomColumns;
+    this.saveCustomColumns(); // Salva a nova ordem
     
     console.log('Columns reordered successfully:', { newStandardColumns, newCustomColumns });
 
@@ -2366,32 +2369,38 @@ export class KanbanComponent implements OnInit {
     // Limpa o estado de drag imediatamente
     this.draggedTask = null;
 
-    // Atualiza no servidor em background (sem bloquear UI)
-    this.taskService.updateTask(oldTask.id, { 
-      status: newStatus as any,
-      priority: oldTask.priority
-    }).subscribe({
-      next: (updatedTask) => {
-        // Sincroniza silenciosamente com o servidor
-        const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
-        if (currentIndex !== -1) {
-          this.tasks[currentIndex] = updatedTask;
+    // Só atualiza no servidor se for status padrão
+    if (Object.values(TaskStatus).includes(newStatus as TaskStatus)) {
+      this.taskService.updateTask(oldTask.id, { 
+        status: newStatus as any,
+        priority: oldTask.priority
+      }).subscribe({
+        next: (updatedTask) => {
+          // Sincroniza silenciosamente com o servidor
+          const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
+          if (currentIndex !== -1) {
+            this.tasks[currentIndex] = updatedTask;
+          }
+        },
+        error: (error) => {
+          console.error('Error updating task status:', error);
+          // Reverte apenas em caso de erro
+          const currentIndex = this.tasks.findIndex(t => t.id === oldTask.id);
+          if (currentIndex !== -1) {
+            this.tasks[currentIndex] = {
+              ...this.tasks[currentIndex],
+              status: oldStatus
+            };
+          }
+          // Notifica o usuário sobre o erro
+          alert('Erro ao mover tarefa. A alteração foi revertida.');
         }
-      },
-      error: (error) => {
-        console.error('Error updating task status:', error);
-        // Reverte apenas em caso de erro
-        const currentIndex = this.tasks.findIndex(t => t.id === oldTask.id);
-        if (currentIndex !== -1) {
-          this.tasks[currentIndex] = {
-            ...this.tasks[currentIndex],
-            status: oldStatus
-          };
-        }
-        // Notifica o usuário sobre o erro
-        alert('Erro ao mover tarefa. A alteração foi revertida.');
-      }
-    });
+      });
+    } else {
+      // Para colunas customizadas, apenas mantém local
+      console.log('Task moved to custom column:', newStatus);
+      this.saveTasksToStorage(); // Salva tarefas customizadas
+    }
   }
 
   openTaskModal(task: Task): void {
@@ -2548,13 +2557,19 @@ export class KanbanComponent implements OnInit {
 
     this.taskService.createTask(taskData).subscribe({
       next: (task) => {
-        this.tasks.push(task);
-        // Move para o status correto se necessário
-        if (task.status !== status) {
-          if (Object.values(TaskStatus).includes(status as TaskStatus)) {
+        // Para colunas customizadas, criar nova task com status customizado
+        if (typeof status === 'string' && !Object.values(TaskStatus).includes(status as TaskStatus)) {
+          const customTask = { ...task, status: status as any };
+          this.tasks.push(customTask);
+        } else {
+          this.tasks.push(task);
+          // Move para o status correto se necessário
+          if (task.status !== status && Object.values(TaskStatus).includes(status as TaskStatus)) {
             this.moveTaskToStatus(task, status as TaskStatus);
           }
         }
+        
+        this.saveTasksToStorage(); // Salva tarefas customizadas
         this.cancelAddCard(status);
       },
       error: (error) => {
@@ -3052,7 +3067,62 @@ export class KanbanComponent implements OnInit {
     };
     
     this.customColumns.push(newColumn);
+    this.saveCustomColumns(); // Salva no localStorage
     this.cancelAddColumn();
+  }
+
+  // Métodos para persistência de colunas customizadas
+  private saveCustomColumns(): void {
+    try {
+      localStorage.setItem('kanban_custom_columns', JSON.stringify(this.customColumns));
+      localStorage.setItem('kanban_statuses_order', JSON.stringify(this.statuses));
+    } catch (error) {
+      console.error('Erro ao salvar colunas customizadas:', error);
+    }
+  }
+
+  private loadCustomColumns(): void {
+    try {
+      const savedCustomColumns = localStorage.getItem('kanban_custom_columns');
+      const savedStatusesOrder = localStorage.getItem('kanban_statuses_order');
+      
+      if (savedCustomColumns) {
+        this.customColumns = JSON.parse(savedCustomColumns);
+      }
+      
+      if (savedStatusesOrder) {
+        this.statuses = JSON.parse(savedStatusesOrder);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar colunas customizadas:', error);
+      this.customColumns = [];
+    }
+  }
+
+  private saveTasksToStorage(): void {
+    try {
+      // Salva apenas tarefas com status customizado
+      const customTasks = this.tasks.filter(task => 
+        typeof task.status === 'string' && 
+        !Object.values(TaskStatus).includes(task.status as TaskStatus)
+      );
+      localStorage.setItem('kanban_custom_tasks', JSON.stringify(customTasks));
+    } catch (error) {
+      console.error('Erro ao salvar tarefas customizadas:', error);
+    }
+  }
+
+  private loadCustomTasks(): void {
+    try {
+      const savedCustomTasks = localStorage.getItem('kanban_custom_tasks');
+      if (savedCustomTasks) {
+        const customTasks = JSON.parse(savedCustomTasks);
+        // Adiciona tarefas customizadas às tarefas carregadas do servidor
+        this.tasks = [...this.tasks, ...customTasks];
+      }
+    } catch (error) {
+      console.error('Erro ao carregar tarefas customizadas:', error);
+    }
   }
 
   onColumnTitleKeydown(event: KeyboardEvent): void {
