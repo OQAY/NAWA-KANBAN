@@ -1,3 +1,7 @@
+/**
+ * Serviço de autenticação com gerenciamento de estado reativo
+ * Implementa persistência no localStorage e streams RxJS para reatividade
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -8,14 +12,17 @@ import { User, LoginCredentials, CreateUserRequest, AuthenticationResponse } fro
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000';
+  
+  // BehaviorSubjects para estado reativo (sempre emitem último valor)
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private tokenSubject = new BehaviorSubject<string | null>(null);
 
+  // Observables públicos para componentes se inscreverem
   currentUser$ = this.currentUserSubject.asObservable();
   token$ = this.tokenSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadStoredAuth();
+    this.loadStoredAuth();  // Carrega auth persistido no localStorage
   }
 
   login(credentials: LoginCredentials): Observable<AuthenticationResponse> {
@@ -48,6 +55,7 @@ export class AuthService {
     return !!this.tokenSubject.value && !!this.currentUser;
   }
 
+  // Recupera autenticação persistida na inicialização da app
   private loadStoredAuth(): void {
     const token = localStorage.getItem('access_token');
     const userStr = localStorage.getItem('current_user');
@@ -59,6 +67,7 @@ export class AuthService {
     }
   }
 
+  // Persiste auth no localStorage e atualiza estado reativo
   private setAuth(token: string, user: User): void {
     localStorage.setItem('access_token', token);
     localStorage.setItem('current_user', JSON.stringify(user));
