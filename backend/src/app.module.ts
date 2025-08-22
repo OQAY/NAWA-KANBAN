@@ -1,3 +1,7 @@
+/**
+ * Módulo raiz da aplicação Kanban
+ * Organiza todos os módulos funcionais do sistema
+ */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
@@ -11,15 +15,17 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    // Configuração global de variáveis de ambiente
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    DatabaseModule,
-    AuthModule,
-    TasksModule,
-    UsersModule,
-    ProjectsModule,
-    CommentsModule,
+    // Módulos funcionais do sistema Kanban
+    DatabaseModule,    // TypeORM + Supabase
+    AuthModule,       // JWT + RBAC
+    TasksModule,      // CRUD de tarefas
+    UsersModule,      // Gerenciamento de usuários
+    ProjectsModule,   // Sistema de projetos
+    CommentsModule,   // Comentários em tarefas
   ],
   controllers: [AppController],
   providers: [AppService],

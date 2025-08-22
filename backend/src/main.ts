@@ -1,3 +1,7 @@
+/**
+ * Ponto de entrada da aplicação Kanban API
+ * Configura middleware global, validação e documentação Swagger
+ */
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -6,31 +10,31 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
+  // Habilita CORS para comunicação com frontend
   app.enableCors();
 
-  // Global validation pipe
+  // Validação automática de DTOs em todas as rotas
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
+      whitelist: true,        // Remove propriedades não definidas nos DTOs
+      forbidNonWhitelisted: true,  // Rejeita requests com propriedades extras
+      transform: true,        // Auto-transforma tipos (string -> number, etc)
     }),
   );
 
-  // Swagger configuration
+  // Configuração da documentação Swagger
   const config = new DocumentBuilder()
     .setTitle('Kanban API')
     .setDescription('Task Management System API')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth()        // Suporte para JWT Bearer Token
     .addTag('auth', 'Authentication endpoints')
     .addTag('tasks', 'Task management')
     .addTag('users', 'User management')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('api/docs', app, document);  // Disponível em /api/docs
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

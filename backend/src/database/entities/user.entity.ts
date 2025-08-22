@@ -2,13 +2,20 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { Task } from './task.entity';
 import { Project } from './project.entity';
 
+/**
+ * Sistema RBAC com 4 níveis hierárquicos de permissão
+ * Admin > Manager > Developer > Viewer
+ */
 export enum UserRole {
-  ADMIN = 'admin',
-  MANAGER = 'manager',
-  DEVELOPER = 'developer',
-  VIEWER = 'viewer',
+  ADMIN = 'admin',      // Acesso total ao sistema
+  MANAGER = 'manager',  // Gerencia projetos e usuários
+  DEVELOPER = 'developer', // CRUD próprias tarefas
+  VIEWER = 'viewer',    // Apenas visualização
 }
 
+/**
+ * Entidade de usuário com sistema de permissões RBAC
+ */
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
