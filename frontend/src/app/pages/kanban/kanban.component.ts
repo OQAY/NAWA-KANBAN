@@ -13,7 +13,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
   template: `
     <div class="kanban-board">
       <div class="header-section">
-        <h2>Kanban Board</h2>
+        <h2>Dashboard</h2>
         <div class="trash-zone" 
              [class.drag-over]="isDragOverTrash"
              (dragover)="onTrashDragOver($event)"
@@ -382,22 +382,31 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .header-section h2 {
       margin: 0;
+      color: #1e293b;
+      font-size: 28px;
+      font-weight: 600;
     }
     .trash-zone {
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 12px 16px;
-      border: 2px dashed #ddd;
+      border: 2px dashed rgba(221, 221, 221, 0.8);
       border-radius: 8px;
-      background: #f9f9f9;
+      background: rgba(249, 249, 249, 0.9);
       cursor: pointer;
       transition: all 0.3s ease;
       min-width: 200px;
       justify-content: center;
+      backdrop-filter: blur(5px);
     }
     .trash-zone:hover,
     .trash-zone.drag-over {
@@ -440,20 +449,23 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       background: #a8a8a8;
     }
     .column {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       border-radius: 12px;
       width: 240px;
       min-width: 240px;
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
     .column-header {
-      background: #f1f2f4;
+      background: rgba(241, 242, 244, 0.95);
       padding: 12px 16px;
       border-radius: 12px 12px 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #e4e6ea;
+      border-bottom: 1px solid rgba(228, 230, 234, 0.8);
+      backdrop-filter: blur(5px);
     }
     .column-header h3 {
       margin: 0;
@@ -472,22 +484,24 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       text-align: center;
     }
     .column-content {
-      background: #f1f2f4;
+      background: rgba(241, 242, 244, 0.9);
       padding: 8px;
       border-radius: 0 0 12px 12px;
       min-height: 50px;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
     .column-content.drag-over {
       background: #e3f2fd;
       border: 2px dashed #2196f3;
     }
     .task-card {
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       padding: 12px;
       border-radius: 6px;
       margin-bottom: 10px;
-      border: 1px solid #dee2e6;
+      border: 1px solid rgba(222, 226, 230, 0.6);
       cursor: grab;
       min-height: 100px;
       max-height: 140px;
@@ -499,6 +513,7 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       user-select: none;
       transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
       will-change: transform;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .task-card:active {
       cursor: grabbing;

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Kanban Enterprise';
+  title = 'Kanban';
   
   // NASA STANDARD: Fail-fast validation
   constructor() {
