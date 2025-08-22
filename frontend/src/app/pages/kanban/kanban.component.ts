@@ -5,11 +5,6 @@ import { TaskService } from '../../services/task.service';
 import { CommentService } from '../../services/comment.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
-import { TaskCardComponent } from '../../components/task-card/task-card.component';
-import { AddCardFormComponent } from '../../components/add-card-form/add-card-form.component';
-import { KanbanHeaderComponent } from '../../components/kanban-header/kanban-header.component';
-import { KanbanColumnComponent } from '../../components/kanban-column/kanban-column.component';
-// import { TaskModalComponent } from '../../components/task-modal/task-modal.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -29,46 +24,88 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskCardComponent, AddCardFormComponent, KanbanHeaderComponent, KanbanColumnComponent],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="kanban-board">
-      <app-kanban-header
-        [title]="'Dashboard'"
-        [isDragOverTrash]="isDragOverTrash"
-        (trashDragOver)="handleTrashDragOver($event)"
-        (trashDragLeave)="handleTrashDragLeave($event)"
-        (trashDrop)="handleTrashDrop($event)">
-      </app-kanban-header>
+      <div class="header-section">
+        <h2>Dashboard</h2>
+        <div class="trash-zone" 
+             [class.drag-over]="isDragOverTrash"
+             (dragover)="onTrashDragOver($event)"
+             (dragleave)="onTrashDragLeave($event)"
+             (drop)="onTrashDrop($event)">
+          <span class="trash-icon">🗑️</span>
+        </div>
+      </div>
       
       <div class="columns-container">
         <div class="columns">
-        <!-- COMPONENTE EXTRAÍDO: KanbanColumn -->
-        <app-kanban-column
-          *ngFor="let column of columns; trackBy: trackByColumn; let i = index"
-          [column]="column"
-          [tasks]="getTasksByStatusString(column.status)"
-          [isAddingCard]="addingToColumn[column.status] || false"
-          [isDragOverColumn]="dragOverColumnIndex === i"
-          [isBeingDragged]="draggedColumn?.id === column.id"
-          [showGhostLeft]="shouldShowGhost(i, 'left')"
-          [showGhostRight]="shouldShowGhost(i, 'right')"
-          (columnDragOver)="onColumnDragOver($event.event, $event.columnId, i)"
-          (columnDragLeave)="onColumnDragLeave()"
-          (columnDrop)="onColumnDrop($event.event, $event.columnId, i)"
-          (columnDragStart)="onColumnDragStart($event.event, $event.columnId, i)"
-          (columnDragEnd)="onColumnDragEnd()"
-          (taskDragStart)="onDragStart($event)"
-          (taskDragEnd)="onDragEnd()"
-          (taskDragOver)="onDragOver($event)"
-          (taskDrop)="onDrop($event.event, $event.status)"
-          (taskClick)="openTaskModal($event)"
-          (taskTouchStart)="handleTaskTouchStart($event)"
-          (taskTouchMove)="onTouchMove($event)"
-          (taskTouchEnd)="handleTaskTouchEnd($event)"
-          (startAddCard)="handleStartAddCard($event)"
-          (confirmAddCard)="handleConfirmAddCard($event)"
-          (cancelAddCard)="handleCancelAddCard($event)">
-        </app-kanban-column>
+        <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
+        <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
+             [class.drag-over-column]="dragOverColumnIndex === i"
+             [class.being-dragged]="draggedColumn?.id === column.id"
+             [class.ghost-left]="shouldShowGhost(i, 'left')"
+             [class.ghost-right]="shouldShowGhost(i, 'right')"
+             (dragover)="onColumnDragOver($event, column.id, i)"
+             (dragleave)="onColumnDragLeave()"
+             (drop)="onColumnDrop($event, column.id, i)">
+          <div class="column-header" 
+               draggable="true"
+               (dragstart)="onColumnDragStart($event, column.id, i)"
+               (dragend)="onColumnDragEnd()">
+            <h3>{{ column.label }}</h3>
+            <span class="task-count">{{ getTasksByStatusString(column.status).length }}</span>
+          </div>
+          
+          <div class="column-content"
+               (dragover)="onDragOver($event)"
+               (drop)="onDrop($event, column.status)"
+               [attr.data-status]="column.status">
+            <div class="task-card" 
+                 *ngFor="let task of getTasksByStatusString(column.status)"
+                 draggable="true"
+                 (dragstart)="onDragStart(task)"
+                 (dragend)="onDragEnd()"
+                 (touchstart)="onTouchStart($event, task)"
+                 (touchmove)="onTouchMove($event)"
+                 (touchend)="onTouchEnd($event, column.status)"
+                 (click)="openTaskModal(task)">
+              <div class="task-content">
+                <h4>{{ task.title }}</h4>
+                <p>{{ task.description }}</p>
+              </div>
+              <div class="task-meta">
+                <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
+              </div>
+            </div>
+            
+            <div *ngIf="getTasksByStatusString(column.status).length === 0" class="empty-column">
+              Nenhuma tarefa
+            </div>
+            
+            <!-- Botão adicionar cartão estilo Trello -->
+            <div class="add-card-container">
+              <div *ngIf="!addingToColumn[column.status]" class="add-card-btn" (click)="startAddingCard(column.status)">
+                <span class="plus-icon">+</span>
+                <span class="add-text">Adicionar um cartão</span>
+              </div>
+              
+              <div *ngIf="addingToColumn[column.status]" class="add-card-form">
+                <textarea 
+                  [(ngModel)]="newCardTitle[column.status]"
+                  placeholder="Insira um título para este cartão..."
+                  class="card-title-input"
+                  (keydown)="onCardTitleKeydown($event, column.status)"
+                  #cardInput>
+                </textarea>
+                <div class="add-card-actions">
+                  <button (click)="confirmAddCard(column.status)" class="btn-add-card">Adicionar cartão</button>
+                  <button (click)="cancelAddCard(column.status)" class="btn-cancel-add">✕</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <!-- Adicionar nova coluna - sempre em último lugar -->
         <div class="column add-column-interface">
@@ -387,8 +424,6 @@ interface ColumnData {
         </div>
       </div>
     </div>
-
-    <!-- TASKMODAL SERÁ ADICIONADO AQUI DEPOIS -->
   `,
   styles: [`
     .kanban-board {
@@ -499,7 +534,102 @@ interface ColumnData {
     .column-content::-webkit-scrollbar-thumb:hover {
       background: rgba(0, 0, 0, 0.5);
     }
-    /* ESTILOS DA COLUMN REMOVIDOS - AGORA ESTÃO NO KanbanColumnComponent */
+    .column {
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      width: 240px;
+      min-width: 240px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 300px);
+    }
+
+    /* 👻 GHOST COLUMN ANIMATION: Indicadores visuais de inserção */
+    .column.being-dragged {
+      opacity: 0.5;
+      transform: scale(0.95);
+      z-index: 1000;
+    }
+
+    .column.ghost-left::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+      animation: ghostPulse 1s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    .column.ghost-right::after {
+      content: '';
+      position: absolute;
+      right: -18px;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(to bottom, #007bff, #0056b3);
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+      animation: ghostPulse 1s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes ghostPulse {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scaleY(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleY(1.02);
+      }
+    }
+    .column-header {
+      background: rgba(241, 242, 244, 0.95);
+      padding: 12px 16px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(228, 230, 234, 0.8);
+      backdrop-filter: blur(5px);
+    }
+    .column-header h3 {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: #172b4d;
+    }
+    .task-count {
+      background: #ddd;
+      color: #5e6c84;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      min-width: 18px;
+      text-align: center;
+    }
+    
+    /* Estilos para drag-and-drop de colunas */
+    .column-header[draggable="true"] {
+      cursor: move;
+      transition: all 0.2s ease;
+    }
+    
+    .column-header[draggable="true"]:hover {
+      background: rgba(241, 242, 244, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
     
     .column.drag-over-column {
       transform: scale(1.02);
@@ -524,7 +654,66 @@ interface ColumnData {
       background: #e3f2fd;
       border: 2px dashed #2196f3;
     }
-    /* ESTILOS DO TASK-CARD REMOVIDOS - AGORA ESTÃO NO TaskCardComponent */
+    .task-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(222, 226, 230, 0.6);
+      cursor: grab;
+      min-height: 100px;
+      max-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .task-card:active {
+      cursor: grabbing;
+    }
+    .task-card.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      cursor: grabbing;
+    }
+    .task-card:hover {
+      border-color: #1976d2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .task-content {
+      flex: 1;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .task-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+      font-weight: 600;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .task-card p {
+      margin: 0 0 8px 0;
+      font-size: 10px;
+      color: #6c757d;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .task-meta {
       display: flex;
       justify-content: space-between;
@@ -803,15 +992,13 @@ interface ColumnData {
       align-items: flex-start;
     }
     .left-column {
-      flex: 0 0 60%;
-      min-width: 60%;
+      flex: 0 1 auto;
       padding: 20px;
       overflow-y: visible;
       border-right: 1px solid #eee;
       align-self: flex-start;
     }
     .right-column {
-      flex: 0 0 40%;
       width: 40%;
       padding: 20px;
       background: #f8f9fa;
@@ -1607,7 +1794,9 @@ interface ColumnData {
         position: relative;
       }
       
-      /* ESTILOS MOBILE DO TASK-CARD REMOVIDOS - ESTÃO NO TaskCardComponent */
+      .task-card.dragging {
+        pointer-events: none;
+      }
     }
     
     /* Mobile (até 425px) */
@@ -2242,44 +2431,6 @@ export class KanbanComponent implements OnInit {
     this.currentTouchTask = null;
     this.isDraggingTouch = false;
   }
-
-  // Handlers para TaskCard component
-  handleTaskTouchStart(data: {event: TouchEvent, task: Task}): void {
-    this.onTouchStart(data.event, data.task);
-  }
-
-  handleTaskTouchEnd(data: {event: TouchEvent, task: Task, status?: string}): void {
-    const status = data.status || 'pending';
-    this.onTouchEnd(data.event, status);
-  }
-
-  // Handlers para AddCardForm component
-  handleStartAddCard(status: string): void {
-    this.startAddingCard(status);
-  }
-
-  handleConfirmAddCard(data: {status: string, title: string}): void {
-    // Simula o comportamento original
-    this.newCardTitle[data.status] = data.title;
-    this.confirmAddCard(data.status);
-  }
-
-  handleCancelAddCard(status: string): void {
-    this.cancelAddCard(status);
-  }
-
-  // Handlers para KanbanHeader component
-  handleTrashDragOver(event: DragEvent): void {
-    this.isDragOverTrash = true;
-  }
-
-  handleTrashDragLeave(event: DragEvent): void {
-    this.isDragOverTrash = false;
-  }
-
-  handleTrashDrop(event: DragEvent): void {
-    this.onTrashDrop(event);
-  }
   
   // Método para auto-scroll nas bordas
   private handleAutoScroll(clientX: number): void {
@@ -2340,6 +2491,9 @@ export class KanbanComponent implements OnInit {
 
     const oldTask = { ...this.draggedTask };
     const oldStatus = oldTask.status;
+    const isTaskCustom = (oldTask as any)._isCustomColumn || oldTask.id.startsWith('custom_');
+    const isNewStatusCustom = typeof newStatus === 'string' && !Object.values(TaskStatus).includes(newStatus as TaskStatus);
+    const isOldStatusCustom = typeof oldStatus === 'string' && !Object.values(TaskStatus).includes(oldStatus as TaskStatus);
     
     // Atualização instantânea local
     const index = this.tasks.findIndex(t => t.id === oldTask.id);
@@ -2347,21 +2501,36 @@ export class KanbanComponent implements OnInit {
       this.tasks[index] = {
         ...this.tasks[index],
         status: newStatus as any,
-        updatedAt: new Date()
-      };
+        updatedAt: new Date(),
+        _isCustomColumn: isNewStatusCustom
+      } as any;
     }
     
     // Limpa o estado de drag imediatamente
     this.draggedTask = null;
 
-    // Só atualiza no servidor se for status padrão
-    if (Object.values(TaskStatus).includes(newStatus as TaskStatus)) {
+    // Decide como tratar a movimentação baseado no tipo de origem e destino
+    if (isTaskCustom && isNewStatusCustom) {
+      // Customizada para customizada: apenas local
+      this.saveTasksToStorage();
+      console.log('Task moved between custom columns:', oldStatus, '->', newStatus);
+    } else if (isTaskCustom && !isNewStatusCustom) {
+      // Customizada para padrão: criar no servidor e remover local
+      this.moveCustomTaskToStandard(oldTask, newStatus as TaskStatus, index);
+    } else if (!isTaskCustom && isNewStatusCustom) {
+      // Padrão para customizada: marcar como customizada e salvar local
+      if (index !== -1) {
+        (this.tasks[index] as any)._isCustomColumn = true;
+      }
+      this.saveTasksToStorage();
+      console.log('Standard task moved to custom column:', newStatus);
+    } else {
+      // Padrão para padrão: atualizar no servidor
       this.taskService.updateTask(oldTask.id, { 
         status: newStatus as any,
         priority: oldTask.priority
       }).subscribe({
         next: (updatedTask) => {
-          // Sincroniza silenciosamente com o servidor
           const currentIndex = this.tasks.findIndex(t => t.id === updatedTask.id);
           if (currentIndex !== -1) {
             this.tasks[currentIndex] = updatedTask;
@@ -2369,7 +2538,6 @@ export class KanbanComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error updating task status:', error);
-          // Reverte apenas em caso de erro
           const currentIndex = this.tasks.findIndex(t => t.id === oldTask.id);
           if (currentIndex !== -1) {
             this.tasks[currentIndex] = {
@@ -2377,15 +2545,54 @@ export class KanbanComponent implements OnInit {
               status: oldStatus
             };
           }
-          // Notifica o usuário sobre o erro
           alert('Erro ao mover tarefa. A alteração foi revertida.');
         }
       });
-    } else {
-      // Para colunas customizadas, apenas mantém local
-      console.log('Task moved to custom column:', newStatus);
-      this.saveTasksToStorage(); // Salva tarefas customizadas
     }
+  }
+
+  private moveCustomTaskToStandard(customTask: Task, newStatus: TaskStatus, taskIndex: number): void {
+    // Cria uma nova tarefa no servidor baseada na tarefa customizada
+    const taskData: CreateTaskRequest = {
+      title: customTask.title,
+      description: customTask.description || '',
+      priority: customTask.priority,
+      projectId: customTask.projectId
+    };
+
+    this.taskService.createTask(taskData).subscribe({
+      next: (serverTask) => {
+        // Atualiza o status da nova tarefa no servidor
+        this.taskService.updateTask(serverTask.id, { 
+          status: newStatus,
+          priority: serverTask.priority
+        }).subscribe({
+          next: (updatedTask) => {
+            // Remove a tarefa customizada e adiciona a do servidor
+            if (taskIndex !== -1) {
+              this.tasks[taskIndex] = updatedTask;
+            }
+            this.saveTasksToStorage();
+            console.log('Custom task moved to standard column and saved to server');
+          },
+          error: (error) => {
+            console.error('Error updating server task status:', error);
+            // Reverte para o status original
+            if (taskIndex !== -1) {
+              this.tasks[taskIndex] = customTask;
+            }
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error creating server task:', error);
+        // Reverte para o status original
+        if (taskIndex !== -1) {
+          this.tasks[taskIndex] = customTask;
+        }
+        alert('Erro ao mover tarefa para coluna padrão. A alteração foi revertida.');
+      }
+    });
   }
 
   openTaskModal(task: Task): void {
@@ -2541,28 +2748,44 @@ export class KanbanComponent implements OnInit {
     const title = this.newCardTitle[status]?.trim();
     if (!title) return;
 
+    const isCustomColumn = typeof status === 'string' && !Object.values(TaskStatus).includes(status as TaskStatus);
+
+    if (isCustomColumn) {
+      // Para colunas customizadas, criar tarefa apenas localmente
+      const customTask: Task = {
+        id: 'custom_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        title: title,
+        description: '',
+        priority: TaskPriority.NONE,
+        status: status as any,
+        projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf',
+        userId: 'current-user',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        _isCustomColumn: true
+      } as any;
+
+      this.tasks.push(customTask);
+      this.saveTasksToStorage();
+      this.cancelAddCard(status);
+      return;
+    }
+
+    // Para colunas padrão, criar no servidor
     const taskData: CreateTaskRequest = {
       title: title,
-      description: '', // Descrição vazia inicialmente
+      description: '',
       priority: TaskPriority.NONE,
       projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
     };
 
     this.taskService.createTask(taskData).subscribe({
       next: (task) => {
-        // Para colunas customizadas, criar nova task com status customizado
-        if (typeof status === 'string' && !Object.values(TaskStatus).includes(status as TaskStatus)) {
-          const customTask = { ...task, status: status as any };
-          this.tasks.push(customTask);
-        } else {
-          this.tasks.push(task);
-          // Move para o status correto se necessário
-          if (task.status !== status && Object.values(TaskStatus).includes(status as TaskStatus)) {
-            this.moveTaskToStatus(task, status as TaskStatus);
-          }
+        this.tasks.push(task);
+        // Move para o status correto se necessário
+        if (task.status !== status && Object.values(TaskStatus).includes(status as TaskStatus)) {
+          this.moveTaskToStatus(task, status as TaskStatus);
         }
-        
-        this.saveTasksToStorage(); // Salva tarefas customizadas
         this.cancelAddCard(status);
       },
       error: (error) => {
@@ -2761,20 +2984,36 @@ export class KanbanComponent implements OnInit {
   }
 
   private deleteTaskAndCloseModal(taskId: string): void {
+    // Verifica se a tarefa está em coluna customizada
+    const task = this.tasks.find(t => t.id === taskId);
+    const isCustomTask = task && ((task as any)._isCustomColumn || taskId.startsWith('custom_'));
+
+    // Remove da lista local imediatamente
+    this.tasks = this.tasks.filter(task => task.id !== taskId);
+    
+    // Fecha modal se a task deletada estava aberta
+    if (this.modalTask && this.modalTask.id === taskId) {
+      this.closeModal();
+    }
+
+    // Se é tarefa customizada (local), não tenta deletar no servidor
+    if (isCustomTask) {
+      this.saveTasksToStorage();
+      console.log('Tarefa customizada removida localmente');
+      return;
+    }
+
+    // Para tarefas normais, deleta no servidor
     this.taskService.deleteTask(taskId).subscribe({
       next: () => {
-        // Remove da lista local
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-        
-        // Fecha modal se a task deletada estava aberta
-        if (this.modalTask && this.modalTask.id === taskId) {
-          this.closeModal();
-        }
-        
         console.log('Tarefa deletada com sucesso');
       },
       error: (error) => {
         console.error('Erro ao deletar tarefa:', error);
+        // Em caso de erro, recoloca a tarefa na lista
+        if (task) {
+          this.tasks.push(task);
+        }
       }
     });
   }
@@ -3166,37 +3405,7 @@ export class KanbanComponent implements OnInit {
 
   // Método para obter tarefas por status (aceita string também)
   getTasksByStatusString(status: string): Task[] {
-    return this.tasks
-      .filter(task => task.status === status)
-      .sort((a, b) => {
-        // Ordenação por prioridade: Alta (3) -> Média (2) -> Baixa (1) -> Normal (0)
-        if (b.priority !== a.priority) {
-          return b.priority - a.priority;
-        }
-        // Se prioridade igual, ordena por data de criação (mais recente primeiro)
-        return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
-      });
+    return this.tasks.filter(task => task.status === status);
   }
-
-  // HANDLERS DO NOVO TASKMODAL COMPONENT (TEMPORARIAMENTE COMENTADOS)
-  // handleModalClose(): void {
-  //   this.closeModal();
-  // }
-
-  // handleModalSave(event: {task: Task, changes: Partial<Task>}): void {
-  //   // this.updateTask(event.task.id, event.changes);
-  // }
-
-  // handleModalDelete(taskId: string): void {
-  //   // this.deleteTask(taskId);
-  // }
-
-  // handleModalStatusChange(event: {taskId: string, newStatus: TaskStatus}): void {
-  //   // this.changeStatus(event.newStatus, event.taskId);
-  // }
-
-  // handleModalPriorityChange(event: {taskId: string, newPriority: TaskPriority}): void {
-  //   // this.changePriority(event.newPriority, event.taskId);
-  // }
 
 }

@@ -12,57 +12,58 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
   selector: 'app-kanban-column',
   standalone: true,
   imports: [CommonModule, TaskCardComponent, AddCardFormComponent],
+  host: {
+    '[class.column]': 'true',
+    '[class.drag-over-column]': 'isDragOverColumn',
+    '[class.being-dragged]': 'isBeingDragged',
+    '[class.ghost-left]': 'showGhostLeft',
+    '[class.ghost-right]': 'showGhostRight',
+    '(dragover)': 'onColumnDragOver($event)',
+    '(dragleave)': 'onColumnDragLeave()',
+    '(drop)': 'onColumnDrop($event)'
+  },
   template: `
     <!-- TEMPLATE EXATO COPIADO DO ARQUIVO PRINCIPAL -->
-    <div class="column" 
-         [class.drag-over-column]="isDragOverColumn"
-         [class.being-dragged]="isBeingDragged"
-         [class.ghost-left]="showGhostLeft"
-         [class.ghost-right]="showGhostRight"
-         (dragover)="onColumnDragOver($event)"
-         (dragleave)="onColumnDragLeave()"
-         (drop)="onColumnDrop($event)">
-      <div class="column-header" 
-           draggable="true"
-           (dragstart)="onColumnDragStart($event)"
-           (dragend)="onColumnDragEnd()">
-        <h3>{{ column.label }}</h3>
-        <span class="task-count">{{ tasks.length }}</span>
+    <div class="column-header" 
+         draggable="true"
+         (dragstart)="onColumnDragStart($event)"
+         (dragend)="onColumnDragEnd()">
+      <h3>{{ column.label }}</h3>
+      <span class="task-count">{{ tasks.length }}</span>
+    </div>
+    
+    <div class="column-content"
+         (dragover)="onDragOver($event)"
+         (drop)="onDrop($event)"
+         [attr.data-status]="column.status">
+      <app-task-card 
+        *ngFor="let task of tasks"
+        [task]="task"
+        [columnStatus]="column.status"
+        (dragStart)="onTaskDragStart($event)"
+        (dragEnd)="onTaskDragEnd()"
+        (touchStart)="onTaskTouchStart($event)"
+        (touchMove)="onTaskTouchMove($event)"
+        (touchEnd)="onTaskTouchEnd($event)"
+        (cardClick)="onTaskClick($event)">
+      </app-task-card>
+      
+      <div *ngIf="tasks.length === 0" class="empty-column">
+        Nenhuma tarefa
       </div>
       
-      <div class="column-content"
-           (dragover)="onDragOver($event)"
-           (drop)="onDrop($event)"
-           [attr.data-status]="column.status">
-        <app-task-card 
-          *ngFor="let task of tasks"
-          [task]="task"
-          [columnStatus]="column.status"
-          (dragStart)="onTaskDragStart($event)"
-          (dragEnd)="onTaskDragEnd()"
-          (touchStart)="onTaskTouchStart($event)"
-          (touchMove)="onTaskTouchMove($event)"
-          (touchEnd)="onTaskTouchEnd($event)"
-          (cardClick)="onTaskClick($event)">
-        </app-task-card>
-        
-        <div *ngIf="tasks.length === 0" class="empty-column">
-          Nenhuma tarefa
-        </div>
-        
-        <app-add-card-form
-          [isActive]="isAddingCard"
-          [columnStatus]="column.status"
-          (startAddCard)="onStartAddCard($event)"
-          (confirmAddCard)="onConfirmAddCard($event)"
-          (cancelAddCard)="onCancelAddCard($event)">
-        </app-add-card-form>
-      </div>
+      <app-add-card-form
+        [isActive]="isAddingCard"
+        [columnStatus]="column.status"
+        (startAddCard)="onStartAddCard($event)"
+        (confirmAddCard)="onConfirmAddCard($event)"
+        (cancelAddCard)="onCancelAddCard($event)">
+      </app-add-card-form>
     </div>
   `,
   styles: [`
     /* ESTILOS EXATOS COPIADOS DO ARQUIVO PRINCIPAL - SEM ALTERAÇÕES */
-    .column {
+    :host {
       backdrop-filter: blur(10px);
       border-radius: 12px;
       width: 240px;
@@ -76,13 +77,13 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
     }
 
     /* 👻 GHOST COLUMN ANIMATION: Indicadores visuais de inserção */
-    .column.being-dragged {
+    :host.being-dragged {
       opacity: 0.5;
       transform: scale(0.95);
       z-index: 1000;
     }
 
-    .column.ghost-left::before {
+    :host.ghost-left::before {
       content: '';
       position: absolute;
       left: -18px;
@@ -96,7 +97,7 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
       z-index: 10;
     }
 
-    .column.ghost-right::after {
+    :host.ghost-right::after {
       content: '';
       position: absolute;
       right: -18px;
@@ -162,7 +163,7 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
-    .column.drag-over-column {
+    :host.drag-over-column {
       transform: scale(1.02);
       box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
       border: 2px dashed #007bff;
@@ -170,11 +171,13 @@ import { AddCardFormComponent } from '../add-card-form/add-card-form.component';
     
     .column-content {
       background: rgba(241, 242, 244, 0.9);
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
       padding: 8px;
       border-radius: 0 0 12px 12px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: calc(100vh - 350px);
     }
 
     .column-content::-webkit-scrollbar {

@@ -12,12 +12,23 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="header-section">
       <h2>{{ title }}</h2>
-      <div class="trash-zone" 
-           [class.drag-over]="isDragOverTrash"
-           (dragover)="onTrashDragOver($event)"
-           (dragleave)="onTrashDragLeave($event)"
-           (drop)="onTrashDrop($event)">
-        <span class="trash-icon">🗑️</span>
+      <div class="header-actions">
+        <button class="logout-btn" 
+                (click)="onLogout()"
+                title="Sair">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </button>
+        <div class="trash-zone" 
+             [class.drag-over]="isDragOverTrash"
+             (dragover)="onTrashDragOver($event)"
+             (dragleave)="onTrashDragLeave($event)"
+             (drop)="onTrashDrop($event)">
+          <span class="trash-icon">🗑️</span>
+        </div>
       </div>
     </div>
   `,
@@ -43,6 +54,35 @@ import { CommonModule } from '@angular/common';
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 2px dashed rgba(221, 221, 221, 0.8);
+      border-radius: 8px;
+      background: rgba(249, 249, 249, 0.9);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      backdrop-filter: blur(5px);
+      color: #666;
+    }
+
+    .logout-btn:hover {
+      border-color: #ff6b6b;
+      background: #fff5f5;
+      color: #ff6b6b;
+      transform: scale(1.05);
     }
 
     .trash-zone {
@@ -111,6 +151,7 @@ export class KanbanHeaderComponent {
   @Output() trashDragOver = new EventEmitter<DragEvent>();
   @Output() trashDragLeave = new EventEmitter<DragEvent>();
   @Output() trashDrop = new EventEmitter<DragEvent>();
+  @Output() logoutClick = new EventEmitter<void>();
 
   onTrashDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -124,5 +165,9 @@ export class KanbanHeaderComponent {
   onTrashDrop(event: DragEvent): void {
     event.preventDefault();
     this.trashDrop.emit(event);
+  }
+
+  onLogout(): void {
+    this.logoutClick.emit();
   }
 }

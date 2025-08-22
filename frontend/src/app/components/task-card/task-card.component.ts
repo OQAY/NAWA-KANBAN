@@ -15,8 +15,8 @@ import { Task, TaskPriority } from '../../models/task.model';
          draggable="true"
          (dragstart)="onDragStart()"
          (dragend)="onDragEnd()"
-         (touchstart)="onTouchStart($event)"
-         (touchmove)="onTouchMove($event)"
+         (touchstart.passive)="onTouchStart($event)"
+         (touchmove.passive)="onTouchMove($event)"
          (touchend)="onTouchEnd($event)"
          (click)="onClick()">
       <div class="task-content">
