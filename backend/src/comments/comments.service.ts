@@ -16,6 +16,13 @@ export class CommentsService {
     private taskRepository: Repository<Task>,
   ) {}
 
+  private convertToBrazilTime(comment: Comment): Comment {
+    // Converte UTC para UTC-3 (horário de Brasília)
+    // Se UTC mostra 00:30, o horário brasileiro é 21:30 (3 horas a menos)
+    const brazilTime = new Date(comment.createdAt.getTime() - (3 * 60 * 60 * 1000));
+    return { ...comment, createdAt: brazilTime };
+  }
+
   async create(taskId: string, createCommentDto: CreateCommentDto, currentUser: User): Promise<Comment> {
     const task = await this.taskRepository.findOne({ where: { id: taskId } });
     
@@ -31,7 +38,7 @@ export class CommentsService {
 
     const savedComment = await this.commentRepository.save(comment);
     
-    return this.commentRepository.findOne({
+    const result = await this.commentRepository.findOne({
       where: { id: savedComment.id },
       relations: ['user'],
       select: {
@@ -48,6 +55,8 @@ export class CommentsService {
         },
       },
     });
+
+    return result ? this.convertToBrazilTime(result) : result;
   }
 
   async findByTask(taskId: string, currentUser: User): Promise<Comment[]> {
@@ -57,7 +66,7 @@ export class CommentsService {
       throw new NotFoundException('Task not found');
     }
 
-    return this.commentRepository.find({
+    const comments = await this.commentRepository.find({
       where: { taskId },
       relations: ['user'],
       select: {
@@ -75,6 +84,8 @@ export class CommentsService {
       },
       order: { createdAt: 'DESC' },
     });
+
+    return comments.map(comment => this.convertToBrazilTime(comment));
   }
 
   async update(id: string, updateCommentDto: UpdateCommentDto, currentUser: User): Promise<Comment> {
@@ -99,7 +110,7 @@ export class CommentsService {
     Object.assign(comment, updateCommentDto);
     const savedComment = await this.commentRepository.save(comment);
 
-    return this.commentRepository.findOne({
+    const result = await this.commentRepository.findOne({
       where: { id: savedComment.id },
       relations: ['user'],
       select: {
@@ -116,6 +127,8 @@ export class CommentsService {
         },
       },
     });
+
+    return result ? this.convertToBrazilTime(result) : result;
   }
 
   async remove(id: string, currentUser: User): Promise<void> {

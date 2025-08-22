@@ -192,12 +192,26 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
                     <!-- Visualização do Comentário -->
                     <div class="comment-view" *ngIf="editingCommentId !== comment.id">
                       <div class="comment-header">
-                        <span class="comment-author">{{ comment.user?.name || 'Usuário' }}</span>
-                        <span class="comment-date">{{ formatCommentDate(comment.createdAt) }}</span>
+                        <div class="comment-info">
+                          <span class="comment-author">{{ comment.user?.name || 'Usuário' }}</span>
+                          <span class="comment-date">{{ formatCommentDate(comment.createdAt) }}</span>
+                        </div>
+                        <div class="comment-buttons">
+                          <button class="comment-action-btn" 
+                                  (click)="startEditComment(comment)"
+                                  title="Editar comentário">
+                            ✏️
+                          </button>
+                          <button class="comment-action-btn delete" 
+                                  (click)="deleteComment(comment.id)"
+                                  title="Excluir comentário">
+                            🗑️
+                          </button>
+                        </div>
                       </div>
                       <div class="comment-content" 
-                           (click)="startEditComment(comment)"
-                           [class.expandable]="isCommentLong(comment.content)">
+                           [class.expandable]="isCommentLong(comment.content)"
+                           (click)="expandComment(comment)">
                         {{ comment.content }}
                       </div>
                     </div>
@@ -268,6 +282,33 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
               <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             Continuar editando
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal do Comentário Expandido -->
+    <div class="modal-overlay" *ngIf="expandedComment" (click)="closeExpandedComment()">
+      <div class="expanded-comment-modal" (click)="$event.stopPropagation()">
+        <div class="expanded-comment-header">
+          <h3>Comentário</h3>
+          <button class="close-btn" (click)="closeExpandedComment()">×</button>
+        </div>
+        <div class="expanded-comment-body">
+          <div class="expanded-comment-author">
+            <strong>{{ expandedComment.user?.name || 'Usuário' }}</strong>
+            <span class="expanded-comment-date">{{ formatCommentDate(expandedComment.createdAt) }}</span>
+          </div>
+          <div class="expanded-comment-content">
+            {{ expandedComment.content }}
+          </div>
+        </div>
+        <div class="expanded-comment-actions">
+          <button class="btn-edit-expanded" (click)="editFromExpanded()">
+            ✏️ Editar
+          </button>
+          <button class="btn-delete-expanded" (click)="deleteFromExpanded()">
+            🗑️ Excluir
           </button>
         </div>
       </div>
@@ -1103,6 +1144,163 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
       align-items: center;
       margin-bottom: 8px;
     }
+    
+    .comment-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .comment-buttons {
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    
+    .comment-item:hover .comment-buttons {
+      opacity: 1;
+    }
+    
+    .comment-action-btn {
+      background: none;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+    
+    .comment-action-btn:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .comment-action-btn.delete:hover {
+      background-color: #ffebee;
+    }
+    
+    /* Modal de comentário expandido */
+    .expanded-comment-modal {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .expanded-comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .expanded-comment-header h3 {
+      margin: 0;
+      color: #172b4d;
+      font-size: 18px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .close-btn:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .expanded-comment-body {
+      margin-bottom: 20px;
+    }
+    
+    .expanded-comment-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+    
+    .expanded-comment-author strong {
+      color: #172b4d;
+      font-size: 14px;
+    }
+    
+    .expanded-comment-date {
+      color: #6b778c;
+      font-size: 12px;
+    }
+    
+    .expanded-comment-content {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #172b4d;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    .expanded-comment-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+    
+    .btn-edit-expanded, .btn-delete-expanded {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn-edit-expanded {
+      background: #0079bf;
+      color: white;
+    }
+    
+    .btn-edit-expanded:hover {
+      background: #026aa7;
+    }
+    
+    .btn-delete-expanded {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .btn-delete-expanded:hover {
+      background: #c0392b;
+    }
     .comment-author {
       font-weight: 600;
       color: #172b4d;
@@ -1244,6 +1442,7 @@ export class KanbanComponent implements OnInit {
   newCommentContent = '';
   editingCommentId: string | null = null;
   editingCommentContent = '';
+  expandedComment: Comment | null = null;
 
   constructor(
     private taskService: TaskService,
@@ -1871,14 +2070,19 @@ export class KanbanComponent implements OnInit {
 
   formatCommentDate(dateString: string): string {
     const date = new Date(dateString);
+    
+    // Ajustar para horário brasileiro se necessário
+    // O backend já envia em UTC-3, então comparamos com horário brasileiro
     const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
+    const brazilNow = new Date(now.getTime() - (3 * 60 * 60 * 1000));
+    
+    const diffMs = brazilNow.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / (1000 * 60));
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
     
-    // Formato similar ao Trello
-    if (diffMins < 1) return 'agora';
+    // Se a diferença for negativa (comentário no futuro), é recente
+    if (diffMins < 1 || diffMs < 0) return 'agora';
     if (diffMins < 60) return `${diffMins} min`;
     if (diffHours < 24) return `${diffHours}h`;
     if (diffDays < 30) return `${diffDays}d`;
@@ -1892,5 +2096,28 @@ export class KanbanComponent implements OnInit {
 
   isCommentLong(content: string): boolean {
     return content.length > 100;
+  }
+
+  // Métodos para modal expandido
+  expandComment(comment: Comment): void {
+    this.expandedComment = comment;
+  }
+
+  closeExpandedComment(): void {
+    this.expandedComment = null;
+  }
+
+  editFromExpanded(): void {
+    if (this.expandedComment) {
+      this.startEditComment(this.expandedComment);
+      this.closeExpandedComment();
+    }
+  }
+
+  deleteFromExpanded(): void {
+    if (this.expandedComment) {
+      this.deleteComment(this.expandedComment.id);
+      this.closeExpandedComment();
+    }
   }
 }

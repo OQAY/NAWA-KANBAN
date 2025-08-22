@@ -17,6 +17,7 @@ import { Comment } from './entities/comment.entity';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         ssl: { rejectUnauthorized: false },
+        timezone: 'America/Sao_Paulo',
         entities: [User, Task, Project, Comment],
         synchronize: configService.get('NODE_ENV') !== 'production',
         logging: configService.get('NODE_ENV') === 'development',
