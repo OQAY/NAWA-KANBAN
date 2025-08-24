@@ -222,7 +222,7 @@
                 #commentTextarea>
               </textarea>
               <div class="comment-actions">
-                <button (click)="saveComment()" class="btn-save-comment" [disabled]="!newCommentContent?.trim()">
+                <button (click)="saveComment()" class="btn-save-comment" [disabled]="!newCommentContent.trim()">
                   Salvar
                 </button>
                 <button (click)="cancelComment()" class="btn-cancel-comment">

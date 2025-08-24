@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
@@ -26,25 +28,25 @@ interface ColumnData {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './kanban.component.html',
-  styleUrl: './styles/index.scss',
+  styleUrl: './styles/index.scss'
   /* REFACTORED: Extracted inline template and styles to separate files
    * - kanban.component.html: ~400 lines of template code
    * - kanban.component.scss: ~1500 lines of styles  
    * This reduces the main component file from 3322 to ~400 lines
    * Phase 1 completed: Template and style extraction successful
    */
-  host: {
-    '(document:load)': 'disablePageScroll()'
-  }
 })
-export class KanbanComponent implements OnInit {
+export class KanbanComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  private readonly DEFAULT_PROJECT_ID = '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf';
+  
   tasks: Task[] = [];
   
   newTask: CreateTaskRequest = {
     title: '',
     description: '',
     priority: TaskPriority.NONE,
-    projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+    projectId: this.DEFAULT_PROJECT_ID
   };
   
   draggedTask: Task | null = null;
@@ -63,7 +65,7 @@ export class KanbanComponent implements OnInit {
 
   // MODAL TASK: Tarefa atualmente aberta no modal
   modalTask: Task | null = null;
-  isModalOpen = false;
+  showModal = false;
   editingTitle = false;
   editingDescription = false;
   isDescriptionExpanded = false;
@@ -74,7 +76,7 @@ export class KanbanComponent implements OnInit {
   newCommentContent = '';
   editingComment: Comment | null = null;
   editingCommentId: string | null = null;
-  editCommentContent = '';
+  editingCommentContent = '';
 
   // COLUMN MANAGEMENT: Gerenciamento dinâmico de colunas
   columns: ColumnData[] = [];
@@ -90,7 +92,7 @@ export class KanbanComponent implements OnInit {
   isSaving = false;
 
   // Propriedades para touch/drag mobile
-  autoScrollInterval: any = null;
+  private autoScrollInterval: any = null;
 
   constructor(
     private taskService: TaskService,
@@ -100,7 +102,16 @@ export class KanbanComponent implements OnInit {
   ngOnInit(): void {
     this.initializeColumns();
     this.loadTasks();
-    this.initializeTemplateBindings();
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup subscriptions and timers to prevent memory leaks
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+    }
   }
 
   // ENTERPRISE ARCHITECTURE: Inicialização das colunas padrão + customizadas
@@ -139,17 +150,19 @@ export class KanbanComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getTasks().subscribe({
-      next: (response: any) => {
-        this.tasks = response.data || response;
-        this.loadCustomTasks(); // Carrega tarefas customizadas
-        console.log('Tasks loaded:', this.tasks);
-      },
-      error: (error) => {
-        console.error('Error loading tasks:', error);
-        this.tasks = [];
-      }
-    });
+    this.taskService.getTasks()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response: any) => {
+          this.tasks = response.data || response;
+          this.loadCustomTasks(); // Carrega tarefas customizadas
+          console.log('Tasks loaded:', this.tasks);
+        },
+        error: (error) => {
+          console.error('Error loading tasks:', error);
+          this.tasks = [];
+        }
+      });
   }
 
   // Método de utilidade para filtrar tarefas por status  
@@ -237,7 +250,7 @@ export class KanbanComponent implements OnInit {
       title: '',
       description: '',
       priority: TaskPriority.NONE,
-      projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+      projectId: this.DEFAULT_PROJECT_ID
     };
   }
 
@@ -265,16 +278,18 @@ export class KanbanComponent implements OnInit {
 
     const currentIndex = this.tasks.findIndex(t => t.id === this.draggedTask!.id);
     
-    this.taskService.updateTask(this.draggedTask.id, updateRequest).subscribe({
-      next: (updatedTask) => {
-        if (currentIndex !== -1) {
-          this.tasks[currentIndex] = updatedTask;
+    this.taskService.updateTask(this.draggedTask.id, updateRequest)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedTask) => {
+          if (currentIndex !== -1) {
+            this.tasks[currentIndex] = updatedTask;
+          }
+        },
+        error: (error) => {
+          console.error('Error updating task status:', error);
         }
-      },
-      error: (error) => {
-        console.error('Error updating task status:', error);
-      }
-    });
+      });
 
     this.draggedTask = null;
   }
@@ -282,7 +297,6 @@ export class KanbanComponent implements OnInit {
   // MODAL: Funcionalidades do modal de edição de tarefas
   openTaskModal(task: Task): void {
     this.modalTask = { ...task };
-    this.isModalOpen = true;
     this.showModal = true;
     this.loadComments(task.id);
   }
@@ -294,13 +308,16 @@ export class KanbanComponent implements OnInit {
       }
     }
     
-    this.isModalOpen = false;
     this.showModal = false;
     this.modalTask = null;
     this.editingTitle = false;
     this.editingDescription = false;
     this.hasUnsavedChanges = false;
     this.taskComments = [];
+    this.showAddComment = false;
+    this.newCommentContent = '';
+    this.editingCommentId = null;
+    this.editingCommentContent = '';
   }
 
   saveTaskFromModal(): void {
@@ -347,7 +364,7 @@ export class KanbanComponent implements OnInit {
       title,
       description: '',
       priority: TaskPriority.NONE,
-      projectId: '68a0ca52-1c9f-4ff2-9d12-e908f1cb53bf'
+      projectId: this.DEFAULT_PROJECT_ID
     };
 
     this.taskService.createTask(newTask).subscribe({
@@ -409,14 +426,14 @@ export class KanbanComponent implements OnInit {
 
   editComment(comment: Comment): void {
     this.editingCommentId = comment.id;
-    this.editCommentContent = comment.content;
+    this.editingCommentContent = comment.content;
   }
 
   saveEditComment(comment?: Comment): void {
-    if (!this.editingCommentId || !this.editCommentContent.trim()) return;
+    if (!this.editingCommentId || !this.editingCommentContent.trim()) return;
 
     const updateRequest: UpdateCommentRequest = {
-      content: this.editCommentContent.trim()
+      content: this.editingCommentContent.trim()
     };
 
     this.commentService.updateComment(this.editingCommentId, updateRequest).subscribe({
@@ -435,7 +452,7 @@ export class KanbanComponent implements OnInit {
 
   cancelEditComment(): void {
     this.editingCommentId = null;
-    this.editCommentContent = '';
+    this.editingCommentContent = '';
   }
 
   deleteComment(commentId: string): void {
@@ -621,8 +638,6 @@ export class KanbanComponent implements OnInit {
   }
 
   // MODAL FUNCTIONALITY: Extended modal features
-  showModal = false;
-
   closeModal(): void {
     this.closeTaskModal();
   }
@@ -743,10 +758,8 @@ export class KanbanComponent implements OnInit {
   }
 
   onCommentBlur(): void {
-    // Auto-save on blur if there's content
-    if (this.newCommentContent.trim()) {
-      this.addComment();
-    }
+    // Removed auto-save on blur to prevent race conditions
+    // User must explicitly save comments
   }
 
   formatCommentDate(date: string): string {
@@ -821,18 +834,14 @@ export class KanbanComponent implements OnInit {
   }
 
   onEditCommentBlur(comment: Comment): void {
-    // Auto-save on blur
-    if (this.editCommentContent.trim()) {
-      this.saveEditComment();
-    }
+    // Removed auto-save on blur to prevent race conditions
+    // User must explicitly save comments
   }
 
   isCommentLong(content: string): boolean {
     return content.length > 100;
   }
 
-  // Property alias for template compatibility
-  editingCommentContent = '';
 
   // SAVE CONFIRMATION: Modal save confirmation functionality
   showSaveConfirmModal = false;
@@ -867,12 +876,7 @@ export class KanbanComponent implements OnInit {
   }
 
   // TEMPLATE BINDING FIXES: Property name corrections
-  addingToColumn: { [key: string]: boolean } = {};
-
-  // Initialize missing properties in ngOnInit
-  private initializeTemplateBindings(): void {
-    this.addingToColumn = this.addingCard;
-    this.showModal = this.isModalOpen;
-    this.editingCommentContent = this.editCommentContent;
+  get addingToColumn(): { [key: string]: boolean } {
+    return this.addingCard;
   }
 }
