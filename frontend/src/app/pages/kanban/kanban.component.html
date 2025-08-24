@@ -1,0 +1,398 @@
+<div class="kanban-board">
+  <div class="header-section">
+    <h2>Dashboard</h2>
+    <div class="trash-zone" 
+         [class.drag-over]="isDragOverTrash"
+         (dragover)="onTrashDragOver($event)"
+         (dragleave)="onTrashDragLeave($event)"
+         (drop)="onTrashDrop($event)">
+      <span class="trash-icon">🗑️</span>
+    </div>
+  </div>
+  
+  <div class="columns-container">
+    <div class="columns">
+    <!-- ENTERPRISE TEMPLATE: Unified columns com trackBy -->
+    <div class="column" *ngFor="let column of columns; trackBy: trackByColumn; let i = index" 
+         [class.drag-over-column]="dragOverColumnIndex === i"
+         [class.being-dragged]="draggedColumn?.id === column.id"
+         [class.ghost-left]="shouldShowGhost(i, 'left')"
+         [class.ghost-right]="shouldShowGhost(i, 'right')"
+         (dragover)="onColumnDragOver($event, column.id, i)"
+         (dragleave)="onColumnDragLeave()"
+         (drop)="onColumnDrop($event, column.id, i)">
+      <div class="column-header" 
+           draggable="true"
+           (dragstart)="onColumnDragStart($event, column.id, i)"
+           (dragend)="onColumnDragEnd()">
+        <h3>{{ column.label }}</h3>
+        <span class="task-count">{{ getTasksByStatusString(column.status).length }}</span>
+      </div>
+      
+      <div class="column-content"
+           (dragover)="onDragOver($event)"
+           (drop)="onDrop($event, column.status)"
+           [attr.data-status]="column.status">
+        <div class="task-card" 
+             *ngFor="let task of getTasksByStatusString(column.status)"
+             draggable="true"
+             (dragstart)="onDragStart(task)"
+             (dragend)="onDragEnd()"
+             (touchstart)="onTouchStart($event, task)"
+             (touchmove)="onTouchMove($event)"
+             (touchend)="onTouchEnd($event, column.status)"
+             (click)="openTaskModal(task)">
+          <div class="task-content">
+            <h4>{{ task.title }}</h4>
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="task-meta">
+            <span class="priority priority-{{ task.priority }}">{{ getPriorityLabel(task.priority) }}</span>
+          </div>
+        </div>
+        
+        <div *ngIf="getTasksByStatusString(column.status).length === 0" class="empty-column">
+          Nenhuma tarefa
+        </div>
+        
+        <!-- Botão adicionar cartão estilo Trello -->
+        <div class="add-card-container">
+          <div *ngIf="!addingToColumn[column.status]" class="add-card-btn" (click)="startAddingCard(column.status)">
+            <span class="plus-icon">+</span>
+            <span class="add-text">Adicionar um cartão</span>
+          </div>
+          
+          <div *ngIf="addingToColumn[column.status]" class="add-card-form">
+            <textarea 
+              [(ngModel)]="newCardTitle[column.status]"
+              placeholder="Insira um título para este cartão..."
+              class="card-title-input"
+              (keydown)="onCardTitleKeydown($event, column.status)"
+              #cardInput>
+            </textarea>
+            <div class="add-card-actions">
+              <button (click)="confirmAddCard(column.status)" class="btn-add-card">Adicionar cartão</button>
+              <button (click)="cancelAddCard(column.status)" class="btn-cancel-add">✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Adicionar nova coluna - sempre em último lugar -->
+    <div class="column add-column-interface">
+      <div class="column-header">
+        <h3>Adicionar uma lista</h3>
+        <span class="task-count">+</span>
+      </div>
+      
+      <div class="column-content">
+        <div *ngIf="!addingColumn" class="add-card-container">
+          <div class="add-card-btn" (click)="startAddingColumn()">
+            <span class="plus-icon">+</span>
+            <span class="add-text">Adicionar uma lista</span>
+          </div>
+        </div>
+        
+        <div *ngIf="addingColumn" class="add-card-form">
+          <textarea 
+            [(ngModel)]="newColumnTitle"
+            placeholder="Insira o título da lista..."
+            class="card-title-input"
+            (keydown)="onColumnTitleKeydown($event)"
+            maxlength="50">
+          </textarea>
+          <div class="add-card-actions">
+            <button (click)="confirmAddColumn()" class="btn-add-card">Adicionar lista</button>
+            <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Task Details - Estilo Trello -->
+  <div class="modal-overlay" *ngIf="showModal" (mousedown)="onOverlayMouseDown($event)" (mouseup)="onOverlayMouseUp($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()" (mousedown)="$event.stopPropagation()" (mouseup)="$event.stopPropagation()">
+      <!-- Header pequeno: 10% -->
+      <div class="modal-header">
+        <div class="header-info">
+          <span class="current-status">{{ getStatusLabel(modalTask?.status!) }}</span>
+          <button class="close-btn" (click)="closeModal()">✕</button>
+        </div>
+      </div>
+      
+      <!-- Body principal: 2 colunas -->
+      <div class="modal-body">
+        <!-- Coluna esquerda: 60% - Título e Descrição -->
+        <div class="left-column">
+          <div class="title-section">
+            <h2 *ngIf="!editingTask" (dblclick)="startEdit()">{{ modalTask?.title }}</h2>
+            <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input" 
+                      (input)="autoResize($event); checkForChanges()" #titleTextarea></textarea>
+          </div>
+          
+          <div class="description-section">
+            <h3>Descrição</h3>
+            <div *ngIf="!editingTask" class="description-view" (dblclick)="startEdit()">
+              <p [class.truncated]="descriptionTruncated">{{ modalTask?.description || 'Adicione uma descrição mais detalhada...' }}</p>
+              <button *ngIf="shouldShowDescriptionToggle()" (click)="toggleDescription(); $event.stopPropagation()" class="toggle-btn">
+                {{ descriptionTruncated ? 'Mostrar mais' : 'Mostrar menos' }}
+              </button>
+            </div>
+            <textarea *ngIf="editingTask" [(ngModel)]="editForm.description" class="description-edit-input" 
+                      placeholder="Adicione uma descrição..." (input)="autoResize($event); checkForChanges()" #descriptionTextarea></textarea>
+          </div>
+        </div>
+        
+        <!-- Coluna direita: 40% - Ações e Info -->
+        <div class="right-column">
+          
+          <div class="actions-section">
+            <h3>Ações</h3>
+            <div class="action-buttons">
+              <button *ngIf="!editingTask" (click)="startEdit()" class="action-btn edit-btn">Editar</button>
+              <button *ngIf="editingTask" (click)="saveModalEdit()" class="action-btn save-btn">Salvar</button>
+              <button *ngIf="editingTask" (click)="cancelModalEdit()" class="action-btn cancel-btn">Cancelar</button>
+              <button (click)="showDeleteConfirm(modalTask!.id)" class="action-btn delete-btn">Excluir</button>
+            </div>
+          </div>
+          
+          <div class="info-section">
+            <h3>Detalhes</h3>
+            <div class="detail-item">
+              <strong>Prioridade</strong>
+              <div class="priority-dropdown" (click)="$event.stopPropagation()">
+                <span class="priority priority-{{ modalTask?.priority }} priority-clickable" 
+                      (click)="togglePriorityDropdown()">
+                  {{ getPriorityLabel(modalTask?.priority!) }}
+                  <span class="dropdown-arrow">▼</span>
+                </span>
+                <div class="priority-options" *ngIf="showPriorityDropdown">
+                  <div class="priority-option" 
+                       *ngFor="let priority of priorityOptions"
+                       (click)="changePriority(priority.value)"
+                       [class.selected]="priority.value === modalTask?.priority">
+                    <span class="priority priority-{{ priority.value }}">{{ priority.label }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="detail-item">
+              <strong>Status</strong>
+              <div class="status-dropdown" (click)="$event.stopPropagation()">
+                <span class="status status-{{ modalTask?.status }} status-clickable" 
+                      (click)="toggleStatusDropdown()">
+                  {{ getStatusLabel(modalTask?.status!) }}
+                  <span class="dropdown-arrow">▼</span>
+                </span>
+                <div class="status-options" *ngIf="showStatusDropdown">
+                  <div class="status-option" 
+                       *ngFor="let status of statusOptions"
+                       (click)="changeStatus(status.value)"
+                       [class.selected]="status.value === modalTask?.status">
+                    <span class="status status-{{ status.value }}">{{ status.label }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seção de Comentários -->
+          <div class="comments-section">
+            <h3>Comentários</h3>
+            
+            <!-- Botão Adicionar Comentário -->
+            <div class="add-comment-container">
+              <button class="add-comment-btn" 
+                      (click)="toggleAddComment()" 
+                      [class.active]="showAddComment">
+                + Adicionar um comentário
+              </button>
+            </div>
+
+            <!-- Formulário de Novo Comentário -->
+            <div class="comment-form" *ngIf="showAddComment">
+              <textarea 
+                [(ngModel)]="newCommentContent"
+                placeholder="Escreva um comentário..."
+                class="comment-input"
+                (keydown)="onCommentKeydown($event)"
+                (blur)="onCommentBlur()"
+                #commentTextarea>
+              </textarea>
+              <div class="comment-actions">
+                <button (click)="saveComment()" class="btn-save-comment" [disabled]="!newCommentContent?.trim()">
+                  Salvar
+                </button>
+                <button (click)="cancelComment()" class="btn-cancel-comment">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+
+            <!-- Lista de Comentários -->
+            <div class="comments-list">
+              <div class="comment-item" 
+                   *ngFor="let comment of taskComments; trackBy: trackComment"
+                   [class.editing]="editingCommentId === comment.id">
+                
+                <!-- Visualização do Comentário -->
+                <div class="comment-view" *ngIf="editingCommentId !== comment.id">
+                  <div class="comment-header">
+                    <div class="comment-info">
+                      <span class="comment-author">{{ comment.user?.name || 'Usuário' }}</span>
+                      <span class="comment-date">{{ formatCommentDate(comment.createdAt) }}</span>
+                    </div>
+                    <div class="comment-buttons">
+                      <button class="comment-action-btn" 
+                              (click)="startEditComment(comment)"
+                              title="Editar comentário">
+                        ✏️
+                      </button>
+                      <button class="comment-action-btn delete" 
+                              (click)="deleteComment(comment.id)"
+                              title="Excluir comentário">
+                        🗑️
+                      </button>
+                    </div>
+                  </div>
+                  <div class="comment-content" 
+                       [class.expandable]="isCommentLong(comment.content)"
+                       (click)="expandComment(comment)">
+                    {{ comment.content }}
+                  </div>
+                </div>
+
+                <!-- Edição do Comentário -->
+                <div class="comment-edit" *ngIf="editingCommentId === comment.id">
+                  <textarea 
+                    [(ngModel)]="editingCommentContent"
+                    class="comment-edit-input"
+                    (keydown)="onEditCommentKeydown($event, comment)"
+                    (blur)="onEditCommentBlur(comment)"
+                    #editCommentTextarea>
+                  </textarea>
+                  <div class="comment-edit-actions">
+                    <button (click)="saveEditComment(comment)" class="btn-save-edit">Salvar</button>
+                    <button (click)="cancelEditComment()" class="btn-cancel-edit">Cancelar</button>
+                    <button (click)="deleteComment(comment.id)" class="btn-delete-comment">Excluir</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="no-comments" *ngIf="taskComments.length === 0">
+                Nenhum comentário ainda.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação para Alterações Não Salvas -->
+<div class="modal-overlay" *ngIf="showSaveConfirmModal" (click)="cancelSaveConfirm()">
+  <div class="save-confirm-modal" (click)="$event.stopPropagation()">
+    <div class="confirm-header">
+      <h3>Alterações não salvas</h3>
+      <svg class="warning-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L22 20H2L12 2Z" stroke="#f59e0b" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12 9V13" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 17H12.01" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="confirm-body">
+      <p>Você fez alterações que não foram salvas. O que deseja fazer?</p>
+    </div>
+    <div class="confirm-actions">
+      <button class="btn-save-changes" (click)="saveAndClose()">
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16L21 8V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <polyline points="17,21 17,13 7,13 7,21" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <polyline points="7,3 7,8 15,8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Salvar alterações
+      </button>
+      <button class="btn-discard-changes" (click)="discardAndClose()">
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2"/>
+          <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="currentColor" stroke-width="2"/>
+          <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2"/>
+          <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Descartar alterações
+      </button>
+      <button class="btn-cancel-close" (click)="cancelSaveConfirm()">
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 14L4 9L9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Continuar editando
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação para Exclusão -->
+<div class="modal-overlay" *ngIf="showDeleteConfirmModal" (click)="cancelDeleteConfirm()">
+  <div class="save-confirm-modal" (click)="$event.stopPropagation()">
+    <div class="confirm-header">
+      <h3>Excluir tarefa</h3>
+      <svg class="warning-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L22 20H2L12 2Z" stroke="#dc3545" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12 9V13" stroke="#dc3545" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 17H12.01" stroke="#dc3545" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="confirm-body">
+      <p>Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="confirm-actions">
+      <button class="btn-delete-confirm" (click)="confirmDelete()">
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2"/>
+          <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="currentColor" stroke-width="2"/>
+          <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2"/>
+          <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Excluir tarefa
+      </button>
+      <button class="btn-cancel-close" (click)="cancelDeleteConfirm()">
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 14L4 9L9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal do Comentário Expandido -->
+<div class="modal-overlay" *ngIf="expandedComment" (click)="closeExpandedComment()">
+  <div class="expanded-comment-modal" (click)="$event.stopPropagation()">
+    <div class="expanded-comment-header">
+      <h3>Comentário</h3>
+      <button class="close-btn" (click)="closeExpandedComment()">×</button>
+    </div>
+    <div class="expanded-comment-body">
+      <div class="expanded-comment-author">
+        <strong>{{ expandedComment.user?.name || 'Usuário' }}</strong>
+        <span class="expanded-comment-date">{{ formatCommentDate(expandedComment.createdAt) }}</span>
+      </div>
+      <div class="expanded-comment-content">
+        {{ expandedComment.content }}
+      </div>
+    </div>
+    <div class="expanded-comment-actions">
+      <button class="btn-edit-expanded" (click)="editFromExpanded()">
+        ✏️ Editar
+      </button>
+      <button class="btn-delete-expanded" (click)="deleteFromExpanded()">
+        🗑️ Excluir
+      </button>
+    </div>
+  </div>
+</div>
