@@ -167,7 +167,9 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
   // Método de utilidade para filtrar tarefas por status  
   getTasksByStatus(status: TaskStatus | string): Task[] {
-    return this.tasks.filter(task => task.status === status);
+    return this.tasks
+      .filter(task => task.status === status)
+      .sort((a, b) => b.priority - a.priority); // Ordena por prioridade: Alta → Baixa
   }
 
   // Método de utilidade para obter rótulo do status
@@ -763,13 +765,34 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   formatCommentDate(date: string): string {
-    return new Date(date).toLocaleDateString('pt-BR', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return this.getTimeAgo(new Date(date));
+  }
+
+  private getTimeAgo(date: Date): string {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffMinutes < 1) {
+      return 'agora mesmo';
+    } else if (diffMinutes < 60) {
+      return `há ${diffMinutes} minuto${diffMinutes !== 1 ? 's' : ''}`;
+    } else if (diffHours < 24) {
+      return `há ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
+    } else if (diffDays < 30) {
+      return `há ${diffDays} dia${diffDays !== 1 ? 's' : ''}`;
+    } else {
+      // Para mais de 30 dias, mostra data completa
+      return date.toLocaleDateString('pt-BR', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
   }
 
   // STATUS DROPDOWN: Status selection functionality
