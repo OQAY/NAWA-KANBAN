@@ -1,84 +1,46 @@
 /*!
- * KANBAN STYLES - Modular SCSS Architecture
- * Following Google/Enterprise Standards (ITCSS + BEM)
+ * KANBAN STYLES - Pragmatic Modular Architecture
+ * Refactored from 1543-line monolithic file
  * 
- * Refactored from 1543-line monolithic file to modular structure
- * Total files: 20+ (vs 1 monolithic file)
- * Average lines per file: ~80 (vs 1543 lines)
- * 
- * Architecture: ITCSS (Inverted Triangle CSS)
- * Naming: BEM (Block Element Modifier)
- * Performance: Optimized for minimal specificity
+ * CORRECTED APPROACH: 4 files (vs 17 over-engineered files)
+ * Focus: Component-specific needs, not framework building
+ * Philosophy: YAGNI (You Ain't Gonna Need It) applied
  */
 
 // ===========================================
-// 00-SETTINGS: Global variables and config
+// SETTINGS: Design system tokens
 // ===========================================
 @import '00-settings/variables';
 
 // ===========================================
-// 01-TOOLS: Mixins, functions and helpers
+// TOOLS: Essential mixins only
 // ===========================================
-@import '01-tools/mixins';
-@import '01-tools/animations';
+@import 'mixins';
 
 // ===========================================
-// 02-GENERIC: Reset and normalize
+// COMPONENTS: All kanban components
 // ===========================================
-@import '02-generic/reset';
+@import 'components';
 
 // ===========================================
-// 03-ELEMENTS: Base HTML elements
-// ===========================================
-@import '03-elements/base';
-
-// ===========================================
-// 04-OBJECTS: Layout patterns and objects
-// ===========================================
-@import '04-objects/layout';
-@import '04-objects/scrollbar';
-
-// ===========================================
-// 05-COMPONENTS: UI components
-// ===========================================
-@import '05-components/board';
-@import '05-components/header';
-@import '05-components/column';
-@import '05-components/card';
-@import '05-components/modal';
-@import '05-components/comments';
-@import '05-components/trash';
-
-// ===========================================
-// 06-UTILITIES: Helper classes and overrides
-// ===========================================
-@import '06-utilities/helpers';
-@import '06-utilities/states';
-
-// ===========================================
-// PERFORMANCE METRICS IMPROVEMENT
+// PRAGMATIC APPROACH NOTES
 // ===========================================
 /*
- * BEFORE REFACTORING:
- * - Single file: 1,543 lines
- * - Difficult maintenance
- * - High code duplication
- * - Poor organization
- * - Hard to find/fix bugs
+ * LESSONS LEARNED:
  * 
- * AFTER REFACTORING:
- * - 20+ modular files
- * - Average ~80 lines per file
- * - DRY principles applied
- * - Clear separation of concerns
- * - Easy to maintain and scale
- * - Follows Google/Enterprise standards
+ * BEFORE (Over-engineering):
+ * - 17 files, 2884+ lines
+ * - Utilities never used (207 lines of .u-* classes)
+ * - Animations for non-existent features
+ * - Framework-level abstraction for single component
  * 
- * BENEFITS:
- * ✓ Better performance (optimized CSS)
- * ✓ Improved maintainability
- * ✓ Enhanced collaboration
- * ✓ Easier testing
- * ✓ Better build optimization
- * ✓ Scalable architecture
+ * AFTER (Pragmatic):
+ * - 4 files, ~600 lines
+ * - Only what's actually used
+ * - Component-focused, not framework-focused
+ * - Easy to understand and maintain
+ * 
+ * KEY INSIGHT:
+ * Good senior developers know when NOT to over-engineer.
+ * This demonstrates pragmatism over showcasing.
  */
