@@ -37,7 +37,7 @@ export class TasksService {
 
   /**
    * Lista tarefas com filtros e paginação
-   * Implementa RBAC: Developers só veem suas próprias tarefas
+   * Isolamento total: usuários só veem suas próprias tarefas
    */
   async findAll(query: TaskQueryDto, user: User) {
     const { page = 1, limit = 10, status, projectId, assigneeId } = query;
@@ -63,14 +63,11 @@ export class TasksService {
       queryBuilder.andWhere('task.assigneeId = :assigneeId', { assigneeId });
     }
 
-    // Filtragem baseada em permissões (RBAC)
-    // Developers só podem ver tarefas que criaram ou foram atribuídas a eles
-    if (user.role === UserRole.DEVELOPER) {
-      queryBuilder.andWhere(
-        '(task.assigneeId = :userId OR task.createdById = :userId)',
-        { userId: user.id }
-      );
-    }
+    // Isolamento total: todos os usuários só veem suas próprias tarefas
+    queryBuilder.andWhere(
+      '(task.assigneeId = :userId OR task.createdById = :userId)',
+      { userId: user.id }
+    );
 
     const [tasks, total] = await queryBuilder
       .orderBy('task.createdAt', 'DESC') // Ordena por data de criação (mais recente primeiro)
@@ -131,18 +128,14 @@ export class TasksService {
 
   /**
    * Remove uma tarefa do sistema
-   * Regra de Negócio: Apenas admin, manager ou criador da tarefa podem deletar
+   * Isolamento total: apenas criador da tarefa pode deletar
    */
   async remove(id: string, user: User): Promise<void> {
     const task = await this.findOne(id, user);
 
-    // Verifica permissões para exclusão (hierarquia de permissões)
-    if (
-      user.role !== UserRole.ADMIN &&
-      user.role !== UserRole.MANAGER &&
-      task.createdById !== user.id
-    ) {
-      throw new ForbiddenException('Insufficient permissions to delete task');
+    // Apenas o criador da tarefa pode deletá-la
+    if (task.createdById !== user.id) {
+      throw new ForbiddenException('Only task creator can delete the task');
     }
 
     await this.taskRepository.remove(task);
@@ -164,16 +157,11 @@ export class TasksService {
   }
 
   /**
-   * Método privado para verificar acesso à tarefa baseado no RBAC
-   * Hierarquia: Admin/Manager (acesso total) > Developer (próprias tarefas) > Viewer (somente leitura)
+   * Método privado para verificar acesso à tarefa
+   * Isolamento total: usuários só podem acessar suas próprias tarefas
    */
   private checkTaskAccess(task: Task, user: User): void {
-    // Admin e Manager têm acesso total
-    if (user.role === UserRole.ADMIN || user.role === UserRole.MANAGER) {
-      return; 
-    }
-
-    // Developers podem acessar apenas tarefas que criaram ou foram atribuídas a eles
+    // Usuários só podem acessar tarefas que criaram ou foram atribuídas a eles
     if (task.assigneeId === user.id || task.createdById === user.id) {
       return; 
     }
