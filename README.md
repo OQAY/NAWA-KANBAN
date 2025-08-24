@@ -83,13 +83,22 @@ Sistema usa PostgreSQL configurado automaticamente:
 
 ## 🧪 Testes
 
-### Backend (16 testes funcionais)
+### Backend (45 testes reais - zero mocks)
 ```bash
-cd backend && npm run test -- test-suite.spec.ts
-# Testa: 4 colunas, drag&drop, prioridades, comentários, RBAC, responsividade
-
-# Todos os testes (alguns com erros de tipos)
 cd backend && npm run test
+# ✅ Todos os testes passam e validam comportamento real
+# ✅ Sem mocks problemáticos que dão falsos positivos
+```
+
+**Suítes de Teste:**
+```bash
+# Testes específicos por área
+cd backend && npm run test -- app.service.spec.ts          # 3 tests  
+cd backend && npm run test -- create-task.dto.spec.ts      # 7 tests
+cd backend && npm run test -- task-validation.spec.ts      # 5 tests  
+cd backend && npm run test -- time-utils.spec.ts           # 7 tests
+cd backend && npm run test -- tasks.controller.spec.ts     # 7 tests
+cd backend && npm run test -- test-suite.spec.ts           # 16 tests
 ```
 
 ### Frontend  
@@ -98,13 +107,16 @@ cd frontend && ng test
 # Testes unitários dos components Angular
 ```
 
-### Cobertura de Testes
-- ✅ **Sistema Kanban completo** (4 colunas, drag&drop)
-- ✅ **Autenticação e RBAC** (4 níveis de usuário)
-- ✅ **Prioridades e comentários** (timestamps relativos)
-- ✅ **Responsividade mobile** (touch events)
-- ✅ **Isolamento por usuário** (dados privados)
+### Cobertura de Testes Reais
+- ✅ **Enums e constantes** (TaskStatus, UserRole, prioridades)  
+- ✅ **Validações DTO** (class-validator real, não mock)
+- ✅ **Funções utilitárias** (timestamps, validadores)
+- ✅ **Lógica de negócio** (ordenação, agrupamento, transições)
+- ✅ **Sistema Kanban** (4 colunas, drag&drop, responsividade)
+- ✅ **Autenticação RBAC** (4 níveis hierárquicos)
+
+**Diferencial:** Todos os testes validam **código real** sem mocks problemáticos
 
 ---
 
-**Sistema 100% funcional e testado** | **16 testes funcionais aprovados** | Refatorado com metodologia rigorosa
+**Sistema 100% funcional** | **45 testes reais aprovados (zero mocks)** | Refatorado com metodologia rigorosa
