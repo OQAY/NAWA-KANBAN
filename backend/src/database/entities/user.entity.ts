@@ -33,6 +33,9 @@ export class User {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.VIEWER })
   role: UserRole;
 
+  @Column({ name: 'board_config', type: 'text', nullable: true })
+  boardConfig: string;
+
   @OneToMany(() => Task, task => task.assignee)
   assignedTasks: Task[];
 

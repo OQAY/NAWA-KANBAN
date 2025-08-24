@@ -8,9 +8,9 @@ import { Comment } from './comment.entity';
  * Representa o ciclo de vida completo de uma tarefa
  */
 export enum TaskStatus {
-  TO_DO = 'to_do',          // A Fazer - Tarefa planejada
-  PENDING = 'pending',       // Pendente - Aguardando início
+  PENDING = 'pending',       // Pendente - Aguardando início  
   IN_PROGRESS = 'in_progress', // Em Progresso - Em desenvolvimento
+  TESTING = 'testing',       // Em Teste - Aguardando validação
   DONE = 'done',            // Concluído - Tarefa finalizada
 }
 
@@ -29,7 +29,7 @@ export class Task {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.TO_DO })
+  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
   status: TaskStatus;
 
   @ManyToOne(() => Project, project => project.tasks)
@@ -53,7 +53,7 @@ export class Task {
   @Column({ name: 'created_by' })
   createdById: string;
 
-  // Prioridade: 0=baixa, 1=média, 2=alta
+  // Prioridade: 0=none, 1=low, 2=medium, 3=high (compatível com frontend)
   @Column({ default: 0 })
   priority: number;
 

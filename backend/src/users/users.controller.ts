@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateBoardConfigDto } from './dto/update-board-config.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -65,5 +66,21 @@ export class UsersController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   remove(@Param('id') id: string, @Request() req) {
     return this.usersService.remove(id, req.user);
+  }
+
+  @Get('me/board-config')
+  @ApiOperation({ summary: 'Get current user board configuration' })
+  @ApiResponse({ status: 200, description: 'Board configuration retrieved successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  getBoardConfig(@Request() req) {
+    return this.usersService.getBoardConfig(req.user.sub);
+  }
+
+  @Patch('me/board-config')
+  @ApiOperation({ summary: 'Update current user board configuration' })
+  @ApiResponse({ status: 200, description: 'Board configuration updated successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  updateBoardConfig(@Body() updateBoardConfigDto: UpdateBoardConfigDto, @Request() req) {
+    return this.usersService.updateBoardConfig(req.user.sub, updateBoardConfigDto.boardConfig);
   }
 }
