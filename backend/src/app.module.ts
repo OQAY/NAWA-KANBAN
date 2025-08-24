@@ -4,6 +4,7 @@
  */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
@@ -12,6 +13,8 @@ import { ProjectsModule } from './projects/projects.module';
 import { CommentsModule } from './comments/comments.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Task } from './database/entities/task.entity';
+import { DataMigrationService } from './common/services/data-migration.service';
 
 @Module({
   imports: [
@@ -26,8 +29,9 @@ import { AppService } from './app.service';
     UsersModule,      // Gerenciamento de usuários
     ProjectsModule,   // Sistema de projetos
     CommentsModule,   // Comentários em tarefas
+    TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DataMigrationService],
 })
 export class AppModule {}
