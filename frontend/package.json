@@ -1,7 +1,7 @@
 {
   "name": "kanban-frontend",
   "version": "1.0.0",
-  "description": "Enterprise Kanban Frontend - NASA/Google Standards",
+  "description": "Modern Kanban Frontend Application",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

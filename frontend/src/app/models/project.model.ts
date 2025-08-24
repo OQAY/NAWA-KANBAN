@@ -1,4 +1,4 @@
-// NASA STANDARD: Project model < 60 lines, functional focus
+// Project model with clean interfaces
 export interface Project {
   readonly id: string;
   readonly name: string;

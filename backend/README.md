@@ -552,6 +552,6 @@ npm run start:debug
 
 **Built with ❤️ using NestJS**
 
-*Clean Architecture • Type Safety • Enterprise Ready*
+*Clean Architecture • Type Safety • Production Ready*
 
 </div>
