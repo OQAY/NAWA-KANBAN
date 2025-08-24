@@ -1,0 +1,213 @@
+// ========================================
+// MODAL COMPONENT - Task modal dialog
+// ========================================
+
+.modal-overlay {
+  @include modal-overlay;
+  animation: fadeIn $transition-base ease-out;
+  
+  &.closing {
+    animation: fadeOut $transition-base ease-in;
+  }
+}
+
+.modal {
+  @include modal-content;
+  animation: modalEnter $transition-base ease-out;
+  
+  &.closing {
+    animation: scaleOut $transition-base ease-in;
+  }
+  
+  @include mobile {
+    width: 95vw;
+    max-height: 95vh;
+    margin: $spacing-md;
+  }
+}
+
+.modal-header {
+  @include flex-between;
+  padding: $spacing-2xl $spacing-2xl $spacing-lg;
+  border-bottom: 1px solid $gray-200;
+  
+  h3 {
+    margin: 0;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+  }
+  
+  .close-btn {
+    @include button-base;
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-round;
+    color: $gray-600;
+    @include flex-center;
+    
+    &:hover {
+      background: $gray-100;
+      color: $gray-800;
+    }
+  }
+}
+
+.modal-body {
+  padding: $spacing-2xl;
+  overflow-y: auto;
+  flex: 1;
+  
+  @include mobile {
+    padding: $spacing-lg;
+  }
+}
+
+.modal-footer {
+  @include flex-between;
+  padding: $spacing-lg $spacing-2xl $spacing-2xl;
+  border-top: 1px solid $gray-200;
+  gap: $spacing-md;
+  
+  @include mobile {
+    flex-direction: column;
+    padding: $spacing-lg;
+  }
+  
+  .modal-actions {
+    @include flex-center;
+    gap: $spacing-md;
+    
+    @include mobile {
+      width: 100%;
+    }
+  }
+  
+  .btn-primary {
+    @include button-base;
+    @include button-primary;
+    padding: $spacing-sm $spacing-2xl;
+    
+    @include mobile {
+      flex: 1;
+    }
+  }
+  
+  .btn-secondary {
+    @include button-base;
+    @include button-secondary;
+    padding: $spacing-sm $spacing-2xl;
+    
+    @include mobile {
+      flex: 1;
+    }
+  }
+}
+
+// Modal form elements
+.modal-form {
+  .form-group {
+    margin-bottom: $spacing-lg;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .form-label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $gray-700;
+    margin-bottom: $spacing-xs;
+  }
+  
+  .form-control {
+    @include input-base;
+    width: 100%;
+    
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(0, 121, 191, 0.1);
+    }
+  }
+  
+  textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .form-text {
+    font-size: $font-size-xs;
+    color: $gray-600;
+    margin-top: $spacing-xs;
+  }
+}
+
+// Priority selector
+.priority-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-xs;
+  
+  .priority-option {
+    @include button-base;
+    padding: $spacing-sm;
+    border: 2px solid $gray-200;
+    border-radius: $radius-md;
+    text-align: center;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    transition: $transition-fast;
+    
+    &:hover {
+      border-color: $gray-400;
+    }
+    
+    &.active {
+      border-color: $primary-color;
+      background: rgba(0, 121, 191, 0.1);
+      color: $primary-dark;
+    }
+    
+    &.priority-low.active {
+      border-color: $status-done;
+      background: rgba(76, 175, 80, 0.1);
+      color: $status-done;
+    }
+    
+    &.priority-medium.active {
+      border-color: $status-pending;
+      background: rgba(255, 193, 7, 0.1);
+      color: #d97706;
+    }
+    
+    &.priority-high.active {
+      border-color: $danger;
+      background: rgba(220, 53, 69, 0.1);
+      color: $danger;
+    }
+  }
+}
+
+// Status selector
+.status-selector {
+  .form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right $spacing-sm center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: $spacing-3xl;
+  }
+}

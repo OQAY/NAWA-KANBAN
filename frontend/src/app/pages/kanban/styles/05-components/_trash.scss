@@ -1,0 +1,95 @@
+// ========================================
+// TRASH COMPONENT - Delete zone
+// ========================================
+
+.trash-zone {
+  @include flex-center;
+  padding: $spacing-md;
+  border: 2px dashed rgba(221, 221, 221, 0.8);
+  border-radius: $radius-md;
+  background: rgba(249, 249, 249, 0.9);
+  cursor: pointer;
+  transition: $transition-base;
+  width: 48px;
+  height: 48px;
+  backdrop-filter: blur(5px);
+  position: relative;
+  
+  &:hover,
+  &.drag-over {
+    border-color: $danger;
+    background: #fff5f5;
+    transform: scale(1.05);
+    animation: pulse $transition-slow infinite;
+  }
+  
+  &.drag-over {
+    .trash-icon {
+      animation: shake $transition-base ease-in-out;
+    }
+  }
+}
+
+.trash-icon {
+  font-size: $font-size-xl;
+  color: $gray-500;
+  transition: $transition-fast;
+  
+  .trash-zone:hover & {
+    color: $danger;
+  }
+}
+
+.trash-text {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: $font-size-xs;
+  color: $gray-500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: $transition-fast;
+  
+  .trash-zone:hover & {
+    opacity: 1;
+  }
+}
+
+.trash-zone.drag-over .trash-text {
+  color: $danger;
+  font-weight: $font-weight-semibold;
+  opacity: 1;
+}
+
+// Trash confirmation
+.trash-confirmation {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $danger;
+  color: $white;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  opacity: 0;
+  transition: $transition-fast;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: $danger;
+  }
+  
+  &.show {
+    opacity: 1;
+    @include fade-in;
+  }
+}

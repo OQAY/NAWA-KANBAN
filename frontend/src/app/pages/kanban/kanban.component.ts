@@ -26,7 +26,7 @@ interface ColumnData {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './kanban.component.html',
-  styleUrl: './kanban.component.scss',
+  styleUrl: './styles/index.scss',
   /* REFACTORED: Extracted inline template and styles to separate files
    * - kanban.component.html: ~400 lines of template code
    * - kanban.component.scss: ~1500 lines of styles  

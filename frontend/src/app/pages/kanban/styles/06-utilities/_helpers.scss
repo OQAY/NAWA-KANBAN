@@ -1,0 +1,208 @@
+// ========================================
+// UTILITY HELPERS - Utility classes
+// ========================================
+
+// Visibility utilities
+.u-hidden {
+  display: none !important;
+}
+
+.u-invisible {
+  visibility: hidden !important;
+}
+
+.u-visible {
+  visibility: visible !important;
+}
+
+.u-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Position utilities
+.u-relative {
+  position: relative !important;
+}
+
+.u-absolute {
+  position: absolute !important;
+}
+
+.u-fixed {
+  position: fixed !important;
+}
+
+.u-sticky {
+  position: sticky !important;
+}
+
+// Z-index utilities
+.u-z-auto {
+  z-index: auto !important;
+}
+
+.u-z-0 {
+  z-index: 0 !important;
+}
+
+.u-z-10 {
+  z-index: 10 !important;
+}
+
+.u-z-20 {
+  z-index: 20 !important;
+}
+
+.u-z-30 {
+  z-index: 30 !important;
+}
+
+.u-z-40 {
+  z-index: 40 !important;
+}
+
+.u-z-50 {
+  z-index: 50 !important;
+}
+
+// Margin utilities
+.u-m-0 { margin: 0 !important; }
+.u-m-xs { margin: $spacing-xs !important; }
+.u-m-sm { margin: $spacing-sm !important; }
+.u-m-md { margin: $spacing-md !important; }
+.u-m-lg { margin: $spacing-lg !important; }
+.u-m-xl { margin: $spacing-xl !important; }
+.u-m-2xl { margin: $spacing-2xl !important; }
+.u-m-3xl { margin: $spacing-3xl !important; }
+.u-m-4xl { margin: $spacing-4xl !important; }
+
+// Margin top
+.u-mt-0 { margin-top: 0 !important; }
+.u-mt-xs { margin-top: $spacing-xs !important; }
+.u-mt-sm { margin-top: $spacing-sm !important; }
+.u-mt-md { margin-top: $spacing-md !important; }
+.u-mt-lg { margin-top: $spacing-lg !important; }
+.u-mt-xl { margin-top: $spacing-xl !important; }
+.u-mt-2xl { margin-top: $spacing-2xl !important; }
+.u-mt-3xl { margin-top: $spacing-3xl !important; }
+.u-mt-4xl { margin-top: $spacing-4xl !important; }
+
+// Margin bottom
+.u-mb-0 { margin-bottom: 0 !important; }
+.u-mb-xs { margin-bottom: $spacing-xs !important; }
+.u-mb-sm { margin-bottom: $spacing-sm !important; }
+.u-mb-md { margin-bottom: $spacing-md !important; }
+.u-mb-lg { margin-bottom: $spacing-lg !important; }
+.u-mb-xl { margin-bottom: $spacing-xl !important; }
+.u-mb-2xl { margin-bottom: $spacing-2xl !important; }
+.u-mb-3xl { margin-bottom: $spacing-3xl !important; }
+.u-mb-4xl { margin-bottom: $spacing-4xl !important; }
+
+// Padding utilities
+.u-p-0 { padding: 0 !important; }
+.u-p-xs { padding: $spacing-xs !important; }
+.u-p-sm { padding: $spacing-sm !important; }
+.u-p-md { padding: $spacing-md !important; }
+.u-p-lg { padding: $spacing-lg !important; }
+.u-p-xl { padding: $spacing-xl !important; }
+.u-p-2xl { padding: $spacing-2xl !important; }
+.u-p-3xl { padding: $spacing-3xl !important; }
+.u-p-4xl { padding: $spacing-4xl !important; }
+
+// Text utilities
+.u-text-left { text-align: left !important; }
+.u-text-center { text-align: center !important; }
+.u-text-right { text-align: right !important; }
+.u-text-justify { text-align: justify !important; }
+
+.u-text-lowercase { text-transform: lowercase !important; }
+.u-text-uppercase { text-transform: uppercase !important; }
+.u-text-capitalize { text-transform: capitalize !important; }
+
+.u-text-truncate {
+  @include text-truncate;
+}
+
+.u-text-wrap { white-space: normal !important; }
+.u-text-nowrap { white-space: nowrap !important; }
+
+// Font weight
+.u-font-light { font-weight: 300 !important; }
+.u-font-normal { font-weight: $font-weight-normal !important; }
+.u-font-medium { font-weight: $font-weight-medium !important; }
+.u-font-semibold { font-weight: $font-weight-semibold !important; }
+.u-font-bold { font-weight: $font-weight-bold !important; }
+
+// Font size
+.u-text-xs { font-size: $font-size-xs !important; }
+.u-text-sm { font-size: $font-size-sm !important; }
+.u-text-base { font-size: $font-size-base !important; }
+.u-text-md { font-size: $font-size-md !important; }
+.u-text-lg { font-size: $font-size-lg !important; }
+.u-text-xl { font-size: $font-size-xl !important; }
+.u-text-2xl { font-size: $font-size-2xl !important; }
+
+// Color utilities
+.u-text-primary { color: $primary-color !important; }
+.u-text-success { color: $success !important; }
+.u-text-warning { color: $warning !important; }
+.u-text-danger { color: $danger !important; }
+.u-text-info { color: $info !important; }
+.u-text-muted { color: $gray-600 !important; }
+
+// Background utilities
+.u-bg-white { background-color: $white !important; }
+.u-bg-gray-50 { background-color: $gray-50 !important; }
+.u-bg-gray-100 { background-color: $gray-100 !important; }
+.u-bg-gray-200 { background-color: $gray-200 !important; }
+.u-bg-primary { background-color: $primary-color !important; }
+.u-bg-success { background-color: $success !important; }
+.u-bg-warning { background-color: $warning !important; }
+.u-bg-danger { background-color: $danger !important; }
+.u-bg-info { background-color: $info !important; }
+
+// Border utilities
+.u-border-0 { border: 0 !important; }
+.u-border { border: 1px solid $gray-300 !important; }
+.u-border-top { border-top: 1px solid $gray-300 !important; }
+.u-border-bottom { border-bottom: 1px solid $gray-300 !important; }
+.u-border-left { border-left: 1px solid $gray-300 !important; }
+.u-border-right { border-right: 1px solid $gray-300 !important; }
+
+// Border radius
+.u-rounded-0 { border-radius: 0 !important; }
+.u-rounded-sm { border-radius: $radius-sm !important; }
+.u-rounded { border-radius: $radius-md !important; }
+.u-rounded-lg { border-radius: $radius-lg !important; }
+.u-rounded-xl { border-radius: $radius-xl !important; }
+.u-rounded-full { border-radius: $radius-round !important; }
+
+// Shadow utilities
+.u-shadow-none { box-shadow: none !important; }
+.u-shadow-sm { box-shadow: $shadow-sm !important; }
+.u-shadow { box-shadow: $shadow-md !important; }
+.u-shadow-lg { box-shadow: $shadow-lg !important; }
+.u-shadow-xl { box-shadow: $shadow-xl !important; }
+.u-shadow-2xl { box-shadow: $shadow-2xl !important; }
+
+// Cursor utilities
+.u-cursor-auto { cursor: auto !important; }
+.u-cursor-pointer { cursor: pointer !important; }
+.u-cursor-not-allowed { cursor: not-allowed !important; }
+.u-cursor-move { cursor: move !important; }
+.u-cursor-grab { cursor: grab !important; }
+.u-cursor-grabbing { cursor: grabbing !important; }
+
+// Selection utilities
+.u-select-none { user-select: none !important; }
+.u-select-text { user-select: text !important; }
+.u-select-all { user-select: all !important; }
+.u-select-auto { user-select: auto !important; }

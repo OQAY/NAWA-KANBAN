@@ -1,0 +1,252 @@
+// ========================================
+// STATE UTILITIES - Interactive states
+// ========================================
+
+// Hover states
+.u-hover-bg-gray-50:hover {
+  background-color: $gray-50 !important;
+}
+
+.u-hover-bg-gray-100:hover {
+  background-color: $gray-100 !important;
+}
+
+.u-hover-bg-primary:hover {
+  background-color: $primary-color !important;
+}
+
+.u-hover-text-primary:hover {
+  color: $primary-color !important;
+}
+
+.u-hover-text-danger:hover {
+  color: $danger !important;
+}
+
+.u-hover-shadow:hover {
+  box-shadow: $shadow-lg !important;
+}
+
+.u-hover-shadow-lg:hover {
+  box-shadow: $shadow-xl !important;
+}
+
+.u-hover-transform:hover {
+  transform: translateY(-1px) !important;
+}
+
+// Focus states
+.u-focus-ring:focus {
+  outline: 2px solid $primary-color !important;
+  outline-offset: 2px !important;
+}
+
+.u-focus-ring-danger:focus {
+  outline: 2px solid $danger !important;
+  outline-offset: 2px !important;
+}
+
+.u-focus-ring-success:focus {
+  outline: 2px solid $success !important;
+  outline-offset: 2px !important;
+}
+
+// Active states
+.u-active-scale:active {
+  transform: scale(0.98) !important;
+}
+
+.u-active-bg-primary:active {
+  background-color: $primary-dark !important;
+}
+
+// Disabled states
+.u-disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.u-disabled-subtle {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
+// Loading states
+.u-loading {
+  position: relative !important;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid $primary-color;
+    border-top: 2px solid transparent;
+    border-radius: $radius-round;
+    animation: spin 1s linear infinite;
+  }
+}
+
+.u-loading-overlay {
+  position: relative !important;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid $primary-color;
+    border-top: 2px solid transparent;
+    border-radius: $radius-round;
+    animation: spin 1s linear infinite;
+    z-index: 2;
+  }
+}
+
+// Error states
+.u-error {
+  border-color: $danger !important;
+  background-color: rgba(220, 53, 69, 0.05) !important;
+}
+
+.u-error-text {
+  color: $danger !important;
+}
+
+.u-error-bg {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+// Success states
+.u-success {
+  border-color: $success !important;
+  background-color: rgba(40, 167, 69, 0.05) !important;
+}
+
+.u-success-text {
+  color: $success !important;
+}
+
+.u-success-bg {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+// Warning states
+.u-warning {
+  border-color: $warning !important;
+  background-color: rgba(255, 193, 7, 0.05) !important;
+}
+
+.u-warning-text {
+  color: #d97706 !important;
+}
+
+.u-warning-bg {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+// Animation states
+.u-animate-none {
+  animation: none !important;
+}
+
+.u-animate-spin {
+  animation: spin 1s linear infinite !important;
+}
+
+.u-animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite !important;
+}
+
+.u-animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+.u-animate-bounce {
+  animation: bounce 1s infinite !important;
+}
+
+.u-animate-shake {
+  animation: shake 0.5s ease-in-out !important;
+}
+
+.u-animate-fade-in {
+  @include fade-in;
+}
+
+.u-animate-slide-up {
+  @include slide-up;
+}
+
+// Transition states
+.u-transition-none {
+  transition: none !important;
+}
+
+.u-transition-all {
+  transition: all $transition-base !important;
+}
+
+.u-transition-colors {
+  transition: color $transition-base, background-color $transition-base, border-color $transition-base !important;
+}
+
+.u-transition-opacity {
+  transition: opacity $transition-base !important;
+}
+
+.u-transition-shadow {
+  transition: box-shadow $transition-base !important;
+}
+
+.u-transition-transform {
+  transition: transform $transition-base !important;
+}
+
+// Drag states
+.u-draggable {
+  @include draggable-item;
+}
+
+.u-dragging {
+  opacity: 0.5 !important;
+  transform: rotate(3deg) scale(1.02) !important;
+  z-index: $z-index-dragging !important;
+  box-shadow: $shadow-2xl !important;
+}
+
+.u-drag-over {
+  @include drag-over;
+}
+
+// Interactive states
+.u-interactive {
+  cursor: pointer !important;
+  transition: all $transition-fast !important;
+  
+  &:hover {
+    transform: translateY(-1px) !important;
+  }
+  
+  &:active {
+    transform: translateY(0) !important;
+  }
+}

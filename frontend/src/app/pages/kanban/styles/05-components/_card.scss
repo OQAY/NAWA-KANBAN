@@ -1,0 +1,187 @@
+// ========================================
+// CARD COMPONENT - Task cards
+// ========================================
+
+.task-card {
+  @include card-base;
+  margin-bottom: $spacing-md;
+  padding: $spacing-md;
+  cursor: pointer;
+  min-height: $card-min-height;
+  max-height: $card-max-height;
+  position: relative;
+  @include draggable-item;
+  
+  &:hover {
+    @include card-hover;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  &.dragging {
+    opacity: 0.5;
+    transform: rotate(3deg) scale(1.02);
+    z-index: $z-index-dragging;
+    box-shadow: $shadow-2xl;
+  }
+  
+  &.drag-preview {
+    animation: dragPreview $transition-base ease-out;
+  }
+}
+
+.task-header {
+  @include flex-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-xs;
+  gap: $spacing-xs;
+  
+  .task-title {
+    flex: 1;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $gray-800;
+    line-height: $line-height-tight;
+    margin: 0;
+    @include text-clamp(2);
+  }
+  
+  .task-id {
+    font-size: $font-size-xs;
+    color: $gray-500;
+    background: $gray-100;
+    padding: 2px $spacing-xs;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+  }
+}
+
+.task-description {
+  font-size: $font-size-sm;
+  color: $gray-600;
+  line-height: $line-height-base;
+  margin-bottom: $spacing-sm;
+  @include text-clamp(3);
+  
+  &:empty {
+    display: none;
+  }
+}
+
+.task-meta {
+  @include flex-between;
+  align-items: center;
+  
+  .task-priority {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    padding: 2px $spacing-xs;
+    border-radius: $radius-sm;
+    
+    &--low {
+      @include status-badge($status-done, $white);
+    }
+    
+    &--medium {
+      @include status-badge($status-pending, $gray-800);
+    }
+    
+    &--high {
+      @include status-badge($danger, $white);
+    }
+  }
+  
+  .task-assignee {
+    font-size: $font-size-xs;
+    color: $gray-600;
+    @include text-truncate;
+    max-width: 100px;
+  }
+}
+
+.task-footer {
+  @include flex-between;
+  align-items: center;
+  margin-top: $spacing-sm;
+  padding-top: $spacing-sm;
+  border-top: 1px solid $gray-100;
+  
+  .task-date {
+    font-size: $font-size-xs;
+    color: $gray-500;
+  }
+  
+  .task-actions {
+    @include flex-center;
+    gap: $spacing-xs;
+    opacity: 0;
+    transition: $transition-fast;
+    
+    button {
+      @include button-base;
+      padding: $spacing-xs;
+      border-radius: $radius-sm;
+      color: $gray-600;
+      
+      &:hover {
+        background: $gray-100;
+        color: $gray-800;
+      }
+    }
+  }
+  
+  .task-card:hover & .task-actions {
+    opacity: 1;
+  }
+}
+
+// Priority border indicators
+.task-card--priority-low {
+  @include priority-low;
+}
+
+.task-card--priority-medium {
+  @include priority-medium;
+}
+
+.task-card--priority-high {
+  @include priority-high;
+}
+
+// Task status classes
+.task-card--pending {
+  border-top: 3px solid $status-pending;
+}
+
+.task-card--in-progress {
+  border-top: 3px solid $status-progress;
+}
+
+.task-card--testing {
+  border-top: 3px solid $status-testing;
+}
+
+.task-card--done {
+  border-top: 3px solid $status-done;
+}
+
+// Comments indicator
+.task-comments {
+  position: absolute;
+  top: $spacing-xs;
+  right: $spacing-xs;
+  background: $primary-color;
+  color: $white;
+  border-radius: $radius-round;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  @include flex-center;
+  
+  &:empty {
+    display: none;
+  }
+}
