@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { User } from './user.entity';
 import { Project } from './project.entity';
 import { Comment } from './comment.entity';
+import { KanbanColumn } from './column.entity';
 
 /**
  * Estados possíveis de uma tarefa no fluxo Kanban
@@ -29,8 +30,8 @@ export class Task {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
-  status: TaskStatus;
+  @Column({ default: 'pending' })
+  status: string; // Status dinâmico baseado nas colunas do usuário
 
   @ManyToOne(() => Project, project => project.tasks)
   @JoinColumn({ name: 'project_id' })
@@ -62,6 +63,13 @@ export class Task {
 
   @OneToMany(() => Comment, comment => comment.task)
   comments: Comment[];
+
+  @ManyToOne(() => KanbanColumn, column => column.tasks, { nullable: true })
+  @JoinColumn({ name: 'column_id' })
+  column: KanbanColumn;
+
+  @Column({ name: 'column_id', nullable: true })
+  columnId: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Task } from './task.entity';
 import { Project } from './project.entity';
+import { KanbanColumn } from './column.entity';
 
 /**
  * Sistema RBAC com 4 níveis hierárquicos de permissão
@@ -44,6 +45,9 @@ export class User {
 
   @OneToMany(() => Project, project => project.owner)
   ownedProjects: Project[];
+
+  @OneToMany(() => KanbanColumn, column => column.user)
+  ownedColumns: KanbanColumn[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
