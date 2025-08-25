@@ -199,7 +199,6 @@
   margin-bottom: $spacing-md;
   padding: $spacing-md;
   cursor: pointer;
-  min-height: $card-min-height;
   max-height: $card-max-height;
   position: relative;
 
@@ -236,6 +235,7 @@
   @include flex-between;
   align-items: center;
   margin-top: $spacing-sm;
+  flex-direction: row-reverse;
 
   .priority {
     font-size: $font-size-xs;
@@ -244,35 +244,64 @@
     padding: 2px $spacing-xs;
     border-radius: $radius-sm;
 
-    &.priority-low {
-      background: $status-done;
-      color: $white;
+    &.priority-high {
+      background: #ffcdd2;
+      color: #c62828;
     }
 
     &.priority-medium {
-      background: $status-pending;
-      color: $gray-800;
+      background: #fff3e0;
+      color: #f57c00;
     }
 
-    &.priority-high {
-      background: $danger;
-      color: $white;
+    &.priority-low {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    &.priority-none {
+      background: transparent;
+      color: $gray-600;
+    }
+
+    &.priority-3 {
+      background: #ffcdd2;
+      color: #c62828;
+    }
+
+    &.priority-2 {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+
+    &.priority-1 {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    &.priority-0 {
+      background: transparent;
+      color: $gray-600;
     }
   }
 }
 
 // Priority border indicators
 .task-card {
-  &.priority-low {
-    @include priority-indicator($status-done);
+  &.priority-high {
+    @include priority-indicator(#c62828);
   }
 
   &.priority-medium {
-    @include priority-indicator($status-pending);
+    @include priority-indicator(#f57c00);
   }
 
-  &.priority-high {
-    @include priority-indicator($danger);
+  &.priority-low {
+    @include priority-indicator(#1565c0);
+  }
+
+  &.priority-none {
+    @include priority-indicator($gray-300);
   }
 }
 
@@ -290,7 +319,7 @@
   border-radius: $radius-lg;
   box-shadow: $shadow-2xl;
   max-height: 90vh;
-  max-width: 90vw;
+  max-width: 800px;
   overflow-y: auto;
   position: relative;
   width: 60%;
@@ -298,6 +327,14 @@
   animation: scaleIn $transition-base ease-out;
   display: flex;
   flex-direction: column;
+
+  @include desktop {
+    min-width: 480px;
+  }
+
+  @media (min-width: 680px) {
+    max-width: 1024px;
+  }
 
   @include mobile {
     width: 95vw;
@@ -339,6 +376,7 @@
 .header-info {
   @include flex-between;
   align-items: center;
+  width: 100%;
 }
 
 .current-status {
@@ -369,6 +407,11 @@
   border-right: 1px solid $gray-200;
   align-self: flex-start;
 
+  @include desktop {
+    width: 60%;
+    flex: 0 0 60%;
+  }
+
   @include mobile {
     align-self: normal;
     border-right: none;
@@ -385,6 +428,11 @@
   overflow-x: hidden;
   align-self: stretch;
   flex: 1;
+
+  @include desktop {
+    width: 40%;
+    flex: 0 0 40%;
+  }
 
   @include mobile {
     width: 100%;
@@ -547,6 +595,29 @@
   }
 }
 
+// Priority clickable colors
+.priority-clickable {
+  &.priority-3 {
+    background: #ffcdd2;
+    color: #c62828;
+  }
+
+  &.priority-2 {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+
+  &.priority-1 {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+
+  &.priority-0 {
+    background: transparent;
+    color: $gray-600;
+  }
+}
+
 .dropdown-arrow {
   font-size: 10px;
   color: $gray-500;
@@ -554,16 +625,27 @@
 
 .priority-options,
 .status-options {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: fixed;
   background: $white;
   border: 1px solid $gray-300;
   border-radius: $radius-sm;
-  box-shadow: $shadow-lg;
-  z-index: $z-index-dropdown;
+  box-shadow: $shadow-2xl;
+  z-index: 1500;
   min-width: 150px;
   overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+
+  &.dropdown-up {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+
+  &.dropdown-left {
+    left: auto;
+    right: 0;
+  }
 }
 
 .priority-option,
@@ -584,6 +666,29 @@
   &.selected {
     background-color: $gray-200;
     font-weight: $font-weight-medium;
+  }
+}
+
+// Priority option colors
+.priority-option {
+  &.priority-3 {
+    background: #ffcdd2;
+    color: #c62828;
+  }
+
+  &.priority-2 {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+
+  &.priority-1 {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+
+  &.priority-0 {
+    background: transparent;
+    color: $gray-600;
   }
 }
 

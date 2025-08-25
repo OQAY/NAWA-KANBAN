@@ -801,11 +801,21 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.showPriorityDropdown = false;
   }
 
-  changeStatus(status: TaskStatus): void {
+  changeStatus(status: string): void {
+    console.log('changeStatus called with:', status);
     if (this.modalTask) {
-      this.modalTask = { ...this.modalTask, status };
+      console.log('Updating task from', this.modalTask.status, 'to', status);
+      this.modalTask = { ...this.modalTask, status: status as TaskStatus };
       this.checkForChanges();
+      
+      // Move task visually in the board
+      const taskIndex = this.tasks.findIndex(t => t.id === this.modalTask!.id);
+      if (taskIndex !== -1) {
+        this.tasks[taskIndex] = { ...this.modalTask };
+        console.log('Task moved successfully');
+      }
     }
+    this.showStatusDropdown = false;
   }
 
   showDeleteConfirm(taskId: string): void {
@@ -871,12 +881,13 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
   // STATUS DROPDOWN: Status selection functionality
   showStatusDropdown = false;
-  statusOptions = [
-    { value: TaskStatus.PENDING, label: 'Pendente' },
-    { value: TaskStatus.IN_PROGRESS, label: 'Em Progresso' },
-    { value: TaskStatus.TESTING, label: 'Em Teste' },
-    { value: TaskStatus.DONE, label: 'Concluído' }
-  ];
+  
+  get statusOptions() {
+    return this.columns.map(column => ({
+      value: column.status,
+      label: column.label
+    }));
+  }
 
   toggleStatusDropdown(): void {
     this.showStatusDropdown = !this.showStatusDropdown;

@@ -109,6 +109,12 @@
   }
 }
 
+@mixin desktop {
+  @media (min-width: 480px) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (min-width: $breakpoint-xs) and (max-width: #{$breakpoint-md - 1px}) {
     @content;

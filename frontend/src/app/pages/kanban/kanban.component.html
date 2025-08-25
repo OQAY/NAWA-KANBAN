@@ -68,6 +68,7 @@
               placeholder="Insira um título para este cartão..."
               class="card-title-input"
               (keydown)="onCardTitleKeydown($event, column.status)"
+              autofocus
               #cardInput>
             </textarea>
             <div class="add-card-actions">
@@ -165,7 +166,7 @@
                 <div class="status-options" *ngIf="showStatusDropdown">
                   <div class="status-option" 
                        *ngFor="let status of statusOptions"
-                       (click)="changeStatus(status.value)"
+                       (click)="changeStatus(status.value); $event.stopPropagation()"
                        [class.selected]="status.value === modalTask?.status">
                     <span class="status status-{{ status.value }}">{{ status.label }}</span>
                   </div>
@@ -195,6 +196,7 @@
                 class="comment-input"
                 (keydown)="onCommentKeydown($event)"
                 (blur)="onCommentBlur()"
+                autofocus
                 #commentTextarea>
               </textarea>
               <div class="comment-actions">

@@ -114,6 +114,7 @@
 
 .comment-info {
   @include flex-column;
+  flex-direction: row;
   gap: 2px;
 }
 
