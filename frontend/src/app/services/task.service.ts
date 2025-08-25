@@ -7,12 +7,13 @@ import {
   UpdateTaskRequest,
   TaskQueryParams,
 } from "../models/task.model";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class TaskService {
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

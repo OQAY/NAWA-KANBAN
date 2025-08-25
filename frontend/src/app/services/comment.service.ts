@@ -6,12 +6,13 @@ import {
   CreateCommentRequest,
   UpdateCommentRequest,
 } from "../models/comment.model";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class CommentService {
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

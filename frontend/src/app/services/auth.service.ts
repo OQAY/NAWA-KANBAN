@@ -11,12 +11,13 @@ import {
   CreateUserRequest,
   AuthenticationResponse,
 } from "../models/user.model";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = environment.apiUrl;
 
   // BehaviorSubjects para estado reativo (sempre emitem último valor)
   private currentUserSubject = new BehaviorSubject<User | null>(null);
