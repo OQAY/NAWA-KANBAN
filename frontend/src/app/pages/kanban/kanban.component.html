@@ -67,6 +67,7 @@
               [(ngModel)]="newCardTitle[column.status]"
               placeholder="Insira um título para este cartão..."
               class="card-title-input"
+              [attr.data-status]="column.status"
               (keydown)="onCardTitleKeydown($event, column.status)"
               autofocus
               #cardInput>

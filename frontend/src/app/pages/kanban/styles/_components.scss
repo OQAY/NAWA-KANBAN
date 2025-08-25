@@ -625,18 +625,16 @@
 
 .priority-options,
 .status-options {
-  position: fixed;
+  position: absolute;
   top: 100%;
   left: 0;
   background: $white;
   border: 1px solid $gray-300;
   border-radius: $radius-sm;
-  box-shadow: $shadow-2xl;
-  z-index: 1500;
+  box-shadow: $shadow-lg;
+  z-index: $z-index-dropdown;
   min-width: 150px;
   overflow: hidden;
-  max-height: 200px;
-  overflow-y: auto;
 
   &.dropdown-up {
     top: auto;
@@ -725,6 +723,111 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+// ===========================================
+// ADD CARD STYLES (Trello-style)
+// ===========================================
+.add-card-container {
+  margin-top: $spacing-sm;
+}
+
+.add-card-btn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $gray-500;
+  font-size: $font-size-sm;
+  transition: $transition-base;
+  width: 100%;
+  text-align: left;
+  
+  &:hover {
+    background: $gray-100;
+    color: $gray-800;
+  }
+}
+
+.plus-icon {
+  font-size: $font-size-lg;
+  font-weight: bold;
+}
+
+.add-text {
+  flex: 1;
+}
+
+.add-card-form {
+  background: $white;
+  border-radius: $radius-md;
+  padding: $spacing-sm;
+  box-shadow: $shadow-md;
+}
+
+.card-title-input {
+  width: 100%;
+  min-height: 54px;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  line-height: $line-height-base;
+  resize: none;
+  box-shadow: inset 0 0 0 2px $primary-color;
+  outline: none;
+  font-family: $font-family-base;
+}
+
+.add-card-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.btn-add-card {
+  @include button-base;
+  @include button-primary;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  
+  &:hover {
+    background: $primary-dark;
+  }
+}
+
+.btn-cancel-add {
+  background: none;
+  border: none;
+  padding: $spacing-xs;
+  cursor: pointer;
+  font-size: $font-size-xl;
+  color: $gray-500;
+  border-radius: $radius-sm;
+  width: 32px;
+  height: 32px;
+  @include flex-center;
+  
+  &:hover {
+    background: $gray-100;
+  }
+}
+
+// ===========================================
+// EMPTY COLUMN
+// ===========================================
+.empty-column {
+  text-align: center;
+  color: $gray-500;
+  font-style: italic;
+  padding: $spacing-2xl 0;
+  font-size: $font-size-sm;
 }
 
 // ===========================================

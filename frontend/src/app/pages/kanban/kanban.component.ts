@@ -438,6 +438,14 @@ export class KanbanComponent implements OnInit, OnDestroy {
   startAddingCard(status: string): void {
     this.addingCard[status] = true;
     this.newCardTitle[status] = '';
+    
+    // Foca o textarea após o DOM ser atualizado
+    setTimeout(() => {
+      const textarea = document.querySelector(`textarea.card-title-input[data-status="${status}"]`) as HTMLTextAreaElement;
+      if (textarea) {
+        textarea.focus();
+      }
+    }, 0);
   }
 
   confirmAddCard(status: string): void {
