@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { CommentService } from '../../services/comment.service';
 import { ColumnService } from '../../services/column.service';
+import { AutoSaveService } from '../../services/auto-save.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 import { ColumnManagementComponent } from '../../components/column-management/column-management.component';
@@ -101,7 +102,8 @@ export class KanbanComponent implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private commentService: CommentService,
-    private columnService: ColumnService
+    private columnService: ColumnService,
+    private autoSaveService: AutoSaveService
   ) {}
 
   ngOnInit(): void {
@@ -805,6 +807,9 @@ export class KanbanComponent implements OnInit, OnDestroy {
     if (this.modalTask) {
       this.modalTask = { ...this.modalTask, priority };
       this.checkForChanges();
+      
+      // AUTO-SAVE: Salva automaticamente a prioridade no banco
+      this.autoSaveService.savePriority(this.modalTask, priority);
     }
     this.showPriorityDropdown = false;
   }
