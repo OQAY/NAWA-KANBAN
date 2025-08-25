@@ -841,6 +841,14 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.showAddComment = !this.showAddComment;
     if (this.showAddComment) {
       this.newCommentContent = '';
+      
+      // Foca o textarea de comentário após o DOM ser atualizado
+      setTimeout(() => {
+        const textarea = document.querySelector('textarea.comment-input') as HTMLTextAreaElement;
+        if (textarea) {
+          textarea.focus();
+        }
+      }, 0);
     }
   }
 
