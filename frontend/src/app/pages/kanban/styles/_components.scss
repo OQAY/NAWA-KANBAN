@@ -355,6 +355,11 @@
   flex: 1;
   overflow: visible;
   align-items: flex-start;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: normal;
+  }
 }
 
 .left-column {
@@ -363,6 +368,13 @@
   overflow-y: visible;
   border-right: 1px solid $gray-200;
   align-self: flex-start;
+
+  @include mobile {
+    align-self: normal;
+    border-right: none;
+    border-bottom: 1px solid $gray-200;
+    width: 100%;
+  }
 }
 
 .right-column {
@@ -373,6 +385,12 @@
   overflow-x: hidden;
   align-self: stretch;
   flex: 1;
+
+  @include mobile {
+    width: 100%;
+    background: $white;
+    padding: $spacing-lg;
+  }
 }
 
 // Form sections
