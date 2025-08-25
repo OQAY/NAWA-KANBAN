@@ -626,6 +626,8 @@
 .priority-options,
 .status-options {
   position: fixed;
+  top: 100%;
+  left: 0;
   background: $white;
   border: 1px solid $gray-300;
   border-radius: $radius-sm;
