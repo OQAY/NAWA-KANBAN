@@ -1,71 +1,19 @@
 # 📋 Nawa-Kanban
 
-Sistema Kanban fullstack com Angular 18 + NestJS
+**Sistema Kanban completo** - Angular 18 + NestJS + PostgreSQL
 
-![Angular](https://img.shields.io/badge/Angular-18-red.svg)
-![NestJS](https://img.shields.io/badge/NestJS-11-ea2845.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)
+## 🚀 QUICK START (30 segundos)
 
-## ✅ Funcionalidades
+### Requisitos
+- Node.js 18+
 
-- **Autenticação**: Login/registro com JWT
-- **4 Colunas**: Pendente, Em Progresso, Teste, Concluído
-- **Cards**: Criação rápida (só título obrigatório)
-- **Prioridades**: 4 níveis com ordenação automática
-- **Drag & Drop**: Entre todas colunas + touch mobile
-- **Comentários**: Sistema CRUD completo
-- **Timestamps**: Relativos em português ("há 5 minutos")
-- **Responsivo**: Layout adaptativo completo
-- **Isolamento**: Dados separados por usuário
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js 18+ 
-- PostgreSQL (local ou Supabase)
-- Git
-
-### 1. Backend (API)
+### Rodar o Projeto
 
 ```bash
-# 1. Clone e instale dependências
-git clone <repo-url>
-cd backend
-npm install
+# Clone o repositório
+git clone https://github.com/OQAY/NAWA-KANBAN.git
+cd NAWA-KANBAN
 
-# 2. Configure banco de dados (.env)
-cp .env.example .env
-# Edite .env com suas credenciais PostgreSQL
-
-# 3. Execute o servidor
-npm run start:dev
-
-# ✅ Backend rodando em: http://localhost:3000
-# ✅ Documentação API: http://localhost:3000/api/docs
-```
-
-### 2. Frontend (Interface)
-
-```bash
-# Em novo terminal
-cd frontend
-npm install
-
-# Execute o Angular
-ng serve
-
-# ✅ App rodando em: http://localhost:4200
-```
-
-### 3. Acesso Completo
-
-**Frontend**: http://localhost:4200 (Interface do usuário)  
-**Backend**: http://localhost:3000 (API REST)  
-**Docs**: http://localhost:3000/api/docs (Swagger)  
-
-### Execução Rápida (ambos)
-
-```bash
 # Terminal 1 - Backend
 cd backend && npm install && npm run start:dev
 
@@ -73,7 +21,45 @@ cd backend && npm install && npm run start:dev
 cd frontend && npm install && ng serve
 ```
 
-**Sistema completo funcionando em ~30 segundos!**
+**✅ PRONTO!** Acesse http://localhost:4200
+
+> **Nota:** Banco de dados Supabase já configurado para demonstração!
+
+---
+
+## 📍 URLs do Sistema
+
+- **App**: http://localhost:4200
+- **API**: http://localhost:3000
+- **Docs**: http://localhost:3000/api/docs
+
+---
+
+## ✨ Funcionalidades
+
+✅ **Kanban Board** - 4 colunas com drag & drop  
+✅ **Autenticação JWT** - Login/registro seguro  
+✅ **Tasks** - CRUD completo com prioridades  
+✅ **Comentários** - Sistema de discussão  
+✅ **Responsivo** - Desktop, tablet e mobile  
+✅ **Real-time** - Atualizações instantâneas  
+
+---
+
+## 🎯 Comandos Úteis
+
+```bash
+# Desenvolvimento
+npm run dev:backend   # Backend com hot-reload
+npm run dev:frontend  # Frontend com hot-reload
+
+# Testes
+npm run test:backend  # 45 testes reais
+npm run test:frontend # 4 testes Angular
+
+# Build produção
+npm run build         # Compila ambos
+```
 
 ## 🏗️ Arquitetura
 
