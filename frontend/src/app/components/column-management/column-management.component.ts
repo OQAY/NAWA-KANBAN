@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ColumnService } from '../../services/column.service';
@@ -149,6 +149,8 @@ export class ColumnManagementComponent {
   @Input() columns: ColumnData[] = [];
   @Output() columnAdded = new EventEmitter<string>();
   @Output() columnsUpdated = new EventEmitter<ColumnData[]>();
+  
+  @ViewChild('columnInput') columnInputRef!: ElementRef<HTMLInputElement>;
 
   showAddColumn = false;
   newColumnTitle = '';
@@ -158,6 +160,12 @@ export class ColumnManagementComponent {
   startAddColumn(): void {
     this.showAddColumn = true;
     this.newColumnTitle = '';
+    // Focus input after Angular renders it
+    setTimeout(() => {
+      if (this.columnInputRef?.nativeElement) {
+        this.columnInputRef.nativeElement.focus();
+      }
+    });
   }
 
   confirmAddColumn(): void {
