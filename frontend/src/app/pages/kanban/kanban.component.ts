@@ -366,13 +366,15 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   closeTaskModal(): void {
-    // Se há mudanças não salvas, salva automaticamente antes de fechar
+    // NOVA LÓGICA: Fecha primeiro, salva em background para UX responsiva
     if (this.hasUnsavedChanges && this.modalTask && !this.isSaving) {
-      this.saveTaskFromModal();
-      // Aguarda o salvamento completar antes de fechar
-      return;
+      console.log('💾 BACKGROUND SAVE: Closing modal and saving changes in background...');
+      
+      // Salva mudanças em background (não-bloqueante)
+      this.saveTaskFromModalBackground();
     }
     
+    // FECHA IMEDIATAMENTE - UX responsiva
     this.showModal = false;
     this.modalTask = null;
     this.editingTitle = false;
@@ -441,6 +443,45 @@ export class KanbanComponent implements OnInit, OnDestroy {
         console.error('Error updating task:', error);
         this.editingTask = null;
         this.isSaving = false;
+      }
+    });
+  }
+
+  saveTaskFromModalBackground(): void {
+    if (!this.modalTask) return;
+
+    console.log('🚀 BACKGROUND SAVE: Starting background save...');
+
+    const updateRequest: UpdateTaskRequest = {
+      title: this.editForm.title || this.modalTask.title,
+      description: this.editForm.description || this.modalTask.description,
+      priority: this.modalTask.priority,
+      status: this.modalTask.status
+    };
+
+    // Salva task com dados atuais para não perder estado
+    const taskToSave = { ...this.modalTask };
+
+    this.taskService.updateTask(taskToSave.id, updateRequest).subscribe({
+      next: (updatedTask) => {
+        console.log('✅ BACKGROUND SAVE: Task saved successfully', updatedTask);
+        
+        // Atualiza array de tasks em background
+        const index = this.tasks.findIndex(t => t.id === taskToSave.id);
+        if (index !== -1) {
+          this.tasks[index] = {
+            ...this.tasks[index],
+            ...updatedTask,
+            title: updateRequest.title || this.tasks[index].title,
+            description: updateRequest.description || this.tasks[index].description,
+            priority: updateRequest.priority ?? this.tasks[index].priority,
+            status: updateRequest.status || this.tasks[index].status
+          };
+        }
+      },
+      error: (error) => {
+        console.error('❌ BACKGROUND SAVE: Failed to save task', error);
+        // Opcional: mostrar toast/notification para o usuário
       }
     });
   }
