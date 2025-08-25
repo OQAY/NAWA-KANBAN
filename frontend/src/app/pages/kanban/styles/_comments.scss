@@ -38,7 +38,7 @@
   &.active {
     background: $white;
     border-color: $primary-color;
-    color: $text-color;
+    color: $gray-800;
   }
 }
 
@@ -145,7 +145,7 @@
   
   &:hover {
     background-color: $gray-100;
-    color: $text-color;
+    color: $gray-800;
   }
   
   &.delete:hover {
@@ -157,7 +157,7 @@
 // Comment Text Content
 .comment-author {
   font-weight: $font-weight-semibold;
-  color: $text-color;
+  color: $gray-800;
   font-size: $font-size-xs;
 }
 
@@ -169,7 +169,7 @@
 .comment-content {
   font-size: $font-size-sm;
   line-height: 1.4;
-  color: $text-color;
+  color: $gray-800;
   cursor: pointer;
   transition: color 0.2s ease;
   
@@ -227,7 +227,7 @@
     padding: 0;
     
     &:hover {
-      color: $text-color;
+      color: $gray-800;
     }
   }
 }
