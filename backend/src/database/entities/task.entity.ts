@@ -4,16 +4,7 @@ import { Project } from './project.entity';
 import { Comment } from './comment.entity';
 import { KanbanColumn } from './column.entity';
 
-/**
- * Estados possíveis de uma tarefa no fluxo Kanban
- * Representa o ciclo de vida completo de uma tarefa
- */
-export enum TaskStatus {
-  PENDING = 'pending',       // Pendente - Aguardando início  
-  IN_PROGRESS = 'in_progress', // Em Progresso - Em desenvolvimento
-  TESTING = 'testing',       // Em Teste - Aguardando validação
-  DONE = 'done',            // Concluído - Tarefa finalizada
-}
+// TaskStatus enum removido - agora usa status dinâmico baseado em colunas customizáveis
 
 /**
  * Entidade principal do sistema Kanban

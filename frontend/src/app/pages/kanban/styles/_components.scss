@@ -7,16 +7,14 @@
 // ===========================================
 .kanban-board {
   padding: $spacing-xl;
-  max-width: $breakpoint-xl;
   margin: 0 auto;
   box-sizing: border-box;
   position: relative;
   @include flex-column;
   overflow: hidden;
   height: calc(100vh - $header-height);
-  background-color: $gray-50;
   font-family: $font-family-base;
-  
+
   @include mobile {
     padding: $spacing-md;
     height: calc(100vh - 80px);
@@ -34,20 +32,20 @@
   border-radius: $radius-xl;
   backdrop-filter: blur(10px);
   box-shadow: $shadow-lg;
-  
+
   @include mobile {
     flex-direction: column;
     gap: $spacing-md;
     padding: $spacing-lg;
     text-align: center;
   }
-  
+
   h2 {
     margin: 0;
     color: $gray-800;
     font-size: $font-size-xl;
     font-weight: $font-weight-semibold;
-    
+
     @include mobile {
       font-size: $font-size-lg;
     }
@@ -68,7 +66,7 @@
   width: 48px;
   height: 48px;
   backdrop-filter: blur(5px);
-  
+
   &:hover,
   &.drag-over {
     border-color: $danger;
@@ -81,7 +79,7 @@
   font-size: $font-size-xl;
   color: $gray-500;
   transition: $transition-fast;
-  
+
   .trash-zone:hover & {
     color: $danger;
   }
@@ -96,15 +94,15 @@
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: $spacing-3xl;
+  height: 100%;
   @include custom-scrollbar;
 }
 
 .columns {
   display: flex;
   gap: $spacing-lg;
-  min-height: 100%;
   padding-right: $spacing-lg;
-  
+
   @include mobile {
     gap: $spacing-md;
     padding-right: $spacing-md;
@@ -118,27 +116,28 @@
   flex-shrink: 0;
   width: $column-width;
   min-width: $column-min-width;
+  height: 100%;
   background: $white;
   border-radius: $radius-lg;
   box-shadow: $shadow-md;
-  @include flex-column;
-  max-height: $column-max-height;
+  display: flex;
+  flex-direction: column;
   transition: $transition-base;
-  
+
   @include mobile {
     width: 280px;
     min-width: 280px;
   }
-  
+
   &:hover {
     box-shadow: $shadow-lg;
   }
-  
+
   &.drag-over {
     background-color: rgba(0, 121, 191, 0.1);
     border: 2px dashed $primary-color;
   }
-  
+
   &.dragging {
     opacity: 0.5;
     transform: rotate(2deg);
@@ -154,7 +153,7 @@
   background: $white;
   border-radius: $radius-lg $radius-lg 0 0;
   z-index: $z-index-sticky;
-  
+
   h3 {
     margin: 0;
     font-size: $font-size-md;
@@ -162,7 +161,7 @@
     color: $gray-800;
     @include text-truncate;
   }
-  
+
   .task-count {
     background: $gray-100;
     color: $gray-600;
@@ -176,13 +175,13 @@
 }
 
 .column-content {
-  flex: 1;
   padding: $spacing-sm $spacing-lg $spacing-lg;
-  overflow-y: auto;
+  flex-shrink: 0;
+  overflow-y: visible;
   @include custom-scrollbar;
-  
+
   &:empty::after {
-    content: 'Drop tasks here';
+    content: "Drop tasks here";
     display: block;
     text-align: center;
     color: $gray-500;
@@ -203,11 +202,11 @@
   min-height: $card-min-height;
   max-height: $card-max-height;
   position: relative;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
-  
+
   &.dragging {
     opacity: 0.5;
     transform: rotate(3deg) scale(1.02);
@@ -224,7 +223,7 @@
     color: $gray-800;
     line-height: $line-height-tight;
   }
-  
+
   p {
     margin: 0;
     font-size: $font-size-sm;
@@ -237,24 +236,24 @@
   @include flex-between;
   align-items: center;
   margin-top: $spacing-sm;
-  
+
   .priority {
     font-size: $font-size-xs;
     font-weight: $font-weight-semibold;
     text-transform: uppercase;
     padding: 2px $spacing-xs;
     border-radius: $radius-sm;
-    
+
     &.priority-low {
       background: $status-done;
       color: $white;
     }
-    
+
     &.priority-medium {
       background: $status-pending;
       color: $gray-800;
     }
-    
+
     &.priority-high {
       background: $danger;
       color: $white;
@@ -267,11 +266,11 @@
   &.priority-low {
     @include priority-indicator($status-done);
   }
-  
+
   &.priority-medium {
     @include priority-indicator($status-pending);
   }
-  
+
   &.priority-high {
     @include priority-indicator($danger);
   }
@@ -295,7 +294,7 @@
   position: relative;
   width: $modal-width;
   animation: scaleIn $transition-base ease-out;
-  
+
   @include mobile {
     width: 95vw;
     max-height: 95vh;
@@ -307,14 +306,14 @@
   @include flex-between;
   padding: $spacing-2xl $spacing-2xl $spacing-lg;
   border-bottom: 1px solid $gray-200;
-  
+
   h3 {
     margin: 0;
     font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
     color: $gray-800;
   }
-  
+
   .close-btn {
     @include button-base;
     width: 32px;
@@ -322,7 +321,7 @@
     border-radius: $radius-round;
     color: $gray-600;
     @include flex-center;
-    
+
     &:hover {
       background: $gray-100;
       color: $gray-800;
@@ -334,7 +333,7 @@
   padding: $spacing-2xl;
   overflow-y: auto;
   flex: 1;
-  
+
   @include mobile {
     padding: $spacing-lg;
   }
@@ -345,7 +344,7 @@
   padding: $spacing-lg $spacing-2xl $spacing-2xl;
   border-top: 1px solid $gray-200;
   gap: $spacing-md;
-  
+
   @include mobile {
     flex-direction: column;
     padding: $spacing-lg;
@@ -355,7 +354,7 @@
 // Modal form elements
 .form-group {
   margin-bottom: $spacing-lg;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -377,13 +376,13 @@
   padding: $spacing-sm $spacing-md;
   transition: $transition-base;
   width: 100%;
-  
+
   &:focus {
     border-color: $primary-color;
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 121, 191, 0.1);
   }
-  
+
   &::placeholder {
     color: $gray-500;
   }
@@ -406,7 +405,7 @@ textarea.form-control {
   color: $gray-700;
   border: 1px solid $gray-300;
   padding: $spacing-sm $spacing-lg;
-  
+
   &:hover:not(:disabled) {
     background-color: $gray-50;
     border-color: $gray-400;
@@ -431,7 +430,7 @@ textarea.form-control {
   resize: vertical;
   font-family: $font-family-base;
   font-size: $font-size-sm;
-  
+
   &:focus {
     border-color: $primary-color;
     outline: none;
@@ -445,7 +444,7 @@ textarea.form-control {
   background: $gray-50;
   border-radius: $radius-lg;
   border-left: 4px solid $primary-color;
-  
+
   &:hover {
     background: $white;
     box-shadow: $shadow-sm;
@@ -456,8 +455,12 @@ textarea.form-control {
 // ANIMATIONS (Essential only)
 // ===========================================
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {

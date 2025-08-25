@@ -1,12 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, Unique } from 'typeorm';
 import { User } from './user.entity';
 import { Task } from './task.entity';
 
 /**
  * Entidade para colunas personalizadas do Kanban
  * Permite que usuários criem suas próprias colunas além das padrão
+ * Constraint única por usuário e status
  */
 @Entity('columns')
+@Unique(['status', 'userId'])
 export class KanbanColumn {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -14,14 +16,14 @@ export class KanbanColumn {
   @Column()
   name: string;
 
-  @Column({ unique: true })
-  status: string; // Valor único usado como status da task
+  @Column()
+  status: string; // Status único por usuário
 
   @Column({ type: 'int', default: 0 })
   order: number; // Ordem de exibição
 
-  @Column({ type: 'enum', enum: ['standard', 'custom'], default: 'custom' })
-  type: 'standard' | 'custom';
+  @Column({ default: 'normal' })
+  type: string; // Todas as colunas são tratadas igualmente
 
   @Column({ name: 'user_id' })
   userId: string;

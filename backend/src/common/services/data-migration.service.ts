@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Task, TaskStatus } from '../../database/entities/task.entity';
+import { Task } from '../../database/entities/task.entity';
 
 /**
  * Serviço responsável por migrar dados existentes

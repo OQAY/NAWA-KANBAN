@@ -4,6 +4,7 @@ import { User } from './entities/user.entity';
 import { Task } from './entities/task.entity';
 import { Project } from './entities/project.entity';
 import { Comment } from './entities/comment.entity';
+import { KanbanColumn } from './entities/column.entity';
 
 // Load environment variables
 config();
@@ -18,7 +19,7 @@ export const AppDataSource = new DataSource({
   ssl: { rejectUnauthorized: false },
   synchronize: false, // Disable for migrations
   logging: process.env.NODE_ENV === 'development',
-  entities: [User, Task, Project, Comment],
+  entities: [User, Task, Project, Comment, KanbanColumn],
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 });

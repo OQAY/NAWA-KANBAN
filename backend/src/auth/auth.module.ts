@@ -10,10 +10,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { InitialDataService } from '../common/services/initial-data.service';
+import { ColumnsModule } from '../columns/columns.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Project, Task]),
+    ColumnsModule,
     PassportModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({

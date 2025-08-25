@@ -5,8 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { CommentService } from '../../services/comment.service';
+import { ColumnService } from '../../services/column.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
+import { ColumnManagementComponent } from '../../components/column-management/column-management.component';
+import { TrashDropZoneComponent } from '../../components/trash-drop-zone/trash-drop-zone.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -17,16 +20,18 @@ import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../model
  */
 interface ColumnData {
   id: string;
-  status: string;
+  realId?: string; // UUID real da coluna no backend
+  status: string; // Status sempre presente
   label: string;
-  type: 'standard' | 'custom';
-  order: number;
+  type: string; // Sempre 'normal' agora
+  order: number; // Order sempre presente
+  color?: string;
 }
 
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ColumnManagementComponent, TrashDropZoneComponent],
   templateUrl: './kanban.component.html',
   styleUrl: './styles/index.scss'
   /* REFACTORED: Extracted inline template and styles to separate files
@@ -80,8 +85,7 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
   // COLUMN MANAGEMENT: Gerenciamento dinâmico de colunas
   columns: ColumnData[] = [];
-  addingColumn = false;
-  newColumnTitle = '';
+  // Column management moved to ColumnManagementComponent
 
   // ADD CARD STATES: Estados para adição rápida de cartões
   addingCard: { [key: string]: boolean } = {};
@@ -96,11 +100,12 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
   constructor(
     private taskService: TaskService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private columnService: ColumnService
   ) {}
 
   ngOnInit(): void {
-    this.initializeColumns();
+    this.loadColumnsFromBackend();
     this.loadTasks();
   }
 
@@ -114,7 +119,38 @@ export class KanbanComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ENTERPRISE ARCHITECTURE: Inicialização das colunas padrão + customizadas
+  // ENTERPRISE ARCHITECTURE: Carrega colunas do backend
+  private loadColumnsFromBackend(): void {
+    this.columnService.getColumns().subscribe({
+      next: (columns) => {
+        this.columns = columns.map(col => ({
+          id: col.status, // Use status as ID for compatibility
+          realId: col.id, // Keep real UUID for backend operations
+          status: col.status, // Add status field
+          label: col.name,
+          type: col.type,
+          order: col.order, // Add order field
+          color: this.getColumnColor(col.status)
+        }));
+      },
+      error: (error) => {
+        console.error('Erro ao carregar colunas:', error);
+        this.initializeColumns(); // Fallback to default columns
+      }
+    });
+  }
+
+  private getColumnColor(status: string): string {
+    const colorMap: { [key: string]: string } = {
+      'pending': '#6366F1',
+      'in_progress': '#3B82F6', 
+      'testing': '#F59E0B',
+      'done': '#10B981'
+    };
+    return colorMap[status] || '#8B5CF6'; // Default purple for custom columns
+  }
+
+  // ENTERPRISE ARCHITECTURE: Inicialização das colunas padrão + customizadas (fallback)
   private initializeColumns(): void {
     this.columns = [
       {
@@ -319,10 +355,11 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   closeTaskModal(): void {
-    if (this.hasUnsavedChanges) {
-      if (!confirm('Você tem alterações não salvas. Deseja fechar mesmo assim?')) {
-        return;
-      }
+    // Se há mudanças não salvas, salva automaticamente antes de fechar
+    if (this.hasUnsavedChanges && this.modalTask && !this.isSaving) {
+      this.saveTaskFromModal();
+      // Aguarda o salvamento completar antes de fechar
+      return;
     }
     
     this.showModal = false;
@@ -335,6 +372,8 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.newCommentContent = '';
     this.editingCommentId = null;
     this.editingCommentContent = '';
+    this.editingTask = null;
+    this.editForm = { title: '', description: '' };
   }
 
   saveTaskFromModal(): void {
@@ -379,6 +418,13 @@ export class KanbanComponent implements OnInit, OnDestroy {
         this.editingTask = null;
         this.hasUnsavedChanges = false;
         this.isSaving = false;
+        
+        // Fecha modal automaticamente após salvar (para salvamento automático)
+        setTimeout(() => {
+          if (!this.hasUnsavedChanges) {
+            this.closeTaskModal();
+          }
+        }, 100);
       },
       error: (error) => {
         console.error('Error updating task:', error);
@@ -508,49 +554,48 @@ export class KanbanComponent implements OnInit, OnDestroy {
     });
   }
 
-  // COLUMN MANAGEMENT: Gerenciamento de colunas customizadas
-  startAddingColumn(): void {
-    this.addingColumn = true;
-    this.newColumnTitle = '';
+  // Column management methods moved to ColumnManagementComponent
+  onColumnAdded(columnName: string): void {
+    console.log('Column added:', columnName);
+    this.loadTasks();
   }
 
-  confirmAddColumn(): void {
-    const title = this.newColumnTitle.trim();
-    if (!title) return;
-
-    const newColumn: ColumnData = {
-      id: `custom_${Date.now()}`,
-      status: `custom_${Date.now()}`,
-      label: title,
-      type: 'custom',
-      order: this.columns.length
-    };
-
-    this.columns.push(newColumn);
-    this.saveColumnsToStorage();
-    this.addingColumn = false;
-    this.newColumnTitle = '';
+  onColumnsUpdated(columns: ColumnData[]): void {
+    this.columns = columns;
   }
 
-  cancelAddColumn(): void {
-    this.addingColumn = false;
-    this.newColumnTitle = '';
-  }
+  // deleteCustomColumn removido - agora usa deleteColumn para todas as colunas
 
-  deleteCustomColumn(columnId: string): void {
+  // Column deletion handled by ColumnManagementComponent
+  handleColumnDeleted(columnId: string): void {
     const column = this.columns.find(c => c.id === columnId);
-    if (!column || column.type === 'standard') return;
+    if (!column) return;
 
-    if (!confirm(`Tem certeza que deseja excluir a coluna "${column.label}"?`)) return;
+    if (!confirm(`Tem certeza que deseja excluir a coluna "${column.label}"? Todos os cartões desta coluna serão perdidos.`)) return;
 
-    this.columns = this.columns.filter(c => c.id !== columnId);
-    this.saveColumnsToStorage();
+    // Remove from local array first for immediate UI feedback
+    const updatedColumns = this.columns.filter(c => c.id !== columnId);
+    this.columns = updatedColumns;
+
+    // Call backend to delete using real UUID
+    const realColumnId = column.realId || column.id;
+    this.columnService.deleteColumn(realColumnId).subscribe({
+      next: () => {
+        // Remove tasks from deleted column
+        this.tasks = this.tasks.filter(task => task.status !== columnId);
+        // Reload tasks to sync with backend
+        this.loadTasks();
+      },
+      error: (error: any) => {
+        console.error('Erro ao deletar coluna:', error);
+        // Rollback on error - restore the column
+        this.columns = [...this.columns, column];
+        alert('Erro ao excluir coluna. Tente novamente.');
+      }
+    });
   }
 
-  private saveColumnsToStorage(): void {
-    const customColumns = this.columns.filter(c => c.type === 'custom');
-    localStorage.setItem('kanban_custom_columns', JSON.stringify(customColumns));
-  }
+  // saveColumnsToStorage removido - persistência agora é feita via backend
 
   private loadSavedColumns(): ColumnData[] {
     const saved = localStorage.getItem('kanban_custom_columns');
@@ -612,9 +657,8 @@ export class KanbanComponent implements OnInit, OnDestroy {
     const insertIndex = this.dropPosition === 'left' ? targetIndex : targetIndex + 1;
     this.columns.splice(insertIndex, 0, column);
 
-    // Update order values
+    // Update order values - Note: Backend sync for reordering not implemented yet
     this.columns.forEach((col, idx) => col.order = idx);
-    this.saveColumnsToStorage();
 
     this.onColumnDragEnd();
   }
@@ -623,25 +667,26 @@ export class KanbanComponent implements OnInit, OnDestroy {
     return this.dragOverColumnIndex === index && this.dropPosition === position;
   }
 
-  // TRASH FUNCTIONALITY: Delete tasks by dropping in trash
-  isDragOverTrash = false;
-
-  onTrashDragOver(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOverTrash = true;
-  }
-
-  onTrashDragLeave(event: DragEvent): void {
-    this.isDragOverTrash = false;
-  }
-
-  onTrashDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOverTrash = false;
-    
-    if (this.draggedTask) {
-      this.deleteTask(this.draggedTask.id);
+  // Trash functionality moved to TrashDropZoneComponent
+  handleTrashDrop(dragTarget: any): void {
+    if (dragTarget.type === 'task') {
+      this.deleteTask(dragTarget.id);
+    } else if (dragTarget.type === 'column') {
+      this.handleColumnDeleted(dragTarget.id);
     }
+  }
+
+  getCurrentDragTarget(): any {
+    if (this.draggedTask) {
+      return { type: 'task', id: this.draggedTask.id, data: this.draggedTask };
+    } else if (this.draggedColumn) {
+      return { type: 'column', id: this.draggedColumn.id, data: this.draggedColumn };
+    }
+    return null;
+  }
+
+  isDragActive(): boolean {
+    return !!(this.draggedTask || this.draggedColumn);
   }
 
   // TOUCH SUPPORT: Mobile drag and drop
@@ -767,15 +812,7 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.deleteTask(taskId);
   }
 
-  // COLUMN TITLE EDITING: Handle column title keydown events
-  onColumnTitleKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      this.confirmAddColumn();
-    } else if (event.key === 'Escape') {
-      this.cancelAddColumn();
-    }
-  }
+  // Column title editing moved to ColumnManagementComponent
 
   // COMMENT FUNCTIONALITY: Extended comment features
   saveComment(): void {
@@ -903,24 +940,9 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
 
-  // SAVE CONFIRMATION: Modal save confirmation functionality
-  showSaveConfirmModal = false;
+  // DELETE CONFIRMATION: Modal delete confirmation functionality
   showDeleteConfirmModal = false;
   taskToDelete: string | null = null;
-
-  saveAndClose(): void {
-    this.saveTaskFromModal();
-    this.closeTaskModal();
-  }
-
-  discardAndClose(): void {
-    this.hasUnsavedChanges = false;
-    this.closeTaskModal();
-  }
-
-  cancelSaveConfirm(): void {
-    this.showSaveConfirmModal = false;
-  }
 
   confirmDelete(): void {
     if (this.taskToDelete) {

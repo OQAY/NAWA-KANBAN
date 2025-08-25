@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { KanbanColumn } from '../database/entities/column.entity';
 import { User } from '../database/entities/user.entity';
+import { Task } from '../database/entities/task.entity';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { UpdateColumnDto } from './dto/update-column.dto';
 
@@ -11,6 +12,8 @@ export class ColumnsService {
   constructor(
     @InjectRepository(KanbanColumn)
     private columnRepository: Repository<KanbanColumn>,
+    @InjectRepository(Task)
+    private taskRepository: Repository<Task>,
   ) {}
 
   /**
@@ -39,42 +42,42 @@ export class ColumnsService {
       ...createColumnDto,
       userId: user.id,
       order: nextOrder,
-      type: 'custom'
+      type: 'normal' // Todas as colunas são normais
     });
 
     return this.columnRepository.save(column);
   }
 
   /**
-   * Lista todas as colunas do usuário (padrão + personalizadas)
+   * Cria as colunas iniciais para um novo usuário
+   */
+  async createInitialColumns(user: User): Promise<KanbanColumn[]> {
+    const initialColumnsData = [
+      { name: 'Pendente', status: 'pending', order: 0 },
+      { name: 'Em Progresso', status: 'in_progress', order: 1 },
+      { name: 'Em Teste', status: 'testing', order: 2 },
+      { name: 'Concluído', status: 'done', order: 3 },
+    ];
+
+    const columns = initialColumnsData.map(columnData => 
+      this.columnRepository.create({
+        ...columnData,
+        type: 'normal',
+        userId: user.id
+      })
+    );
+
+    return this.columnRepository.save(columns);
+  }
+
+  /**
+   * Lista todas as colunas do usuário
    */
   async findAll(user: User): Promise<KanbanColumn[]> {
-    // Busca colunas personalizadas do usuário
-    const customColumns = await this.columnRepository.find({
+    return this.columnRepository.find({
       where: { userId: user.id },
       order: { order: 'ASC' }
     });
-
-    // Colunas padrão (sempre presentes)
-    const defaultColumns = [
-      { id: 'default-pending', name: 'Pendente', status: 'pending', order: 0, type: 'standard' as const },
-      { id: 'default-in_progress', name: 'Em Progresso', status: 'in_progress', order: 1, type: 'standard' as const },
-      { id: 'default-testing', name: 'Em Teste', status: 'testing', order: 2, type: 'standard' as const },
-      { id: 'default-done', name: 'Concluído', status: 'done', order: 3, type: 'standard' as const },
-    ];
-
-    // Combina colunas padrão + personalizadas
-    const allColumns = [
-      ...defaultColumns.map(col => ({
-        ...col,
-        userId: user.id,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      } as KanbanColumn)),
-      ...customColumns
-    ];
-
-    return allColumns.sort((a, b) => a.order - b.order);
   }
 
   /**
@@ -118,13 +121,20 @@ export class ColumnsService {
   }
 
   /**
-   * Remove uma coluna personalizada
+   * Remove uma coluna (permite deletar qualquer tipo, incluindo padrão)
+   * O usuário tem total liberdade para customizar seu board
    */
   async remove(id: string, user: User): Promise<void> {
     const column = await this.findOne(id, user);
 
-    if (column.type === 'standard') {
-      throw new ForbiddenException('Cannot delete standard columns');
+    // Verifica se há tasks usando esta coluna e as move para 'pending' ou deleta
+    if (column.tasks && column.tasks.length > 0) {
+      // Move todas as tasks desta coluna para status 'pending' ou remove a referência
+      for (const task of column.tasks) {
+        task.status = 'pending';
+        task.columnId = null;
+        await this.taskRepository.save(task);
+      }
     }
 
     await this.columnRepository.remove(column);

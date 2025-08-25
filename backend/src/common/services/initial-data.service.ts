@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from '../../database/entities/project.entity';
-import { Task, TaskStatus } from '../../database/entities/task.entity';
+import { Task } from '../../database/entities/task.entity';
 import { User } from '../../database/entities/user.entity';
 
 /**
@@ -48,7 +48,7 @@ export class InitialDataService {
         {
           title: 'Tarefa Pendente',
           description: 'Esta tarefa está aguardando início',
-          status: TaskStatus.PENDING,
+          status: 'pending',
           priority: 1,
           projectId: savedProject.id,
           createdById: user.id,
@@ -57,7 +57,7 @@ export class InitialDataService {
         {
           title: 'Tarefa Em Progresso',
           description: 'Esta tarefa está sendo trabalhada atualmente',
-          status: TaskStatus.IN_PROGRESS,
+          status: 'in_progress',
           priority: 2,
           projectId: savedProject.id,
           createdById: user.id,
@@ -66,7 +66,7 @@ export class InitialDataService {
         {
           title: 'Tarefa Em Teste',
           description: 'Esta tarefa está sendo validada',
-          status: TaskStatus.TESTING,
+          status: 'testing',
           priority: 2,
           projectId: savedProject.id,
           createdById: user.id,
@@ -75,7 +75,7 @@ export class InitialDataService {
         {
           title: 'Tarefa Concluída',
           description: 'Esta tarefa foi finalizada com sucesso',
-          status: TaskStatus.DONE,
+          status: 'done',
           priority: 1,
           projectId: savedProject.id,
           createdById: user.id,

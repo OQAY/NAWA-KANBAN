@@ -7,6 +7,7 @@ import { User, UserRole } from '../database/entities/user.entity';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { InitialDataService } from '../common/services/initial-data.service';
+import { ColumnsService } from '../columns/columns.service';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
     private userRepository: Repository<User>,
     private jwtService: JwtService,
     private initialDataService: InitialDataService,
+    private columnsService: ColumnsService,
   ) {}
 
   /**
@@ -43,6 +45,9 @@ export class AuthService {
     });
 
     const savedUser = await this.userRepository.save(user);
+
+    // Criar colunas iniciais para o novo usuário
+    await this.columnsService.createInitialColumns(savedUser);
 
     // Criar dados iniciais para o novo usuário (projeto e tasks padrão)
     await this.initialDataService.createInitialData(savedUser);
