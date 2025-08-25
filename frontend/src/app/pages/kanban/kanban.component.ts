@@ -280,16 +280,31 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
     const currentIndex = this.tasks.findIndex(t => t.id === this.draggedTask!.id);
     
+    // Atualiza localmente primeiro para UX responsiva
+    if (currentIndex !== -1) {
+      this.tasks[currentIndex] = {
+        ...this.tasks[currentIndex],
+        status: status as TaskStatus
+      };
+    }
+
+    // Sincroniza com backend (preserva todos os dados)
     this.taskService.updateTask(this.draggedTask.id, updateRequest)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (updatedTask) => {
-          if (currentIndex !== -1) {
-            this.tasks[currentIndex] = updatedTask;
-          }
+          // Backend confirmou a atualização - dados já atualizados localmente
+          console.log('Task status updated successfully');
         },
         error: (error) => {
           console.error('Error updating task status:', error);
+          // Em caso de erro, reverte a mudança local
+          if (currentIndex !== -1) {
+            this.tasks[currentIndex] = {
+              ...this.tasks[currentIndex],
+              status: this.draggedTask!.status // Reverte para status original
+            };
+          }
         }
       });
 
