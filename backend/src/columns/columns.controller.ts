@@ -29,6 +29,14 @@ export class ColumnsController {
     return this.columnsService.findAll(req.user);
   }
 
+  @Patch('reorder')
+  @ApiOperation({ summary: 'Reorder all columns' })
+  @ApiResponse({ status: 200, description: 'Columns reordered successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  reorderAll(@Body() orderData: { columnIds: string[] }, @Request() req) {
+    return this.columnsService.reorder(orderData.columnIds, req.user);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get column by ID' })
   @ApiResponse({ status: 200, description: 'Column found' })
@@ -54,14 +62,6 @@ export class ColumnsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   remove(@Param('id') id: string, @Request() req) {
     return this.columnsService.remove(id, req.user);
-  }
-
-  @Patch('reorder')
-  @ApiOperation({ summary: 'Reorder all columns' })
-  @ApiResponse({ status: 200, description: 'Columns reordered successfully' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  reorderAll(@Body() orderData: { columnIds: string[] }, @Request() req) {
-    return this.columnsService.reorder(orderData.columnIds, req.user);
   }
 
   @Patch(':id/reorder')

@@ -280,12 +280,30 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   deleteTask(taskId: string): void {
-    this.taskService.deleteTask(taskId).subscribe({
-      next: () => {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-      },
-      error: (error) => console.error('Error deleting task:', error)
-    });
+    this.taskIdToDelete = taskId;
+    this.showTaskDeleteModal = true;
+  }
+
+  confirmTaskDelete(): void {
+    if (this.taskIdToDelete) {
+      this.taskService.deleteTask(this.taskIdToDelete).subscribe({
+        next: () => {
+          this.tasks = this.tasks.filter(task => task.id !== this.taskIdToDelete);
+          this.showTaskDeleteModal = false;
+          this.taskIdToDelete = null;
+        },
+        error: (error) => {
+          console.error('Error deleting task:', error);
+          this.showTaskDeleteModal = false;
+          this.taskIdToDelete = null;
+        }
+      });
+    }
+  }
+
+  cancelTaskDelete(): void {
+    this.showTaskDeleteModal = false;
+    this.taskIdToDelete = null;
   }
 
   private resetForm(): void {
@@ -624,26 +642,43 @@ export class KanbanComponent implements OnInit, OnDestroy {
   handleColumnDeleted(columnId: string): void {
     const column = this.columns.find(c => c.id === columnId);
     if (!column) return;
+    
+    this.columnToDelete = column;
+    this.showColumnDeleteModal = true;
+  }
 
-    // Remove from local array first for immediate UI feedback
-    const updatedColumns = this.columns.filter(c => c.id !== columnId);
-    this.columns = updatedColumns;
+  confirmColumnDelete(): void {
+    if (this.columnToDelete) {
+      const column = this.columnToDelete;
+      // Remove from local array first for immediate UI feedback
+      const updatedColumns = this.columns.filter(c => c.id !== column.id);
+      this.columns = updatedColumns;
 
-    // Call backend to delete using real UUID
-    const realColumnId = column.realId || column.id;
-    this.columnService.deleteColumn(realColumnId).subscribe({
-      next: () => {
-        // Remove tasks from deleted column
-        this.tasks = this.tasks.filter(task => task.status !== columnId);
-        // Reload tasks to sync with backend
-        this.loadTasks();
-      },
-      error: (error: any) => {
-        console.error('Erro ao deletar coluna:', error);
-        // Rollback on error - restore the column
-        this.columns = [...this.columns, column];
-      }
-    });
+      // Call backend to delete using real UUID
+      const realColumnId = column.realId || column.id;
+      this.columnService.deleteColumn(realColumnId).subscribe({
+        next: () => {
+          // Remove tasks from deleted column
+          this.tasks = this.tasks.filter(task => task.status !== column.id);
+          // Reload tasks to sync with backend
+          this.loadTasks();
+          this.showColumnDeleteModal = false;
+          this.columnToDelete = null;
+        },
+        error: (error: any) => {
+          console.error('Erro ao deletar coluna:', error);
+          // Rollback on error - restore the column
+          this.columns = [...this.columns, column];
+          this.showColumnDeleteModal = false;
+          this.columnToDelete = null;
+        }
+      });
+    }
+  }
+
+  cancelColumnDelete(): void {
+    this.showColumnDeleteModal = false;
+    this.columnToDelete = null;
   }
 
   // saveColumnsToStorage removido - persistência agora é feita via backend
@@ -1045,6 +1080,30 @@ export class KanbanComponent implements OnInit, OnDestroy {
     cancelText: 'Cancelar',
     showCancel: true
   };
+
+  // TASK DELETE CONFIRMATION: Modal task delete confirmation
+  showTaskDeleteModal = false;
+  taskDeleteModalConfig: NotificationConfig = {
+    title: 'Excluir Tarefa',
+    message: 'Esta tarefa será permanentemente removida.',
+    type: 'error',
+    confirmText: 'Excluir',
+    cancelText: 'Cancelar',
+    showCancel: true
+  };
+  taskIdToDelete: string | null = null;
+
+  // COLUMN DELETE CONFIRMATION: Modal column delete confirmation
+  showColumnDeleteModal = false;
+  columnDeleteModalConfig: NotificationConfig = {
+    title: 'Excluir Coluna',
+    message: 'Esta coluna e todas as suas tarefas serão permanentemente removidas.',
+    type: 'error',
+    confirmText: 'Excluir',
+    cancelText: 'Cancelar',
+    showCancel: true
+  };
+  columnToDelete: ColumnData | null = null;
 
   confirmDelete(): void {
     if (this.taskToDelete) {

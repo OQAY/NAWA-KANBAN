@@ -358,3 +358,19 @@
   (confirm)="confirmLogout()"
   (cancel)="cancelLogout()">
 </app-notification-modal>
+
+<!-- Task Delete Confirmation Modal -->
+<app-notification-modal
+  [config]="taskDeleteModalConfig"
+  [isVisible]="showTaskDeleteModal"
+  (confirm)="confirmTaskDelete()"
+  (cancel)="cancelTaskDelete()">
+</app-notification-modal>
+
+<!-- Column Delete Confirmation Modal -->
+<app-notification-modal
+  [config]="columnDeleteModalConfig"
+  [isVisible]="showColumnDeleteModal"
+  (confirm)="confirmColumnDelete()"
+  (cancel)="cancelColumnDelete()">
+</app-notification-modal>
