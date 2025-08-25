@@ -1,0 +1,277 @@
+// =============================================
+// COMMENTS COMPONENT - Optimized and Separated
+// =============================================
+
+// Comment Section Base
+.comments-section {
+  margin-top: $spacing-2xl;
+  border-top: 1px solid $gray-200;
+  padding-top: $spacing-xl;
+  
+  h3 {
+    margin: 0 0 $spacing-md 0;
+    font-size: $font-size-xs;
+    color: $gray-600;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Add Comment Button (uses existing button-base mixin)
+.add-comment-btn {
+  @extend .form-control;
+  background: $gray-50;
+  border: 1px solid $gray-300;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  color: $gray-600;
+  text-align: left;
+  transition: $transition-base;
+  margin-bottom: $spacing-md;
+  
+  &:hover {
+    background: $gray-100;
+    border-color: $gray-400;
+  }
+  
+  &.active {
+    background: $white;
+    border-color: $primary-color;
+    color: $text-color;
+  }
+}
+
+// Comment Form
+.comment-form {
+  margin-bottom: $spacing-xl;
+}
+
+.comment-input {
+  @extend .form-control;
+  min-height: 80px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.comment-actions {
+  @include flex-between;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+// Comment Action Buttons (reusing button mixins)
+.btn-save-comment {
+  @include button-base;
+  @include button-primary;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-xs;
+}
+
+.btn-cancel-comment {
+  @include button-base;
+  background: $gray-50;
+  color: $gray-600;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-xs;
+  
+  &:hover {
+    background: $gray-100;
+  }
+}
+
+// Comment Item
+.comment-item {
+  margin-bottom: $spacing-md;
+  padding: $spacing-sm;
+  background: $gray-50;
+  border-radius: $radius-md;
+  border-left: 3px solid $gray-300;
+  transition: $transition-base;
+  
+  &:hover {
+    background: $white;
+    border-left-color: $primary-color;
+    box-shadow: $shadow-sm;
+    
+    .comment-buttons {
+      opacity: 1;
+    }
+  }
+  
+  &.editing {
+    background: $white;
+    border: 2px solid $primary-color;
+    border-left: 3px solid $primary-color;
+  }
+}
+
+.comment-header {
+  @include flex-between;
+  align-items: center;
+  margin-bottom: $spacing-xs;
+}
+
+.comment-info {
+  @include flex-column;
+  gap: 2px;
+}
+
+// Comment Action Buttons
+.comment-buttons {
+  display: flex;
+  gap: $spacing-xs;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.comment-action-btn {
+  @include flex-center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-xs;
+  border-radius: $radius-sm;
+  transition: $transition-base;
+  width: 24px;
+  height: 24px;
+  color: $gray-500;
+  
+  svg {
+    width: 14px;
+    height: 14px;
+    transition: $transition-base;
+  }
+  
+  &:hover {
+    background-color: $gray-100;
+    color: $text-color;
+  }
+  
+  &.delete:hover {
+    background-color: #ffebee;
+    color: #d32f2f;
+  }
+}
+
+// Comment Text Content
+.comment-author {
+  font-weight: $font-weight-semibold;
+  color: $text-color;
+  font-size: $font-size-xs;
+}
+
+.comment-date {
+  font-size: 11px;
+  color: $gray-500;
+}
+
+.comment-content {
+  font-size: $font-size-sm;
+  line-height: 1.4;
+  color: $text-color;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: $primary-color;
+  }
+  
+  &.expandable {
+    @include text-truncate;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+  }
+  
+  &.expanded {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+}
+
+// Expanded Comment Modal (reusing modal patterns)
+.expanded-comment-modal {
+  @include modal-overlay;
+  
+  .modal-content {
+    background: $white;
+    border-radius: $radius-lg;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: $shadow-2xl;
+    padding: $spacing-xl;
+    
+    @include mobile {
+      width: 95%;
+      padding: $spacing-lg;
+    }
+  }
+}
+
+.expanded-comment-header {
+  @include flex-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-lg;
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: $gray-500;
+    padding: 0;
+    
+    &:hover {
+      color: $text-color;
+    }
+  }
+}
+
+.expanded-comment-textarea {
+  @extend .form-control;
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  font-family: $font-family-base;
+  margin-bottom: $spacing-lg;
+  
+  @include mobile {
+    min-height: 150px;
+  }
+}
+
+.expanded-comment-actions {
+  @include flex-between;
+  gap: $spacing-sm;
+  
+  .btn-group {
+    display: flex;
+    gap: $spacing-xs;
+  }
+}
+
+// Mobile Responsiveness
+@include mobile {
+  .comments-section {
+    padding-top: $spacing-lg;
+  }
+  
+  .comment-item {
+    padding: $spacing-xs;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .comment-buttons {
+    opacity: 1; // Always visible on mobile
+  }
+  
+  .comment-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+}
