@@ -20,7 +20,7 @@ import { KanbanColumn } from './entities/column.entity';
         ssl: { rejectUnauthorized: false },
         timezone: 'America/Sao_Paulo',
         entities: [User, Task, Project, Comment, KanbanColumn],
-        synchronize: false, // Disabled temporarily due to constraint conflicts
+        synchronize: false, // Disabled after adding missing board_config column
         logging: configService.get('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],
