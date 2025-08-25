@@ -165,7 +165,6 @@ import { UserRole } from '../../models/user.model';
     }
     .form-group {
       margin-bottom: 20px;
-      position: relative;
     }
     label {
       display: block;
@@ -210,8 +209,6 @@ import { UserRole } from '../../models/user.model';
       background-color: #f8f9fa;
     }
     .password-toggle {
-      position: absolute;
-      right: 12px;
       background: none;
       border: none;
       cursor: pointer;
@@ -222,6 +219,8 @@ import { UserRole } from '../../models/user.model';
       justify-content: center;
       width: auto;
       margin: 0;
+      margin-left: -40px;
+      z-index: 2;
       transition: color 0.3s ease;
     }
     .password-toggle:hover {
