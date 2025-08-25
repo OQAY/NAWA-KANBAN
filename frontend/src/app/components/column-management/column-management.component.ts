@@ -18,44 +18,65 @@ interface ColumnData {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="column-management">
-      <!-- Add New Column Section -->
-      <div class="add-column-section" *ngIf="showAddColumn">
-        <input 
-          #columnInput
-          type="text" 
-          [(ngModel)]="newColumnTitle"
-          (keydown)="onColumnTitleKeydown($event)"
-          placeholder="Nome da nova coluna"
-          class="column-input"
-          autofocus>
-        <div class="column-actions">
-          <button (click)="confirmAddColumn()" class="confirm-btn">✓</button>
-          <button (click)="cancelAddColumn()" class="cancel-btn">✗</button>
-        </div>
+    <!-- Add New Column Section -->
+    <div class="add-column-section" *ngIf="showAddColumn">
+      <input 
+        #columnInput
+        type="text" 
+        [(ngModel)]="newColumnTitle"
+        (keydown)="onColumnTitleKeydown($event)"
+        placeholder="Nome da nova coluna"
+        class="column-input"
+        autofocus>
+      <div class="column-actions">
+        <button (click)="confirmAddColumn()" class="confirm-btn">✓</button>
+        <button (click)="cancelAddColumn()" class="cancel-btn">✗</button>
       </div>
-
-      <!-- Add Column Button -->
-      <button 
-        *ngIf="!showAddColumn" 
-        (click)="startAddColumn()" 
-        class="add-column-btn">
-        + Adicionar Coluna
-      </button>
     </div>
+
+    <!-- Add Column Button -->
+    <button 
+      *ngIf="!showAddColumn" 
+      (click)="startAddColumn()" 
+      class="add-column">
+      + Adicionar uma coluna
+    </button>
   `,
   styles: [`
-    .column-management {
-      padding: 20px;
-      background: #f5f5f5;
+    /* Add Column Button - Similar to trash zone style */
+    .add-column {
+      flex-shrink: 0;
+      width: 240px;
+      min-width: 180px;
+      height: 55px;
+      background: rgba(249, 249, 249, 0.9);
+      border: 2px dashed rgba(221, 221, 221, 0.8);
       border-radius: 8px;
-      margin: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #6c757d;
     }
 
+    .add-column:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+    }
+
+    /* Add Column Form Section */
     .add-column-section {
       display: flex;
       align-items: center;
       gap: 10px;
+      width: 240px;
+      min-width: 180px;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .column-input {
@@ -97,18 +118,11 @@ interface ColumnData {
       color: white;
     }
 
-    .add-column-btn {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .add-column-btn:hover {
-      background: #0056b3;
+    @media (max-width: 768px) {
+      .add-column, .add-column-section {
+        width: 280px;
+        min-width: 280px;
+      }
     }
   `]
 })
