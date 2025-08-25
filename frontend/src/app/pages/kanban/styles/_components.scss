@@ -482,6 +482,20 @@
 .info-section {
   margin-bottom: $spacing-2xl;
   
+  h2 {
+    cursor: pointer;
+    padding: $spacing-sm;
+    border-radius: $radius-sm;
+    margin: -$spacing-sm;
+    border: 2px solid transparent;
+    transition: $transition-fast;
+    
+    &:hover {
+      background: rgba(59, 130, 246, 0.05);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+  }
+  
   h3 {
     margin: 0 0 $spacing-md 0;
     font-size: $font-size-sm;

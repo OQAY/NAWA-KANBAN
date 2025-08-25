@@ -118,14 +118,14 @@
         <!-- Coluna esquerda: 60% - Título e Descrição -->
         <div class="left-column">
           <div class="title-section">
-            <h2 *ngIf="!editingTask" (dblclick)="startEdit()">{{ modalTask?.title }}</h2>
+            <h2 *ngIf="!editingTask" (click)="startEdit()">{{ modalTask?.title }}</h2>
             <textarea *ngIf="editingTask" [(ngModel)]="editForm.title" class="title-edit-input" 
                       (input)="autoResize($event); checkForChanges()" #titleTextarea></textarea>
           </div>
           
           <div class="description-section">
             <h3>Descrição</h3>
-            <div *ngIf="!editingTask" class="description-view" (dblclick)="startEdit()">
+            <div *ngIf="!editingTask" class="description-view" (click)="startEdit()">
               <p [class.truncated]="descriptionTruncated">{{ modalTask?.description || 'Adicione uma descrição mais detalhada...' }}</p>
               <button *ngIf="shouldShowDescriptionToggle()" (click)="toggleDescription(); $event.stopPropagation()" class="toggle-btn">
                 {{ descriptionTruncated ? 'Mostrar mais' : 'Mostrar menos' }}
