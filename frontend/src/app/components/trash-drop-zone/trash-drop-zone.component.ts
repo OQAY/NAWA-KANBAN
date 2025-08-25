@@ -22,22 +22,16 @@ interface DragTarget {
       
       <div class="trash-content">
         <div class="trash-icon">🗑️</div>
-        <div class="trash-text" *ngIf="isDragOver">
-          {{ getDragMessage() }}
-        </div>
-        <div class="trash-text" *ngIf="!isDragOver && isDragActive">
-          Arraste aqui para excluir
-        </div>
       </div>
     </div>
   `,
   styles: [`
     .trash-zone {
       position: fixed;
-      bottom: 20px;
+      bottom: 10px;
       right: 20px;
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
       background: rgba(220, 53, 69, 0.1);
       border: 2px dashed #dc3545;
       border-radius: 12px;
@@ -70,31 +64,19 @@ interface DragTarget {
     }
 
     .trash-icon {
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
-
-    .trash-text {
-      font-size: 11px;
-      font-weight: 500;
-      max-width: 80px;
-      line-height: 1.2;
+      font-size: 20px;
     }
 
     @media (max-width: 768px) {
       .trash-zone {
-        width: 80px;
-        height: 80px;
-        bottom: 15px;
+        width: 45px;
+        height: 45px;
+        bottom: 10px;
         right: 15px;
       }
       
       .trash-icon {
-        font-size: 20px;
-      }
-      
-      .trash-text {
-        font-size: 10px;
+        font-size: 18px;
       }
     }
   `]

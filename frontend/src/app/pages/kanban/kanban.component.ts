@@ -275,8 +275,6 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   deleteTask(taskId: string): void {
-    if (!confirm('Tem certeza que deseja deletar esta tarefa?')) return;
-
     this.taskService.deleteTask(taskId).subscribe({
       next: () => {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
@@ -594,8 +592,6 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   deleteComment(commentId: string): void {
-    if (!confirm('Tem certeza que deseja excluir este comentário?')) return;
-
     this.commentService.deleteComment(commentId).subscribe({
       next: () => {
         this.taskComments = this.taskComments.filter(c => c.id !== commentId);
@@ -624,8 +620,6 @@ export class KanbanComponent implements OnInit, OnDestroy {
     const column = this.columns.find(c => c.id === columnId);
     if (!column) return;
 
-    if (!confirm(`Tem certeza que deseja excluir a coluna "${column.label}"? Todos os cartões desta coluna serão perdidos.`)) return;
-
     // Remove from local array first for immediate UI feedback
     const updatedColumns = this.columns.filter(c => c.id !== columnId);
     this.columns = updatedColumns;
@@ -643,7 +637,6 @@ export class KanbanComponent implements OnInit, OnDestroy {
         console.error('Erro ao deletar coluna:', error);
         // Rollback on error - restore the column
         this.columns = [...this.columns, column];
-        alert('Erro ao excluir coluna. Tente novamente.');
       }
     });
   }
