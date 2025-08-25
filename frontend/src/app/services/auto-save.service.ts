@@ -39,12 +39,16 @@ export class AutoSaveService {
    * @param priority New priority value
    */
   savePriority(task: Task, priority: TaskPriority): void {
+    console.log(`🔄 AUTO-SAVE: Queuing priority change for task ${task.id}`, {priority, task});
+    
     const changes = {
       priority: priority,
       title: task.title,
-      description: task.description
+      description: task.description,
+      status: task.status  // ← PRESERVA A COLUNA ATUAL!
     };
 
+    console.log(`📦 AUTO-SAVE: Changes to be saved (with status):`, changes);
     this.saveQueue.next({taskId: task.id, changes});
   }
 
@@ -58,6 +62,7 @@ export class AutoSaveService {
       title: task.title,
       description: task.description,
       priority: task.priority,
+      status: task.status,  // ← PRESERVA STATUS SEMPRE
       ...fieldChanges
     };
 
@@ -65,13 +70,16 @@ export class AutoSaveService {
   }
 
   private performSave(taskId: string, changes: any): void {
+    console.log(`🚀 AUTO-SAVE: Executing HTTP PATCH for task ${taskId}`, changes);
+    
     this.taskService.updateTask(taskId, changes).subscribe({
       next: (updatedTask) => {
-        console.log(`✅ Auto-saved task ${taskId}:`, changes);
+        console.log(`✅ AUTO-SAVE: SUCCESS - Task ${taskId} saved to database:`, updatedTask);
         // Emit success event if needed for UI feedback
       },
       error: (error) => {
-        console.error(`❌ Auto-save failed for task ${taskId}:`, error);
+        console.error(`❌ AUTO-SAVE: FAILED - Task ${taskId} could not be saved:`, error);
+        console.error('Full error details:', error);
         // Could implement retry logic or user notification here
       }
     });

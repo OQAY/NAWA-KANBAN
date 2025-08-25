@@ -11,10 +11,10 @@ export class CreateTaskDto {
   @IsString()
   description?: string;
 
-  @ApiProperty({ example: 'pending', default: 'pending', required: false })
+  @ApiProperty({ example: 'pending', required: false })
   @IsOptional()
   @IsString()
-  status?: string = 'pending';
+  status?: string;
 
   @ApiProperty({ example: 'uuid-project-id' })
   @IsUUID()

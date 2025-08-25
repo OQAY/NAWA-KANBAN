@@ -312,17 +312,26 @@ export class KanbanComponent implements OnInit, OnDestroy {
     
     if (!this.draggedTask) return;
 
+    console.log(`🎯 DRAG & DROP: Moving task ${this.draggedTask.id} to ${status}`, this.draggedTask);
+
+    // PRESERVA TODOS OS DADOS DA TASK (incluindo priority!)
     const updateRequest: UpdateTaskRequest = {
-      status: status as TaskStatus
+      status: status as TaskStatus,
+      title: this.draggedTask.title,
+      description: this.draggedTask.description,
+      priority: this.draggedTask.priority  // ← PRESERVA A PRIORITY!
     };
+
+    console.log(`📦 DRAG & DROP: Sending update request:`, updateRequest);
 
     const currentIndex = this.tasks.findIndex(t => t.id === this.draggedTask!.id);
     
-    // Atualiza localmente primeiro para UX responsiva
+    // Atualiza localmente primeiro para UX responsiva (PRESERVANDO PRIORITY)
     if (currentIndex !== -1) {
       this.tasks[currentIndex] = {
         ...this.tasks[currentIndex],
         status: status as TaskStatus
+        // NÃO sobrescreve priority - mantém o valor existente
       };
     }
 
@@ -804,9 +813,13 @@ export class KanbanComponent implements OnInit, OnDestroy {
   }
 
   changePriority(priority: TaskPriority): void {
+    console.log(`🎯 CHANGE PRIORITY: Called with priority ${priority} for task`, this.modalTask?.id);
+    
     if (this.modalTask) {
       this.modalTask = { ...this.modalTask, priority };
       this.checkForChanges();
+      
+      console.log(`🔄 CHANGE PRIORITY: Updated modalTask, calling auto-save...`);
       
       // AUTO-SAVE: Salva automaticamente a prioridade no banco
       this.autoSaveService.savePriority(this.modalTask, priority);
