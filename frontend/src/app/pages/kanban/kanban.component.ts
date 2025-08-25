@@ -703,8 +703,22 @@ export class KanbanComponent implements OnInit, OnDestroy {
     const insertIndex = this.dropPosition === 'left' ? targetIndex : targetIndex + 1;
     this.columns.splice(insertIndex, 0, column);
 
-    // Update order values - Note: Backend sync for reordering not implemented yet
+    // Update order values and persist to backend
     this.columns.forEach((col, idx) => col.order = idx);
+    
+    // Persist column order to backend
+    const columnIds = this.columns.map(col => col.realId || col.id);
+    this.columnService.reorderColumns(columnIds)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (reorderedColumns) => {
+          console.log('Column order saved successfully:', reorderedColumns);
+        },
+        error: (error) => {
+          console.error('Error saving column order:', error);
+          // TODO: Could implement rollback logic or user notification here
+        }
+      });
 
     this.onColumnDragEnd();
   }

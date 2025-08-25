@@ -42,7 +42,7 @@ import { UserRole } from '../../models/user.model';
           <div class="form-group">
             <label>Senha:</label>
             <div class="password-input-container">
-              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Digite sua senha" />
               <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
                 <svg *ngIf="!showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2"/>
@@ -68,7 +68,7 @@ import { UserRole } from '../../models/user.model';
         <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
           <div class="form-group">
             <label>Nome de Usuário:</label>
-            <input type="text" formControlName="username" placeholder="Digite um nome de usuário" />
+            <input type="text" formControlName="username" placeholder="Digite um nome de usuário" style="background-color: #f8f9fa !important;" />
             <div *ngIf="registerForm.get('username')?.errors?.['required'] && registerForm.get('username')?.touched">
               Nome de usuário é obrigatório
             </div>
@@ -76,7 +76,7 @@ import { UserRole } from '../../models/user.model';
 
           <div class="form-group">
             <label>Email:</label>
-            <input type="email" formControlName="email" placeholder="Digite seu email" />
+            <input type="email" formControlName="email" placeholder="Digite seu email" style="background-color: #f8f9fa !important;" />
             <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
               Email é obrigatório
             </div>
@@ -88,7 +88,7 @@ import { UserRole } from '../../models/user.model';
           <div class="form-group">
             <label>Senha:</label>
             <div class="password-input-container">
-              <input [type]="showRegisterPassword ? 'text' : 'password'" formControlName="password" placeholder="Digite sua senha" />
+              <input [type]="showRegisterPassword ? 'text' : 'password'" formControlName="password" placeholder="Digite sua senha" style="background-color: #f8f9fa !important;" />
               <button type="button" class="password-toggle" (click)="toggleRegisterPasswordVisibility()">
                 <svg *ngIf="!showRegisterPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="2"/>
@@ -165,6 +165,7 @@ import { UserRole } from '../../models/user.model';
     }
     .form-group {
       margin-bottom: 20px;
+      position: relative;
     }
     label {
       display: block;
@@ -180,22 +181,33 @@ import { UserRole } from '../../models/user.model';
       box-sizing: border-box;
       font-size: 14px;
       transition: border-color 0.3s ease;
+      background-color: #f8f9fa;
     }
     input:focus {
       outline: none;
       border-color: #1976d2;
       box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+      background-color: #f8f9fa;
     }
     input::placeholder {
       color: #6c757d;
     }
     .password-input-container {
-      position: relative;
       display: flex;
       align-items: center;
     }
     .password-input-container input {
       padding-right: 50px;
+    }
+    
+    /* Fix autofill background */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px #f8f9fa inset;
+      box-shadow: 0 0 0 30px #f8f9fa inset;
+      background-color: #f8f9fa;
     }
     .password-toggle {
       position: absolute;
