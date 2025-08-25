@@ -3,14 +3,17 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { CommentService } from '../../services/comment.service';
 import { ColumnService } from '../../services/column.service';
 import { AutoSaveService } from '../../services/auto-save.service';
+import { AuthService } from '../../services/auth.service';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../models/task.model';
 import { Comment, CreateCommentRequest, UpdateCommentRequest } from '../../models/comment.model';
 import { ColumnManagementComponent } from '../../components/column-management/column-management.component';
 import { TrashDropZoneComponent } from '../../components/trash-drop-zone/trash-drop-zone.component';
+import { NotificationModalComponent, NotificationConfig } from '../../components/notification-modal/notification-modal.component';
 
 /**
  * ENTERPRISE ARCHITECTURE: Interface para estrutura unificada de colunas
@@ -32,7 +35,7 @@ interface ColumnData {
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CommonModule, FormsModule, ColumnManagementComponent, TrashDropZoneComponent],
+  imports: [CommonModule, FormsModule, ColumnManagementComponent, TrashDropZoneComponent, NotificationModalComponent],
   templateUrl: './kanban.component.html',
   styleUrl: './styles/index.scss'
   /* REFACTORED: Extracted inline template and styles to separate files
@@ -103,7 +106,9 @@ export class KanbanComponent implements OnInit, OnDestroy {
     private taskService: TaskService,
     private commentService: CommentService,
     private columnService: ColumnService,
-    private autoSaveService: AutoSaveService
+    private autoSaveService: AutoSaveService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -1030,6 +1035,17 @@ export class KanbanComponent implements OnInit, OnDestroy {
   showDeleteConfirmModal = false;
   taskToDelete: string | null = null;
 
+  // LOGOUT CONFIRMATION: Modal logout confirmation
+  showLogoutModal = false;
+  logoutModalConfig: NotificationConfig = {
+    title: 'Desconectar',
+    message: 'Você será desconectado do sistema.',
+    type: 'warning',
+    confirmText: 'Confirmar',
+    cancelText: 'Cancelar',
+    showCancel: true
+  };
+
   confirmDelete(): void {
     if (this.taskToDelete) {
       this.deleteTask(this.taskToDelete);
@@ -1046,5 +1062,20 @@ export class KanbanComponent implements OnInit, OnDestroy {
   // TEMPLATE BINDING FIXES: Property name corrections
   get addingToColumn(): { [key: string]: boolean } {
     return this.addingCard;
+  }
+
+  // LOGOUT FUNCTIONALITY
+  logout(): void {
+    this.showLogoutModal = true;
+  }
+
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  cancelLogout(): void {
+    this.showLogoutModal = false;
   }
 }

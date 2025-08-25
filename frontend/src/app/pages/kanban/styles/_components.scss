@@ -50,6 +50,40 @@
       font-size: $font-size-lg;
     }
   }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 2px dashed rgba(221, 221, 221, 0.8);
+    border-radius: 8px;
+    background: rgba(249, 249, 249, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    backdrop-filter: blur(5px);
+    color: #666;
+
+    &:hover {
+      border-color: #ff6b6b;
+      background: #fff5f5;
+      color: #ff6b6b;
+      transform: scale(1.05);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 // ===========================================
