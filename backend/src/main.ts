@@ -13,7 +13,11 @@ async function bootstrap() {
   // Habilita CORS para comunicação com frontend
   app.enableCors({
     origin: process.env.NODE_ENV === 'production' 
-      ? ['https://nawa-kanban.vercel.app', 'https://nawa-kanban-*.vercel.app']
+      ? [
+          'https://kanban-oqay-git-main-lucas-projects-5fb33266.vercel.app',
+          'https://kanban-oqay-c78fnebgu-lucas-projects-5fb33266.vercel.app',
+          /https:\/\/.*\.vercel\.app$/
+        ]
       : ['http://localhost:4200', 'http://localhost:4201'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
