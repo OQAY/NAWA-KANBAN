@@ -112,12 +112,28 @@ export class TasksService {
     const task = await this.findOne(id, user); // Busca e verifica permissão
     
     // Usuário pode editar suas próprias tarefas (sem restrição de role)
-    // Atualiza os campos da tarefa
-    Object.assign(task, {
-      ...updateTaskDto,
-      // Converte data string para Date object se fornecida
-      dueDate: updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : task.dueDate,
-    });
+    // Atualiza os campos da tarefa FORÇANDO mudança para TypeORM detectar
+    if (updateTaskDto.title !== undefined) {
+      task.title = updateTaskDto.title;
+    }
+    if (updateTaskDto.description !== undefined) {
+      task.description = updateTaskDto.description;
+    }
+    if (updateTaskDto.priority !== undefined) {
+      task.priority = updateTaskDto.priority;
+    }
+    if (updateTaskDto.status !== undefined) {
+      task.status = updateTaskDto.status;
+    }
+    if (updateTaskDto.projectId !== undefined) {
+      task.projectId = updateTaskDto.projectId;
+    }
+    if (updateTaskDto.assigneeId !== undefined) {
+      task.assigneeId = updateTaskDto.assigneeId;
+    }
+    if (updateTaskDto.dueDate !== undefined) {
+      task.dueDate = updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : null;
+    }
 
     return this.taskRepository.save(task);
   }

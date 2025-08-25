@@ -31,6 +31,7 @@ export interface CreateTaskRequest {
   readonly description: string;
   readonly priority: TaskPriority;
   readonly projectId: string;
+  readonly status?: TaskStatus;
   readonly assigneeId?: string;
 }
 

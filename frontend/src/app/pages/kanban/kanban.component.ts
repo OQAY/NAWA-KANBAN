@@ -343,18 +343,39 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.isSaving = true;
 
     const updateRequest: UpdateTaskRequest = {
-      title: this.modalTask.title,
-      description: this.modalTask.description,
-      priority: this.modalTask.priority
+      title: this.editForm.title || this.modalTask.title,
+      description: this.editForm.description || this.modalTask.description,
+      priority: this.modalTask.priority,
+      status: this.modalTask.status // Preserva o status atual
     };
 
     this.taskService.updateTask(this.modalTask.id, updateRequest).subscribe({
       next: (updatedTask) => {
         const index = this.tasks.findIndex(t => t.id === this.modalTask!.id);
         if (index !== -1) {
-          this.tasks[index] = updatedTask;
+          // Preserva dados existentes, aplica apenas mudanças confirmadas pelo backend
+          this.tasks[index] = {
+            ...this.tasks[index], // Mantém dados originais
+            ...updatedTask,       // Aplica mudanças do backend
+            // Garante que os campos editados foram salvos (com fallbacks seguros)
+            title: updateRequest.title || this.tasks[index].title,
+            description: updateRequest.description || this.tasks[index].description,
+            priority: updateRequest.priority ?? this.tasks[index].priority,
+            status: updateRequest.status || this.tasks[index].status
+          };
         }
-        this.modalTask = updatedTask;
+        // Atualiza modal task com dados editados
+        this.modalTask = {
+          ...this.modalTask,
+          ...updatedTask,
+          title: updateRequest.title || this.modalTask!.title,
+          description: updateRequest.description || this.modalTask!.description,
+          priority: updateRequest.priority ?? this.modalTask!.priority,
+          status: updateRequest.status || this.modalTask!.status
+        };
+        
+        // Limpa editForm após salvar
+        this.editForm = { title: '', description: '' };
         this.editingTask = null;
         this.hasUnsavedChanges = false;
         this.isSaving = false;
@@ -381,7 +402,8 @@ export class KanbanComponent implements OnInit, OnDestroy {
       title,
       description: '',
       priority: TaskPriority.NONE,
-      projectId: this.DEFAULT_PROJECT_ID
+      projectId: this.DEFAULT_PROJECT_ID,
+      status: status as TaskStatus // Define o status da coluna onde foi clicado
     };
 
     this.taskService.createTask(newTask).subscribe({
