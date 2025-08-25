@@ -1,0 +1,129 @@
+// ========================================
+// MIXINS - Essential reusable patterns
+// ========================================
+
+// Flexbox utilities (actually used in templates)
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Card base (used by task cards)
+@mixin card-base {
+  background: $white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  transition: $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-1px);
+  }
+}
+
+// Custom scrollbar (used in columns)
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+    height: $scrollbar-height;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+    border-radius: $radius-sm;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb-color;
+    border-radius: $radius-sm;
+    
+    &:hover {
+      background: $scrollbar-thumb-hover-color;
+    }
+  }
+}
+
+// Modal overlay (used by task modal)
+@mixin modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-index-modal-backdrop;
+  @include flex-center;
+}
+
+// Button styles (actually used in templates)
+@mixin button-base {
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  transition: $transition-base;
+  
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+@mixin button-primary {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-sm $spacing-lg;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-dark;
+  }
+  
+  &:disabled {
+    background-color: $gray-400;
+    cursor: not-allowed;
+  }
+}
+
+// Priority indicators (used in task cards)
+@mixin priority-indicator($color) {
+  border-left: 4px solid $color;
+}
+
+// Responsive breakpoints (actually needed)
+@mixin mobile {
+  @media (max-width: #{$breakpoint-xs - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 480px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-xs) and (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+// Text utilities (actually used)
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

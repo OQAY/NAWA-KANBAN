@@ -23,15 +23,12 @@ export class ProjectsService {
   }
 
   async findAll(user: User): Promise<Project[]> {
-    let query = this.projectRepository
+    // Isolamento total: cada usuário vê apenas seus próprios projetos
+    const query = this.projectRepository
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.owner', 'owner')
-      .leftJoinAndSelect('project.tasks', 'tasks');
-
-    // Role-based filtering
-    if (user.role === UserRole.DEVELOPER || user.role === UserRole.VIEWER) {
-      query = query.where('project.ownerId = :userId', { userId: user.id });
-    }
+      .leftJoinAndSelect('project.tasks', 'tasks')
+      .where('project.ownerId = :userId', { userId: user.id });
 
     return query.orderBy('project.createdAt', 'DESC').getMany();
   }
@@ -53,13 +50,9 @@ export class ProjectsService {
   async update(id: string, updateProjectDto: UpdateProjectDto, user: User): Promise<Project> {
     const project = await this.findOne(id, user);
 
-    // Only project owner, managers, and admins can update
-    if (
-      project.ownerId !== user.id &&
-      user.role !== UserRole.ADMIN &&
-      user.role !== UserRole.MANAGER
-    ) {
-      throw new ForbiddenException('Only project owner, managers, or admins can update projects');
+    // Isolamento total: apenas o dono do projeto pode atualizar
+    if (project.ownerId !== user.id) {
+      throw new ForbiddenException('Only project owner can update the project');
     }
 
     Object.assign(project, updateProjectDto);
@@ -69,21 +62,18 @@ export class ProjectsService {
   async remove(id: string, user: User): Promise<void> {
     const project = await this.findOne(id, user);
 
-    // Only project owner and admins can delete
-    if (project.ownerId !== user.id && user.role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Only project owner or admins can delete projects');
+    // Isolamento total: apenas o dono do projeto pode deletar
+    if (project.ownerId !== user.id) {
+      throw new ForbiddenException('Only project owner can delete the project');
     }
 
     await this.projectRepository.remove(project);
   }
 
   private checkProjectAccess(project: Project, user: User): void {
-    if (user.role === UserRole.ADMIN || user.role === UserRole.MANAGER) {
-      return; // Full access
-    }
-
+    // Isolamento total: usuários só podem acessar seus próprios projetos
     if (project.ownerId === user.id) {
-      return; // Access to own projects
+      return; // Acesso permitido ao próprio projeto
     }
 
     throw new ForbiddenException('Access denied to this project');

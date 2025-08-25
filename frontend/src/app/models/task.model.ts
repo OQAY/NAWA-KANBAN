@@ -1,4 +1,4 @@
-// NASA STANDARD: Task model < 60 lines, enterprise-grade
+// Task model with clean interfaces and enums
 export enum TaskStatus {
   PENDING = 'pending',
   IN_PROGRESS = 'in_progress',
@@ -25,12 +25,13 @@ export interface Task {
   readonly updatedAt: Date;
 }
 
-// Google STANDARD: Clear, specific DTOs
+// Clear, specific DTOs for API requests
 export interface CreateTaskRequest {
   readonly title: string;
   readonly description: string;
   readonly priority: TaskPriority;
   readonly projectId: string;
+  readonly status?: TaskStatus;
   readonly assigneeId?: string;
 }
 
@@ -51,7 +52,7 @@ export interface TaskQueryParams {
   readonly assigneeId?: string;
 }
 
-// NASA STANDARD: Fail-fast validation helpers
+// Fail-fast validation helpers
 export function validateTaskStatus(status: string): TaskStatus {
   const validStatuses = Object.values(TaskStatus);
   if (!validStatuses.includes(status as TaskStatus)) {

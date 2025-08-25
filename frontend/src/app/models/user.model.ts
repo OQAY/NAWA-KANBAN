@@ -1,4 +1,4 @@
-// NASA STANDARD: User model < 60 lines, self-documenting
+// User model with clear interfaces and validation
 export enum UserRole {
   ADMIN = 'admin',
   MANAGER = 'manager', 
@@ -14,7 +14,7 @@ export interface User {
   readonly createdAt: Date;
 }
 
-// Google STANDARD: Clear, specific DTOs
+// Clear, specific DTOs for user operations
 export interface LoginCredentials {
   readonly email: string;
   readonly password: string;
@@ -32,7 +32,7 @@ export interface AuthenticationResponse {
   readonly user: User;
 }
 
-// NASA STANDARD: Fail-fast validation
+// Fail-fast validation helpers
 export function validateUserRole(role: string): UserRole {
   const validRoles = Object.values(UserRole);
   if (!validRoles.includes(role as UserRole)) {
@@ -46,7 +46,7 @@ export function validateEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-// Google STANDARD: Type guards for runtime safety
+// Type guards for runtime safety
 export function isValidUser(obj: any): obj is User {
   return obj && 
     typeof obj.id === 'string' &&

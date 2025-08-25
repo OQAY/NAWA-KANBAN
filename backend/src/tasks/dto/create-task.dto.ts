@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsUUID, IsEnum, IsInt, IsDateString } from 'class-validator';
-import { TaskStatus } from '../../database/entities/task.entity';
+import { IsString, IsOptional, IsUUID, IsInt, IsDateString, Min, Max } from 'class-validator';
 
 export class CreateTaskDto {
   @ApiProperty({ example: 'Implement user authentication' })
@@ -12,10 +11,10 @@ export class CreateTaskDto {
   @IsString()
   description?: string;
 
-  @ApiProperty({ enum: TaskStatus, default: TaskStatus.PENDING, required: false })
+  @ApiProperty({ example: 'pending', required: false })
   @IsOptional()
-  @IsEnum(TaskStatus)
-  status?: TaskStatus = TaskStatus.PENDING;
+  @IsString()
+  status?: string;
 
   @ApiProperty({ example: 'uuid-project-id' })
   @IsUUID()
@@ -26,9 +25,11 @@ export class CreateTaskDto {
   @IsUUID()
   assigneeId?: string;
 
-  @ApiProperty({ example: 1, default: 0, required: false })
+  @ApiProperty({ example: 1, default: 0, required: false, minimum: 0, maximum: 3 })
   @IsOptional()
   @IsInt()
+  @Min(0)
+  @Max(3)
   priority?: number = 0;
 
   @ApiProperty({ example: '2024-12-31T23:59:59Z', required: false })

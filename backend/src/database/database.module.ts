@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { Task } from './entities/task.entity';
 import { Project } from './entities/project.entity';
 import { Comment } from './entities/comment.entity';
+import { KanbanColumn } from './entities/column.entity';
 
 @Module({
   imports: [
@@ -18,8 +19,8 @@ import { Comment } from './entities/comment.entity';
         database: configService.get('DB_NAME'),
         ssl: { rejectUnauthorized: false },
         timezone: 'America/Sao_Paulo',
-        entities: [User, Task, Project, Comment],
-        synchronize: configService.get('NODE_ENV') !== 'production',
+        entities: [User, Task, Project, Comment, KanbanColumn],
+        synchronize: false, // Disabled temporarily due to constraint conflicts
         logging: configService.get('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],

@@ -22,7 +22,6 @@ export class TasksService {
     const taskData: any = {
       ...createTaskDto,
       createdById: user.id, // Atribui automaticamente o usuário atual como criador
-      assigneeId: createTaskDto.assigneeId || user.id, // Se não especificado, atribui a si mesmo
     };
     
     // Converte string de data para objeto Date para armazenamento no banco
@@ -38,7 +37,7 @@ export class TasksService {
 
   /**
    * Lista tarefas com filtros e paginação
-   * Implementa RBAC: Developers só veem suas próprias tarefas
+   * Isolamento total: usuários só veem suas próprias tarefas
    */
   async findAll(query: TaskQueryDto, user: User) {
     const { page = 1, limit = 10, status, projectId, assigneeId } = query;
@@ -64,8 +63,7 @@ export class TasksService {
       queryBuilder.andWhere('task.assigneeId = :assigneeId', { assigneeId });
     }
 
-    // CORREÇÃO CRÍTICA DE SEGURANÇA: TODOS os usuários só veem suas próprias tarefas
-    // Cada usuário só pode ver tarefas que criou ou foram atribuídas a ele
+    // Isolamento total: todos os usuários só veem suas próprias tarefas
     queryBuilder.andWhere(
       '(task.assigneeId = :userId OR task.createdById = :userId)',
       { userId: user.id }
@@ -108,40 +106,48 @@ export class TasksService {
 
   /**
    * Atualiza uma tarefa existente
-   * Regra de Negócio: Viewers não podem editar tarefas
+   * Regra de Negócio: Usuário pode editar suas próprias tarefas
    */
   async update(id: string, updateTaskDto: UpdateTaskDto, user: User): Promise<Task> {
     const task = await this.findOne(id, user); // Busca e verifica permissão
     
-    // Verifica permissões para atualização
-    if (user.role === UserRole.VIEWER) {
-      throw new ForbiddenException('Viewers cannot update tasks');
+    // Usuário pode editar suas próprias tarefas (sem restrição de role)
+    // Atualiza os campos da tarefa FORÇANDO mudança para TypeORM detectar
+    if (updateTaskDto.title !== undefined) {
+      task.title = updateTaskDto.title;
     }
-
-    // Atualiza os campos da tarefa
-    Object.assign(task, {
-      ...updateTaskDto,
-      // Converte data string para Date object se fornecida
-      dueDate: updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : task.dueDate,
-    });
+    if (updateTaskDto.description !== undefined) {
+      task.description = updateTaskDto.description;
+    }
+    if (updateTaskDto.priority !== undefined) {
+      task.priority = updateTaskDto.priority;
+    }
+    if (updateTaskDto.status !== undefined) {
+      task.status = updateTaskDto.status;
+    }
+    if (updateTaskDto.projectId !== undefined) {
+      task.projectId = updateTaskDto.projectId;
+    }
+    if (updateTaskDto.assigneeId !== undefined) {
+      task.assigneeId = updateTaskDto.assigneeId;
+    }
+    if (updateTaskDto.dueDate !== undefined) {
+      task.dueDate = updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : null;
+    }
 
     return this.taskRepository.save(task);
   }
 
   /**
    * Remove uma tarefa do sistema
-   * Regra de Negócio: Apenas admin, manager ou criador da tarefa podem deletar
+   * Isolamento total: apenas criador da tarefa pode deletar
    */
   async remove(id: string, user: User): Promise<void> {
     const task = await this.findOne(id, user);
 
-    // Verifica permissões para exclusão (hierarquia de permissões)
-    if (
-      user.role !== UserRole.ADMIN &&
-      user.role !== UserRole.MANAGER &&
-      task.createdById !== user.id
-    ) {
-      throw new ForbiddenException('Insufficient permissions to delete task');
+    // Apenas o criador da tarefa pode deletá-la
+    if (task.createdById !== user.id) {
+      throw new ForbiddenException('Only task creator can delete the task');
     }
 
     await this.taskRepository.remove(task);
@@ -154,21 +160,17 @@ export class TasksService {
   async moveTask(id: string, newProjectId: string, user: User): Promise<Task> {
     const task = await this.findOne(id, user);
 
-    if (user.role === UserRole.VIEWER) {
-      throw new ForbiddenException('Viewers cannot move tasks');
-    }
-
+    // Usuário pode mover suas próprias tarefas (sem restrição de role)
     task.projectId = newProjectId;
     return this.taskRepository.save(task);
   }
 
   /**
-   * Método privado para verificar acesso à tarefa baseado no RBAC
-   * Hierarquia: Admin/Manager (acesso total) > Developer (próprias tarefas) > Viewer (somente leitura)
+   * Método privado para verificar acesso à tarefa
+   * Isolamento total: usuários só podem acessar suas próprias tarefas
    */
   private checkTaskAccess(task: Task, user: User): void {
-    // CORREÇÃO CRÍTICA: TODOS os usuários só veem suas próprias tarefas
-    // Sistema Kanban pessoal - cada usuário tem seu painel privado
+    // Usuários só podem acessar tarefas que criaram ou foram atribuídas a eles
     if (task.assigneeId === user.id || task.createdById === user.id) {
       return; 
     }

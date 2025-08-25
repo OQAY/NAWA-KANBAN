@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-// NASA COMPLIANCE: Component < 60 lines, Single Responsibility
+// Simple root component following Single Responsibility
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'Kanban';
   
-  // NASA STANDARD: Fail-fast validation
+  // Basic validation
   constructor() {
     if (!this.title) {
       throw new Error('App title is required');

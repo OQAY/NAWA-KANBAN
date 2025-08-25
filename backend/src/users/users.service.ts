@@ -139,4 +139,30 @@ export class UsersService {
 
     await this.userRepository.remove(user);
   }
+
+  async getBoardConfig(userId: string): Promise<{ boardConfig: string | null }> {
+    const user = await this.userRepository.findOne({ 
+      where: { id: userId },
+      select: ['boardConfig']
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return { boardConfig: user.boardConfig };
+  }
+
+  async updateBoardConfig(userId: string, boardConfig: string): Promise<{ success: boolean }> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.boardConfig = boardConfig;
+    await this.userRepository.save(user);
+
+    return { success: true };
+  }
 }
