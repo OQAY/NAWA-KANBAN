@@ -431,13 +431,6 @@ export class KanbanComponent implements OnInit, OnDestroy {
         this.editingTask = null;
         this.hasUnsavedChanges = false;
         this.isSaving = false;
-        
-        // Fecha modal automaticamente após salvar (para salvamento automático)
-        setTimeout(() => {
-          if (!this.hasUnsavedChanges) {
-            this.closeTaskModal();
-          }
-        }, 100);
       },
       error: (error) => {
         console.error('Error updating task:', error);
