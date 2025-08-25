@@ -106,16 +106,12 @@ export class TasksService {
 
   /**
    * Atualiza uma tarefa existente
-   * Regra de Negócio: Viewers não podem editar tarefas
+   * Regra de Negócio: Usuário pode editar suas próprias tarefas
    */
   async update(id: string, updateTaskDto: UpdateTaskDto, user: User): Promise<Task> {
     const task = await this.findOne(id, user); // Busca e verifica permissão
     
-    // Verifica permissões para atualização
-    if (user.role === UserRole.VIEWER) {
-      throw new ForbiddenException('Viewers cannot update tasks');
-    }
-
+    // Usuário pode editar suas próprias tarefas (sem restrição de role)
     // Atualiza os campos da tarefa
     Object.assign(task, {
       ...updateTaskDto,
@@ -148,10 +144,7 @@ export class TasksService {
   async moveTask(id: string, newProjectId: string, user: User): Promise<Task> {
     const task = await this.findOne(id, user);
 
-    if (user.role === UserRole.VIEWER) {
-      throw new ForbiddenException('Viewers cannot move tasks');
-    }
-
+    // Usuário pode mover suas próprias tarefas (sem restrição de role)
     task.projectId = newProjectId;
     return this.taskRepository.save(task);
   }

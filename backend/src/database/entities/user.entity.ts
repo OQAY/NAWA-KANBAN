@@ -30,7 +30,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column({ type: 'enum', enum: UserRole, default: UserRole.VIEWER })
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.DEVELOPER })
   role: UserRole;
 
   @Column({ name: 'board_config', type: 'text', nullable: true })
