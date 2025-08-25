@@ -29,8 +29,8 @@ interface ColumnData {
         class="column-input"
         autofocus>
       <div class="column-actions">
-        <button (click)="confirmAddColumn()" class="confirm-btn">✓</button>
-        <button (click)="cancelAddColumn()" class="cancel-btn">✗</button>
+        <button (click)="confirmAddColumn()" class="btn-add-column">Adicionar coluna</button>
+        <button (click)="cancelAddColumn()" class="btn-cancel-add">✕</button>
       </div>
     </div>
 
@@ -69,6 +69,7 @@ interface ColumnData {
     /* Add Column Form Section */
     .add-column-section {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 10px;
       width: 240px;
@@ -94,28 +95,46 @@ interface ColumnData {
 
     .column-actions {
       display: flex;
-      gap: 5px;
-    }
-
-    .confirm-btn, .cancel-btn {
-      width: 30px;
-      height: 30px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
+      gap: 8px;
       align-items: center;
-      justify-content: center;
     }
 
-    .confirm-btn {
-      background: #28a745;
+    .btn-add-column {
+      background: #3b82f6;
       color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .cancel-btn {
-      background: #dc3545;
-      color: white;
+    .btn-add-column:hover {
+      background: #2563eb;
+    }
+
+    .btn-add-column:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-cancel-add {
+      background: transparent;
+      border: none;
+      color: #6b7280;
+      font-size: 18px;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .btn-cancel-add:hover {
+      background: #f3f4f6;
+      color: #374151;
     }
 
     @media (max-width: 768px) {
