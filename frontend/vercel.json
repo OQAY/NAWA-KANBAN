@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist/frontend",
+  "outputDirectory": "dist/kanban-app",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "rewrites": [
