@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useKanbanStore } from '../stores/kanbanStore';
 import { projectsApi, tasksApi, columnsApi } from '../api/services';
 import type { Task, KanbanColumn } from '../types';
+import TaskCard from '../components/TaskCard';
 import './KanbanPage.css';
 
 export default function KanbanPage() {
@@ -15,6 +18,10 @@ export default function KanbanPage() {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [selectedColumnId, setSelectedColumnId] = useState<string>('');
+  const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [filterPriority, setFilterPriority] = useState<number | 'all'>('all');
 
   // Form state
   const [taskTitle, setTaskTitle] = useState('');
@@ -74,7 +81,6 @@ export default function KanbanPage() {
 
     try {
       if (editingTask) {
-        // Update existing task
         const response = await tasksApi.update(editingTask.id, {
           title: taskTitle,
           description: taskDescription,
@@ -83,7 +89,6 @@ export default function KanbanPage() {
         });
         updateTask(editingTask.id, response.data);
       } else {
-        // Create new task
         const response = await tasksApi.create({
           title: taskTitle,
           description: taskDescription,
@@ -114,6 +119,38 @@ export default function KanbanPage() {
     }
   };
 
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const task = tasks.find(t => t.id === active.id);
+    setActiveTask(task || null);
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    setActiveTask(null);
+
+    if (!over) return;
+
+    const taskId = active.id as string;
+    const newStatus = over.id as string;
+
+    const task = tasks.find(t => t.id === taskId);
+    if (!task || task.status === newStatus) return;
+
+    // Optimistic update
+    updateTask(taskId, { ...task, status: newStatus });
+
+    try {
+      await tasksApi.update(taskId, { status: newStatus });
+    } catch (error) {
+      console.error('Failed to update task:', error);
+      // Revert on error
+      updateTask(taskId, task);
+      alert('Failed to move task');
+    }
+  };
+
   const resetForm = () => {
     setTaskTitle('');
     setTaskDescription('');
@@ -124,10 +161,10 @@ export default function KanbanPage() {
 
   const getPriorityColor = (priority: number) => {
     switch (priority) {
-      case 3: return '#ef4444'; // high
-      case 2: return '#f59e0b'; // medium
-      case 1: return '#10b981'; // low
-      default: return '#6b7280'; // none
+      case 3: return '#ef4444';
+      case 2: return '#f59e0b';
+      case 1: return '#10b981';
+      default: return '#6b7280';
     }
   };
 
@@ -140,7 +177,7 @@ export default function KanbanPage() {
     }
   };
 
-  // Default columns if none exist
+  // Default columns
   const defaultColumns: KanbanColumn[] = [
     { id: 'pending', name: 'To Do', position: 0, userId: '', createdAt: '', updatedAt: '' },
     { id: 'in-progress', name: 'In Progress', position: 1, userId: '', createdAt: '', updatedAt: '' },
@@ -150,6 +187,16 @@ export default function KanbanPage() {
 
   const displayColumns = columns.length > 0 ? columns : defaultColumns;
 
+  // Filter tasks
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          task.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
+    const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+
+    return matchesSearch && matchesStatus && matchesPriority;
+  });
+
   if (loading) {
     return <div className="kanban-loading">Loading board...</div>;
   }
@@ -158,61 +205,110 @@ export default function KanbanPage() {
     <div className="kanban-container">
       {/* Header */}
       <header className="kanban-header">
-        <button onClick={() => navigate('/dashboard')} className="btn-back">
-          ← Back to Boards
-        </button>
-        <h1>{currentProject?.name || 'Kanban Board'}</h1>
+        <div className="header-left">
+          <button onClick={() => navigate('/dashboard')} className="btn-back">
+            ← Back
+          </button>
+          <h1>{currentProject?.name || 'Kanban Board'}</h1>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="header-filters">
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="filter-select"
+          >
+            <option value="all">All Status</option>
+            {displayColumns.map(col => (
+              <option key={col.id} value={col.id}>{col.name}</option>
+            ))}
+          </select>
+
+          <select
+            value={filterPriority}
+            onChange={(e) => setFilterPriority(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+            className="filter-select"
+          >
+            <option value="all">All Priorities</option>
+            <option value={3}>High</option>
+            <option value={2}>Medium</option>
+            <option value={1}>Low</option>
+            <option value={0}>None</option>
+          </select>
+        </div>
       </header>
 
-      {/* Kanban Board */}
-      <div className="kanban-board">
-        {displayColumns.map((column) => {
-          const columnTasks = tasks.filter(t => t.status === column.id || t.status === column.name);
+      {/* Kanban Board with Drag & Drop */}
+      <DndContext
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="kanban-board">
+          {displayColumns.map((column) => {
+            const columnTasks = filteredTasks.filter(t => t.status === column.id || t.status === column.name);
+            const taskIds = columnTasks.map(t => t.id);
 
-          return (
-            <div key={column.id} className="kanban-column">
-              <div className="column-header">
-                <h3>{column.name}</h3>
-                <span className="task-count">{columnTasks.length}</span>
-              </div>
+            return (
+              <div key={column.id} className="kanban-column">
+                <div className="column-header">
+                  <h3>{column.name}</h3>
+                  <span className="task-count">{columnTasks.length}</span>
+                </div>
 
-              <div className="column-tasks">
-                {columnTasks.map((task) => (
-                  <div key={task.id} className="task-card">
-                    <div className="task-header">
-                      <h4>{task.title}</h4>
-                      <div className="task-actions">
-                        <button onClick={() => handleEditTask(task)} className="btn-icon">✏️</button>
-                        <button onClick={() => handleDeleteTask(task.id)} className="btn-icon">🗑️</button>
-                      </div>
-                    </div>
-
-                    {task.description && (
-                      <p className="task-description">{task.description}</p>
-                    )}
-
-                    <div className="task-footer">
-                      <span
-                        className="task-priority"
-                        style={{ backgroundColor: getPriorityColor(task.priority) }}
-                      >
-                        {getPriorityLabel(task.priority)}
-                      </span>
-                    </div>
+                <SortableContext items={taskIds} strategy={verticalListSortingStrategy} id={column.id}>
+                  <div className="column-tasks" data-column-id={column.id}>
+                    {columnTasks.map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        task={task}
+                        onEdit={handleEditTask}
+                        onDelete={handleDeleteTask}
+                        getPriorityColor={getPriorityColor}
+                        getPriorityLabel={getPriorityLabel}
+                      />
+                    ))}
                   </div>
-                ))}
-              </div>
+                </SortableContext>
 
-              <button
-                onClick={() => handleCreateTask(column.id)}
-                className="btn-add-task"
-              >
-                + Add Task
-              </button>
+                <button onClick={() => handleCreateTask(column.id)} className="btn-add-task">
+                  + Add Task
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        <DragOverlay>
+          {activeTask && (
+            <div className="task-card task-card-dragging">
+              <div className="task-header">
+                <h4>{activeTask.title}</h4>
+              </div>
+              {activeTask.description && (
+                <p className="task-description">{activeTask.description}</p>
+              )}
+              <div className="task-footer">
+                <span
+                  className="task-priority"
+                  style={{ backgroundColor: getPriorityColor(activeTask.priority) }}
+                >
+                  {getPriorityLabel(activeTask.priority)}
+                </span>
+              </div>
             </div>
-          );
-        })}
-      </div>
+          )}
+        </DragOverlay>
+      </DndContext>
 
       {/* Task Modal */}
       {showTaskModal && (
