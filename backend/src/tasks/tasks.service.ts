@@ -166,6 +166,34 @@ export class TasksService {
   }
 
   /**
+   * Busca tarefas por texto no título ou descrição
+   * Funcionalidade de busca para o usuário encontrar tarefas rapidamente
+   */
+  async searchTasks(searchQuery: string, user: User): Promise<Task[]> {
+    if (!searchQuery || searchQuery.trim().length === 0) {
+      return [];
+    }
+
+    const queryBuilder = this.taskRepository
+      .createQueryBuilder('task')
+      .leftJoinAndSelect('task.assignee', 'assignee')
+      .leftJoinAndSelect('task.createdBy', 'createdBy')
+      .leftJoinAndSelect('task.project', 'project')
+      .where(
+        '(task.assigneeId = :userId OR task.createdById = :userId)',
+        { userId: user.id }
+      )
+      .andWhere(
+        '(LOWER(task.title) LIKE LOWER(:query) OR LOWER(task.description) LIKE LOWER(:query))',
+        { query: `%${searchQuery}%` }
+      )
+      .orderBy('task.createdAt', 'DESC')
+      .take(50); // Limita a 50 resultados para performance
+
+    return queryBuilder.getMany();
+  }
+
+  /**
    * Método privado para verificar acesso à tarefa
    * Isolamento total: usuários só podem acessar suas próprias tarefas
    */

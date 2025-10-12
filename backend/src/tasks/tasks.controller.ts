@@ -33,6 +33,15 @@ export class TasksController {
     return this.tasksService.findAll(query, req.user);
   }
 
+  @Get('search')
+  @ApiOperation({ summary: 'Search tasks by title or description' })
+  @ApiQuery({ name: 'query', required: true, description: 'Search query string' })
+  @ApiResponse({ status: 200, description: 'Tasks matching search query' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  searchTasks(@Query('query') searchQuery: string, @Request() req) {
+    return this.tasksService.searchTasks(searchQuery, req.user);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get task by ID' })
   @ApiResponse({ status: 200, description: 'Task found' })
