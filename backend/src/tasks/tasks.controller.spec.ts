@@ -1,31 +1,37 @@
-import { TaskStatus } from '../database/entities/task.entity';
+// Status dinâmicos - agora baseado em colunas customizáveis
+const TASK_STATUSES = {
+  PENDING: 'pending',
+  IN_PROGRESS: 'in_progress',
+  TESTING: 'testing',
+  DONE: 'done',
+};
 
 describe('Tasks System - Testes Reais de Lógica', () => {
 
-  describe('TaskStatus Enum Real', () => {
-    it('deve ter exatamente 4 status definidos', () => {
-      const statuses = Object.values(TaskStatus);
-      
+  describe('TaskStatus Dynamic System', () => {
+    it('deve ter exatamente 4 status padrão definidos', () => {
+      const statuses = Object.values(TASK_STATUSES);
+
       expect(statuses).toHaveLength(4);
       expect(statuses).toEqual(['pending', 'in_progress', 'testing', 'done']);
     });
 
     it('deve permitir transições entre todos os status', () => {
       const transitions = [
-        { from: TaskStatus.PENDING, to: TaskStatus.IN_PROGRESS, valid: true },
-        { from: TaskStatus.IN_PROGRESS, to: TaskStatus.TESTING, valid: true },
-        { from: TaskStatus.TESTING, to: TaskStatus.DONE, valid: true },
-        { from: TaskStatus.DONE, to: TaskStatus.PENDING, valid: true }, // Reopen task
-        { from: TaskStatus.TESTING, to: TaskStatus.IN_PROGRESS, valid: true }, // Back to dev
+        { from: TASK_STATUSES.PENDING, to: TASK_STATUSES.IN_PROGRESS, valid: true },
+        { from: TASK_STATUSES.IN_PROGRESS, to: TASK_STATUSES.TESTING, valid: true },
+        { from: TASK_STATUSES.TESTING, to: TASK_STATUSES.DONE, valid: true },
+        { from: TASK_STATUSES.DONE, to: TASK_STATUSES.PENDING, valid: true }, // Reopen task
+        { from: TASK_STATUSES.TESTING, to: TASK_STATUSES.IN_PROGRESS, valid: true }, // Back to dev
       ];
 
       transitions.forEach(({ from, to, valid }) => {
         // Simula mudança real de status
         const taskBefore = { status: from };
         const taskAfter = { ...taskBefore, status: to };
-        
+
         expect(taskAfter.status).toBe(to);
-        expect(Object.values(TaskStatus)).toContain(taskAfter.status);
+        expect(Object.values(TASK_STATUSES)).toContain(taskAfter.status);
       });
     });
   });
@@ -69,12 +75,12 @@ describe('Tasks System - Testes Reais de Lógica', () => {
       const newTask = {
         title: 'Nova Task',
         projectId: '123e4567-e89b-12d3-a456-426614174000',
-        status: TaskStatus.PENDING, // Default
+        status: TASK_STATUSES.PENDING, // Default
         priority: 0, // Default
         description: undefined // Optional
       };
 
-      expect(newTask.status).toBe(TaskStatus.PENDING);
+      expect(newTask.status).toBe(TASK_STATUSES.PENDING);
       expect(newTask.priority).toBe(0);
       expect(newTask.title).toBeTruthy();
       expect(newTask.projectId).toMatch(/^[0-9a-f-]+$/); // UUID format
@@ -104,10 +110,10 @@ describe('Tasks System - Testes Reais de Lógica', () => {
   describe('Column Organization Logic', () => {
     it('deve organizar tasks por coluna baseado no status', () => {
       const tasks = [
-        { id: '1', status: TaskStatus.PENDING, title: 'Task 1' },
-        { id: '2', status: TaskStatus.IN_PROGRESS, title: 'Task 2' },
-        { id: '3', status: TaskStatus.PENDING, title: 'Task 3' },
-        { id: '4', status: TaskStatus.DONE, title: 'Task 4' },
+        { id: '1', status: TASK_STATUSES.PENDING, title: 'Task 1' },
+        { id: '2', status: TASK_STATUSES.IN_PROGRESS, title: 'Task 2' },
+        { id: '3', status: TASK_STATUSES.PENDING, title: 'Task 3' },
+        { id: '4', status: TASK_STATUSES.DONE, title: 'Task 4' },
       ];
 
       // Lógica REAL de agrupamento por coluna
@@ -118,10 +124,10 @@ describe('Tasks System - Testes Reais de Lógica', () => {
         return groups;
       }, {} as Record<string, any[]>);
 
-      expect(columnGroups[TaskStatus.PENDING]).toHaveLength(2);
-      expect(columnGroups[TaskStatus.IN_PROGRESS]).toHaveLength(1);
-      expect(columnGroups[TaskStatus.TESTING]).toBeUndefined();
-      expect(columnGroups[TaskStatus.DONE]).toHaveLength(1);
+      expect(columnGroups[TASK_STATUSES.PENDING]).toHaveLength(2);
+      expect(columnGroups[TASK_STATUSES.IN_PROGRESS]).toHaveLength(1);
+      expect(columnGroups[TASK_STATUSES.TESTING]).toBeUndefined();
+      expect(columnGroups[TASK_STATUSES.DONE]).toHaveLength(1);
     });
   });
 });

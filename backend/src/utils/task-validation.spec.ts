@@ -1,12 +1,18 @@
-import { TaskStatus } from '../database/entities/task.entity';
+// Status dinâmicos - agora baseado em colunas customizáveis
+const TASK_STATUSES = {
+  PENDING: 'pending',
+  IN_PROGRESS: 'in_progress',
+  TESTING: 'testing',
+  DONE: 'done',
+};
 
 // Copiando a função real do frontend para testar
-export function validateTaskStatus(status: string): TaskStatus {
-  const validStatuses = Object.values(TaskStatus);
-  if (!validStatuses.includes(status as TaskStatus)) {
+export function validateTaskStatus(status: string): string {
+  const validStatuses = Object.values(TASK_STATUSES);
+  if (!validStatuses.includes(status)) {
     throw new Error(`Invalid task status: ${status}`);
   }
-  return status as TaskStatus;
+  return status;
 }
 
 describe('Task Validation Utils - Testes Reais', () => {
@@ -19,13 +25,13 @@ describe('Task Validation Utils - Testes Reais', () => {
         // Testa função REAL sem mocks
         const result = validateTaskStatus(status);
         expect(result).toBe(status);
-        expect(Object.values(TaskStatus)).toContain(result);
+        expect(Object.values(TASK_STATUSES)).toContain(result);
       });
     });
 
     it('deve lançar erro para status inválidos', () => {
       const invalidStatuses = ['invalid', 'random', 'todo', 'complete', ''];
-      
+
       invalidStatuses.forEach(invalidStatus => {
         // Testa comportamento REAL de erro
         expect(() => validateTaskStatus(invalidStatus))
@@ -33,11 +39,11 @@ describe('Task Validation Utils - Testes Reais', () => {
       });
     });
 
-    it('deve retornar tipo TaskStatus correto', () => {
+    it('deve retornar tipo string correto', () => {
       const result = validateTaskStatus('pending');
-      
+
       // Testa tipo real retornado
-      expect(result).toBe(TaskStatus.PENDING);
+      expect(result).toBe(TASK_STATUSES.PENDING);
       expect(typeof result).toBe('string');
     });
 

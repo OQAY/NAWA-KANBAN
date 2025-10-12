@@ -105,7 +105,7 @@ VITE_API_URL=http://localhost:3000
 - [x] **Interface Responsiva** - Mobile-first design
 - [x] **Permissões RBAC** - 4 níveis (Admin, Manager, Developer, Viewer)
 - [x] **TypeScript Full Stack** - Type-safety completo
-- [x] **Testes** - 45 testes no backend
+- [x] **Testes Completos** - 45 testes backend + 48 testes frontend
 
 ---
 
@@ -143,7 +143,9 @@ cd frontend
 npm run dev              # Vite dev server
 
 # Testes
-npm run test             # Vitest
+npm run test             # 48 testes
+npm run test:watch       # Watch mode
+npm run test:ui          # Interface visual
 
 # Build
 npm run build            # Produção
@@ -171,6 +173,8 @@ npm run preview          # Preview do build
 - **Zustand** - State management
 - **Axios** - HTTP client
 - **@dnd-kit** - Drag & drop
+- **Vitest** - Testing framework
+- **Testing Library** - React component testing
 - **CSS Modules** - Estilos
 
 ---
@@ -233,9 +237,17 @@ cd backend && npm run test
 # ✅ Utilities (helpers, formatters)
 ```
 
-### Frontend
+### Frontend (48 testes)
 ```bash
 cd frontend && npm run test
+
+# Suítes implementadas:
+# ✅ authStore (6 testes) - State management, localStorage, error handling
+# ✅ kanbanStore (24 testes) - Projects, tasks, columns CRUD
+# ✅ TaskCard (11 testes) - Component rendering, user interactions
+# ✅ Auth Integration (7 testes) - Login, register, logout flows
+
+# Testes com Vitest + Testing Library + jsdom
 ```
 
 ---
