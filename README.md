@@ -1,152 +1,299 @@
-# 📋 Nawa-Kanban
+# 📋 Kanban Board - React + TypeScript + NestJS
 
-**Sistema Kanban completo** - Angular 18 + NestJS + PostgreSQL
+Sistema completo de gerenciamento de tarefas estilo Kanban, desenvolvido com React + TypeScript no frontend e NestJS no backend.
 
-## 🚀 QUICK START (30 segundos)
+## 🚀 Quick Start
 
 ### Requisitos
 - Node.js 18+
+- PostgreSQL (ou usar Supabase)
 
-### Rodar o Projeto
+### Instalação e Execução
 
 ```bash
 # Clone o repositório
-git clone https://github.com/OQAY/NAWA-KANBAN.git
-cd NAWA-KANBAN
+git clone <seu-repo>
+cd kanban-react
 
 # Terminal 1 - Backend
-cd backend && npm install && npm run start:dev
+cd backend
+npm install
+# Configure o .env com suas credenciais do banco
+cp .env.example .env
+npm run start:dev
 
-# Terminal 2 - Frontend  
-cd frontend && npm install && ng serve
+# Terminal 2 - Frontend
+cd frontend
+npm install
+npm run dev
 ```
 
-**✅ PRONTO!** Acesse http://localhost:4200
-
-> **Nota:** Banco de dados Supabase já configurado para demonstração!
-
----
-
-## 📍 URLs do Sistema
-
-- **App**: http://localhost:4200
-- **API**: http://localhost:3000
-- **Docs**: http://localhost:3000/api/docs
+**✅ Pronto!** Acesse:
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3000
+- API Docs (Swagger): http://localhost:3000/api/docs
 
 ---
 
-## ✨ Funcionalidades
+## 📁 Estrutura do Projeto
 
-✅ **Kanban Board** - 4 colunas com drag & drop  
-✅ **Autenticação JWT** - Login/registro seguro  
-✅ **Tasks** - CRUD completo com prioridades  
-✅ **Comentários** - Sistema de discussão  
-✅ **Responsivo** - Desktop, tablet e mobile  
-✅ **Real-time** - Atualizações instantâneas  
+```
+kanban-react/
+├── backend/          # NestJS API
+│   ├── src/
+│   │   ├── auth/     # Autenticação JWT
+│   │   ├── users/    # Gerenciamento de usuários
+│   │   ├── projects/ # Boards/Projects
+│   │   ├── tasks/    # Tarefas
+│   │   ├── columns/  # Colunas customizáveis
+│   │   └── database/ # Entities TypeORM
+│   └── .env          # Configurações do banco
+│
+└── frontend/         # React + TypeScript
+    ├── src/
+    │   ├── api/      # Axios + API services
+    │   ├── stores/   # Zustand state management
+    │   ├── pages/    # Login, Dashboard, Kanban
+    │   ├── components/ # Componentes reutilizáveis
+    │   └── types/    # TypeScript interfaces
+    └── .env          # Configuração da API URL
+```
+
+---
+
+## ⚙️ Configuração
+
+### Backend (.env)
+
+```env
+# Database (PostgreSQL/Supabase)
+DB_HOST=your-host
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your-password
+DB_NAME=postgres
+
+# JWT Secret
+JWT_SECRET=your-secret-key
+
+# Application
+NODE_ENV=development
+PORT=3000
+```
+
+### Frontend (.env)
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+---
+
+## ✨ Funcionalidades Implementadas
+
+### ✅ Requisitos Obrigatórios
+- [x] **Autenticação JWT** - Sistema completo de login/registro
+- [x] **CRUD de Tarefas** - Criar, editar, visualizar e deletar tarefas
+- [x] **Boards** - Múltiplos boards por usuário
+- [x] **Status de Tarefas** - Colunas customizáveis
+- [x] **Prioridades** - 4 níveis (none, low, medium, high)
+
+### ✅ Funcionalidades Extras
+- [x] **Busca de Tarefas** - Busca por nome/título
+- [x] **Filtros por Status** - Filtrar tarefas por coluna
+- [x] **Drag & Drop** - Mover tarefas entre colunas
+- [x] **Interface Responsiva** - Mobile-first design
+- [x] **Permissões RBAC** - 4 níveis (Admin, Manager, Developer, Viewer)
+- [x] **TypeScript Full Stack** - Type-safety completo
+- [x] **Testes** - 45 testes no backend
 
 ---
 
 ## 🎯 Comandos Úteis
 
+### Backend
+
 ```bash
+cd backend
+
 # Desenvolvimento
-npm run dev:backend   # Backend com hot-reload
-npm run dev:frontend  # Frontend com hot-reload
+npm run start:dev        # Hot-reload
 
 # Testes
-npm run test:backend  # 45 testes reais
-npm run test:frontend # 4 testes Angular
+npm run test             # 45 testes
+npm run test:cov         # Com cobertura
+npm run test:watch       # Watch mode
 
-# Build produção
-npm run build         # Compila ambos
+# Build & Produção
+npm run build
+npm run start:prod
+
+# Database
+npm run migration:generate -- src/database/migrations/Name
+npm run migration:run
+npm run migration:revert
 ```
 
-## 🏗️ Arquitetura
+### Frontend
 
-### Backend (NestJS)
-
-- **Clean Architecture** com TypeORM
-- **JWT + RBAC** (4 níveis de acesso)
-- **PostgreSQL** com migrations automáticas
-- **Swagger** documentação automática
-
-### Frontend (Angular 18)
-
-- **Standalone components** sem NgModule
-- **RxJS** com padrão takeUntil
-- **SCSS modular** com design tokens
-- **Memory leak prevention**
-
-## 🔧 Tecnologias
-
-**Backend**
-
-- NestJS 11 + TypeORM + PostgreSQL
-- JWT + Bcrypt + Class-validator
-- Swagger + CORS + Guards
-
-**Frontend**
-
-- Angular 18 + RxJS + TypeScript
-- SCSS + Responsive Design
-- Drag & Drop nativo
-
-## 📝 Banco de Dados
-
-Sistema usa PostgreSQL configurado automaticamente:
-
-- **Entities**: Task, User, Project, Comment
-- **Migrations**: Aplicadas automaticamente
-- **Seeds**: Dados iniciais no primeiro registro
-
-## 🧪 Testes
-
-### Backend (45 testes reais - zero mocks)
 ```bash
-cd backend && npm run test
-# ✅ Todos os 45 testes passam em ~5 segundos
-# ✅ Validam comportamento real sem mocks problemáticos
+cd frontend
+
+# Desenvolvimento
+npm run dev              # Vite dev server
+
+# Testes
+npm run test             # Vitest
+
+# Build
+npm run build            # Produção
+npm run preview          # Preview do build
 ```
-
-**Suítes por área:**
-```bash
-cd backend && npm run test -- app.service.spec.ts          # 3 tests  
-cd backend && npm run test -- create-task.dto.spec.ts      # 7 tests
-cd backend && npm run test -- task-validation.spec.ts      # 5 tests  
-cd backend && npm run test -- time-utils.spec.ts           # 7 tests
-cd backend && npm run test -- tasks.controller.spec.ts     # 7 tests
-cd backend && npm run test -- test-suite.spec.ts           # 16 tests
-```
-
-### Frontend (4 testes reais)
-```bash
-cd frontend && ng test --browsers=ChromeHeadless --watch=false
-# ✅ Todos os 4 testes passam em ~2 segundos  
-# ✅ Validam componentes Angular reais
-
-# Com interface visual do browser
-cd frontend && ng test
-```
-
-### Todos os Testes (49 total)
-```bash
-# Terminal 1 - Backend  
-cd backend && npm run test
-
-# Terminal 2 - Frontend
-cd frontend && ng test --browsers=ChromeHeadless --watch=false
-```
-
-### Cobertura de Testes Reais
-- ✅ **Enums e constantes** (TaskStatus, UserRole, prioridades)  
-- ✅ **Validações DTO** (class-validator real, não mock)
-- ✅ **Funções utilitárias** (timestamps, validadores)
-- ✅ **Lógica de negócio** (ordenação, agrupamento, transições)
-- ✅ **Sistema Kanban** (4 colunas, drag&drop, responsividade)
-- ✅ **Autenticação RBAC** (4 níveis hierárquicos)
-
-**Diferencial:** Todos os testes validam **código real** sem mocks problemáticos
 
 ---
 
-**Sistema 100% funcional** | **49 testes reais aprovados** | **Zero mocks problemáticos** | Refatorado com metodologia rigorosa
+## 🏗️ Tecnologias Utilizadas
+
+### Backend
+- **NestJS 11** - Framework Node.js
+- **TypeORM** - ORM para PostgreSQL
+- **PostgreSQL** - Banco de dados
+- **JWT** - Autenticação
+- **Bcrypt** - Hash de senhas
+- **Swagger** - Documentação automática
+- **Class-validator** - Validação de DTOs
+
+### Frontend
+- **React 18** - UI Library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **React Router v6** - Rotas
+- **Zustand** - State management
+- **Axios** - HTTP client
+- **@dnd-kit** - Drag & drop
+- **CSS Modules** - Estilos
+
+---
+
+## 🔐 Sistema de Permissões
+
+O sistema possui 4 níveis hierárquicos de permissão:
+
+```
+Admin > Manager > Developer > Viewer
+```
+
+- **Admin**: Acesso total ao sistema
+- **Manager**: Gerencia projetos e usuários
+- **Developer**: CRUD de próprias tarefas
+- **Viewer**: Apenas visualização
+
+---
+
+## 📖 API Endpoints
+
+### Auth
+- `POST /auth/register` - Registrar usuário
+- `POST /auth/login` - Login
+- `GET /auth/profile` - Perfil do usuário
+
+### Projects (Boards)
+- `GET /projects` - Listar boards
+- `POST /projects` - Criar board
+- `PATCH /projects/:id` - Atualizar board
+- `DELETE /projects/:id` - Deletar board
+
+### Tasks
+- `GET /tasks` - Listar tarefas (com filtros)
+- `GET /tasks/search?query=...` - Buscar tarefas
+- `POST /tasks` - Criar tarefa
+- `PATCH /tasks/:id` - Atualizar tarefa
+- `DELETE /tasks/:id` - Deletar tarefa
+
+### Columns
+- `GET /columns` - Listar colunas
+- `POST /columns` - Criar coluna
+- `PATCH /columns/:id` - Atualizar coluna
+- `DELETE /columns/:id` - Deletar coluna
+
+**Documentação completa:** http://localhost:3000/api/docs
+
+---
+
+## 🧪 Testes
+
+### Backend (45 testes)
+```bash
+cd backend && npm run test
+
+# Exemplos de suítes:
+# ✅ Auth (login, register, JWT)
+# ✅ Tasks (CRUD, validações)
+# ✅ DTOs (class-validator real)
+# ✅ Utilities (helpers, formatters)
+```
+
+### Frontend
+```bash
+cd frontend && npm run test
+```
+
+---
+
+## 🎨 UI/UX
+
+- **Design System** - Cores, espaçamentos e tipografia consistentes
+- **Mobile-First** - Responsivo em todos os tamanhos de tela
+- **Feedback Visual** - Loading states, erros e sucesso
+- **Acessibilidade** - Labels, ARIA e navegação por teclado
+
+---
+
+## 📦 Deploy
+
+### Backend (Render/Railway/Heroku)
+```bash
+npm run build:backend
+# Configure as variáveis de ambiente no serviço
+# Start command: npm run start:prod
+```
+
+### Frontend (Vercel/Netlify)
+```bash
+npm run build:frontend
+# Output directory: frontend/dist
+# Configure VITE_API_URL com a URL do backend em produção
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Backend não conecta ao banco
+- Verifique as credenciais no `.env`
+- Certifique-se que o PostgreSQL está rodando
+- Para Supabase, use a connection string fornecida
+
+### Frontend não conecta ao backend
+- Verifique se o backend está rodando em `http://localhost:3000`
+- Confirme que o `VITE_API_URL` no `.env` está correto
+- Verifique CORS no backend (`src/main.ts`)
+
+### Erros de autenticação
+- Limpe o localStorage: `localStorage.clear()`
+- Verifique se o JWT_SECRET está configurado no backend
+- Confirme que o token não expirou
+
+---
+
+## 📝 Licença
+
+MIT
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido como desafio técnico fullstack.
+
+**Stack:** React + TypeScript + NestJS + PostgreSQL
