@@ -83,9 +83,20 @@ export default function DashboardPage() {
       {/* Header */}
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>My Boards</h1>
+          <div className="header-left">
+            <div className="header-logo">📋</div>
+            <div className="header-title">
+              <h1>My Boards</h1>
+              <p className="header-subtitle">Manage your projects and tasks</p>
+            </div>
+          </div>
           <div className="header-actions">
-            <span className="user-name">Hello, {user?.name}</span>
+            <div className="user-info">
+              <div className="user-avatar">
+                {user?.name?.charAt(0).toUpperCase()}
+              </div>
+              <span className="user-name">{user?.name}</span>
+            </div>
             <button onClick={handleLogout} className="btn-logout">
               Logout
             </button>
@@ -133,6 +144,7 @@ export default function DashboardPage() {
         <div className="modal-overlay" onClick={() => setShowCreateModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Create New Board</h2>
+            <p className="modal-subtitle">Start organizing your tasks with a new board</p>
             <form onSubmit={handleCreateProject}>
               <div className="form-group">
                 <label htmlFor="project-name">Board Name</label>

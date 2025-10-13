@@ -84,83 +84,147 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <h1>{isLogin ? 'Login' : 'Register'}</h1>
-        <p className="login-subtitle">
-          {isLogin ? 'Welcome back!' : 'Create your account'}
-        </p>
-
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-          )}
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
+      {/* Hero Section - Left Side */}
+      <div className="login-hero">
+        <div className="login-hero-content">
+          <div className="logo-section">
+            <div className="logo-icon">📋</div>
+            <h2 className="logo-text">Nawa Kanban</h2>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => handlePasswordChange(e.target.value)}
-              required
-              minLength={6}
-              disabled={loading}
-              aria-describedby={!isLogin && passwordStrength ? 'password-strength' : undefined}
-            />
-            {!isLogin && passwordStrength && (
-              <div
-                id="password-strength"
-                className={`password-strength password-strength-${passwordStrength}`}
-                role="status"
-                aria-live="polite"
-              >
-                Password strength: {passwordStrength}
+          <h1 className="hero-title">
+            Organize your work,<br />
+            <span className="hero-gradient">boost productivity</span>
+          </h1>
+
+          <p className="hero-description">
+            Manage your projects with a beautiful, intuitive Kanban board.
+            Collaborate with your team and get things done.
+          </p>
+
+          <div className="hero-features">
+            <div className="feature-item">
+              <span className="feature-icon">✨</span>
+              <span>Drag & Drop Tasks</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">👥</span>
+              <span>Team Collaboration</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🔒</span>
+              <span>Secure & Private</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Form Section - Right Side */}
+      <div className="login-form-section">
+        <div className="login-card">
+          <div className="card-header">
+            <h2>{isLogin ? 'Welcome back' : 'Create account'}</h2>
+            <p className="card-subtitle">
+              {isLogin ? 'Sign in to continue to your dashboard' : 'Start managing your projects today'}
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="login-form">
+            {!isLogin && (
+              <div className="form-group">
+                <label htmlFor="name">Full Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="John Doe"
+                  required
+                  disabled={loading}
+                  className="form-input"
+                />
               </div>
             )}
+
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="john@example.com"
+                required
+                disabled={loading}
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                placeholder="••••••••"
+                required
+                minLength={6}
+                disabled={loading}
+                className="form-input"
+                aria-describedby={!isLogin && passwordStrength ? 'password-strength' : undefined}
+              />
+              {!isLogin && passwordStrength && (
+                <div
+                  id="password-strength"
+                  className={`password-strength password-strength-${passwordStrength}`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  <div className="strength-bar">
+                    <div className={`strength-fill strength-fill-${passwordStrength}`}></div>
+                  </div>
+                  <span className="strength-text">Password strength: {passwordStrength}</span>
+                </div>
+              )}
+            </div>
+
+            {error && (
+              <div className="error-message" role="alert">
+                <span className="error-icon">⚠️</span>
+                {error}
+              </div>
+            )}
+
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="button-loader"></span>
+                  Loading...
+                </>
+              ) : (
+                <>{isLogin ? 'Sign In' : 'Create Account'}</>
+              )}
+            </button>
+          </form>
+
+          <div className="card-footer">
+            <p className="toggle-text">
+              {isLogin ? "Don't have an account?" : 'Already have an account?'}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setError('');
+                setPasswordStrength(null);
+              }}
+              className="btn-toggle"
+              disabled={loading}
+            >
+              {isLogin ? 'Sign up for free' : 'Sign in instead'}
+            </button>
           </div>
-
-          {error && <div className="error-message">{error}</div>}
-
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Loading...' : isLogin ? 'Login' : 'Register'}
-          </button>
-        </form>
-
-        <div className="toggle-mode">
-          {isLogin ? "Don't have an account? " : 'Already have an account? '}
-          <button
-            type="button"
-            onClick={() => {
-              setIsLogin(!isLogin);
-              setError('');
-            }}
-            className="btn-link"
-            disabled={loading}
-          >
-            {isLogin ? 'Register' : 'Login'}
-          </button>
         </div>
       </div>
     </div>
