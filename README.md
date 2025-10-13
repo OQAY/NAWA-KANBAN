@@ -237,7 +237,7 @@ cd backend && npm run test
 # ✅ Utilities (helpers, formatters)
 ```
 
-### Frontend (48 testes)
+### Frontend (48 testes unitários + 25 testes E2E)
 ```bash
 cd frontend && npm run test
 
@@ -249,6 +249,62 @@ cd frontend && npm run test
 
 # Testes com Vitest + Testing Library + jsdom
 ```
+
+### Testes E2E com Playwright (25 testes)
+```bash
+cd frontend && npm run test:e2e
+
+# Testes E2E em modo visual (headed):
+npm run test:e2e:headed     # Navegador visível com slowMo
+npm run test:e2e:ui          # Interface interativa do Playwright
+npm run test:e2e:debug       # Modo debug passo a passo
+
+# Suítes E2E:
+# ✅ auth.spec.ts (5 testes) - Registration, login, form validation
+# ✅ boards.spec.ts (5 testes) - Board creation, navigation, modals
+# ✅ tasks.spec.ts (8 testes) - Task CRUD, filters, priority badges
+# ✅ dragdrop.spec.ts (7 testes) - Drag & drop, visual feedback
+
+# Configuração visual: slowMo 500ms, headed mode
+# Helpers: Authentication setup, board creation utilities
+```
+
+---
+
+## 🆕 Melhorias Recentes (v2.0)
+
+### UX & Feedback Visual
+- ✅ **Toast Notifications** - Sistema profissional de notificações (success/error/warning/info)
+- ✅ **Confirm Dialog** - Modal acessível em vez de `confirm()` nativo
+- ✅ **Loading Spinner** - Componente animado com modo fullScreen
+- ✅ **Password Strength Indicator** - Feedback visual em tempo real
+- ✅ **Inline Validation** - Erros inline com aria-describedby
+
+### Segurança & Validação
+- ✅ **Input Sanitization** - Prevenção de XSS em todos os inputs
+- ✅ **Strong Password** - Validação: 8+ chars, maiúscula, minúscula, número
+- ✅ **Email Validation** - Regex robusto para validação de email
+- ✅ **Request Timeout** - 30s timeout em todas as requisições
+- ✅ **Safe Navigation** - Substituído `window.location.href` por React Router
+
+### Performance
+- ✅ **React.memo** - TaskCard memoizado para evitar re-renders
+- ✅ **useMemo** - Filtros de tasks computados apenas quando necessário
+- ✅ **useCallback** - Handlers memoizados em todos os componentes
+- ✅ **useDebounce** - Search com 300ms de debounce
+
+### Acessibilidade (WCAG 2.1)
+- ✅ **aria-labels** - Todos os elementos interativos rotulados
+- ✅ **aria-live** - Regiões dinâmicas anunciadas
+- ✅ **role attributes** - Semântica correta (dialog, alert, status)
+- ✅ **Focus Management** - Foco gerenciado em modais
+- ✅ **Keyboard Navigation** - Navegação completa por teclado
+
+### Arquitetura
+- ✅ **ToastContext** - Gerenciamento global de notificações
+- ✅ **Validation Utils** - Utilitários reutilizáveis de validação
+- ✅ **Type Safety** - TypeScript configurado corretamente
+- ✅ **Build Optimization** - Tests excluídos do build de produção
 
 ---
 
