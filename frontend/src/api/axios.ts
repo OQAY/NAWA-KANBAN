@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type InternalAxiosRequestConfig } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -8,13 +8,21 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 30000, // 30 second timeout
 });
+
+// Store for handling auth redirects
+let onUnauthorized: (() => void) | null = null;
+
+export function setUnauthorizedHandler(handler: () => void) {
+  onUnauthorized = handler;
+}
 
 // Request interceptor - Add auth token to every request
 api.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -28,12 +36,30 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle 401 Unauthorized
     if (error.response?.status === 401) {
-      // Token expired or invalid
+      // Clear auth data
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+
+      // Call the registered handler (usually from React Router)
+      if (onUnauthorized) {
+        onUnauthorized();
+      }
     }
+
+    // Handle network errors
+    if (!error.response) {
+      console.error('Network error:', error.message);
+      // You could show a toast notification here
+    }
+
+    // Handle rate limiting
+    if (error.response?.status === 429) {
+      console.error('Too many requests - rate limited');
+      // You could show a toast notification here
+    }
+
     return Promise.reject(error);
   }
 );

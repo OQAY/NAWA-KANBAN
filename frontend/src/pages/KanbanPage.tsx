@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent, closestCorners } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -7,7 +7,11 @@ import { projectsApi, tasksApi, columnsApi } from '../api/services';
 import type { Task } from '../types';
 import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
+import ConfirmDialog from '../components/ConfirmDialog';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { useTaskForm } from '../hooks/useTaskForm';
+import { useDebounce } from '../hooks/useDebounce';
+import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
 import { DEFAULT_COLUMNS } from '../constants';
 import './KanbanPage.css';
@@ -15,6 +19,7 @@ import './KanbanPage.css';
 export default function KanbanPage() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
+  const toast = useToastContext();
 
   const { currentProject, tasks, columns, setCurrentProject, setTasks, setColumns, addTask, updateTask, deleteTask } = useKanbanStore();
 
@@ -26,9 +31,13 @@ export default function KanbanPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterPriority, setFilterPriority] = useState<number | 'all'>('all');
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
 
   // Use custom hook for form state management
   const taskForm = useTaskForm();
+
+  // Debounce search query to avoid excessive re-renders
+  const debouncedSearch = useDebounce(searchQuery, 300);
 
   useEffect(() => {
     if (projectId) {
@@ -36,7 +45,7 @@ export default function KanbanPage() {
     }
   }, [projectId]);
 
-  const loadProjectData = async () => {
+  const loadProjectData = useCallback(async () => {
     if (!projectId) return;
 
     setLoading(true);
@@ -52,26 +61,26 @@ export default function KanbanPage() {
       setColumns(columnsRes.data);
     } catch (error) {
       console.error('Failed to load project data:', error);
-      alert('Failed to load board');
+      toast.error('Failed to load board');
     } finally {
       setLoading(false);
     }
-  };
+  }, [projectId, setCurrentProject, setTasks, setColumns, toast]);
 
-  const handleCreateTask = (columnId: string) => {
+  const handleCreateTask = useCallback((columnId: string) => {
     setSelectedColumnId(columnId);
     setEditingTask(null);
     taskForm.reset();
     setShowTaskModal(true);
-  };
+  }, [taskForm]);
 
-  const handleEditTask = (task: Task) => {
+  const handleEditTask = useCallback((task: Task) => {
     setEditingTask(task);
     taskForm.loadTask(task);
     setShowTaskModal(true);
-  };
+  }, [taskForm]);
 
-  const handleSaveTask = async () => {
+  const handleSaveTask = useCallback(async () => {
     if (!taskForm.isValid() || !projectId) return;
 
     try {
@@ -83,6 +92,7 @@ export default function KanbanPage() {
           status: formData.status || editingTask.status,
         });
         updateTask(editingTask.id, response.data);
+        toast.success('Task updated successfully');
       } else {
         const response = await tasksApi.create({
           ...formData,
@@ -90,35 +100,44 @@ export default function KanbanPage() {
           projectId,
         });
         addTask(response.data);
+        toast.success('Task created successfully');
       }
 
       setShowTaskModal(false);
       taskForm.reset();
     } catch (error) {
       console.error('Failed to save task:', error);
-      alert('Failed to save task');
+      toast.error('Failed to save task');
     }
-  };
+  }, [taskForm, editingTask, projectId, selectedColumnId, updateTask, addTask, toast]);
 
-  const handleDeleteTask = async (taskId: string) => {
-    if (!confirm('Delete this task?')) return;
+  const handleDeleteTask = useCallback((taskId: string) => {
+    setDeleteConfirm({ isOpen: true, taskId });
+  }, []);
+
+  const confirmDelete = useCallback(async () => {
+    const taskId = deleteConfirm.taskId;
+    if (!taskId) return;
 
     try {
       await tasksApi.delete(taskId);
       deleteTask(taskId);
+      toast.success('Task deleted successfully');
     } catch (error) {
       console.error('Failed to delete task:', error);
-      alert('Failed to delete task');
+      toast.error('Failed to delete task');
+    } finally {
+      setDeleteConfirm({ isOpen: false, taskId: null });
     }
-  };
+  }, [deleteConfirm.taskId, deleteTask, toast]);
 
-  const handleDragStart = (event: DragStartEvent) => {
+  const handleDragStart = useCallback((event: DragStartEvent) => {
     const { active } = event;
     const task = tasks.find(t => t.id === active.id);
     setActiveTask(task || null);
-  };
+  }, [tasks]);
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+  const handleDragEnd = useCallback(async (event: DragEndEvent) => {
     const { active, over } = event;
 
     setActiveTask(null);
@@ -136,29 +155,36 @@ export default function KanbanPage() {
 
     try {
       await tasksApi.update(taskId, { status: newStatus });
+      toast.success('Task moved successfully');
     } catch (error) {
       console.error('Failed to update task:', error);
       // Revert on error
       updateTask(taskId, task);
-      alert('Failed to move task');
+      toast.error('Failed to move task');
     }
-  };
+  }, [tasks, updateTask, toast]);
 
   // Use default columns if user hasn't created custom ones
-  const displayColumns = columns.length > 0 ? columns : DEFAULT_COLUMNS;
+  const displayColumns = useMemo(() =>
+    columns.length > 0 ? columns : DEFAULT_COLUMNS,
+    [columns]
+  );
 
-  // Filter tasks
-  const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          task.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
-    const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+  // Filter tasks with memoization for performance
+  const filteredTasks = useMemo(() => {
+    return tasks.filter(task => {
+      const matchesSearch =
+        task.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        task.description?.toLowerCase().includes(debouncedSearch.toLowerCase());
+      const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
+      const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
 
-    return matchesSearch && matchesStatus && matchesPriority;
-  });
+      return matchesSearch && matchesStatus && matchesPriority;
+    });
+  }, [tasks, debouncedSearch, filterStatus, filterPriority]);
 
   if (loading) {
-    return <div className="kanban-loading">Loading board...</div>;
+    return <LoadingSpinner fullScreen message="Loading board..." />;
   }
 
   return (
@@ -285,6 +311,18 @@ export default function KanbanPage() {
         onStatusChange={taskForm.setStatus}
         onSave={handleSaveTask}
         onClose={() => setShowTaskModal(false)}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Task"
+        message="Are you sure you want to delete this task? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteConfirm({ isOpen: false, taskId: null })}
       />
     </div>
   );

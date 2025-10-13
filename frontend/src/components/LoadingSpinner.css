@@ -1,0 +1,121 @@
+/* Loading Overlay (Full Screen) */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  backdrop-filter: blur(4px);
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Inline Loading */
+.loading-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+/* Spinner */
+.spinner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  animation: spin 1.2s linear infinite;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  gap: 2px;
+}
+
+.spinner-medium {
+  width: 40px;
+  height: 40px;
+  gap: 4px;
+}
+
+.spinner-large {
+  width: 60px;
+  height: 60px;
+  gap: 6px;
+}
+
+.spinner-circle {
+  background: #3b82f6;
+  border-radius: 2px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.spinner-circle:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.spinner-circle:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.spinner-circle:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.spinner-circle:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Loading Message */
+.loading-message {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .loading-overlay {
+    background: rgba(17, 24, 39, 0.9);
+  }
+
+  .spinner-circle {
+    background: #60a5fa;
+  }
+
+  .loading-message {
+    color: #d1d5db;
+  }
+}

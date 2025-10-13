@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { useKanbanStore } from '../stores/kanbanStore';
+import { useToastContext } from '../contexts/ToastContext';
 import { projectsApi } from '../api/services';
-import type { Project } from '../types';
+import { sanitizeTextInput, isValidBoardName } from '../utils/validation';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const toast = useToastContext();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const { projects, setProjects, addProject } = useKanbanStore();
@@ -17,54 +20,62 @@ export default function DashboardPage() {
   const [newProjectName, setNewProjectName] = useState('');
   const [newProjectDesc, setNewProjectDesc] = useState('');
   const [creating, setCreating] = useState(false);
+  const [nameError, setNameError] = useState('');
 
   useEffect(() => {
     loadProjects();
   }, []);
 
-  const loadProjects = async () => {
+  const loadProjects = useCallback(async () => {
     try {
       const response = await projectsApi.getAll();
       setProjects(response.data);
     } catch (error) {
       console.error('Failed to load projects:', error);
+      toast.error('Failed to load boards');
     } finally {
       setLoading(false);
     }
-  };
+  }, [setProjects, toast]);
 
-  const handleCreateProject = async (e: React.FormEvent) => {
+  const handleCreateProject = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+    setNameError('');
+
+    const sanitizedName = sanitizeTextInput(newProjectName);
+
+    if (!isValidBoardName(sanitizedName)) {
+      setNameError('Board name must be between 3 and 100 characters');
+      return;
+    }
+
     setCreating(true);
 
     try {
       const response = await projectsApi.create({
-        name: newProjectName,
-        description: newProjectDesc,
+        name: sanitizedName,
+        description: sanitizeTextInput(newProjectDesc),
       });
       addProject(response.data);
       setShowCreateModal(false);
       setNewProjectName('');
       setNewProjectDesc('');
+      toast.success('Board created successfully');
     } catch (error) {
       console.error('Failed to create project:', error);
-      alert('Failed to create project');
+      toast.error('Failed to create board');
     } finally {
       setCreating(false);
     }
-  };
+  }, [newProjectName, newProjectDesc, addProject, toast]);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
     navigate('/login');
-  };
+  }, [logout, navigate]);
 
   if (loading) {
-    return (
-      <div className="dashboard-container">
-        <div className="loading">Loading...</div>
-      </div>
-    );
+    return <LoadingSpinner fullScreen message="Loading boards..." />;
   }
 
   return (
@@ -129,11 +140,21 @@ export default function DashboardPage() {
                   type="text"
                   id="project-name"
                   value={newProjectName}
-                  onChange={(e) => setNewProjectName(e.target.value)}
+                  onChange={(e) => {
+                    setNewProjectName(e.target.value);
+                    setNameError('');
+                  }}
                   required
                   disabled={creating}
                   autoFocus
+                  aria-describedby={nameError ? 'name-error' : undefined}
+                  aria-invalid={!!nameError}
                 />
+                {nameError && (
+                  <span id="name-error" className="error-message" role="alert">
+                    {nameError}
+                  </span>
+                )}
               </div>
 
               <div className="form-group">

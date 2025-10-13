@@ -72,6 +72,31 @@
   text-align: center;
 }
 
+.password-strength {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.password-strength-weak {
+  background-color: #fee;
+  color: #c33;
+}
+
+.password-strength-medium {
+  background-color: #fff4e6;
+  color: #d97706;
+}
+
+.password-strength-strong {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+
 .btn-primary {
   width: 100%;
   padding: 12px;

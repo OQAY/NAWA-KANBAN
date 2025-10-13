@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { Task } from '../types';
@@ -10,7 +11,7 @@ interface TaskCardProps {
   getPriorityLabel: (priority: number) => string;
 }
 
-export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, getPriorityLabel }: TaskCardProps) {
+function TaskCard({ task, onEdit, onDelete, getPriorityColor, getPriorityLabel }: TaskCardProps) {
   const {
     attributes,
     listeners,
@@ -33,6 +34,8 @@ export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, get
       {...attributes}
       {...listeners}
       className="task-card"
+      role="article"
+      aria-label={`Task: ${task.title}`}
     >
       <div className="task-header">
         <h4>{task.title}</h4>
@@ -43,6 +46,8 @@ export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, get
               onEdit(task);
             }}
             className="btn-icon"
+            aria-label={`Edit task: ${task.title}`}
+            title="Edit task"
           >
             ✏️
           </button>
@@ -52,6 +57,8 @@ export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, get
               onDelete(task.id);
             }}
             className="btn-icon"
+            aria-label={`Delete task: ${task.title}`}
+            title="Delete task"
           >
             🗑️
           </button>
@@ -66,6 +73,8 @@ export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, get
         <span
           className="task-priority"
           style={{ backgroundColor: getPriorityColor(task.priority) }}
+          role="status"
+          aria-label={`Priority: ${getPriorityLabel(task.priority)}`}
         >
           {getPriorityLabel(task.priority)}
         </span>
@@ -73,3 +82,6 @@ export default function TaskCard({ task, onEdit, onDelete, getPriorityColor, get
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+export default memo(TaskCard);
