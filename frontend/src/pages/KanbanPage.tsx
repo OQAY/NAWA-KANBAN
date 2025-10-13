@@ -9,6 +9,7 @@ import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
 import ConfirmDialog from '../components/ConfirmDialog';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ShareBoardModal from '../components/ShareBoardModal';
 import { useTaskForm } from '../hooks/useTaskForm';
 import { useDebounce } from '../hooks/useDebounce';
 import { useToastContext } from '../contexts/ToastContext';
@@ -32,6 +33,7 @@ export default function KanbanPage() {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterPriority, setFilterPriority] = useState<number | 'all'>('all');
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
+  const [showShareModal, setShowShareModal] = useState(false);
 
   // Use custom hook for form state management
   const taskForm = useTaskForm();
@@ -196,6 +198,13 @@ export default function KanbanPage() {
             ← Back
           </button>
           <h1>{currentProject?.name || 'Kanban Board'}</h1>
+          <button
+            onClick={() => setShowShareModal(true)}
+            className="btn-share"
+            aria-label="Share board"
+          >
+            👥 Share
+          </button>
         </div>
 
         {/* Search and Filters */}
@@ -323,6 +332,13 @@ export default function KanbanPage() {
         variant="danger"
         onConfirm={confirmDelete}
         onCancel={() => setDeleteConfirm({ isOpen: false, taskId: null })}
+      />
+
+      {/* Share Board Modal */}
+      <ShareBoardModal
+        isOpen={showShareModal}
+        project={currentProject}
+        onClose={() => setShowShareModal(false)}
       />
     </div>
   );

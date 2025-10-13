@@ -43,8 +43,27 @@ export interface Project {
   ownerId: string;
   owner?: User;
   tasks?: Task[];
+  members?: ProjectMember[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ProjectMember {
+  id: string;
+  projectId: string;
+  userId: string;
+  user: User;
+  role: string; // admin, manager, developer, viewer
+  addedAt: string;
+}
+
+export interface AddMemberRequest {
+  email: string;
+  role: string;
+}
+
+export interface UpdateMemberRequest {
+  role: string;
 }
 
 // Column types

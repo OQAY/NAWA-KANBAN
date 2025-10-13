@@ -8,6 +8,9 @@ import type {
   Task,
   KanbanColumn,
   Comment,
+  ProjectMember,
+  AddMemberRequest,
+  UpdateMemberRequest,
 } from '../types';
 
 // Auth API
@@ -53,6 +56,19 @@ export const projectsApi = {
 
   delete: (id: string) =>
     api.delete(`/projects/${id}`),
+
+  // Members
+  getMembers: (projectId: string) =>
+    api.get<ProjectMember[]>(`/projects/${projectId}/members`),
+
+  addMember: (projectId: string, data: AddMemberRequest) =>
+    api.post<ProjectMember>(`/projects/${projectId}/members`, data),
+
+  updateMember: (projectId: string, memberId: string, data: UpdateMemberRequest) =>
+    api.patch<ProjectMember>(`/projects/${projectId}/members/${memberId}`, data),
+
+  removeMember: (projectId: string, memberId: string) =>
+    api.delete(`/projects/${projectId}/members/${memberId}`),
 };
 
 // Tasks API
