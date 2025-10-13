@@ -4,6 +4,7 @@ import { useAuthStore } from '../stores/authStore';
 import { useToastContext } from '../contexts/ToastContext';
 import { authApi } from '../api/services';
 import { isValidEmail, getPasswordStrength, sanitizeTextInput } from '../utils/validation';
+import { ClipboardIcon, LayoutIcon, UsersIcon, LockIcon, AlertCircleIcon } from '../components/icons/Icons';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -88,13 +89,15 @@ export default function LoginPage() {
       <div className="login-hero">
         <div className="login-hero-content">
           <div className="logo-section">
-            <div className="logo-icon">📋</div>
+            <div className="logo-icon">
+              <ClipboardIcon size={32} />
+            </div>
             <h2 className="logo-text">Nawa Kanban</h2>
           </div>
 
           <h1 className="hero-title">
             Organize your work,<br />
-            <span className="hero-gradient">boost productivity</span>
+            <span className="hero-highlight">boost productivity</span>
           </h1>
 
           <p className="hero-description">
@@ -104,15 +107,21 @@ export default function LoginPage() {
 
           <div className="hero-features">
             <div className="feature-item">
-              <span className="feature-icon">✨</span>
+              <span className="feature-icon">
+                <LayoutIcon size={20} />
+              </span>
               <span>Drag & Drop Tasks</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">👥</span>
+              <span className="feature-icon">
+                <UsersIcon size={20} />
+              </span>
               <span>Team Collaboration</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">🔒</span>
+              <span className="feature-icon">
+                <LockIcon size={20} />
+              </span>
               <span>Secure & Private</span>
             </div>
           </div>
@@ -191,7 +200,9 @@ export default function LoginPage() {
 
             {error && (
               <div className="error-message" role="alert">
-                <span className="error-icon">⚠️</span>
+                <span className="error-icon">
+                  <AlertCircleIcon size={20} />
+                </span>
                 {error}
               </div>
             )}

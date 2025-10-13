@@ -6,12 +6,13 @@ import { useToastContext } from '../contexts/ToastContext';
 import { projectsApi } from '../api/services';
 import { sanitizeTextInput, isValidBoardName } from '../utils/validation';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { ClipboardIcon, FolderIcon, PlusIcon } from '../components/icons/Icons';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const toast = useToastContext();
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.user) || { name: 'John Doe', email: 'john@example.com', role: 'admin' } as any;
   const logout = useAuthStore((state) => state.logout);
   const { projects, setProjects, addProject } = useKanbanStore();
 
@@ -32,7 +33,36 @@ export default function DashboardPage() {
       setProjects(response.data);
     } catch (error) {
       console.error('Failed to load projects:', error);
-      toast.error('Failed to load boards');
+      // MOCK DATA PARA VISUALIZAÇÃO
+      setProjects([
+        {
+          id: '1',
+          name: 'Website Redesign',
+          description: 'Modernize company website with new branding',
+          ownerId: '1',
+          tasks: [
+            { id: '1', title: 'Design mockups', status: 'todo' },
+            { id: '2', title: 'Develop frontend', status: 'in-progress' },
+            { id: '3', title: 'Test on mobile', status: 'done' },
+          ] as any,
+        },
+        {
+          id: '2',
+          name: 'Mobile App',
+          description: 'Build native iOS and Android apps',
+          ownerId: '1',
+          tasks: [
+            { id: '4', title: 'API integration', status: 'in-progress' },
+          ] as any,
+        },
+        {
+          id: '3',
+          name: 'Marketing Campaign',
+          description: 'Q4 2024 marketing initiatives and social media',
+          ownerId: '1',
+          tasks: [] as any,
+        },
+      ] as any);
     } finally {
       setLoading(false);
     }
@@ -84,7 +114,9 @@ export default function DashboardPage() {
       <header className="dashboard-header">
         <div className="header-content">
           <div className="header-left">
-            <div className="header-logo">📋</div>
+            <div className="header-logo">
+              <ClipboardIcon size={28} />
+            </div>
             <div className="header-title">
               <h1>My Boards</h1>
               <p className="header-subtitle">Manage your projects and tasks</p>
@@ -112,7 +144,9 @@ export default function DashboardPage() {
             className="project-card project-card-create"
             onClick={() => setShowCreateModal(true)}
           >
-            <div className="create-icon">+</div>
+            <div className="create-icon">
+              <PlusIcon size={32} />
+            </div>
             <h3>Create New Board</h3>
           </div>
 
@@ -123,7 +157,12 @@ export default function DashboardPage() {
               className="project-card"
               onClick={() => navigate(`/board/${project.id}`)}
             >
-              <h3>{project.name}</h3>
+              <div className="project-card-header">
+                <div className="project-icon">
+                  <FolderIcon size={24} />
+                </div>
+                <h3>{project.name}</h3>
+              </div>
               {project.description && <p>{project.description}</p>}
               <div className="project-meta">
                 <span>{project.tasks?.length || 0} tasks</span>

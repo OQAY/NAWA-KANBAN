@@ -15,6 +15,7 @@ import { useDebounce } from '../hooks/useDebounce';
 import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
 import { DEFAULT_COLUMNS } from '../constants';
+import { ShareIcon, SearchIcon, PlusIcon } from '../components/icons/Icons';
 import './KanbanPage.css';
 
 export default function KanbanPage() {
@@ -203,19 +204,23 @@ export default function KanbanPage() {
             className="btn-share"
             aria-label="Share board"
           >
-            👥 Share
+            <ShareIcon size={18} />
+            <span>Share</span>
           </button>
         </div>
 
         {/* Search and Filters */}
         <div className="header-filters">
-          <input
-            type="text"
-            placeholder="Search tasks..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
+          <div className="search-wrapper">
+            <SearchIcon size={18} className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search tasks..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+          </div>
 
           <select
             value={filterStatus}
@@ -276,7 +281,8 @@ export default function KanbanPage() {
                 </SortableContext>
 
                 <button onClick={() => handleCreateTask(column.id)} className="btn-add-task">
-                  + Add Task
+                  <PlusIcon size={16} />
+                  <span>Add Task</span>
                 </button>
               </div>
             );

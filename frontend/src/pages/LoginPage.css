@@ -111,11 +111,9 @@
   letter-spacing: -0.02em;
 }
 
-.hero-gradient {
-  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.hero-highlight {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 800;
 }
 
 .hero-description {
@@ -149,7 +147,11 @@
 }
 
 .feature-icon {
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0.9;
 }
 
 /* Form Section - Right Side */
@@ -311,7 +313,11 @@
 }
 
 .error-icon {
-  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-error);
+  flex-shrink: 0;
 }
 
 /* Primary Button */

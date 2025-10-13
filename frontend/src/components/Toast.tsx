@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { CheckCircleIcon, XCircleIcon, AlertCircleIcon, InfoIcon } from './icons/Icons';
 import './Toast.css';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
@@ -26,11 +27,20 @@ export default function Toast({ id, message, type, onClose, duration = 5000 }: T
     return () => clearTimeout(timer);
   }, [id, duration, onClose]);
 
-  const icons = {
-    success: '✓',
-    error: '✕',
-    warning: '⚠',
-    info: 'ℹ',
+  const renderIcon = () => {
+    const iconProps = { size: 20 };
+    switch (type) {
+      case 'success':
+        return <CheckCircleIcon {...iconProps} />;
+      case 'error':
+        return <XCircleIcon {...iconProps} />;
+      case 'warning':
+        return <AlertCircleIcon {...iconProps} />;
+      case 'info':
+        return <InfoIcon {...iconProps} />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -40,7 +50,7 @@ export default function Toast({ id, message, type, onClose, duration = 5000 }: T
       aria-live="assertive"
       aria-atomic="true"
     >
-      <div className="toast-icon">{icons[type]}</div>
+      <div className="toast-icon">{renderIcon()}</div>
       <div className="toast-message">{message}</div>
       <button
         className="toast-close"
