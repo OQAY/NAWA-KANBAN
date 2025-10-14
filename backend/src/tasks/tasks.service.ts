@@ -23,12 +23,28 @@ export class TasksService {
       ...createTaskDto,
       createdById: user.id, // Atribui automaticamente o usuário atual como criador
     };
-    
+
     // Converte string de data para objeto Date para armazenamento no banco
     if (createTaskDto.dueDate) {
       taskData.dueDate = new Date(createTaskDto.dueDate);
     }
-    
+
+    // Se position não foi fornecida, calcular automaticamente (inserir no final da coluna)
+    if (taskData.position === undefined || taskData.position === null) {
+      taskData.position = await this.getNextPosition(
+        createTaskDto.projectId,
+        createTaskDto.status || 'pending'
+      );
+    } else {
+      // Se position foi fornecida, reordenar tasks existentes
+      await this.reorderTasksInColumn(
+        createTaskDto.projectId,
+        createTaskDto.status || 'pending',
+        taskData.position,
+        null // Não excluir nenhuma task (é criação)
+      );
+    }
+
     const task = this.taskRepository.create(taskData);
     const savedTask = await this.taskRepository.save(task);
     // Trata caso onde TypeORM pode retornar array ao invés de entidade única
@@ -70,7 +86,8 @@ export class TasksService {
     );
 
     const [tasks, total] = await queryBuilder
-      .orderBy('task.createdAt', 'DESC') // Ordena por data de criação (mais recente primeiro)
+      .orderBy('task.position', 'ASC') // Ordena por posição customizada
+      .addOrderBy('task.createdAt', 'DESC') // Fallback para tasks sem position
       .skip(skip)
       .take(limit)
       .getManyAndCount();
@@ -107,10 +124,13 @@ export class TasksService {
   /**
    * Atualiza uma tarefa existente
    * Regra de Negócio: Usuário pode editar suas próprias tarefas
+   *
+   * IMPORTANTE: Lógica simplificada para performance e evitar race conditions
+   * O frontend já recalcula todas as positions localmente antes de enviar
    */
   async update(id: string, updateTaskDto: UpdateTaskDto, user: User): Promise<Task> {
     const task = await this.findOne(id, user); // Busca e verifica permissão
-    
+
     // Usuário pode editar suas próprias tarefas (sem restrição de role)
     // Atualiza os campos da tarefa FORÇANDO mudança para TypeORM detectar
     if (updateTaskDto.title !== undefined) {
@@ -134,7 +154,12 @@ export class TasksService {
     if (updateTaskDto.dueDate !== undefined) {
       task.dueDate = updateTaskDto.dueDate ? new Date(updateTaskDto.dueDate) : null;
     }
+    if (updateTaskDto.position !== undefined) {
+      task.position = updateTaskDto.position;
+    }
 
+    // Simplesmente salva a task - sem reordenação no backend
+    // O frontend já envia todas as tasks com positions corretas
     return this.taskRepository.save(task);
   }
 
@@ -187,7 +212,8 @@ export class TasksService {
         '(LOWER(task.title) LIKE LOWER(:query) OR LOWER(task.description) LIKE LOWER(:query))',
         { query: `%${searchQuery}%` }
       )
-      .orderBy('task.createdAt', 'DESC')
+      .orderBy('task.position', 'ASC')
+      .addOrderBy('task.createdAt', 'DESC')
       .take(50); // Limita a 50 resultados para performance
 
     return queryBuilder.getMany();
@@ -200,9 +226,75 @@ export class TasksService {
   private checkTaskAccess(task: Task, user: User): void {
     // Usuários só podem acessar tarefas que criaram ou foram atribuídas a eles
     if (task.assigneeId === user.id || task.createdById === user.id) {
-      return; 
+      return;
     }
 
     throw new ForbiddenException('Access denied to this task');
+  }
+
+  /**
+   * Calcula a próxima posição disponível na coluna
+   * Retorna max(position) + 1 da coluna especificada
+   */
+  private async getNextPosition(projectId: string, status: string): Promise<number> {
+    const result = await this.taskRepository
+      .createQueryBuilder('task')
+      .select('MAX(task.position)', 'maxPosition')
+      .where('task.projectId = :projectId', { projectId })
+      .andWhere('task.status = :status', { status })
+      .getRawOne();
+
+    const maxPosition = result?.maxPosition ?? -1;
+    return maxPosition + 1;
+  }
+
+  /**
+   * Reordena tasks na coluna quando uma task é inserida em uma posição específica
+   * Incrementa a position de todas as tasks com position >= insertPosition
+   *
+   * @param projectId - ID do projeto
+   * @param status - Status/coluna onde a task está sendo inserida
+   * @param insertPosition - Posição onde a task será inserida
+   * @param excludeTaskId - ID da task sendo movida (para não duplicar reordenação)
+   */
+  private async reorderTasksInColumn(
+    projectId: string,
+    status: string,
+    insertPosition: number,
+    excludeTaskId: string | null
+  ): Promise<void> {
+    const queryBuilder = this.taskRepository
+      .createQueryBuilder()
+      .update(Task)
+      .set({ position: () => 'position + 1' })
+      .where('projectId = :projectId', { projectId })
+      .andWhere('status = :status', { status })
+      .andWhere('position >= :insertPosition', { insertPosition });
+
+    // Excluir a task sendo movida para evitar incrementar sua própria posição
+    if (excludeTaskId) {
+      queryBuilder.andWhere('id != :excludeTaskId', { excludeTaskId });
+    }
+
+    await queryBuilder.execute();
+  }
+
+  /**
+   * Fecha o gap deixado quando uma task é removida ou movida de uma coluna
+   * Decrementa a position de todas as tasks com position > removedPosition
+   */
+  private async closeGapInColumn(
+    projectId: string,
+    status: string,
+    removedPosition: number
+  ): Promise<void> {
+    await this.taskRepository
+      .createQueryBuilder()
+      .update(Task)
+      .set({ position: () => 'position - 1' })
+      .where('projectId = :projectId', { projectId })
+      .andWhere('status = :status', { status })
+      .andWhere('position > :removedPosition', { removedPosition })
+      .execute();
   }
 }
