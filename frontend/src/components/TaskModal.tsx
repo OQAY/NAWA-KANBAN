@@ -88,7 +88,7 @@ export default function TaskModal({
               onChange={(e) => onStatusChange(e.target.value)}
             >
               {columns.map((col) => (
-                <option key={col.id} value={col.id}>
+                <option key={col.id} value={col.status}>
                   {col.name}
                 </option>
               ))}

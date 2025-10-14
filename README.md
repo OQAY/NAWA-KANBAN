@@ -1,6 +1,6 @@
-# 📋 Kanban Board - React + TypeScript + NestJS
+# 📋 Nawa Kanban - React + TypeScript + NestJS
 
-Sistema completo de gerenciamento de tarefas estilo Kanban, desenvolvido com React + TypeScript no frontend e NestJS no backend.
+Sistema completo de gerenciamento de tarefas estilo Kanban, desenvolvido com React 19 + TypeScript no frontend e NestJS 11 no backend.
 
 ## 🚀 Quick Start
 
@@ -13,7 +13,7 @@ Sistema completo de gerenciamento de tarefas estilo Kanban, desenvolvido com Rea
 ```bash
 # Clone o repositório
 git clone <seu-repo>
-cd kanban-react
+cd nawa-kanban
 
 # Terminal 1 - Backend
 cd backend
@@ -38,50 +38,93 @@ npm run dev
 ## 📁 Estrutura do Projeto
 
 ```
-kanban-react/
-├── backend/          # NestJS API
+nawa-kanban/
+├── backend/          # NestJS 11 API
 │   ├── src/
-│   │   ├── auth/     # Autenticação JWT
-│   │   ├── users/    # Gerenciamento de usuários
-│   │   ├── projects/ # Boards/Projects
-│   │   ├── tasks/    # Tarefas
-│   │   ├── columns/  # Colunas customizáveis
-│   │   └── database/ # Entities TypeORM
-│   └── .env          # Configurações do banco
+│   │   ├── auth/       # Autenticação JWT
+│   │   ├── users/      # Gerenciamento de usuários
+│   │   ├── projects/   # Boards/Projects
+│   │   ├── tasks/      # Tarefas
+│   │   ├── columns/    # Colunas customizáveis
+│   │   ├── comments/   # Sistema de comentários
+│   │   └── database/   # Entities TypeORM
+│   ├── .env            # Configurações do banco
+│   └── package.json
 │
-└── frontend/         # React + TypeScript
+└── frontend/         # React 19 + TypeScript + Vite 7
     ├── src/
-    │   ├── api/      # Axios + API services
-    │   ├── stores/   # Zustand state management
-    │   ├── pages/    # Login, Dashboard, Kanban
-    │   ├── components/ # Componentes reutilizáveis
-    │   └── types/    # TypeScript interfaces
-    └── .env          # Configuração da API URL
+    │   ├── api/          # Axios + API services
+    │   ├── stores/       # Zustand state management
+    │   ├── pages/        # Login, Dashboard, Kanban
+    │   ├── components/   # Componentes reutilizáveis
+    │   ├── contexts/     # React contexts (Toast, etc)
+    │   └── types/        # TypeScript interfaces
+    ├── .env              # Configuração da API URL
+    ├── vite.config.ts    # Configuração do Vite
+    └── package.json
 ```
 
 ---
 
 ## ⚙️ Configuração
 
+### 🗄️ Setup do Banco de Dados
+
+**📖 [Guia Completo de Setup do Banco de Dados](./DATABASE-SETUP.md)**
+
+**Para primeira vez:** Execute o arquivo `database-schema.sql` no Supabase SQL Editor.
+
+Resumo rápido:
+1. Acesse [Supabase](https://supabase.com)
+2. Crie um novo projeto
+3. **SQL Editor** → Execute `database-schema.sql` (cria todas as 6 tabelas)
+4. Copie as credenciais (Settings → Database → Connection string)
+5. Configure o `.env` no backend
+
 ### Backend (.env)
 
+```bash
+# 1. Copie o arquivo de exemplo
+cd backend
+cp .env.example .env
+
+# 2. Edite o .env com suas credenciais do Supabase
+```
+
 ```env
-# Database (PostgreSQL/Supabase)
-DB_HOST=your-host
+# Database (Session Pooler - recomendado)
+DB_HOST=aws-1-sa-east-1.pooler.supabase.com
 DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=your-password
+DB_USERNAME=postgres.your-project-id
+DB_PASSWORD=sua-senha-do-supabase
 DB_NAME=postgres
 
 # JWT Secret
-JWT_SECRET=your-secret-key
+JWT_SECRET=kanban-jwt-secret-key-2025
 
 # Application
 NODE_ENV=development
 PORT=3000
 ```
 
+```bash
+# 3. Inicie o servidor
+npm run start:dev
+
+# ✅ As tabelas serão criadas automaticamente!
+# TypeORM usa auto-sync em desenvolvimento (synchronize: true)
+```
+
+**💡 Nota:** O banco é criado automaticamente. Não precisa rodar SQL manualmente!
+Para produção ou times, veja [DATABASE-SETUP.md](./DATABASE-SETUP.md)
+
 ### Frontend (.env)
+
+```bash
+# 1. Copie o arquivo de exemplo
+cd frontend
+cp .env.example .env
+```
 
 ```env
 VITE_API_URL=http://localhost:3000
@@ -101,11 +144,14 @@ VITE_API_URL=http://localhost:3000
 ### ✅ Funcionalidades Extras
 - [x] **Busca de Tarefas** - Busca por nome/título
 - [x] **Filtros por Status** - Filtrar tarefas por coluna
-- [x] **Drag & Drop** - Mover tarefas entre colunas
+- [x] **Drag & Drop** - Mover tarefas entre colunas (@dnd-kit)
+- [x] **Compartilhamento de Boards** 🆕 - Compartilhe com Editor ou Viewer
 - [x] **Interface Responsiva** - Mobile-first design
 - [x] **Permissões RBAC** - 4 níveis (Admin, Manager, Developer, Viewer)
 - [x] **TypeScript Full Stack** - Type-safety completo
-- [x] **Testes Completos** - 45 testes backend + 48 testes frontend
+- [x] **Testes Completos** - Unitários (Vitest) + E2E (Playwright)
+- [x] **Toast Notifications** - Feedback visual profissional
+- [x] **Sistema de Comentários** - Comentários em tarefas
 
 ---
 
@@ -140,16 +186,23 @@ npm run migration:revert
 cd frontend
 
 # Desenvolvimento
-npm run dev              # Vite dev server
+npm run dev              # Vite dev server (porta 5173)
 
-# Testes
-npm run test             # 48 testes
+# Testes unitários
+npm run test             # Vitest - run all tests
 npm run test:watch       # Watch mode
-npm run test:ui          # Interface visual
+npm run test:ui          # Interface visual do Vitest
 
-# Build
-npm run build            # Produção
-npm run preview          # Preview do build
+# Testes E2E
+npm run test:e2e         # Playwright - headless
+npm run test:e2e:headed  # Com navegador visível
+npm run test:e2e:ui      # Interface do Playwright
+npm run test:e2e:debug   # Debug mode
+
+# Build e produção
+npm run build            # TypeScript + Vite build
+npm run preview          # Preview do build local
+npm run lint             # ESLint
 ```
 
 ---
@@ -157,29 +210,32 @@ npm run preview          # Preview do build
 ## 🏗️ Tecnologias Utilizadas
 
 ### Backend
-- **NestJS 11** - Framework Node.js
+- **NestJS 11** - Framework Node.js com TypeScript
 - **TypeORM** - ORM para PostgreSQL
-- **PostgreSQL** - Banco de dados
-- **JWT** - Autenticação
+- **PostgreSQL** - Banco de dados relacional (Supabase)
+- **JWT** - Autenticação stateless
 - **Bcrypt** - Hash de senhas
-- **Swagger** - Documentação automática
+- **Swagger** - Documentação automática da API
 - **Class-validator** - Validação de DTOs
 
 ### Frontend
-- **React 18** - UI Library
-- **TypeScript** - Type safety
-- **Vite** - Build tool
-- **React Router v6** - Rotas
-- **Zustand** - State management
-- **Axios** - HTTP client
-- **@dnd-kit** - Drag & drop
-- **Vitest** - Testing framework
+- **React 19.1** - UI Library
+- **TypeScript 5.9** - Type safety
+- **Vite 7.1** - Build tool ultrarrápido
+- **React Router v7** - Rotas client-side
+- **Zustand** - State management leve e performático
+- **Axios 1.12** - HTTP client
+- **@dnd-kit** - Drag & drop acessível
+- **Vitest 3.2** - Testing framework (compatível com Vite)
+- **Playwright 1.56** - Testes E2E
 - **Testing Library** - React component testing
-- **CSS Modules** - Estilos
+- **CSS3** - Estilos customizados
 
 ---
 
 ## 🔐 Sistema de Permissões
+
+### Permissões Globais (Usuários do Sistema)
 
 O sistema possui 4 níveis hierárquicos de permissão:
 
@@ -191,6 +247,20 @@ Admin > Manager > Developer > Viewer
 - **Manager**: Gerencia projetos e usuários
 - **Developer**: CRUD de próprias tarefas
 - **Viewer**: Apenas visualização
+
+### Compartilhamento de Boards 🆕
+
+Ao compartilhar um board com outro usuário, você pode definir 2 roles:
+
+- **Owner/Manager**: Dono do projeto (criador do board)
+- **Editor**: Pode editar tasks, mover cards, modificar o board
+- **Viewer**: Somente visualização, não pode editar
+
+**Exemplo de uso:**
+1. Crie um board no sistema
+2. Clique em "Share" no header do board
+3. Adicione membros por email com role Editor ou Viewer
+4. Membros verão o board compartilhado na lista de projetos
 
 ---
 
@@ -206,6 +276,12 @@ Admin > Manager > Developer > Viewer
 - `POST /projects` - Criar board
 - `PATCH /projects/:id` - Atualizar board
 - `DELETE /projects/:id` - Deletar board
+
+### Board Sharing 🆕
+- `GET /projects/:id/members` - Listar membros compartilhados
+- `POST /projects/:id/members` - Adicionar membro (Editor ou Viewer)
+- `PATCH /projects/:id/members/:memberId` - Atualizar role do membro
+- `DELETE /projects/:id/members/:memberId` - Remover membro
 
 ### Tasks
 - `GET /tasks` - Listar tarefas (com filtros)
@@ -226,31 +302,41 @@ Admin > Manager > Developer > Viewer
 
 ## 🧪 Testes
 
-### Backend (45 testes)
+### Backend
 ```bash
-cd backend && npm run test
+cd backend
 
-# Exemplos de suítes:
-# ✅ Auth (login, register, JWT)
-# ✅ Tasks (CRUD, validações)
-# ✅ DTOs (class-validator real)
-# ✅ Utilities (helpers, formatters)
+npm run test           # Run all tests
+npm run test:watch     # Watch mode
+npm run test:cov       # With coverage
+
+# Suítes de testes:
+# ✅ Auth - Login, register, JWT validation
+# ✅ Tasks - CRUD operations, validations
+# ✅ DTOs - class-validator real validations (no mocks)
+# ✅ Utilities - Helpers, formatters
+# ✅ Guards - JWT auth guard, RBAC roles guard
 ```
 
-### Frontend (48 testes unitários + 25 testes E2E)
+### Frontend (Testes Unitários + E2E)
 ```bash
-cd frontend && npm run test
+cd frontend
+
+# Testes unitários com Vitest
+npm run test              # Run all unit tests
+npm run test:watch        # Watch mode
+npm run test:ui           # Visual UI
 
 # Suítes implementadas:
-# ✅ authStore (6 testes) - State management, localStorage, error handling
-# ✅ kanbanStore (24 testes) - Projects, tasks, columns CRUD
-# ✅ TaskCard (11 testes) - Component rendering, user interactions
-# ✅ Auth Integration (7 testes) - Login, register, logout flows
+# ✅ authStore - State management, localStorage, error handling
+# ✅ kanbanStore - Projects, tasks, columns CRUD
+# ✅ TaskCard - Component rendering, user interactions
+# ✅ Auth Integration - Login, register, logout flows
 
-# Testes com Vitest + Testing Library + jsdom
+# Stack: Vitest 3.2 + Testing Library + jsdom
 ```
 
-### Testes E2E com Playwright (25 testes)
+### Testes E2E com Playwright
 ```bash
 cd frontend && npm run test:e2e
 
@@ -364,4 +450,4 @@ MIT
 
 Desenvolvido como desafio técnico fullstack.
 
-**Stack:** React + TypeScript + NestJS + PostgreSQL
+**Stack:** React 19 + TypeScript 5.9 + Vite 7 + NestJS 11 + PostgreSQL (Supabase)

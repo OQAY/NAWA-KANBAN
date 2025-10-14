@@ -1,16 +1,23 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from '../database/entities/project.entity';
+import { ProjectMember } from '../database/entities/project-member.entity';
 import { User, UserRole } from '../database/entities/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { AddMemberDto } from './dto/add-member.dto';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private projectRepository: Repository<Project>,
+    @InjectRepository(ProjectMember)
+    private projectMemberRepository: Repository<ProjectMember>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async create(createProjectDto: CreateProjectDto, user: User): Promise<Project> {
@@ -68,6 +75,97 @@ export class ProjectsService {
     }
 
     await this.projectRepository.remove(project);
+  }
+
+  // Project Members Management
+
+  async getMembers(projectId: string, user: User): Promise<ProjectMember[]> {
+    const project = await this.findOne(projectId, user);
+
+    return this.projectMemberRepository.find({
+      where: { projectId },
+      relations: ['user'],
+      order: { createdAt: 'ASC' },
+    });
+  }
+
+  async addMember(projectId: string, addMemberDto: AddMemberDto, user: User): Promise<ProjectMember> {
+    const project = await this.findOne(projectId, user);
+
+    // Apenas o dono pode adicionar membros
+    if (project.ownerId !== user.id) {
+      throw new ForbiddenException('Only project owner can add members');
+    }
+
+    // Buscar usuário pelo email
+    const memberUser = await this.userRepository.findOne({ where: { email: addMemberDto.email } });
+    if (!memberUser) {
+      throw new NotFoundException(`User with email ${addMemberDto.email} not found`);
+    }
+
+    // Verificar se já é membro
+    const existingMember = await this.projectMemberRepository.findOne({
+      where: { projectId, userId: memberUser.id },
+    });
+
+    if (existingMember) {
+      throw new BadRequestException('User is already a member of this project');
+    }
+
+    // Criar novo membro
+    const member = this.projectMemberRepository.create({
+      projectId,
+      userId: memberUser.id,
+      role: addMemberDto.role,
+    });
+
+    const savedMember = await this.projectMemberRepository.save(member);
+
+    // Retornar com a relação user carregada
+    return this.projectMemberRepository.findOne({
+      where: { id: savedMember.id },
+      relations: ['user'],
+    });
+  }
+
+  async updateMember(projectId: string, memberId: string, updateMemberDto: UpdateMemberDto, user: User): Promise<ProjectMember> {
+    const project = await this.findOne(projectId, user);
+
+    // Apenas o dono pode atualizar membros
+    if (project.ownerId !== user.id) {
+      throw new ForbiddenException('Only project owner can update members');
+    }
+
+    const member = await this.projectMemberRepository.findOne({
+      where: { id: memberId, projectId },
+      relations: ['user'],
+    });
+
+    if (!member) {
+      throw new NotFoundException('Member not found');
+    }
+
+    member.role = updateMemberDto.role;
+    return this.projectMemberRepository.save(member);
+  }
+
+  async removeMember(projectId: string, memberId: string, user: User): Promise<void> {
+    const project = await this.findOne(projectId, user);
+
+    // Apenas o dono pode remover membros
+    if (project.ownerId !== user.id) {
+      throw new ForbiddenException('Only project owner can remove members');
+    }
+
+    const member = await this.projectMemberRepository.findOne({
+      where: { id: memberId, projectId },
+    });
+
+    if (!member) {
+      throw new NotFoundException('Member not found');
+    }
+
+    await this.projectMemberRepository.remove(member);
   }
 
   private checkProjectAccess(project: Project, user: User): void {

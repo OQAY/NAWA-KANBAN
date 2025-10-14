@@ -32,6 +32,12 @@ export class CreateTaskDto {
   @Max(3)
   priority?: number = 0;
 
+  @ApiProperty({ example: 0, default: 0, required: false, description: 'Visual position within column' })
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  position?: number;
+
   @ApiProperty({ example: '2024-12-31T23:59:59Z', required: false })
   @IsOptional()
   @IsDateString()

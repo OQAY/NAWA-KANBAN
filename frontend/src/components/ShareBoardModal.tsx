@@ -164,10 +164,8 @@ export default function ShareBoardModal({ isOpen, project, onClose }: ShareBoard
                       onChange={(e) => setRole(e.target.value)}
                       disabled={addingMember}
                     >
-                      <option value="viewer">Viewer</option>
-                      <option value="developer">Developer</option>
-                      <option value="manager">Manager</option>
-                      <option value="admin">Admin</option>
+                      <option value="viewer">Viewer (View only)</option>
+                      <option value="editor">Editor (Can edit)</option>
                     </select>
                   </div>
 
@@ -212,9 +210,7 @@ export default function ShareBoardModal({ isOpen, project, onClose }: ShareBoard
                               aria-label={`Change role for ${member.user.name}`}
                             >
                               <option value="viewer">Viewer</option>
-                              <option value="developer">Developer</option>
-                              <option value="manager">Manager</option>
-                              <option value="admin">Admin</option>
+                              <option value="editor">Editor</option>
                             </select>
                             <button
                               onClick={() => handleRemoveMember(member)}

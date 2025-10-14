@@ -24,6 +24,7 @@ export interface Task {
   description?: string;
   status: string;
   priority: number; // 0=none, 1=low, 2=medium, 3=high
+  position?: number; // Visual order within column
   dueDate?: string;
   projectId: string;
   assigneeId?: string;
@@ -70,6 +71,7 @@ export interface UpdateMemberRequest {
 export interface KanbanColumn {
   id: string;
   name: string;
+  status: string; // Status identifier (ex: 'pending', 'in_progress', 'testing', 'done')
   position: number;
   color?: string;
   userId: string;
