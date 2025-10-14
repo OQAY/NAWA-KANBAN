@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent, closestCorners } from '@dnd-kit/core';
+import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent, closestCorners, useDroppable, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useKanbanStore } from '../stores/kanbanStore';
 import { projectsApi, tasksApi, columnsApi } from '../api/services';
@@ -14,9 +14,15 @@ import { useTaskForm } from '../hooks/useTaskForm';
 import { useDebounce } from '../hooks/useDebounce';
 import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
-import { DEFAULT_COLUMNS } from '../constants';
+import { DEFAULT_COLUMNS } from '../constants/columns';
 import { ShareIcon, SearchIcon, PlusIcon } from '../components/icons/Icons';
 import './KanbanPage.css';
+
+// Droppable area component for empty columns
+function DroppableArea({ columnId, children }: { columnId: string; children: React.ReactNode }) {
+  const { setNodeRef } = useDroppable({ id: columnId });
+  return <div ref={setNodeRef} className="column-tasks">{children}</div>;
+}
 
 export default function KanbanPage() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -35,12 +41,22 @@ export default function KanbanPage() {
   const [filterPriority, setFilterPriority] = useState<number | 'all'>('all');
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
+  const [isSavingOrder, setIsSavingOrder] = useState(false);
 
   // Use custom hook for form state management
   const taskForm = useTaskForm();
 
   // Debounce search query to avoid excessive re-renders
   const debouncedSearch = useDebounce(searchQuery, 300);
+
+  // Configure drag sensors with activation delay to prevent accidental drags
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // Requires 8px movement before drag starts (allows clicks)
+      },
+    })
+  );
 
   useEffect(() => {
     if (projectId) {
@@ -59,19 +75,25 @@ export default function KanbanPage() {
         columnsApi.getAll(),
       ]);
 
+      // Tasks API returns paginated response: { data: [...], total, page, limit }
+      const tasksArray = tasksRes.data?.data || tasksRes.data || [];
+      const finalTasks = Array.isArray(tasksArray) ? tasksArray : [];
+
       setCurrentProject(projectRes.data);
-      setTasks(tasksRes.data);
-      setColumns(columnsRes.data);
+      setTasks(finalTasks);
+      setColumns(Array.isArray(columnsRes.data) ? columnsRes.data : []);
     } catch (error) {
       console.error('Failed to load project data:', error);
       toast.error('Failed to load board');
+      setTasks([]);
+      setColumns([]);
     } finally {
       setLoading(false);
     }
   }, [projectId, setCurrentProject, setTasks, setColumns, toast]);
 
-  const handleCreateTask = useCallback((columnId: string) => {
-    setSelectedColumnId(columnId);
+  const handleCreateTask = useCallback((columnStatus: string) => {
+    setSelectedColumnId(columnStatus);
     setEditingTask(null);
     taskForm.reset();
     setShowTaskModal(true);
@@ -136,7 +158,7 @@ export default function KanbanPage() {
 
   const handleDragStart = useCallback((event: DragStartEvent) => {
     const { active } = event;
-    const task = tasks.find(t => t.id === active.id);
+    const task = Array.isArray(tasks) ? tasks.find(t => t.id === active.id) : null;
     setActiveTask(task || null);
   }, [tasks]);
 
@@ -145,45 +167,155 @@ export default function KanbanPage() {
 
     setActiveTask(null);
 
-    if (!over) return;
+    if (!over || active.id === over.id || isSavingOrder) {
+      return;
+    }
 
     const taskId = active.id as string;
-    const newStatus = over.id as string;
+    const task = Array.isArray(tasks) ? tasks.find(t => t.id === taskId) : null;
+    if (!task) {
+      return;
+    }
 
-    const task = tasks.find(t => t.id === taskId);
-    if (!task || task.status === newStatus) return;
+    let newStatus: string;
+    let newPosition: number;
 
-    // Optimistic update
-    updateTask(taskId, { ...task, status: newStatus });
+    // Check if we dropped over a task or a column
+    const droppedOverTask = Array.isArray(tasks) ? tasks.find(t => t.id === over.id) : null;
+
+    if (droppedOverTask) {
+      // Dropped over a task - use the dropped task's actual position
+      newStatus = droppedOverTask.status;
+
+      // Use the actual position of the task we dropped over
+      // This is the position where we want to insert the dragged task
+      newPosition = droppedOverTask.position || 0;
+
+    } else {
+      // Dropped over a column (not over a specific task) - insert at end
+      // Try to find column in custom columns
+      const targetColumn = Array.isArray(columns) ? columns.find(c => c.id === over.id) : null;
+
+      if (targetColumn) {
+        newStatus = targetColumn.status;
+      } else {
+        // Try default columns
+        const defaultColumn = DEFAULT_COLUMNS.find(c => c.id === over.id);
+        if (defaultColumn) {
+          newStatus = defaultColumn.status;
+        } else {
+          // Fallback: try to match by status directly
+          const allColumns = [...(Array.isArray(columns) ? columns : []), ...DEFAULT_COLUMNS];
+          const matchedColumn = allColumns.find(c => c.status === over.id);
+          newStatus = matchedColumn ? matchedColumn.status : over.id as string;
+        }
+      }
+
+      // Insert at end of column (works for empty columns too)
+      const columnTasks = Array.isArray(tasks) ? tasks.filter(t => t.status === newStatus && t.id !== taskId) : [];
+      newPosition = columnTasks.length;
+    }
+
+    // Optimistic UI update - reorder all tasks in both old and new columns
+    const updatedTasks = Array.isArray(tasks) ? [...tasks] : [];
+    const taskIndex = updatedTasks.findIndex(t => t.id === taskId);
+    if (taskIndex === -1) return;
+
+    const oldStatus = task.status;
+    const movedTask = updatedTasks[taskIndex];
+
+    // Step 1: Get all tasks in the NEW column (excluding the moved task)
+    let newColumnTasks = updatedTasks.filter(t =>
+      t.status === newStatus && t.id !== taskId
+    ).sort((a, b) => (a.position || 0) - (b.position || 0));
+
+    // Step 2: Insert the moved task at the new position
+    newColumnTasks.splice(newPosition, 0, { ...movedTask, status: newStatus });
+
+    // Step 3: Reassign sequential positions (0, 1, 2, 3...)
+    newColumnTasks.forEach((t, index) => {
+      const idx = updatedTasks.findIndex(ut => ut.id === t.id);
+      if (idx !== -1) {
+        updatedTasks[idx] = { ...updatedTasks[idx], status: newStatus, position: index };
+      }
+    });
+
+    // Step 4: If status changed, recalculate positions for the OLD column too
+    if (oldStatus !== newStatus) {
+      const oldColumnTasks = updatedTasks
+        .filter(t => t.status === oldStatus)
+        .sort((a, b) => (a.position || 0) - (b.position || 0));
+
+      oldColumnTasks.forEach((t, index) => {
+        const idx = updatedTasks.findIndex(ut => ut.id === t.id);
+        if (idx !== -1) {
+          updatedTasks[idx] = { ...updatedTasks[idx], position: index };
+        }
+      });
+    }
+
+    // Update store with new task order (optimistic update)
+    setTasks(updatedTasks);
+    setIsSavingOrder(true);
 
     try {
-      await tasksApi.update(taskId, { status: newStatus });
+      // Send batch updates to backend for all affected tasks
+      // Only update tasks that changed position to minimize requests
+      const tasksToUpdate = updatedTasks.filter((t) => {
+        const original = tasks.find((ot) => ot.id === t.id);
+        return original && (original.position !== t.position || original.status !== t.status);
+      });
+
+      // Limit to max 10 concurrent updates to avoid overwhelming the server
+      const batchSize = 10;
+      for (let i = 0; i < tasksToUpdate.length; i += batchSize) {
+        const batch = tasksToUpdate.slice(i, i + batchSize);
+        await Promise.all(
+          batch.map((t) =>
+            tasksApi.update(t.id, {
+              status: t.status,
+              position: t.position,
+            })
+          )
+        );
+      }
+
       toast.success('Task moved successfully');
     } catch (error) {
       console.error('Failed to update task:', error);
       // Revert on error
-      updateTask(taskId, task);
+      setTasks(tasks);
       toast.error('Failed to move task');
+    } finally {
+      setIsSavingOrder(false);
     }
-  }, [tasks, updateTask, toast]);
+  }, [tasks, columns, setTasks, toast, isSavingOrder]);
 
   // Use default columns if user hasn't created custom ones
-  const displayColumns = useMemo(() =>
-    columns.length > 0 ? columns : DEFAULT_COLUMNS,
-    [columns]
-  );
+  const displayColumns = useMemo(() => {
+    if (!Array.isArray(columns)) {
+      return DEFAULT_COLUMNS;
+    }
+    return columns.length > 0 ? columns : DEFAULT_COLUMNS;
+  }, [columns]);
 
   // Filter tasks with memoization for performance
   const filteredTasks = useMemo(() => {
-    return tasks.filter(task => {
-      const matchesSearch =
-        task.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-        task.description?.toLowerCase().includes(debouncedSearch.toLowerCase());
-      const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
-      const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+    if (!Array.isArray(tasks)) {
+      return [];
+    }
 
-      return matchesSearch && matchesStatus && matchesPriority;
-    });
+    return tasks
+      .filter(task => {
+        const matchesSearch =
+          task.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+          task.description?.toLowerCase().includes(debouncedSearch.toLowerCase());
+        const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
+        const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+
+        return matchesSearch && matchesStatus && matchesPriority;
+      })
+      .sort((a, b) => (a.position || 0) - (b.position || 0)); // Sort by position
   }, [tasks, debouncedSearch, filterStatus, filterPriority]);
 
   if (loading) {
@@ -229,7 +361,7 @@ export default function KanbanPage() {
           >
             <option value="all">All Status</option>
             {displayColumns.map(col => (
-              <option key={col.id} value={col.id}>{col.name}</option>
+              <option key={col.id} value={col.status}>{col.name}</option>
             ))}
           </select>
 
@@ -252,10 +384,11 @@ export default function KanbanPage() {
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        sensors={sensors}
       >
         <div className="kanban-board">
           {displayColumns.map((column) => {
-            const columnTasks = filteredTasks.filter(t => t.status === column.id || t.status === column.name);
+            const columnTasks = filteredTasks.filter(t => t.status === column.status);
             const taskIds = columnTasks.map(t => t.id);
 
             return (
@@ -266,21 +399,22 @@ export default function KanbanPage() {
                 </div>
 
                 <SortableContext items={taskIds} strategy={verticalListSortingStrategy} id={column.id}>
-                  <div className="column-tasks" data-column-id={column.id}>
+                  <DroppableArea columnId={column.id}>
                     {columnTasks.map((task) => (
                       <TaskCard
                         key={task.id}
                         task={task}
                         onEdit={handleEditTask}
                         onDelete={handleDeleteTask}
+                        onClick={handleEditTask}
                         getPriorityColor={getPriorityColor}
                         getPriorityLabel={getPriorityLabel}
                       />
                     ))}
-                  </div>
+                  </DroppableArea>
                 </SortableContext>
 
-                <button onClick={() => handleCreateTask(column.id)} className="btn-add-task">
+                <button onClick={() => handleCreateTask(column.status)} className="btn-add-task">
                   <PlusIcon size={16} />
                   <span>Add Task</span>
                 </button>
