@@ -7,11 +7,12 @@ interface TaskCardProps {
   task: Task;
   onEdit: (task: Task) => void;
   onDelete: (taskId: string) => void;
+  onClick?: (task: Task) => void;
   getPriorityColor: (priority: number) => string;
   getPriorityLabel: (priority: number) => string;
 }
 
-function TaskCard({ task, onEdit, onDelete, getPriorityColor, getPriorityLabel }: TaskCardProps) {
+function TaskCard({ task, onEdit, onDelete, onClick, getPriorityColor, getPriorityLabel }: TaskCardProps) {
   const {
     attributes,
     listeners,
@@ -36,9 +37,21 @@ function TaskCard({ task, onEdit, onDelete, getPriorityColor, getPriorityLabel }
       className="task-card"
       role="article"
       aria-label={`Task: ${task.title}`}
+      onClick={(e) => {
+        // Only trigger onClick if not clicking on buttons
+        const target = e.target as HTMLElement;
+        if (!target.closest('button')) {
+          onClick?.(task);
+        }
+      }}
     >
       <div className="task-header">
-        <h4>{task.title}</h4>
+        <div className="task-header-left">
+          <div className="drag-handle" aria-label="Drag to move task" title="Drag to move">
+            ⋮⋮
+          </div>
+          <h4>{task.title}</h4>
+        </div>
         <div className="task-actions">
           <button
             onClick={(e) => {

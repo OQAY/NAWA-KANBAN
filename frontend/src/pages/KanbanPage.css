@@ -180,9 +180,10 @@
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  cursor: grab;
-  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   user-select: none;
+  border: 2px solid transparent;
 }
 
 .task-card:active {
@@ -192,6 +193,7 @@
 .task-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-color: #e0e7ff;
 }
 
 .task-card-dragging {
@@ -208,6 +210,33 @@
   margin-bottom: 8px;
 }
 
+.task-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.drag-handle {
+  background: none;
+  border: none;
+  padding: 4px 2px;
+  cursor: grab;
+  font-size: 14px;
+  color: #9ca3af;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.drag-handle:hover {
+  color: #667eea;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  color: #5a67d8;
+}
+
 .task-header h4 {
   margin: 0;
   font-size: 14px;
@@ -219,6 +248,7 @@
 .task-actions {
   display: flex;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .btn-icon {
@@ -426,5 +456,21 @@
 
   .modal-content {
     padding: 24px;
+  }
+}
+
+/* Mobile - Stack columns vertically */
+@media (max-width: 640px) {
+  .kanban-board {
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+    overflow-x: visible;
+  }
+
+  .kanban-column {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
   }
 }
