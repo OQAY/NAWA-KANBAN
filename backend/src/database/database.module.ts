@@ -6,6 +6,7 @@ import { Task } from './entities/task.entity';
 import { Project } from './entities/project.entity';
 import { Comment } from './entities/comment.entity';
 import { KanbanColumn } from './entities/column.entity';
+import { ProjectMember } from './entities/project-member.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { KanbanColumn } from './entities/column.entity';
         database: configService.get('DB_NAME'),
         ssl: { rejectUnauthorized: false },
         timezone: 'America/Sao_Paulo',
-        entities: [User, Task, Project, Comment, KanbanColumn],
+        entities: [User, Task, Project, Comment, KanbanColumn, ProjectMember],
         synchronize: true, // Enabled to create tables in new Supabase database
         logging: configService.get('NODE_ENV') === 'development',
       }),

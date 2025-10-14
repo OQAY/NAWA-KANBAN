@@ -49,6 +49,10 @@ export class Task {
   @Column({ default: 0 })
   priority: number;
 
+  // Posição da task dentro da coluna (para ordenação customizada)
+  @Column({ default: 0 })
+  position: number;
+
   @Column({ name: 'due_date', nullable: true })
   dueDate: Date;
 

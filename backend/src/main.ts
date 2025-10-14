@@ -10,15 +10,23 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Habilita CORS para comunicação com frontend
+  // Habilita CORS para comunicação com frontend (incluindo portas Vite 5173-5177)
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production' 
+    origin: process.env.NODE_ENV === 'production'
       ? [
           'https://kanban-oqay-git-main-lucas-projects-5fb33266.vercel.app',
           'https://kanban-oqay-c78fnebgu-lucas-projects-5fb33266.vercel.app',
           /https:\/\/.*\.vercel\.app$/
         ]
-      : ['http://localhost:4200', 'http://localhost:4201'],
+      : [
+          'http://localhost:4200',
+          'http://localhost:4201',
+          'http://localhost:5173',
+          'http://localhost:5174',
+          'http://localhost:5175',
+          'http://localhost:5176',
+          'http://localhost:5177',
+        ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

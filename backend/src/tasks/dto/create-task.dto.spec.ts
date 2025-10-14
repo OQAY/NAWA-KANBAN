@@ -1,6 +1,13 @@
 import { validate } from 'class-validator';
 import { CreateTaskDto } from './create-task.dto';
-import { TaskStatus } from '../../database/entities/task.entity';
+
+// Status dinâmicos - agora baseado em colunas customizáveis
+const TASK_STATUSES = {
+  PENDING: 'pending',
+  IN_PROGRESS: 'in_progress',
+  TESTING: 'testing',
+  DONE: 'done',
+};
 
 describe('CreateTaskDto - Testes de Validação Reais', () => {
 
@@ -78,14 +85,14 @@ describe('CreateTaskDto - Testes de Validação Reais', () => {
       }
     });
 
-    it('deve validar status enum corretamente', async () => {
+    it('deve validar status string corretamente', async () => {
       const dto = new CreateTaskDto();
       dto.title = 'Task teste';
       dto.projectId = '123e4567-e89b-12d3-a456-426614174000';
-      dto.status = TaskStatus.IN_PROGRESS;
+      dto.status = TASK_STATUSES.IN_PROGRESS;
 
       const errors = await validate(dto);
-      
+
       expect(errors).toHaveLength(0);
     });
   });
@@ -93,8 +100,9 @@ describe('CreateTaskDto - Testes de Validação Reais', () => {
   describe('Valores padrão', () => {
     it('deve usar valores padrão corretos', () => {
       const dto = new CreateTaskDto();
-      
-      expect(dto.status).toBe(TaskStatus.PENDING);
+
+      // Status é opcional agora (dinâmico), mas priority tem valor padrão
+      expect(dto.status).toBeUndefined(); // Status definido pelo serviço/entidade
       expect(dto.priority).toBe(0);
     });
   });
