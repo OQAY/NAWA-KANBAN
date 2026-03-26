@@ -26,6 +26,7 @@ export interface Task {
   priority: number; // 0=none, 1=low, 2=medium, 3=high
   position?: number; // Visual order within column
   dueDate?: string;
+  startDate?: string;
   projectId: string;
   assigneeId?: string;
   createdById: string;

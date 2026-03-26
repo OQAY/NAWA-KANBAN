@@ -4,4 +4,18 @@
    .btn-primary, .btn-secondary from design-system.css
    ================================================================ */
 
-/* No extra overrides needed — the design system handles it all */
+.task-modal-smart {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-group-half {
+  flex: 1;
+  min-width: 0;
+}
