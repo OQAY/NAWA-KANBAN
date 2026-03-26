@@ -13,49 +13,49 @@ export class ChecklistsController {
 
   @Get('tasks/:taskId/checklists')
   @ApiOperation({ summary: 'Get checklists for a task' })
-  findByTask(@Param('taskId') taskId: string) {
-    return this.checklistsService.findByTask(taskId);
+  findByTask(@Param('taskId') taskId: string, @Request() req) {
+    return this.checklistsService.findByTask(taskId, req.user);
   }
 
   @Post('tasks/:taskId/checklists')
   @ApiOperation({ summary: 'Create a checklist for a task' })
-  createChecklist(@Param('taskId') taskId: string, @Body() dto: CreateChecklistDto) {
-    return this.checklistsService.createChecklist(taskId, dto.title);
+  createChecklist(@Param('taskId') taskId: string, @Body() dto: CreateChecklistDto, @Request() req) {
+    return this.checklistsService.createChecklist(taskId, dto.title, req.user);
   }
 
   @Patch('checklists/:id')
   @ApiOperation({ summary: 'Rename a checklist' })
-  updateChecklist(@Param('id') id: string, @Body() dto: CreateChecklistDto) {
-    return this.checklistsService.updateChecklist(id, dto.title);
+  updateChecklist(@Param('id') id: string, @Body() dto: CreateChecklistDto, @Request() req) {
+    return this.checklistsService.updateChecklist(id, dto.title, req.user);
   }
 
   @Delete('checklists/:id')
   @ApiOperation({ summary: 'Delete a checklist and its items' })
-  removeChecklist(@Param('id') id: string) {
-    return this.checklistsService.removeChecklist(id);
+  removeChecklist(@Param('id') id: string, @Request() req) {
+    return this.checklistsService.removeChecklist(id, req.user);
   }
 
   @Post('checklists/:id/items')
   @ApiOperation({ summary: 'Add item to checklist' })
-  addItem(@Param('id') checklistId: string, @Body() dto: CreateChecklistItemDto) {
-    return this.checklistsService.addItem(checklistId, dto.text);
+  addItem(@Param('id') checklistId: string, @Body() dto: CreateChecklistItemDto, @Request() req) {
+    return this.checklistsService.addItem(checklistId, dto.text, req.user);
   }
 
   @Patch('checklist-items/:id')
   @ApiOperation({ summary: 'Update checklist item text or status' })
   updateItem(@Param('id') id: string, @Body() dto: UpdateChecklistItemDto, @Request() req) {
-    return this.checklistsService.updateItem(id, dto, req.user?.id);
+    return this.checklistsService.updateItem(id, dto, req.user);
   }
 
   @Patch('checklist-items/:id/toggle')
   @ApiOperation({ summary: 'Toggle checklist item completion' })
   toggleItem(@Param('id') id: string, @Request() req) {
-    return this.checklistsService.toggleItem(id, req.user?.id);
+    return this.checklistsService.toggleItem(id, req.user);
   }
 
   @Delete('checklist-items/:id')
   @ApiOperation({ summary: 'Delete checklist item' })
-  removeItem(@Param('id') id: string) {
-    return this.checklistsService.removeItem(id);
+  removeItem(@Param('id') id: string, @Request() req) {
+    return this.checklistsService.removeItem(id, req.user);
   }
 }
