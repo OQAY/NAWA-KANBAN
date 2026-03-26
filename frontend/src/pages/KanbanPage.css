@@ -301,7 +301,39 @@
 .task-footer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.task-assignee-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.task-due-date {
+  padding: 2px 6px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  background: var(--white);
+}
+
+.task-due-date.overdue {
+  color: #ef4444;
+  background: #fef2f2;
+  border-color: #ef4444;
 }
 
 .task-priority {
@@ -313,6 +345,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-left: auto;
 }
 
 /* Add Task Button */
