@@ -15,6 +15,7 @@ import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
 import { DEFAULT_COLUMNS } from '../constants/columns';
 import CalendarView from '../components/CalendarView';
+import TableView from '../components/TableView';
 import { ShareIcon, SearchIcon, PlusIcon } from '../components/icons/Icons';
 import './KanbanPage.css';
 
@@ -43,7 +44,7 @@ export default function KanbanPage() {
   const [filterAssignee, setFilterAssignee] = useState<string>('all');
   const [filterDueDate, setFilterDueDate] = useState<string>('all');
   const [projectMembers, setProjectMembers] = useState<ProjectMember[]>([]);
-  const [viewMode, setViewMode] = useState<'kanban' | 'calendar'>('kanban');
+  const [viewMode, setViewMode] = useState<'kanban' | 'calendar' | 'table'>('kanban');
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
@@ -391,6 +392,12 @@ export default function KanbanPage() {
             >
               Calendário
             </button>
+            <button
+              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+              onClick={() => setViewMode('table')}
+            >
+              Tabela
+            </button>
           </div>
         </div>
 
@@ -464,6 +471,24 @@ export default function KanbanPage() {
       {/* Calendar View */}
       {viewMode === 'calendar' && (
         <CalendarView tasks={filteredTasks} onTaskClick={handleEditTask} />
+      )}
+
+      {/* Table View */}
+      {viewMode === 'table' && (
+        <TableView
+          tasks={filteredTasks}
+          columns={displayColumns}
+          projectMembers={projectMembers}
+          onTaskClick={handleEditTask}
+          onTaskUpdate={async (taskId, data) => {
+            try {
+              const res = await tasksApi.update(taskId, data);
+              updateTask(taskId, res.data);
+            } catch {
+              toast.error('Failed to update task');
+            }
+          }}
+        />
       )}
 
       {/* Kanban Board with Drag & Drop */}

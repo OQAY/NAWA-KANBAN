@@ -1,0 +1,102 @@
+/* ================================================================
+   TABLE VIEW — Neubrutalism V25
+   ================================================================ */
+
+.table-view {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.table-view-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid var(--black);
+  border-radius: var(--radius, 8px);
+  overflow: hidden;
+}
+
+.table-view-table thead {
+  background: var(--gray-50, #f9fafb);
+}
+
+.table-view-table th {
+  padding: 10px 14px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  border-bottom: 2px solid var(--black);
+  white-space: nowrap;
+}
+
+.table-view-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-view-table th.sortable:hover {
+  background: var(--gray-100, #f3f4f6);
+}
+
+.table-view-table td {
+  padding: 10px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+  vertical-align: middle;
+}
+
+.table-row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.table-row:hover {
+  background: var(--gray-50, #f9fafb);
+}
+
+.table-title-cell {
+  font-weight: 600;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-status-badge {
+  padding: 2px 8px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.table-assignee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.table-labels {
+  display: flex;
+  gap: 3px;
+  flex-wrap: nowrap;
+}
+
+.table-empty {
+  color: var(--gray-400, #9ca3af);
+  font-size: 12px;
+}
+
+.table-empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray-500, #9ca3af);
+  font-size: 14px;
+}
