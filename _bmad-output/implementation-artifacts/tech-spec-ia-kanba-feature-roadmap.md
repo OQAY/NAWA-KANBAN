@@ -1062,7 +1062,9 @@ Atualmente o footer do `TaskCard` tem apenas o priority badge. Para adicionar du
   REGRA: NÃO pausar entre os passos para perguntar "quer continuar?".
   REGRA: NÃO perguntar "posso fazer o commit?" — faça o commit.
   REGRA: NÃO perguntar "quer que eu rode o code review?" — rode.
+  REGRA: NÃO perguntar "quer que eu continue para a próxima fase?" — continue.
   REGRA: Só pausar se houver ERRO BLOQUEANTE que requer decisão humana.
+  REGRA: 100% AUTONOMIA — trabalhar continuamente da Fase 1 até a Fase 6 sem NENHUMA pausa para confirmação do usuário.
   ```
 
 - **Começar sempre pela Task 1.0pre** → depois 1.0 — o refactor do TaskModal é pré-requisito para 1.1, 1.2, 1.3, 1.4, 1.5
