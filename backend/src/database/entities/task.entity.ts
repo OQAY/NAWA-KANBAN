@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Project } from './project.entity';
 import { Comment } from './comment.entity';
 import { KanbanColumn } from './column.entity';
+import { Label } from './label.entity';
 
 // TaskStatus enum removido - agora usa status dinâmico baseado em colunas customizáveis
 
@@ -64,6 +65,10 @@ export class Task {
 
   @OneToMany(() => Comment, comment => comment.task)
   comments: Comment[];
+
+  @ManyToMany(() => Label, label => label.tasks)
+  @JoinTable({ name: 'task_labels' })
+  labels: Label[];
 
   @ManyToOne(() => KanbanColumn, column => column.tasks, { nullable: true })
   @JoinColumn({ name: 'column_id' })

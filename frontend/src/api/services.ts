@@ -13,6 +13,11 @@ import type {
   UpdateMemberRequest,
   Organization,
   OrganizationOverview,
+  Label,
+  Checklist,
+  ChecklistItem,
+  AppNotification,
+  ActivityLogEntry,
 } from '../types';
 
 // Auth API
@@ -155,4 +160,76 @@ export const commentsApi = {
 
   delete: (id: string) =>
     api.delete(`/comments/${id}`),
+};
+
+// Labels API
+export const labelsApi = {
+  getByProject: (projectId: string) =>
+    api.get<Label[]>('/labels', { params: { projectId } }),
+
+  create: (data: { name: string; color: string; projectId: string }) =>
+    api.post<Label>('/labels', data),
+
+  update: (id: string, data: { name?: string; color?: string }) =>
+    api.patch<Label>(`/labels/${id}`, data),
+
+  delete: (id: string) =>
+    api.delete(`/labels/${id}`),
+
+  addToTask: (taskId: string, labelId: string) =>
+    api.post(`/tasks/${taskId}/labels/${labelId}`),
+
+  removeFromTask: (taskId: string, labelId: string) =>
+    api.delete(`/tasks/${taskId}/labels/${labelId}`),
+};
+
+// Checklists API
+export const checklistsApi = {
+  getByTask: (taskId: string) =>
+    api.get<Checklist[]>(`/tasks/${taskId}/checklists`),
+
+  create: (taskId: string, title: string) =>
+    api.post<Checklist>(`/tasks/${taskId}/checklists`, { title }),
+
+  update: (id: string, title: string) =>
+    api.patch<Checklist>(`/checklists/${id}`, { title }),
+
+  delete: (id: string) =>
+    api.delete(`/checklists/${id}`),
+
+  addItem: (checklistId: string, text: string) =>
+    api.post<ChecklistItem>(`/checklists/${checklistId}/items`, { text }),
+
+  updateItem: (itemId: string, data: { text?: string; completed?: boolean }) =>
+    api.patch<ChecklistItem>(`/checklist-items/${itemId}`, data),
+
+  toggleItem: (itemId: string) =>
+    api.patch<ChecklistItem>(`/checklist-items/${itemId}/toggle`),
+
+  deleteItem: (itemId: string) =>
+    api.delete(`/checklist-items/${itemId}`),
+};
+
+// Notifications API
+export const notificationsApi = {
+  getAll: () =>
+    api.get<AppNotification[]>('/notifications'),
+
+  markAsRead: (id: string) =>
+    api.patch<AppNotification>(`/notifications/${id}/read`),
+
+  markAllAsRead: () =>
+    api.patch('/notifications/read-all'),
+};
+
+// Search API
+export const searchApi = {
+  search: (q: string) =>
+    api.get<{ type: string; id: string; title: string; projectName?: string; projectId?: string }[]>('/search', { params: { q } }),
+};
+
+// Activity Log API
+export const activityLogApi = {
+  getByTask: (taskId: string, limit = 20) =>
+    api.get<ActivityLogEntry[]>('/activity-log', { params: { taskId, limit } }),
 };

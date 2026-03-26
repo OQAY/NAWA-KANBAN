@@ -35,6 +35,7 @@ export interface Task {
   updatedAt: string;
   assignee?: User;
   createdBy?: User;
+  labels?: Label[];
 }
 
 // Project types
@@ -80,6 +81,61 @@ export interface KanbanColumn {
   tasks?: Task[];
   createdAt: string;
   updatedAt: string;
+}
+
+// Label types
+export interface Label {
+  id: string;
+  name: string;
+  color: string;
+  projectId: string;
+  createdAt: string;
+}
+
+// Activity Log types
+export interface ActivityLogEntry {
+  id: string;
+  entityId: string;
+  entityType: string;
+  action: string;
+  userId: string;
+  user?: User;
+  changes?: Record<string, unknown>;
+  createdAt: string;
+}
+
+// Notification types
+export interface AppNotification {
+  id: string;
+  userId: string;
+  type: 'task_assigned' | 'task_commented' | 'due_date_warning' | 'member_added';
+  title: string;
+  body?: string;
+  read: boolean;
+  entityId?: string;
+  entityType?: string;
+  createdAt: string;
+}
+
+// Checklist types
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  order: number;
+  completedAt?: string;
+  completedById?: string;
+  checklistId: string;
+  createdAt: string;
+}
+
+export interface Checklist {
+  id: string;
+  title: string;
+  order: number;
+  taskId: string;
+  items: ChecklistItem[];
+  createdAt: string;
 }
 
 // Comment types

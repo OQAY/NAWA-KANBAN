@@ -19,3 +19,37 @@
   flex: 1;
   min-width: 0;
 }
+
+.task-modal-tabs {
+  margin-top: 16px;
+  border-top: 2px solid var(--black);
+  padding-top: 0;
+}
+
+.tab-headers {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--gray-200, #e5e7eb);
+  margin-bottom: 8px;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--gray-500, #9ca3af);
+}
+
+.tab-btn.active {
+  color: var(--black);
+  border-bottom-color: var(--black);
+}
+
+.tab-btn:hover {
+  color: var(--black);
+}

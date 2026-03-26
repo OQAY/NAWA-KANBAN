@@ -4,14 +4,18 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import type { Task, KanbanColumn, ProjectMember } from '../types';
+import type { Task, KanbanColumn, ProjectMember, Label } from '../types';
 import { tasksApi, projectsApi } from '../api/services';
 import { useAuthStore } from '../stores/authStore';
 import { useToastContext } from '../contexts/ToastContext';
 import { PRIORITY_OPTIONS } from '../constants';
 import { PRIORITY } from '../constants/priorities';
 import CommentSection from './CommentSection';
+import LabelSelector from './LabelSelector';
+import ChecklistSection from './ChecklistSection';
+import ActivityTab from './ActivityTab';
 import './TaskModal.css';
+import './Labels.css';
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -49,8 +53,14 @@ export default function TaskModal({
   // Members state
   const [projectMembers, setProjectMembers] = useState<ProjectMember[]>([]);
 
+  // Labels state
+  const [taskLabels, setTaskLabels] = useState<Label[]>([]);
+
   // Loading state
   const [saving, setSaving] = useState(false);
+
+  // Tab state for comments/activity
+  const [activeTab, setActiveTab] = useState<'comments' | 'activity'>('comments');
 
   // Initialize form when modal opens or editingTask changes
   useEffect(() => {
@@ -64,6 +74,7 @@ export default function TaskModal({
       setDueDate(formatDateForInput(editingTask.dueDate));
       setStartDate(formatDateForInput(editingTask.startDate));
       setAssigneeId(editingTask.assigneeId || '');
+      setTaskLabels(editingTask.labels || []);
     } else {
       // New task — reset form
       setTitle('');
@@ -73,6 +84,7 @@ export default function TaskModal({
       setDueDate('');
       setStartDate('');
       setAssigneeId('');
+      setTaskLabels([]);
     }
   }, [isOpen, editingTask, initialStatus]);
 
@@ -228,9 +240,48 @@ export default function TaskModal({
           </select>
         </div>
 
-        {/* Comments — only for existing tasks */}
+        {/* Labels — only for existing tasks */}
+        {editingTask && (
+          <div className="form-group">
+            <label>Labels</label>
+            <LabelSelector
+              projectId={projectId}
+              taskId={editingTask.id}
+              selectedLabels={taskLabels}
+              onLabelsChange={setTaskLabels}
+            />
+          </div>
+        )}
+
+        {/* Checklists — only for existing tasks */}
+        {editingTask && (
+          <ChecklistSection taskId={editingTask.id} />
+        )}
+
+        {/* Comments / Activity tabs — only for existing tasks */}
         {editingTask && user && (
-          <CommentSection taskId={editingTask.id} currentUserId={user.id} />
+          <div className="task-modal-tabs">
+            <div className="tab-headers">
+              <button
+                className={`tab-btn ${activeTab === 'comments' ? 'active' : ''}`}
+                onClick={() => setActiveTab('comments')}
+              >
+                Comentários
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
+                onClick={() => setActiveTab('activity')}
+              >
+                Atividade
+              </button>
+            </div>
+            {activeTab === 'comments' && (
+              <CommentSection taskId={editingTask.id} currentUserId={user.id} />
+            )}
+            {activeTab === 'activity' && (
+              <ActivityTab taskId={editingTask.id} />
+            )}
+          </div>
         )}
 
         <div className="modal-actions">

@@ -3,6 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { Task } from '../types';
 import { isDueDateOverdue, formatDueDate, getAvatarColor } from '../utils/dates';
+import './Labels.css';
 
 interface TaskCardProps {
   task: Task;
@@ -81,6 +82,23 @@ function TaskCard({ task, onEdit, onDelete, onClick, getPriorityColor, getPriori
 
       {task.description && (
         <p className="task-description">{task.description}</p>
+      )}
+
+      {task.labels && task.labels.length > 0 && (
+        <div className="task-labels">
+          {task.labels.slice(0, 3).map(label => (
+            <span
+              key={label.id}
+              className="label-badge"
+              style={{ backgroundColor: label.color + '22', color: label.color, borderColor: label.color }}
+            >
+              {label.name}
+            </span>
+          ))}
+          {task.labels.length > 3 && (
+            <span className="label-badge label-more">+{task.labels.length - 3}</span>
+          )}
+        </div>
       )}
 
       <div className="task-footer">

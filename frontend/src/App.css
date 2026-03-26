@@ -39,3 +39,14 @@
   from { transform: translateY(0); box-shadow: var(--shadow); }
   to { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 }
+
+/* Global notification + search wrapper */
+.global-notification-wrapper {
+  position: fixed;
+  top: 16px;
+  right: 72px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

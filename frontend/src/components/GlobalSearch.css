@@ -1,0 +1,137 @@
+/* ================================================================
+   GLOBAL SEARCH — Neubrutalism V25
+   ================================================================ */
+
+.global-search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 2px solid var(--black);
+  border-radius: var(--radius, 8px);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500, #9ca3af);
+}
+
+.global-search-trigger:hover {
+  background: var(--gray-50, #f9fafb);
+}
+
+.global-search-shortcut {
+  padding: 1px 4px;
+  border: 1px solid var(--gray-300, #d1d5db);
+  border-radius: 3px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.global-search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  padding-top: 15vh;
+  z-index: 200;
+}
+
+.global-search-modal {
+  width: 500px;
+  max-height: 400px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: var(--radius, 8px);
+  box-shadow: 6px 6px 0 var(--black);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.global-search-input {
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 2px solid var(--black);
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+}
+
+.global-search-results {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.global-search-status {
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray-500, #9ca3af);
+}
+
+.global-search-group {
+  padding: 8px 0;
+}
+
+.global-search-group h4 {
+  padding: 4px 16px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gray-500, #9ca3af);
+  letter-spacing: 0.5px;
+}
+
+.global-search-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.global-search-item:hover {
+  background: var(--gray-50, #f9fafb);
+}
+
+.search-item-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 2px solid var(--black);
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  background: var(--lavender, #e9d5ff);
+  flex-shrink: 0;
+}
+
+.search-item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-item-meta {
+  font-size: 11px;
+  color: var(--gray-500, #9ca3af);
+}
