@@ -84,6 +84,33 @@
   box-shadow: none;
 }
 
+.view-toggle {
+  display: flex;
+  border: 2px solid var(--black);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-left: 8px;
+}
+
+.view-toggle-btn {
+  padding: 6px 14px;
+  border: none;
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.view-toggle-btn:not(:last-child) {
+  border-right: 2px solid var(--black);
+}
+
+.view-toggle-btn.active {
+  background: var(--black);
+  color: var(--white);
+}
+
 /* Search and Filters */
 .header-filters {
   display: flex;

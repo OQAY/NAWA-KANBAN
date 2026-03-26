@@ -14,6 +14,7 @@ import { useDebounce } from '../hooks/useDebounce';
 import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
 import { DEFAULT_COLUMNS } from '../constants/columns';
+import CalendarView from '../components/CalendarView';
 import { ShareIcon, SearchIcon, PlusIcon } from '../components/icons/Icons';
 import './KanbanPage.css';
 
@@ -42,6 +43,7 @@ export default function KanbanPage() {
   const [filterAssignee, setFilterAssignee] = useState<string>('all');
   const [filterDueDate, setFilterDueDate] = useState<string>('all');
   const [projectMembers, setProjectMembers] = useState<ProjectMember[]>([]);
+  const [viewMode, setViewMode] = useState<'kanban' | 'calendar'>('kanban');
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
@@ -376,6 +378,20 @@ export default function KanbanPage() {
             <ShareIcon size={18} />
             <span>Share</span>
           </button>
+          <div className="view-toggle">
+            <button
+              className={`view-toggle-btn ${viewMode === 'kanban' ? 'active' : ''}`}
+              onClick={() => setViewMode('kanban')}
+            >
+              Board
+            </button>
+            <button
+              className={`view-toggle-btn ${viewMode === 'calendar' ? 'active' : ''}`}
+              onClick={() => setViewMode('calendar')}
+            >
+              Calendário
+            </button>
+          </div>
         </div>
 
         {/* Search and Filters */}
@@ -445,8 +461,13 @@ export default function KanbanPage() {
         </div>
       </header>
 
+      {/* Calendar View */}
+      {viewMode === 'calendar' && (
+        <CalendarView tasks={filteredTasks} onTaskClick={handleEditTask} />
+      )}
+
       {/* Kanban Board with Drag & Drop */}
-      <DndContext
+      {viewMode === 'kanban' && <DndContext
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
@@ -509,7 +530,7 @@ export default function KanbanPage() {
             </div>
           )}
         </DragOverlay>
-      </DndContext>
+      </DndContext>}
 
       {/* Task Modal */}
       <TaskModal
