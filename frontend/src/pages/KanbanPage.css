@@ -137,6 +137,25 @@
   box-shadow: var(--shadow-sm);
 }
 
+.btn-clear-filters {
+  padding: 6px 12px;
+  border: 2px solid var(--black);
+  border-radius: var(--radius);
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.btn-clear-filters:hover {
+  background: #ef4444;
+  color: white;
+}
+
 /* Board */
 .kanban-board {
   flex: 1;

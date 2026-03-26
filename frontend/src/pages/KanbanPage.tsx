@@ -4,7 +4,7 @@ import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent, closes
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useKanbanStore } from '../stores/kanbanStore';
 import { projectsApi, tasksApi, columnsApi } from '../api/services';
-import type { Task } from '../types';
+import type { Task, ProjectMember } from '../types';
 import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -39,6 +39,9 @@ export default function KanbanPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterPriority, setFilterPriority] = useState<number | 'all'>('all');
+  const [filterAssignee, setFilterAssignee] = useState<string>('all');
+  const [filterDueDate, setFilterDueDate] = useState<string>('all');
+  const [projectMembers, setProjectMembers] = useState<ProjectMember[]>([]);
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
@@ -90,6 +93,14 @@ export default function KanbanPage() {
       loadProjectData();
     }
   }, [projectId, loadProjectData]);
+
+  // Load project members for assignee filter
+  useEffect(() => {
+    if (!projectId) return;
+    projectsApi.getMembers(projectId)
+      .then((res) => setProjectMembers(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setProjectMembers([]));
+  }, [projectId]);
 
   // Refresh board when AI makes changes
   useEffect(() => {
@@ -287,6 +298,11 @@ export default function KanbanPage() {
       return [];
     }
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(endOfWeek.getDate() + (7 - endOfWeek.getDay()));
+
     return tasks
       .filter(task => {
         const matchesSearch =
@@ -294,11 +310,46 @@ export default function KanbanPage() {
           task.description?.toLowerCase().includes(debouncedSearch.toLowerCase());
         const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
         const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
+        const matchesAssignee = filterAssignee === 'all' || task.assigneeId === filterAssignee;
 
-        return matchesSearch && matchesStatus && matchesPriority;
+        let matchesDueDate = true;
+        if (filterDueDate !== 'all') {
+          if (filterDueDate === 'no_date') {
+            matchesDueDate = !task.dueDate;
+          } else if (filterDueDate === 'overdue') {
+            matchesDueDate = !!task.dueDate && new Date(task.dueDate) < today;
+          } else if (filterDueDate === 'today') {
+            if (!task.dueDate) { matchesDueDate = false; }
+            else {
+              const due = new Date(task.dueDate);
+              due.setHours(0, 0, 0, 0);
+              matchesDueDate = due.getTime() === today.getTime();
+            }
+          } else if (filterDueDate === 'this_week') {
+            if (!task.dueDate) { matchesDueDate = false; }
+            else {
+              const due = new Date(task.dueDate);
+              matchesDueDate = due >= today && due <= endOfWeek;
+            }
+          }
+        }
+
+        return matchesSearch && matchesStatus && matchesPriority && matchesAssignee && matchesDueDate;
       })
-      .sort((a, b) => (a.position || 0) - (b.position || 0)); // Sort by position
-  }, [tasks, debouncedSearch, filterStatus, filterPriority]);
+      .sort((a, b) => (a.position || 0) - (b.position || 0));
+  }, [tasks, debouncedSearch, filterStatus, filterPriority, filterAssignee, filterDueDate]);
+
+  // Count active filters for clear button
+  const activeFilterCount = [filterStatus, filterPriority, filterAssignee, filterDueDate]
+    .filter(f => f !== 'all').length;
+
+  const clearAllFilters = useCallback(() => {
+    setFilterStatus('all');
+    setFilterPriority('all');
+    setFilterAssignee('all');
+    setFilterDueDate('all');
+    setSearchQuery('');
+  }, []);
 
   if (loading) {
     return <LoadingSpinner fullScreen message="Loading board..." />;
@@ -358,6 +409,35 @@ export default function KanbanPage() {
             <option value={1}>Low</option>
             <option value={0}>None</option>
           </select>
+
+          <select
+            value={filterAssignee}
+            onChange={(e) => setFilterAssignee(e.target.value)}
+            className="filter-select"
+          >
+            <option value="all">All Assignees</option>
+            {projectMembers.map(m => (
+              <option key={m.userId} value={m.userId}>{m.user?.name || m.userId}</option>
+            ))}
+          </select>
+
+          <select
+            value={filterDueDate}
+            onChange={(e) => setFilterDueDate(e.target.value)}
+            className="filter-select"
+          >
+            <option value="all">All Dates</option>
+            <option value="overdue">Atrasadas</option>
+            <option value="today">Hoje</option>
+            <option value="this_week">Esta semana</option>
+            <option value="no_date">Sem data</option>
+          </select>
+
+          {activeFilterCount > 0 && (
+            <button onClick={clearAllFilters} className="btn-clear-filters">
+              Limpar ({activeFilterCount})
+            </button>
+          )}
         </div>
       </header>
 
