@@ -92,6 +92,27 @@ export interface Label {
   createdAt: string;
 }
 
+// Checklist types
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  order: number;
+  completedAt?: string;
+  completedById?: string;
+  checklistId: string;
+  createdAt: string;
+}
+
+export interface Checklist {
+  id: string;
+  title: string;
+  order: number;
+  taskId: string;
+  items: ChecklistItem[];
+  createdAt: string;
+}
+
 // Comment types
 export interface Comment {
   id: string;

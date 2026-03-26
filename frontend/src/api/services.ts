@@ -14,6 +14,8 @@ import type {
   Organization,
   OrganizationOverview,
   Label,
+  Checklist,
+  ChecklistItem,
 } from '../types';
 
 // Auth API
@@ -177,4 +179,31 @@ export const labelsApi = {
 
   removeFromTask: (taskId: string, labelId: string) =>
     api.delete(`/tasks/${taskId}/labels/${labelId}`),
+};
+
+// Checklists API
+export const checklistsApi = {
+  getByTask: (taskId: string) =>
+    api.get<Checklist[]>(`/tasks/${taskId}/checklists`),
+
+  create: (taskId: string, title: string) =>
+    api.post<Checklist>(`/tasks/${taskId}/checklists`, { title }),
+
+  update: (id: string, title: string) =>
+    api.patch<Checklist>(`/checklists/${id}`, { title }),
+
+  delete: (id: string) =>
+    api.delete(`/checklists/${id}`),
+
+  addItem: (checklistId: string, text: string) =>
+    api.post<ChecklistItem>(`/checklists/${checklistId}/items`, { text }),
+
+  updateItem: (itemId: string, data: { text?: string; completed?: boolean }) =>
+    api.patch<ChecklistItem>(`/checklist-items/${itemId}`, data),
+
+  toggleItem: (itemId: string) =>
+    api.patch<ChecklistItem>(`/checklist-items/${itemId}/toggle`),
+
+  deleteItem: (itemId: string) =>
+    api.delete(`/checklist-items/${itemId}`),
 };

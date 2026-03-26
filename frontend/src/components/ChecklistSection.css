@@ -1,0 +1,146 @@
+/* ================================================================
+   CHECKLIST SECTION — Neubrutalism V25
+   ================================================================ */
+
+.checklist-section {
+  margin-top: 16px;
+  border-top: 2px solid var(--black);
+  padding-top: 16px;
+}
+
+.checklist-section-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.checklist-loading {
+  font-size: 13px;
+  color: var(--gray-600, #6b7280);
+  font-style: italic;
+}
+
+.checklist-block {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.checklist-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.checklist-header strong {
+  font-size: 13px;
+  flex: 1;
+}
+
+.checklist-progress {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--gray-500, #9ca3af);
+}
+
+.checklist-progress-bar {
+  height: 4px;
+  background: var(--gray-200, #e5e7eb);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.checklist-progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 2px;
+  transition: width 0.2s;
+}
+
+.checklist-progress-fill.complete {
+  background: #10b981;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.checklist-item.checked .checklist-item-text {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.checklist-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checklist-item-text {
+  font-size: 13px;
+  flex: 1;
+  word-break: break-word;
+}
+
+.checklist-item-delete {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--gray-400, #9ca3af);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.checklist-item:hover .checklist-item-delete {
+  opacity: 1;
+}
+
+.checklist-item-delete:hover {
+  color: #ef4444;
+}
+
+.checklist-add-item {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.checklist-add-item input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 2px solid var(--gray-300, #d1d5db);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.checklist-create {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checklist-create input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-size: 13px;
+}
