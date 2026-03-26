@@ -21,6 +21,7 @@ import { LabelsModule } from './labels/labels.module';
 import { ChecklistsModule } from './checklists/checklists.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { TaskTemplatesModule } from './task-templates/task-templates.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
 import { SearchModule } from './search/search.module';
 import { AppController } from './app.controller';
@@ -57,6 +58,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     ActivityLogModule,   // Histórico de atividade
     SearchModule,        // Busca global cross-project
     AnalyticsModule,     // Métricas e analytics
+    TaskTemplatesModule, // Templates de tarefas
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],

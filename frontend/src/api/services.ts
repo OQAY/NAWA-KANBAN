@@ -228,6 +228,18 @@ export const notificationsApi = {
     api.patch('/notifications/read-all'),
 };
 
+// Task Templates API
+export const taskTemplatesApi = {
+  getByProject: (projectId: string) =>
+    api.get('/task-templates', { params: { projectId } }),
+
+  create: (data: { name: string; data: Record<string, unknown>; projectId?: string }) =>
+    api.post('/task-templates', data),
+
+  delete: (id: string) =>
+    api.delete(`/task-templates/${id}`),
+};
+
 // Analytics API
 export const analyticsApi = {
   getProjectAnalytics: (projectId: string) =>
