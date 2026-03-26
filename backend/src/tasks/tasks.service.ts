@@ -301,7 +301,8 @@ export class TasksService {
       .execute();
   }
 
-  async addLabel(taskId: string, labelId: string): Promise<Task> {
+  async addLabel(taskId: string, labelId: string, user?: User): Promise<Task> {
+    if (user) await this.findOne(taskId, user); // verify ownership
     const task = await this.taskRepository.findOne({
       where: { id: taskId },
       relations: ['labels'],
@@ -319,7 +320,8 @@ export class TasksService {
     return task;
   }
 
-  async removeLabel(taskId: string, labelId: string): Promise<Task> {
+  async removeLabel(taskId: string, labelId: string, user?: User): Promise<Task> {
+    if (user) await this.findOne(taskId, user); // verify ownership
     const task = await this.taskRepository.findOne({
       where: { id: taskId },
       relations: ['labels'],

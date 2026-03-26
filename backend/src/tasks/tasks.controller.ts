@@ -83,14 +83,14 @@ export class TasksController {
 
   @Post(':id/labels/:labelId')
   @ApiOperation({ summary: 'Add label to task' })
-  addLabel(@Param('id') id: string, @Param('labelId') labelId: string) {
-    return this.tasksService.addLabel(id, labelId);
+  addLabel(@Param('id') id: string, @Param('labelId') labelId: string, @Request() req) {
+    return this.tasksService.addLabel(id, labelId, req.user);
   }
 
   @Delete(':id/labels/:labelId')
   @ApiOperation({ summary: 'Remove label from task' })
-  removeLabel(@Param('id') id: string, @Param('labelId') labelId: string) {
-    return this.tasksService.removeLabel(id, labelId);
+  removeLabel(@Param('id') id: string, @Param('labelId') labelId: string, @Request() req) {
+    return this.tasksService.removeLabel(id, labelId, req.user);
   }
 
   @Get(':id/subtasks')

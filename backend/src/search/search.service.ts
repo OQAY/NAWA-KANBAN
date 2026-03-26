@@ -32,7 +32,7 @@ export class SearchService {
       .createQueryBuilder('task')
       .leftJoinAndSelect('task.project', 'project')
       .where('(task.title ILIKE :q OR task.description ILIKE :q)', { q: `%${query}%` })
-      .andWhere('task.createdById = :userId', { userId: user.id })
+      .andWhere('(task.createdById = :userId OR task.assigneeId = :userId)', { userId: user.id })
       .take(10)
       .getMany();
 

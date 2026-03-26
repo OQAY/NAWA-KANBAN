@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LabelsService } from './labels.service';
@@ -26,13 +26,13 @@ export class LabelsController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a label' })
-  update(@Param('id') id: string, @Body() dto: UpdateLabelDto) {
-    return this.labelsService.update(id, dto);
+  update(@Param('id') id: string, @Body() dto: UpdateLabelDto, @Request() req) {
+    return this.labelsService.update(id, dto, req.user.id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a label' })
-  remove(@Param('id') id: string) {
-    return this.labelsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.labelsService.remove(id, req.user.id);
   }
 }

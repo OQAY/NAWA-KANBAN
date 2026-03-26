@@ -16,15 +16,16 @@ export class NotificationsController {
     return this.notificationsService.findByUser(req.user.id);
   }
 
-  @Patch(':id/read')
-  @ApiOperation({ summary: 'Mark notification as read' })
-  markAsRead(@Param('id') id: string, @Request() req) {
-    return this.notificationsService.markAsRead(id, req.user.id);
-  }
-
+  // IMPORTANT: read-all MUST be before :id/read to avoid route shadowing
   @Patch('read-all')
   @ApiOperation({ summary: 'Mark all notifications as read' })
   markAllAsRead(@Request() req) {
     return this.notificationsService.markAllAsRead(req.user.id);
+  }
+
+  @Patch(':id/read')
+  @ApiOperation({ summary: 'Mark notification as read' })
+  markAsRead(@Param('id') id: string, @Request() req) {
+    return this.notificationsService.markAsRead(id, req.user.id);
   }
 }
