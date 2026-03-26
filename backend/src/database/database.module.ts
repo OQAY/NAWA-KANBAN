@@ -10,6 +10,13 @@ import { ProjectMember } from './entities/project-member.entity';
 import { Organization } from './entities/organization.entity';
 import { OrganizationMember } from './entities/organization-member.entity';
 import { AiUserMemory } from './entities/ai-user-memory.entity';
+import { Label } from './entities/label.entity';
+import { Checklist, ChecklistItem } from './entities/checklist.entity';
+import { Notification } from './entities/notification.entity';
+import { ActivityLog } from './entities/activity-log.entity';
+import { AutomationRule } from './entities/automation-rule.entity';
+import { Sprint } from './entities/sprint.entity';
+import { TaskTemplate } from './entities/task-template.entity';
 
 @Module({
   imports: [
@@ -25,7 +32,12 @@ import { AiUserMemory } from './entities/ai-user-memory.entity';
           database: configService.get('DB_NAME'),
           ssl: sslEnabled ? { rejectUnauthorized: false } : false,
           timezone: 'America/Sao_Paulo',
-          entities: [User, Task, Project, Comment, KanbanColumn, ProjectMember, Organization, OrganizationMember, AiUserMemory],
+          entities: [
+            User, Task, Project, Comment, KanbanColumn,
+            ProjectMember, Organization, OrganizationMember, AiUserMemory,
+            Label, Checklist, ChecklistItem, Notification,
+            ActivityLog, AutomationRule, Sprint, TaskTemplate,
+          ],
           synchronize: true,
           logging: configService.get('NODE_ENV') === 'development',
         };
