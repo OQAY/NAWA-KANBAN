@@ -73,7 +73,7 @@ export interface KanbanColumn {
   id: string;
   name: string;
   status: string; // Status identifier (ex: 'pending', 'in_progress', 'testing', 'done')
-  position: number;
+  order: number;
   color?: string;
   userId: string;
   tasks?: Task[];
