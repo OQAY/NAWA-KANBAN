@@ -140,6 +140,21 @@ export class UsersService {
     await this.userRepository.remove(user);
   }
 
+  async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const isCurrentValid = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!isCurrentValid) {
+      throw new ForbiddenException('Current password is incorrect');
+    }
+
+    user.passwordHash = await bcrypt.hash(newPassword, 12);
+    await this.userRepository.save(user);
+  }
+
   async getBoardConfig(userId: string): Promise<{ boardConfig: string | null }> {
     const user = await this.userRepository.findOne({ 
       where: { id: userId },
