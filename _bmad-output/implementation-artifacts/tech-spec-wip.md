@@ -1028,6 +1028,43 @@ Atualmente o footer do `TaskCard` tem apenas o priority badge. Para adicionar du
   - Fase 4: `feature/fase-4-automations`
   - Fase 5: `feature/fase-5-sprints`
   - Fase 6: `feature/fase-6-advanced-ai`
+
+- **⚠️ COMMITS INCREMENTAIS OBRIGATÓRIOS:** Fazer commit a cada task completada (não acumular várias tasks num commit só). Formato: `feat(fase-N): Task X.Y — descrição curta`. Exemplos:
+  - `feat(fase-1): Task 1.0pre — align KanbanColumn order field in types`
+  - `feat(fase-1): Task 1.0 — refactor TaskModal to smart component`
+  - `feat(fase-1): Task 1.5 — add CommentSection to TaskModal`
+  - Isso permite rollback granular, review por task, e histórico claro do progresso.
+
+- **⚠️ FLUXO AUTÔNOMO BMad POR FASE — NÃO ESPERAR INPUT DO USUÁRIO:**
+  Cada fase deve seguir o loop BMad completo de forma **autônoma e contínua**, sem pausar para perguntas genéricas. O agente deve avançar automaticamente entre os passos:
+
+  ```
+  Para cada Fase (1 → 6):
+    1. WORKTREE: git worktree add ../ia-kanba-fase-N feature/fase-N-nome
+    2. DEV: Implementar todas as tasks da fase (commits incrementais por task)
+    3. CODE REVIEW: /bmad:bmm:workflows:code-review (adversarial, encontrar 3-10 problemas)
+       → Auto-fix os findings encontrados
+       → Commitar os fixes: `fix(fase-N): resolve code review findings`
+    4. TESTES: Verificar que todos os ACs passam (manual ou automatizado)
+       → Se algum AC falhar, corrigir e commitar
+    5. SEGURANÇA: Verificar OWASP top 10 no código novo:
+       - SQL injection (TypeORM parametrizado? ✓)
+       - XSS (inputs sanitizados? ✓)
+       - Auth bypass (guards JWT em todas as rotas novas? ✓)
+       - Rate limiting (throttler ativo? ✓)
+       → Commitar qualquer fix de segurança: `security(fase-N): descrição`
+    6. RETROSPECTIVE: /bmad:bmm:workflows:retrospective
+       → Documentar lições aprendidas
+    7. MERGE: Quando tudo passar, fazer merge da branch na main
+    8. PRÓXIMA FASE: Criar novo worktree e repetir para a fase seguinte
+       → A tech-spec da próxima fase já está neste documento — não precisa criar nova
+
+  REGRA: NÃO pausar entre os passos para perguntar "quer continuar?".
+  REGRA: NÃO perguntar "posso fazer o commit?" — faça o commit.
+  REGRA: NÃO perguntar "quer que eu rode o code review?" — rode.
+  REGRA: Só pausar se houver ERRO BLOQUEANTE que requer decisão humana.
+  ```
+
 - **Começar sempre pela Task 1.0pre** → depois 1.0 — o refactor do TaskModal é pré-requisito para 1.1, 1.2, 1.3, 1.4, 1.5
 - Referência de gaps: `_bmad-output/analysis/feature-gap-analysis.md`
 - Plano de fases anterior: `_bmad-output/implementation-artifacts/implementation-plan.md`
