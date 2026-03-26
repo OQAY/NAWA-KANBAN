@@ -112,6 +112,7 @@ export class AiAgentService implements OnModuleInit {
   private readonly logger = new Logger(AiAgentService.name);
   private model: ChatGoogleGenerativeAI | null = null;
   private initialized = false;
+  private activeChats = new Set<string>(); // per-user concurrency lock
 
   constructor(
     private configService: ConfigService,
@@ -158,6 +159,12 @@ export class AiAgentService implements OnModuleInit {
     if (!this.initialized || !this.model) {
       return { text: 'AI não está configurada. Verifique a GEMINI_API_KEY no .env.' };
     }
+
+    // Prevent concurrent chat() calls for the same user (corrupts Redis history)
+    if (this.activeChats.has(user.id)) {
+      return { text: 'Aguarde a resposta anterior antes de enviar outra mensagem.' };
+    }
+    this.activeChats.add(user.id);
 
     try {
       // Build tools scoped to this user/project
@@ -258,6 +265,8 @@ export class AiAgentService implements OnModuleInit {
       return {
         text: 'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
       };
+    } finally {
+      this.activeChats.delete(user.id);
     }
   }
 
@@ -684,6 +693,20 @@ export class AiAgentService implements OnModuleInit {
    * Builds board context string to inject into system prompt.
    * This avoids the AI needing to call get_board just to know column names.
    */
+  /**
+   * Sanitize user-controlled text before injecting into system prompt.
+   * Strips patterns that could alter LLM behavior (prompt injection).
+   */
+  private sanitizeForPrompt(text: string): string {
+    return text
+      .replace(/[#\n\r]/g, ' ')       // Remove markdown headers and newlines
+      .replace(/```/g, '')             // Remove code blocks
+      .replace(/\{[^}]*\}/g, '')       // Remove template-like patterns
+      .replace(/\s+/g, ' ')           // Normalize whitespace
+      .trim()
+      .slice(0, 100);                 // Cap length to prevent context stuffing
+  }
+
   private async buildBoardContext(user: User, projectId?: string): Promise<string> {
     const columns = await this.columnRepository.find({
       where: { userId: user.id },
@@ -708,7 +731,7 @@ export class AiAgentService implements OnModuleInit {
         const priorityLabels = ['', 'baixa', 'média', 'alta'];
         context += `\n## Tarefas Atuais do Projeto\n`;
         context += tasks.map(t =>
-          `  - "${t.title}" [${t.status}]${t.priority ? ` (${priorityLabels[t.priority]})` : ''} (id: ${t.id})`
+          `  - "${this.sanitizeForPrompt(t.title)}" [${t.status}]${t.priority ? ` (${priorityLabels[t.priority]})` : ''} (id: ${t.id})`
         ).join('\n');
       }
     }
@@ -727,7 +750,7 @@ export class AiAgentService implements OnModuleInit {
       context += recentTasks.map(t => {
         const date = t.createdAt ? new Date(t.createdAt).toLocaleDateString('pt-BR') : '';
         const proj = (t as any).project?.name || '';
-        return `  - "${t.title}" [${t.status}] ${proj ? `(${proj})` : ''} ${date}`;
+        return `  - "${this.sanitizeForPrompt(t.title)}" [${t.status}] ${proj ? `(${proj})` : ''} ${date}`;
       }).join('\n');
     }
 

@@ -24,7 +24,7 @@ export class AuthService {
    * Regra de Negócio: Email deve ser único, senha é hasheada com bcrypt
    */
   async register(registerDto: RegisterDto) {
-    const { email, password, name, role } = registerDto;
+    const { email, password, name } = registerDto;
 
     // Verifica se já existe usuário com este email
     const existingUser = await this.userRepository.findOne({ where: { email } });
@@ -41,7 +41,7 @@ export class AuthService {
       email,
       passwordHash,
       name,
-      role,
+      role: UserRole.DEVELOPER,
     });
 
     const savedUser = await this.userRepository.save(user);
@@ -52,13 +52,9 @@ export class AuthService {
     // Criar dados iniciais para o novo usuário (projeto e tasks padrão)
     await this.initialDataService.createInitialData(savedUser);
 
-    // Gera JWT token para login automático após registro
-    const payload = { sub: savedUser.id, email: savedUser.email };
-    const token = this.jwtService.sign(payload);
-
-    // Retorna token e dados básicos do usuário (sem senha)
+    const tokens = this.generateTokens(savedUser);
     return {
-      access_token: token,
+      ...tokens,
       user: {
         id: savedUser.id,
         email: savedUser.email,
@@ -93,13 +89,9 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Gera JWT token com dados mínimos necessários
-    const payload = { sub: user.id, email: user.email };
-    const token = this.jwtService.sign(payload);
-
-    // Retorna token e perfil do usuário (sem dados sensíveis)
+    const tokens = this.generateTokens(user);
     return {
-      access_token: token,
+      ...tokens,
       user: {
         id: user.id,
         email: user.email,
@@ -111,7 +103,6 @@ export class AuthService {
 
   /**
    * Busca usuário por ID (usado pelo JWT Strategy para validação de token)
-   * Método auxiliar para autenticação de rotas protegidas
    */
   async findUserById(userId: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
@@ -119,6 +110,49 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
     return user;
+  }
+
+  /**
+   * Gera access + refresh tokens.
+   */
+  private generateTokens(user: { id: string; email: string }) {
+    const payload = { sub: user.id, email: user.email };
+
+    const access_token = this.jwtService.sign(payload);
+    const refresh_token = this.jwtService.sign(
+      { sub: user.id, type: 'refresh' },
+      { expiresIn: '7d' },
+    );
+
+    return { access_token, refresh_token };
+  }
+
+  /**
+   * Renova o access token usando um refresh token válido.
+   */
+  async refreshToken(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken);
+
+      if (payload.type !== 'refresh') {
+        throw new UnauthorizedException('Invalid token type');
+      }
+
+      const user = await this.findUserById(payload.sub);
+
+      const tokens = this.generateTokens(user);
+      return {
+        ...tokens,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        },
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
   }
 
 }

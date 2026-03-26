@@ -18,10 +18,16 @@ import { ColumnsModule } from '../columns/columns.module';
     ColumnsModule,
     PassportModule,
     JwtModule.registerAsync({
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET', 'fallback-secret-key'),
-        signOptions: { expiresIn: '7d' },
-      }),
+      useFactory: (configService: ConfigService) => {
+        const secret = configService.get('JWT_SECRET');
+        if (!secret) {
+          throw new Error('JWT_SECRET environment variable is required');
+        }
+        return {
+          secret,
+          signOptions: { expiresIn: '15m', algorithm: 'HS256' as const },
+        };
+      },
       inject: [ConfigService],
     }),
   ],

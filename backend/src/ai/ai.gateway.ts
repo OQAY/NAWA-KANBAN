@@ -14,6 +14,8 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../database/entities/user.entity';
+import { ProjectMember } from '../database/entities/project-member.entity';
+import { Project } from '../database/entities/project.entity';
 import { AiAgentService } from './ai-agent.service';
 
 const MAX_MESSAGE_LENGTH = 2000;
@@ -23,7 +25,7 @@ const RATE_LIMIT_MAX = 20;
 @WebSocketGateway({
   cors: {
     origin: process.env.NODE_ENV === 'production'
-      ? [/https:\/\/.*\.vercel\.app$/]
+      ? ['https://iakanba.oqay.pro', /https:\/\/.*\.vercel\.app$/]
       : [
           'http://localhost:4200',
           'http://localhost:5173',
@@ -50,6 +52,10 @@ export class AiGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private configService: ConfigService,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Project)
+    private projectRepository: Repository<Project>,
+    @InjectRepository(ProjectMember)
+    private memberRepository: Repository<ProjectMember>,
   ) {}
 
   async handleConnection(client: Socket) {
@@ -95,13 +101,38 @@ export class AiGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('joinProject')
-  handleJoinProject(
+  async handleJoinProject(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { projectId: string },
   ) {
-    if (data?.projectId) {
-      client.join(`project:${data.projectId}`);
+    if (!data?.projectId) return;
+
+    const user = this.connectedUsers.get(client.id);
+    if (!user) {
+      client.emit('error', { message: 'Not authenticated' });
+      return;
     }
+
+    // Verify user has access to this project (owner or member)
+    const isOwner = await this.projectRepository.findOne({
+      where: { id: data.projectId, ownerId: user.id },
+      select: ['id'],
+    });
+
+    if (!isOwner) {
+      const isMember = await this.memberRepository.findOne({
+        where: { projectId: data.projectId, userId: user.id },
+        select: ['id'],
+      });
+
+      if (!isMember) {
+        this.logger.warn(`User ${user.name} denied access to project room ${data.projectId}`);
+        client.emit('error', { message: 'Sem acesso a este projeto' });
+        return;
+      }
+    }
+
+    client.join(`project:${data.projectId}`);
   }
 
   @SubscribeMessage('sendMessage')

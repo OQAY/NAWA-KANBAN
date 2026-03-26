@@ -58,29 +58,21 @@ export default function LoginPage() {
 
     try {
       if (isLogin) {
-        // Login
-        console.log('[AUTH] Attempting login...');
         const response = await authApi.login({ email, password });
-        console.log('[AUTH] Login successful:', response.data);
-        setAuth(response.data.user, response.data.access_token);
+        setAuth(response.data.user, response.data.access_token, response.data.refresh_token);
         toast.success('Welcome back!');
         navigate('/overview');
       } else {
-        // Register
-        console.log('[AUTH] Attempting registration...', { email, name });
         const response = await authApi.register({
           email,
           password,
           name: sanitizeTextInput(name),
         });
-        console.log('[AUTH] Registration successful:', response.data);
-        setAuth(response.data.user, response.data.access_token);
+        setAuth(response.data.user, response.data.access_token, response.data.refresh_token);
         toast.success('Account created successfully!');
         navigate('/overview');
       }
     } catch (err: any) {
-      console.error('[AUTH] Error:', err);
-      console.error('[AUTH] Error response:', err.response);
       const errorMsg = err.response?.data?.message || err.message || 'An error occurred';
       setError(errorMsg);
       toast.error(errorMsg);
