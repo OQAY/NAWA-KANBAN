@@ -5,6 +5,13 @@ import { Task } from './entities/task.entity';
 import { Project } from './entities/project.entity';
 import { Comment } from './entities/comment.entity';
 import { KanbanColumn } from './entities/column.entity';
+import { Label } from './entities/label.entity';
+import { Checklist, ChecklistItem } from './entities/checklist.entity';
+import { Notification } from './entities/notification.entity';
+import { ActivityLog } from './entities/activity-log.entity';
+import { AutomationRule } from './entities/automation-rule.entity';
+import { Sprint } from './entities/sprint.entity';
+import { TaskTemplate } from './entities/task-template.entity';
 
 // Load environment variables
 config();
@@ -19,7 +26,11 @@ export const AppDataSource = new DataSource({
   ssl: { rejectUnauthorized: false },
   synchronize: false, // Disable for migrations
   logging: process.env.NODE_ENV === 'development',
-  entities: [User, Task, Project, Comment, KanbanColumn],
+  entities: [
+    User, Task, Project, Comment, KanbanColumn,
+    Label, Checklist, ChecklistItem, Notification,
+    ActivityLog, AutomationRule, Sprint, TaskTemplate,
+  ],
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 });
