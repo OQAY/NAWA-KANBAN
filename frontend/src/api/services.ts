@@ -228,6 +228,12 @@ export const notificationsApi = {
     api.patch('/notifications/read-all'),
 };
 
+// Analytics API
+export const analyticsApi = {
+  getProjectAnalytics: (projectId: string) =>
+    api.get(`/analytics/project/${projectId}`),
+};
+
 // Search API
 export const searchApi = {
   search: (q: string) =>
