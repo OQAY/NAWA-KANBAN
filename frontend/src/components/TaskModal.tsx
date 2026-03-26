@@ -37,7 +37,6 @@ export default function TaskModal({
   initialStatus,
   onClose,
   onTaskSaved,
-  onTaskDeleted,
 }: TaskModalProps) {
   const toast = useToastContext();
   const { user } = useAuthStore();

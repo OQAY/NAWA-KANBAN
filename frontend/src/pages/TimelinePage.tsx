@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import { useToastContext } from '../contexts/ToastContext';
 import { organizationsApi } from '../api/services';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { ClipboardIcon } from '../components/icons/Icons';
-import type { OrganizationOverview, OrganizationOverviewTask } from '../types';
+import type { OrganizationOverview } from '../types';
 import './TimelinePage.css';
 
 const ORG_COLORS = ['#2563eb', '#16a34a', '#ea580c', '#8b5cf6', '#ec4899', '#14b8a6'];
@@ -13,11 +12,6 @@ const ORG_COLORS = ['#2563eb', '#16a34a', '#ea580c', '#8b5cf6', '#ec4899', '#14b
 function daysBetween(a: Date, b: Date) {
   const msPerDay = 86400000;
   return Math.round((b.getTime() - a.getTime()) / msPerDay);
-}
-
-function formatDayLabel(d: Date) {
-  const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')} ${days[d.getDay()]}`;
 }
 
 function formatShortDay(d: Date) {
@@ -47,7 +41,6 @@ interface TimelineTask {
 
 export default function TimelinePage() {
   const navigate = useNavigate();
-  const toast = useToastContext();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const [loading, setLoading] = useState(true);
@@ -331,7 +324,6 @@ export default function TimelinePage() {
                     <TaskRow
                       key={task.id}
                       task={task}
-                      totalDays={15}
                       todayIndex={todayIndex}
                       days={days}
                     />
@@ -350,12 +342,10 @@ export default function TimelinePage() {
 
 function TaskRow({
   task,
-  totalDays,
   todayIndex,
   days,
 }: {
   task: TimelineTask;
-  totalDays: number;
   todayIndex: number;
   days: Date[];
 }) {

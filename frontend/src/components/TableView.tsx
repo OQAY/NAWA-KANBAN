@@ -15,7 +15,7 @@ interface TableViewProps {
 type SortKey = 'title' | 'status' | 'priority' | 'dueDate' | 'assignee';
 type SortDir = 'asc' | 'desc';
 
-export default function TableView({ tasks, columns, projectMembers, onTaskClick, onTaskUpdate }: TableViewProps) {
+export default function TableView({ tasks, columns, onTaskClick }: TableViewProps) {
   const [sortKey, setSortKey] = useState<SortKey>('status');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
 

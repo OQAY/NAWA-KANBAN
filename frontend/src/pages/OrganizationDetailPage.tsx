@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuthStore } from '../stores/authStore';
 import { useToastContext } from '../contexts/ToastContext';
 import { organizationsApi, projectsApi } from '../api/services';
 import { sanitizeTextInput } from '../utils/validation';
@@ -54,7 +53,6 @@ export default function OrganizationDetailPage() {
   const { orgId } = useParams<{ orgId: string }>();
   const navigate = useNavigate();
   const toast = useToastContext();
-  const user = useAuthStore((state) => state.user);
   const [loading, setLoading] = useState(true);
   const [org, setOrg] = useState<OrganizationOverview | null>(null);
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -66,7 +64,6 @@ export default function OrganizationDetailPage() {
   // Project settings modal
   const [settingsProject, setSettingsProject] = useState<OrganizationOverviewProject | null>(null);
   const [editProjName, setEditProjName] = useState('');
-  const [editProjDesc, setEditProjDesc] = useState('');
   const [editProjColor, setEditProjColor] = useState('');
   const [savingProj, setSavingProj] = useState(false);
 
@@ -115,7 +112,6 @@ export default function OrganizationDetailPage() {
   const openProjectSettings = useCallback((project: OrganizationOverviewProject) => {
     setSettingsProject(project);
     setEditProjName(project.name);
-    setEditProjDesc('');
     setEditProjColor(project.color || '#A78BFA');
   }, []);
 

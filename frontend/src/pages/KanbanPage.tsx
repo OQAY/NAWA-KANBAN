@@ -74,7 +74,7 @@ export default function KanbanPage() {
       ]);
 
       // Tasks API returns paginated response: { data: [...], total, page, limit }
-      const tasksArray = tasksRes.data?.data || tasksRes.data || [];
+      const tasksArray = (tasksRes.data as any)?.data || tasksRes.data || [];
       const finalTasks = Array.isArray(tasksArray) ? tasksArray : [];
 
       setCurrentProject(projectRes.data);

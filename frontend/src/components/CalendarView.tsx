@@ -30,7 +30,6 @@ export default function CalendarView({ tasks, onTaskClick }: CalendarViewProps) 
 
     // Current month days
     for (let d = 1; d <= daysInMonth; d++) {
-      const dayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       const dayTasks = tasks.filter(t => {
         if (!t.dueDate) return false;
         const due = new Date(t.dueDate);
