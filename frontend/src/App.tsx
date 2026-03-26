@@ -10,6 +10,7 @@ import KanbanPage from './pages/KanbanPage';
 import OverviewPage from './pages/OverviewPage';
 import OrganizationDetailPage from './pages/OrganizationDetailPage';
 import TimelinePage from './pages/TimelinePage';
+import ProfilePage from './pages/ProfilePage';
 import AIChatPanel from './components/ai-chat/AIChatPanel';
 import './App.css';
 
@@ -132,6 +133,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <KanbanPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         }
       />

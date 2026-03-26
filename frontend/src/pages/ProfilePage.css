@@ -1,0 +1,108 @@
+/* ================================================================
+   PROFILE PAGE — Neubrutalism V25
+   ================================================================ */
+
+.profile-container {
+  min-height: 100vh;
+  background: var(--bg, #f5f5f4);
+  padding: 24px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.profile-header h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.profile-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: var(--radius, 8px);
+  box-shadow: 4px 4px 0 var(--black);
+  margin-bottom: 24px;
+}
+
+.profile-avatar-large {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.profile-info h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.profile-info p {
+  color: var(--gray-600, #6b7280);
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.profile-role {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--lavender, #e9d5ff);
+}
+
+.profile-section {
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: var(--radius, 8px);
+  box-shadow: 4px 4px 0 var(--black);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.profile-section h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--black);
+}
+
+.profile-error {
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  border-radius: 4px;
+}

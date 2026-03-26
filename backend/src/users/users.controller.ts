@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateBoardConfigDto } from './dto/update-board-config.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -68,12 +69,22 @@ export class UsersController {
     return this.usersService.remove(id, req.user);
   }
 
+  @Post('change-password')
+  @ApiOperation({ summary: 'Change current user password' })
+  @ApiResponse({ status: 200, description: 'Password changed successfully' })
+  @ApiResponse({ status: 403, description: 'Current password is incorrect' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Request() req) {
+    await this.usersService.changePassword(req.user.id, changePasswordDto.currentPassword, changePasswordDto.newPassword);
+    return { message: 'Password changed successfully' };
+  }
+
   @Get('me/board-config')
   @ApiOperation({ summary: 'Get current user board configuration' })
   @ApiResponse({ status: 200, description: 'Board configuration retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getBoardConfig(@Request() req) {
-    return this.usersService.getBoardConfig(req.user.sub);
+    return this.usersService.getBoardConfig(req.user.id);
   }
 
   @Patch('me/board-config')
@@ -81,6 +92,6 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Board configuration updated successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   updateBoardConfig(@Body() updateBoardConfigDto: UpdateBoardConfigDto, @Request() req) {
-    return this.usersService.updateBoardConfig(req.user.sub, updateBoardConfigDto.boardConfig);
+    return this.usersService.updateBoardConfig(req.user.id, updateBoardConfigDto.boardConfig);
   }
 }

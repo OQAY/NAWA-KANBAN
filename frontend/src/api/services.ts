@@ -40,6 +40,9 @@ export const usersApi = {
 
   delete: (id: string) =>
     api.delete(`/users/${id}`),
+
+  changePassword: (currentPassword: string, newPassword: string) =>
+    api.post('/users/change-password', { currentPassword, newPassword }),
 };
 
 // Projects API

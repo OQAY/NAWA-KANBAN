@@ -1,0 +1,158 @@
+/* ================================================================
+   COMMENT SECTION — Neubrutalism V25
+   ================================================================ */
+
+.comment-section {
+  margin-top: 16px;
+  border-top: 2px solid var(--black);
+  padding-top: 16px;
+}
+
+.comment-section-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.comment-loading,
+.comment-empty {
+  font-size: 13px;
+  color: var(--gray-600, #6b7280);
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.comment-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.comment-meta strong {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: var(--gray-500, #9ca3af);
+  font-family: var(--font-mono);
+}
+
+.comment-text {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--primary, #3b82f6);
+  text-decoration: underline;
+}
+
+.btn-link:hover {
+  opacity: 0.8;
+}
+
+.btn-link-danger {
+  color: #ef4444;
+}
+
+.comment-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.comment-edit-form textarea {
+  font-size: 13px;
+  padding: 6px 8px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.comment-edit-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Comment new form */
+.comment-form {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.comment-form textarea {
+  flex: 1;
+  font-size: 13px;
+  padding: 8px 10px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.btn-sm {
+  padding: 4px 12px !important;
+  font-size: 12px !important;
+}

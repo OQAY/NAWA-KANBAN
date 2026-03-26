@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { Task } from '../types';
+import { isDueDateOverdue, formatDueDate, getAvatarColor } from '../utils/dates';
 
 interface TaskCardProps {
   task: Task;
@@ -83,6 +84,20 @@ function TaskCard({ task, onEdit, onDelete, onClick, getPriorityColor, getPriori
       )}
 
       <div className="task-footer">
+        {task.assignee && (
+          <span
+            className="task-assignee-avatar"
+            title={task.assignee.name}
+            style={{ backgroundColor: getAvatarColor(task.assignee.name) }}
+          >
+            {task.assignee.name.charAt(0).toUpperCase()}
+          </span>
+        )}
+        {task.dueDate && (
+          <span className={`task-due-date ${isDueDateOverdue(task.dueDate) ? 'overdue' : ''}`}>
+            {formatDueDate(task.dueDate)}
+          </span>
+        )}
         <span
           className="task-priority"
           style={{ backgroundColor: getPriorityColor(task.priority) }}
