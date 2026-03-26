@@ -25,6 +25,9 @@ export class KanbanColumn {
   @Column({ default: 'normal' })
   type: string; // Todas as colunas são tratadas igualmente
 
+  @Column({ name: 'wip_limit', type: 'int', nullable: true })
+  wipLimit: number;
+
   @Column({ name: 'user_id' })
   userId: string;
 
