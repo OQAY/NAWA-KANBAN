@@ -18,6 +18,7 @@ import type {
   ChecklistItem,
   AppNotification,
   ActivityLogEntry,
+  Sprint,
 } from '../types';
 
 // Auth API
@@ -106,6 +107,27 @@ export const tasksApi = {
 
   createSubtask: (taskId: string, title: string) =>
     api.post<Task>(`/tasks/${taskId}/subtasks`, { title }),
+};
+
+// Sprints API
+export const sprintsApi = {
+  getByProject: (projectId: string) =>
+    api.get<Sprint[]>('/sprints', { params: { projectId } }),
+
+  create: (data: Partial<Sprint>) =>
+    api.post<Sprint>('/sprints', data),
+
+  update: (id: string, data: Partial<Sprint>) =>
+    api.patch<Sprint>(`/sprints/${id}`, data),
+
+  delete: (id: string) =>
+    api.delete(`/sprints/${id}`),
+
+  start: (id: string) =>
+    api.post<Sprint>(`/sprints/${id}/start`),
+
+  complete: (id: string) =>
+    api.post<Sprint>(`/sprints/${id}/complete`),
 };
 
 // Automations API

@@ -38,6 +38,21 @@ export interface Task {
   labels?: Label[];
   parentId?: string;
   subtasks?: Task[];
+  sprintId?: string;
+}
+
+// Sprint types
+export interface Sprint {
+  id: string;
+  projectId: string;
+  name: string;
+  startDate?: string;
+  endDate?: string;
+  goal?: string;
+  status: 'planning' | 'active' | 'completed';
+  storyPoints?: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // Project types

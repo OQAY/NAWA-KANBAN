@@ -4,6 +4,7 @@ import { Project } from './project.entity';
 import { Comment } from './comment.entity';
 import { KanbanColumn } from './column.entity';
 import { Label } from './label.entity';
+import { Sprint } from './sprint.entity';
 
 // TaskStatus enum removido - agora usa status dinâmico baseado em colunas customizáveis
 
@@ -87,6 +88,14 @@ export class Task {
 
   @OneToMany(() => Task, task => task.parent)
   subtasks: Task[];
+
+  // Sprint relationship
+  @ManyToOne(() => Sprint, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'sprint_id' })
+  sprint: Sprint;
+
+  @Column({ name: 'sprint_id', type: 'uuid', nullable: true })
+  sprintId: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

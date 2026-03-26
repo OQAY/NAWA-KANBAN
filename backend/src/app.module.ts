@@ -26,6 +26,7 @@ import { TaskTemplatesModule } from './task-templates/task-templates.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
 import { SearchModule } from './search/search.module';
 import { AutomationsModule } from './automations/automations.module';
+import { SprintsModule } from './sprints/sprints.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Task } from './database/entities/task.entity';
@@ -63,6 +64,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     AnalyticsModule,     // Métricas e analytics
     TaskTemplatesModule, // Templates de tarefas
     AutomationsModule,   // Motor de automações
+    SprintsModule,       // Sistema de sprints
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],
