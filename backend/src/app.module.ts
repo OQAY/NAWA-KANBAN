@@ -20,6 +20,7 @@ import { AiModule } from './ai/ai.module';
 import { LabelsModule } from './labels/labels.module';
 import { ChecklistsModule } from './checklists/checklists.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ActivityLogModule } from './activity-log/activity-log.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Task } from './database/entities/task.entity';
@@ -51,6 +52,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     LabelsModule,     // Labels/Tags coloridas para tarefas
     ChecklistsModule, // Checklists dentro de tarefas
     NotificationsModule, // Notificações in-app via events
+    ActivityLogModule,   // Histórico de atividade
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],

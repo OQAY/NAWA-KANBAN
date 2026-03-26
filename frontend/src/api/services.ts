@@ -17,6 +17,7 @@ import type {
   Checklist,
   ChecklistItem,
   AppNotification,
+  ActivityLogEntry,
 } from '../types';
 
 // Auth API
@@ -219,4 +220,10 @@ export const notificationsApi = {
 
   markAllAsRead: () =>
     api.patch('/notifications/read-all'),
+};
+
+// Activity Log API
+export const activityLogApi = {
+  getByTask: (taskId: string, limit = 20) =>
+    api.get<ActivityLogEntry[]>('/activity-log', { params: { taskId, limit } }),
 };

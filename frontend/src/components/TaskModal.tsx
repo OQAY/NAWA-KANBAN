@@ -13,6 +13,7 @@ import { PRIORITY } from '../constants/priorities';
 import CommentSection from './CommentSection';
 import LabelSelector from './LabelSelector';
 import ChecklistSection from './ChecklistSection';
+import ActivityTab from './ActivityTab';
 import './TaskModal.css';
 import './Labels.css';
 
@@ -57,6 +58,9 @@ export default function TaskModal({
 
   // Loading state
   const [saving, setSaving] = useState(false);
+
+  // Tab state for comments/activity
+  const [activeTab, setActiveTab] = useState<'comments' | 'activity'>('comments');
 
   // Initialize form when modal opens or editingTask changes
   useEffect(() => {
@@ -254,9 +258,30 @@ export default function TaskModal({
           <ChecklistSection taskId={editingTask.id} />
         )}
 
-        {/* Comments — only for existing tasks */}
+        {/* Comments / Activity tabs — only for existing tasks */}
         {editingTask && user && (
-          <CommentSection taskId={editingTask.id} currentUserId={user.id} />
+          <div className="task-modal-tabs">
+            <div className="tab-headers">
+              <button
+                className={`tab-btn ${activeTab === 'comments' ? 'active' : ''}`}
+                onClick={() => setActiveTab('comments')}
+              >
+                Comentários
+              </button>
+              <button
+                className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
+                onClick={() => setActiveTab('activity')}
+              >
+                Atividade
+              </button>
+            </div>
+            {activeTab === 'comments' && (
+              <CommentSection taskId={editingTask.id} currentUserId={user.id} />
+            )}
+            {activeTab === 'activity' && (
+              <ActivityTab taskId={editingTask.id} />
+            )}
+          </div>
         )}
 
         <div className="modal-actions">

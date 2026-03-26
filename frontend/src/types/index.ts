@@ -92,6 +92,18 @@ export interface Label {
   createdAt: string;
 }
 
+// Activity Log types
+export interface ActivityLogEntry {
+  id: string;
+  entityId: string;
+  entityType: string;
+  action: string;
+  userId: string;
+  user?: User;
+  changes?: Record<string, unknown>;
+  createdAt: string;
+}
+
 // Notification types
 export interface AppNotification {
   id: string;
