@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
@@ -24,6 +25,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { TaskTemplatesModule } from './task-templates/task-templates.module';
 import { ActivityLogModule } from './activity-log/activity-log.module';
 import { SearchModule } from './search/search.module';
+import { AutomationsModule } from './automations/automations.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Task } from './database/entities/task.entity';
@@ -42,6 +44,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     }]),
     // Event emitter for cross-cutting concerns (notifications, activity log)
     EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
     // Módulos funcionais do sistema Kanban
     DatabaseModule,    // TypeORM + Supabase
     AuthModule,       // JWT + RBAC
@@ -59,6 +62,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     SearchModule,        // Busca global cross-project
     AnalyticsModule,     // Métricas e analytics
     TaskTemplatesModule, // Templates de tarefas
+    AutomationsModule,   // Motor de automações
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],
