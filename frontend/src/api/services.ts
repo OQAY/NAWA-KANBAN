@@ -222,6 +222,12 @@ export const notificationsApi = {
     api.patch('/notifications/read-all'),
 };
 
+// Search API
+export const searchApi = {
+  search: (q: string) =>
+    api.get<{ type: string; id: string; title: string; projectName?: string; projectId?: string }[]>('/search', { params: { q } }),
+};
+
 // Activity Log API
 export const activityLogApi = {
   getByTask: (taskId: string, limit = 20) =>
