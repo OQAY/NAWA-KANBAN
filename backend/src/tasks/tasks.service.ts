@@ -330,4 +330,27 @@ export class TasksService {
     await this.taskRepository.save(task);
     return task;
   }
+
+  async getSubtasks(taskId: string): Promise<Task[]> {
+    return this.taskRepository.find({
+      where: { parentId: taskId },
+      relations: ['assignee'],
+      order: { position: 'ASC' },
+    });
+  }
+
+  async createSubtask(parentId: string, title: string, projectId: string, user: User): Promise<Task> {
+    const parent = await this.taskRepository.findOne({ where: { id: parentId } });
+    if (!parent) throw new NotFoundException('Parent task not found');
+
+    const subtask = this.taskRepository.create({
+      title,
+      parentId,
+      projectId: projectId || parent.projectId,
+      status: parent.status,
+      createdById: user.id,
+      priority: 0,
+    });
+    return this.taskRepository.save(subtask);
+  }
 }

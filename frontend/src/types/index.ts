@@ -36,6 +36,8 @@ export interface Task {
   assignee?: User;
   createdBy?: User;
   labels?: Label[];
+  parentId?: string;
+  subtasks?: Task[];
 }
 
 // Project types
@@ -77,6 +79,7 @@ export interface KanbanColumn {
   status: string; // Status identifier (ex: 'pending', 'in_progress', 'testing', 'done')
   order: number;
   color?: string;
+  wipLimit?: number;
   userId: string;
   tasks?: Task[];
   createdAt: string;

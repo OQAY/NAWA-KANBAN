@@ -254,6 +254,15 @@ export default function KanbanPage() {
       });
     }
 
+    // WIP limit warning
+    const targetCol = displayColumns.find(c => c.status === newStatus);
+    if (targetCol?.wipLimit) {
+      const colCount = updatedTasks.filter(t => t.status === newStatus).length;
+      if (colCount > targetCol.wipLimit) {
+        toast.warning(`Atenção: WIP limit excedido em "${targetCol.name}" (${colCount}/${targetCol.wipLimit})`);
+      }
+    }
+
     // Update store with new task order (optimistic update)
     setTasks(updatedTasks);
     setIsSavingOrder(true);
@@ -507,7 +516,9 @@ export default function KanbanPage() {
               <div key={column.id} className="kanban-column">
                 <div className="column-header">
                   <h3>{column.name}</h3>
-                  <span className="task-count">{columnTasks.length}</span>
+                  <span className={`task-count ${column.wipLimit && columnTasks.length >= column.wipLimit ? 'wip-exceeded' : ''}`}>
+                    {columnTasks.length}{column.wipLimit ? `/${column.wipLimit}` : ''}
+                  </span>
                 </div>
 
                 <SortableContext items={taskIds} strategy={verticalListSortingStrategy} id={column.id}>

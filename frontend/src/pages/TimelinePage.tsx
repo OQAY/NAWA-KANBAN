@@ -52,6 +52,13 @@ export default function TimelinePage() {
   const logout = useAuthStore((state) => state.logout);
   const [loading, setLoading] = useState(true);
   const [orgs, setOrgs] = useState<OrganizationOverview[]>([]);
+  const [windowStart, setWindowStart] = useState<Date>(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - 5);
+    return d;
+  });
+  const [zoomDays, setZoomDays] = useState<7 | 14 | 30 | 90>(14);
 
   const loadData = useCallback(async () => {
     try {
@@ -68,25 +75,46 @@ export default function TimelinePage() {
     loadData();
   }, [loadData]);
 
-  // Build 15-day window centered around today
+  const goToToday = useCallback(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - Math.floor(zoomDays / 4));
+    setWindowStart(d);
+  }, [zoomDays]);
+
+  const goPrev = useCallback(() => {
+    setWindowStart(prev => {
+      const d = new Date(prev);
+      d.setDate(d.getDate() - zoomDays);
+      return d;
+    });
+  }, [zoomDays]);
+
+  const goNext = useCallback(() => {
+    setWindowStart(prev => {
+      const d = new Date(prev);
+      d.setDate(d.getDate() + zoomDays);
+      return d;
+    });
+  }, [zoomDays]);
+
+  // Build dynamic day window based on windowStart + zoomDays
   const { days, todayIndex } = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    // Show 5 days before today and 9 days after = 15 days total
-    const startDay = new Date(today);
-    startDay.setDate(startDay.getDate() - 5);
 
     const daysArr: Date[] = [];
-    for (let i = 0; i < 15; i++) {
-      const d = new Date(startDay);
+    for (let i = 0; i < zoomDays; i++) {
+      const d = new Date(windowStart);
       d.setDate(d.getDate() + i);
       daysArr.push(d);
     }
-    return { days: daysArr, todayIndex: 5 };
-  }, []);
+    const tIdx = daysArr.findIndex(d => d.getTime() === today.getTime());
+    return { days: daysArr, todayIndex: tIdx >= 0 ? tIdx : -1 };
+  }, [windowStart, zoomDays]);
 
-  const windowStart = days[0];
-  const windowEnd = days[days.length - 1];
+  const windowStartDate = days[0];
+  const windowEndDate = days[days.length - 1];
 
   // Build timeline tasks from all orgs
   const timelineData = useMemo(() => {
@@ -116,15 +144,15 @@ export default function TimelinePage() {
               : new Date(taskStart.getTime() + 86400000);
           taskEnd.setHours(0, 0, 0, 0);
 
-          // Check if task overlaps with our 15-day window
-          if (taskEnd < windowStart || taskStart > windowEnd) return;
+          // Check if task overlaps with our window
+          if (taskEnd < windowStartDate || taskStart > windowEndDate) return;
 
           // Calculate bar positions (clamped to window)
-          const clampedStart = taskStart < windowStart ? windowStart : taskStart;
-          const clampedEnd = taskEnd > windowEnd ? windowEnd : taskEnd;
+          const clampedStart = taskStart < windowStartDate ? windowStartDate : taskStart;
+          const clampedEnd = taskEnd > windowEndDate ? windowEndDate : taskEnd;
 
-          const barStart = daysBetween(windowStart, clampedStart);
-          const barEnd = daysBetween(windowStart, clampedEnd);
+          const barStart = daysBetween(windowStartDate, clampedStart);
+          const barEnd = daysBetween(windowStartDate, clampedEnd);
 
           tasks.push({
             id: task.id,
@@ -152,7 +180,7 @@ export default function TimelinePage() {
     });
 
     return result;
-  }, [orgs, windowStart, windowEnd]);
+  }, [orgs, windowStartDate, windowEndDate]);
 
   const handleLogout = useCallback(() => {
     logout();
@@ -174,7 +202,7 @@ export default function TimelinePage() {
             <div className="header-title">
               <h1>Timeline Overview</h1>
               <p className="header-subtitle">
-                Historico de 15 dias - Quanto tempo cada tarefa levou
+                Janela de {zoomDays} dias - Navegue e ajuste o zoom
               </p>
             </div>
           </div>
@@ -199,6 +227,23 @@ export default function TimelinePage() {
       </header>
 
       <main className="tl-content">
+        {/* Navigation Controls */}
+        <div className="tl-nav-controls">
+          <button onClick={goPrev} className="btn-nav">← Anterior</button>
+          <button onClick={goToToday} className="btn-nav">Hoje</button>
+          <button onClick={goNext} className="btn-nav">Próximo →</button>
+          <select
+            value={zoomDays}
+            onChange={e => setZoomDays(Number(e.target.value) as 7 | 14 | 30 | 90)}
+            className="tl-zoom-select"
+          >
+            <option value={7}>7 dias</option>
+            <option value={14}>14 dias</option>
+            <option value={30}>30 dias</option>
+            <option value={90}>90 dias</option>
+          </select>
+        </div>
+
         {/* Legend */}
         <div className="tl-legend">
           <div className="tl-legend-item">

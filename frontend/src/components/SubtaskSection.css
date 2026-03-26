@@ -1,0 +1,98 @@
+/* ================================================================
+   SUBTASK SECTION — Neubrutalism V25
+   ================================================================ */
+
+.subtask-section {
+  margin-top: 16px;
+  border-top: 2px solid var(--black);
+  padding-top: 16px;
+}
+
+.subtask-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.subtask-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.subtask-progress-text {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--gray-500, #9ca3af);
+}
+
+.subtask-loading {
+  font-size: 13px;
+  color: var(--gray-600, #6b7280);
+  font-style: italic;
+}
+
+.subtask-progress-bar {
+  height: 4px;
+  background: var(--gray-200, #e5e7eb);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.subtask-progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 2px;
+  transition: width 0.2s;
+}
+
+.subtask-progress-fill.complete {
+  background: #10b981;
+}
+
+.subtask-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.subtask-item.done .subtask-title {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.subtask-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.subtask-title {
+  font-size: 13px;
+  flex: 1;
+}
+
+.subtask-add {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.subtask-add input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 2px solid var(--gray-300, #d1d5db);
+  border-radius: 4px;
+  font-size: 13px;
+}

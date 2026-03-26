@@ -100,6 +100,12 @@ export const tasksApi = {
 
   search: (query: string) =>
     api.get<Task[]>(`/tasks/search?query=${encodeURIComponent(query)}`),
+
+  getSubtasks: (taskId: string) =>
+    api.get<Task[]>(`/tasks/${taskId}/subtasks`),
+
+  createSubtask: (taskId: string, title: string) =>
+    api.post<Task>(`/tasks/${taskId}/subtasks`, { title }),
 };
 
 // Columns API
@@ -220,6 +226,24 @@ export const notificationsApi = {
 
   markAllAsRead: () =>
     api.patch('/notifications/read-all'),
+};
+
+// Task Templates API
+export const taskTemplatesApi = {
+  getByProject: (projectId: string) =>
+    api.get('/task-templates', { params: { projectId } }),
+
+  create: (data: { name: string; data: Record<string, unknown>; projectId?: string }) =>
+    api.post('/task-templates', data),
+
+  delete: (id: string) =>
+    api.delete(`/task-templates/${id}`),
+};
+
+// Analytics API
+export const analyticsApi = {
+  getProjectAnalytics: (projectId: string) =>
+    api.get(`/analytics/project/${projectId}`),
 };
 
 // Search API

@@ -11,6 +11,7 @@ import OverviewPage from './pages/OverviewPage';
 import OrganizationDetailPage from './pages/OrganizationDetailPage';
 import TimelinePage from './pages/TimelinePage';
 import ProfilePage from './pages/ProfilePage';
+import ProjectDashboardPage from './pages/ProjectDashboardPage';
 import AIChatPanel from './components/ai-chat/AIChatPanel';
 import NotificationBell from './components/NotificationBell';
 import GlobalSearch from './components/GlobalSearch';
@@ -135,6 +136,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <KanbanPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/board/:projectId/dashboard"
+        element={
+          <ProtectedRoute>
+            <ProjectDashboardPage />
           </ProtectedRoute>
         }
       />
