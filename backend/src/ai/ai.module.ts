@@ -16,6 +16,8 @@ import { AiAgentService } from './ai-agent.service';
 import { AiMemoryService } from './ai-memory.service';
 import { AiLongMemoryService } from './ai-long-memory.service';
 import { AiGateway } from './ai.gateway';
+import { AiProactiveService } from './ai-proactive.service';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { AiGateway } from './ai.gateway';
     ]),
     TasksModule,
     ColumnsModule,
+    NotificationsModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         secret: configService.getOrThrow('JWT_SECRET'),
@@ -38,7 +41,7 @@ import { AiGateway } from './ai.gateway';
       inject: [ConfigService],
     }),
   ],
-  providers: [AiAgentService, AiMemoryService, AiLongMemoryService, AiGateway],
+  providers: [AiAgentService, AiMemoryService, AiLongMemoryService, AiGateway, AiProactiveService],
   exports: [AiAgentService, AiLongMemoryService],
 })
 export class AiModule {}

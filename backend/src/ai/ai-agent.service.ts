@@ -17,6 +17,7 @@ import { Organization } from '../database/entities/organization.entity';
 import { OrganizationMember } from '../database/entities/organization-member.entity';
 import { User } from '../database/entities/user.entity';
 import { TasksService } from '../tasks/tasks.service';
+import { Comment } from '../database/entities/comment.entity';
 import { AiMemoryService } from './ai-memory.service';
 import { AiLongMemoryService } from './ai-long-memory.service';
 import { AiResponse } from './dto/ai-response.dto';
@@ -639,7 +640,134 @@ export class AiAgentService implements OnModuleInit {
       },
     );
 
-    return [listProjects, getBoard, createTask, moveTask, updateTask, deleteTask, rememberTool, recallTool, forgetTool];
+    // === FASE 6 — New AI Tools ===
+
+    const addComment = tool(
+      async (input) => {
+        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
+        if (!task) return { success: false, error: 'Task not found' };
+
+        const commentRepo = this.taskRepository.manager.getRepository(Comment);
+        const comment = commentRepo.create({
+          content: input.content,
+          taskId: input.taskId,
+          userId: user.id,
+        });
+        await commentRepo.save(comment);
+        return { success: true, message: `Comentário adicionado na task "${task.title}"` };
+      },
+      {
+        name: 'add_comment',
+        description: 'Adiciona um comentário em uma tarefa. Use quando o usuário pedir para comentar ou anotar algo em uma task.',
+        schema: z.object({
+          taskId: z.string().describe('ID da tarefa'),
+          content: z.string().describe('Texto do comentário'),
+        }),
+      },
+    );
+
+    const setDueDate = tool(
+      async (input) => {
+        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
+        if (!task) return { success: false, error: 'Task not found' };
+
+        // Parse relative dates
+        let dueDate: Date;
+        const text = input.date.toLowerCase();
+        const today = new Date();
+        if (text === 'amanhã' || text === 'amanha' || text === 'tomorrow') {
+          dueDate = new Date(today);
+          dueDate.setDate(dueDate.getDate() + 1);
+        } else if (text === 'hoje' || text === 'today') {
+          dueDate = today;
+        } else if (text.includes('próxima sexta') || text.includes('proxima sexta')) {
+          dueDate = new Date(today);
+          const dayOfWeek = dueDate.getDay();
+          const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7;
+          dueDate.setDate(dueDate.getDate() + daysUntilFriday);
+        } else {
+          dueDate = new Date(input.date);
+        }
+
+        if (isNaN(dueDate.getTime())) return { success: false, error: 'Invalid date' };
+
+        task.dueDate = dueDate;
+        await this.taskRepository.save(task);
+        return { success: true, message: `Due date definida para ${dueDate.toLocaleDateString('pt-BR')} na task "${task.title}"` };
+      },
+      {
+        name: 'set_due_date',
+        description: 'Define a data de vencimento de uma tarefa. Aceita datas absolutas (2026-03-30) ou relativas (amanhã, próxima sexta).',
+        schema: z.object({
+          taskId: z.string().describe('ID da tarefa'),
+          date: z.string().describe('Data no formato YYYY-MM-DD ou texto relativo'),
+        }),
+      },
+    );
+
+    const assignMember = tool(
+      async (input) => {
+        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
+        if (!task) return { success: false, error: 'Task not found' };
+
+        // Resolve member by name
+        const members = await this.memberRepository.find({
+          where: { projectId: task.projectId },
+          relations: ['user'],
+        });
+
+        const member = members.find(m =>
+          m.user?.name?.toLowerCase().includes(input.memberName.toLowerCase())
+        );
+
+        if (!member) return { success: false, error: `Membro "${input.memberName}" não encontrado no projeto` };
+
+        task.assigneeId = member.userId;
+        await this.taskRepository.save(task);
+        return { success: true, message: `Task "${task.title}" atribuída a ${member.user.name}` };
+      },
+      {
+        name: 'assign_member',
+        description: 'Atribui uma tarefa a um membro do projeto pelo nome. Use quando o usuário pedir para atribuir uma task.',
+        schema: z.object({
+          taskId: z.string().describe('ID da tarefa'),
+          memberName: z.string().describe('Nome do membro (busca parcial)'),
+        }),
+      },
+    );
+
+    const searchTasks = tool(
+      async (input) => {
+        const tasks = await this.taskRepository
+          .createQueryBuilder('task')
+          .leftJoinAndSelect('task.project', 'project')
+          .where('(task.title ILIKE :q OR task.description ILIKE :q)', { q: `%${input.query}%` })
+          .andWhere('task.createdById = :userId', { userId: user.id })
+          .take(10)
+          .getMany();
+
+        if (tasks.length === 0) return { results: [], message: 'Nenhuma task encontrada' };
+
+        return {
+          results: tasks.map(t => ({
+            id: t.id,
+            title: t.title,
+            status: t.status,
+            project: t.project?.name,
+          })),
+          message: `${tasks.length} task(s) encontrada(s)`,
+        };
+      },
+      {
+        name: 'search_tasks',
+        description: 'Busca tarefas por texto no título ou descrição. Use quando o usuário perguntar sobre tasks ou pedir para encontrar algo.',
+        schema: z.object({
+          query: z.string().describe('Texto para buscar'),
+        }),
+      },
+    );
+
+    return [listProjects, getBoard, createTask, moveTask, updateTask, deleteTask, rememberTool, recallTool, forgetTool, addComment, setDueDate, assignMember, searchTasks];
   }
 
   /**
