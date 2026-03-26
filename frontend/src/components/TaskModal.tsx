@@ -6,9 +6,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Task, KanbanColumn, ProjectMember } from '../types';
 import { tasksApi, projectsApi } from '../api/services';
+import { useAuthStore } from '../stores/authStore';
 import { useToastContext } from '../contexts/ToastContext';
 import { PRIORITY_OPTIONS } from '../constants';
 import { PRIORITY } from '../constants/priorities';
+import CommentSection from './CommentSection';
 import './TaskModal.css';
 
 interface TaskModalProps {
@@ -33,6 +35,7 @@ export default function TaskModal({
   onTaskDeleted,
 }: TaskModalProps) {
   const toast = useToastContext();
+  const { user } = useAuthStore();
 
   // Form state
   const [title, setTitle] = useState('');
@@ -224,6 +227,11 @@ export default function TaskModal({
             ))}
           </select>
         </div>
+
+        {/* Comments — only for existing tasks */}
+        {editingTask && user && (
+          <CommentSection taskId={editingTask.id} currentUserId={user.id} />
+        )}
 
         <div className="modal-actions">
           <button onClick={onClose} className="btn-secondary" disabled={saving}>
