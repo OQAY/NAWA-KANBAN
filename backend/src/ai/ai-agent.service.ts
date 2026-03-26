@@ -293,18 +293,23 @@ export class AiAgentService implements OnModuleInit {
             select: ['id', 'name', 'description', 'ownerId'],
           });
 
-          // Filter to only projects user owns or is an explicit member of
-          const projectIds = allOrgProjects.map(p => p.id);
-          const projectMemberships = projectIds.length > 0
-            ? await this.memberRepository.find({
-                where: { userId: user.id, projectId: In(projectIds) },
-                select: ['projectId'],
-              })
-            : [];
-          const memberProjectIds = new Set(projectMemberships.map(pm => pm.projectId));
-          const accessibleProjects = allOrgProjects.filter(
-            p => p.ownerId === user.id || memberProjectIds.has(p.id)
-          );
+          // If user is org owner, they see ALL projects. Otherwise filter by membership.
+          const isOrgOwner = org.ownerId === user.id;
+          let accessibleProjects = allOrgProjects;
+
+          if (!isOrgOwner) {
+            const projectIds = allOrgProjects.map(p => p.id);
+            const projectMemberships = projectIds.length > 0
+              ? await this.memberRepository.find({
+                  where: { userId: user.id, projectId: In(projectIds) },
+                  select: ['projectId'],
+                })
+              : [];
+            const memberProjectIds = new Set(projectMemberships.map(pm => pm.projectId));
+            accessibleProjects = allOrgProjects.filter(
+              p => p.ownerId === user.id || memberProjectIds.has(p.id)
+            );
+          }
 
           if (accessibleProjects.length > 0) {
             result.push({
@@ -836,18 +841,51 @@ export class AiAgentService implements OnModuleInit {
   }
 
   private async buildBoardContext(user: User, projectId?: string): Promise<string> {
+    // Inject full project list so AI knows all project names and IDs upfront
+    let context = '';
+
+    const memberships = await this.orgMemberRepository.find({
+      where: { userId: user.id },
+      relations: ['organization'],
+    });
+
+    const allProjects: Array<{ id: string; name: string; orgName: string }> = [];
+    for (const m of memberships) {
+      const org = m.organization;
+      const projects = await this.projectRepository.find({
+        where: { organizationId: org.id },
+        select: ['id', 'name'],
+      });
+      for (const p of projects) {
+        allProjects.push({ id: p.id, name: p.name, orgName: org.name });
+      }
+    }
+    const standalone = await this.projectRepository.find({
+      where: { ownerId: user.id, organizationId: IsNull() },
+      select: ['id', 'name'],
+    });
+    for (const p of standalone) {
+      allProjects.push({ id: p.id, name: p.name, orgName: 'Avulso' });
+    }
+
+    if (allProjects.length) {
+      context += '## Todos os Projetos do Usuário\n';
+      context += allProjects.map(p => `  - "${p.name}" (org: ${p.orgName}) → id: ${p.id}`).join('\n');
+      context += '\n\n';
+    }
+
     const columns = await this.columnRepository.find({
       where: { userId: user.id },
       order: { order: 'ASC' },
     });
 
-    if (!columns.length) return '';
+    if (!columns.length) return context;
 
     const colList = columns.map((c, i) =>
       `  ${i === 0 ? '→ PRIMEIRA (padrão para novas tarefas)' : i === columns.length - 1 ? '→ ÚLTIMA (concluído)' : '  '} "${c.name}" (status: ${c.status})`
     ).join('\n');
 
-    let context = `## Colunas do Board Atual\n${colList}\n`;
+    context += `## Colunas do Board Atual\n${colList}\n`;
 
     if (projectId) {
       const tasks = await this.taskRepository.find({
