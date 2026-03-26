@@ -5,8 +5,8 @@ import type { BaseMessage } from '@langchain/core/messages';
 import { HumanMessage, AIMessage, SystemMessage } from '@langchain/core/messages';
 
 const MEMORY_PREFIX = 'ai:chat:';
-const MEMORY_TTL_SECONDS = 30 * 60; // 30 minutes
-const MAX_MESSAGES = 40; // 20 exchanges (user+ai)
+const MEMORY_TTL_SECONDS = 7 * 24 * 60 * 60; // 7 days
+const MAX_MESSAGES = 100; // 50 exchanges (user+ai)
 
 interface StoredMessage {
   role: 'human' | 'ai' | 'system';

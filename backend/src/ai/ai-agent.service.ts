@@ -18,6 +18,7 @@ import { OrganizationMember } from '../database/entities/organization-member.ent
 import { User } from '../database/entities/user.entity';
 import { TasksService } from '../tasks/tasks.service';
 import { AiMemoryService } from './ai-memory.service';
+import { AiLongMemoryService } from './ai-long-memory.service';
 import { AiResponse } from './dto/ai-response.dto';
 
 const SYSTEM_PROMPT = `Você é KANBA, assistente de gestão de tarefas. Você age como um gerente de projetos experiente que entende linguagem natural e toma decisões inteligentes sem precisar perguntar o óbvio.
@@ -93,6 +94,17 @@ O usuário frequentemente usa entrada por voz. Transcrições podem ter erros. S
 ## Prioridades
 0=nenhuma, 1=baixa, 2=média, 3=alta
 Infira a prioridade pelo contexto quando possível (ex: "urgente" → 3=alta).
+
+## Memória de Longo Prazo
+Você tem acesso a memórias permanentes. Use as ferramentas:
+- **remember**: Salve preferências, fatos e instruções quando o usuário disser "lembra que..." ou quando você inferir algo importante
+- **recall**: Busque memórias quando precisar de contexto passado
+- **forget**: Apague quando o usuário pedir para esquecer algo
+
+Salve proativamente quando notar padrões:
+- Projeto que o usuário mais usa → remember("projeto_principal", "Santander")
+- Preferências de estilo → remember("estilo_resposta", "direto e curto")
+- Contexto de trabalho → remember("equipe", "time de 3 devs, sprints de 2 semanas")
 `;
 
 @Injectable()
@@ -104,6 +116,7 @@ export class AiAgentService implements OnModuleInit {
   constructor(
     private configService: ConfigService,
     private memoryService: AiMemoryService,
+    private longMemoryService: AiLongMemoryService,
     private tasksService: TasksService,
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
@@ -159,11 +172,14 @@ export class AiAgentService implements OnModuleInit {
       // Pre-load board context so AI knows columns without calling get_board
       const boardContext = await this.buildBoardContext(user, projectId);
 
+      // Pre-load long-term memories (preferences, facts, instructions)
+      const longMemoryContext = await this.longMemoryService.buildMemoryContext(user.id);
+
       // Build system message
       const systemContent = SYSTEM_PROMPT
         .replace('{userName}', user.name || 'Usuário')
         .replace('{currentProject}', projectName || 'Nenhum selecionado')
-        .replace('{boardContext}', boardContext);
+        .replace('{boardContext}', boardContext + '\n' + longMemoryContext);
 
       // Compose messages: system + history + current message
       const messages = [
@@ -543,7 +559,78 @@ export class AiAgentService implements OnModuleInit {
       },
     );
 
-    return [listProjects, getBoard, createTask, moveTask, updateTask, deleteTask];
+    // Tool: Remember (save long-term memory)
+    const rememberTool = tool(
+      async (input: { key: string; value: string; category?: string }) => {
+        await this.longMemoryService.remember(
+          user.id,
+          input.key.slice(0, 100),
+          input.value.slice(0, 2000),
+          input.category || 'preference',
+        );
+        return JSON.stringify({
+          success: true,
+          message: `Memorizado: "${input.key}" = "${input.value}"`,
+        });
+      },
+      {
+        name: 'remember',
+        description: 'Salva uma informação na memória de longo prazo do usuário. Use quando o usuário pedir para lembrar algo, ou quando inferir uma preferência ou fato importante que deve ser lembrado em sessões futuras. Exemplos: "lembra que o projeto Santander é prioridade", "meu nome é João", "prefiro tasks em português".',
+        schema: z.object({
+          key: z.string().describe('Chave curta e descritiva (ex: "projeto_favorito", "idioma_preferido", "nome_usuario")'),
+          value: z.string().describe('Valor a ser memorizado'),
+          category: z.enum(['preference', 'fact', 'instruction', 'context']).optional()
+            .describe('Tipo: preference (padrão), fact (fato sobre o usuário), instruction (como agir), context (contexto de trabalho)'),
+        }),
+      },
+    );
+
+    // Tool: Recall (search long-term memories)
+    const recallTool = tool(
+      async (input: { key?: string }) => {
+        if (input.key) {
+          const value = await this.longMemoryService.recall(user.id, input.key);
+          return value
+            ? JSON.stringify({ found: true, key: input.key, value })
+            : JSON.stringify({ found: false, message: `Nenhuma memória encontrada para "${input.key}".` });
+        }
+        const all = await this.longMemoryService.getAllMemories(user.id);
+        if (!all.length) return JSON.stringify({ found: false, message: 'Nenhuma memória salva.' });
+        return JSON.stringify({
+          found: true,
+          memories: all.map(m => ({ key: m.key, value: m.value, category: m.category })),
+        });
+      },
+      {
+        name: 'recall',
+        description: 'Recupera memórias de longo prazo do usuário. Sem key retorna todas as memórias. Use quando precisar lembrar preferências ou fatos que o usuário salvou anteriormente.',
+        schema: z.object({
+          key: z.string().optional().describe('Chave específica para buscar. Omitir para ver todas as memórias.'),
+        }),
+      },
+    );
+
+    // Tool: Forget (delete long-term memory)
+    const forgetTool = tool(
+      async (input: { key: string }) => {
+        const deleted = await this.longMemoryService.forget(user.id, input.key);
+        return JSON.stringify({
+          success: deleted,
+          message: deleted
+            ? `Memória "${input.key}" removida.`
+            : `Memória "${input.key}" não encontrada.`,
+        });
+      },
+      {
+        name: 'forget',
+        description: 'Remove uma memória de longo prazo. Use quando o usuário pedir para esquecer algo.',
+        schema: z.object({
+          key: z.string().describe('Chave da memória a ser removida'),
+        }),
+      },
+    );
+
+    return [listProjects, getBoard, createTask, moveTask, updateTask, deleteTask, rememberTool, recallTool, forgetTool];
   }
 
   /**
@@ -624,6 +711,24 @@ export class AiAgentService implements OnModuleInit {
           `  - "${t.title}" [${t.status}]${t.priority ? ` (${priorityLabels[t.priority]})` : ''} (id: ${t.id})`
         ).join('\n');
       }
+    }
+
+    // Episodic context: recent user activity across all projects
+    const recentTasks = await this.taskRepository.find({
+      where: { createdById: user.id },
+      order: { createdAt: 'DESC' },
+      take: 10,
+      select: ['id', 'title', 'status', 'priority', 'createdAt', 'projectId'],
+      relations: ['project'],
+    });
+
+    if (recentTasks.length) {
+      context += '\n\n## Atividade Recente do Usuário (últimas 10 tasks criadas)\n';
+      context += recentTasks.map(t => {
+        const date = t.createdAt ? new Date(t.createdAt).toLocaleDateString('pt-BR') : '';
+        const proj = (t as any).project?.name || '';
+        return `  - "${t.title}" [${t.status}] ${proj ? `(${proj})` : ''} ${date}`;
+      }).join('\n');
     }
 
     return context;

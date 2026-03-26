@@ -9,10 +9,12 @@ import { ProjectMember } from '../database/entities/project-member.entity';
 import { User } from '../database/entities/user.entity';
 import { Organization } from '../database/entities/organization.entity';
 import { OrganizationMember } from '../database/entities/organization-member.entity';
+import { AiUserMemory } from '../database/entities/ai-user-memory.entity';
 import { TasksModule } from '../tasks/tasks.module';
 import { ColumnsModule } from '../columns/columns.module';
 import { AiAgentService } from './ai-agent.service';
 import { AiMemoryService } from './ai-memory.service';
+import { AiLongMemoryService } from './ai-long-memory.service';
 import { AiGateway } from './ai.gateway';
 
 @Module({
@@ -25,6 +27,7 @@ import { AiGateway } from './ai.gateway';
       User,
       Organization,
       OrganizationMember,
+      AiUserMemory,
     ]),
     TasksModule,
     ColumnsModule,
@@ -35,7 +38,7 @@ import { AiGateway } from './ai.gateway';
       inject: [ConfigService],
     }),
   ],
-  providers: [AiAgentService, AiMemoryService, AiGateway],
-  exports: [AiAgentService],
+  providers: [AiAgentService, AiMemoryService, AiLongMemoryService, AiGateway],
+  exports: [AiAgentService, AiLongMemoryService],
 })
 export class AiModule {}

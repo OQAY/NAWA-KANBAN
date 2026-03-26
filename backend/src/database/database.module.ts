@@ -9,6 +9,7 @@ import { KanbanColumn } from './entities/column.entity';
 import { ProjectMember } from './entities/project-member.entity';
 import { Organization } from './entities/organization.entity';
 import { OrganizationMember } from './entities/organization-member.entity';
+import { AiUserMemory } from './entities/ai-user-memory.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { OrganizationMember } from './entities/organization-member.entity';
           database: configService.get('DB_NAME'),
           ssl: sslEnabled ? { rejectUnauthorized: false } : false,
           timezone: 'America/Sao_Paulo',
-          entities: [User, Task, Project, Comment, KanbanColumn, ProjectMember, Organization, OrganizationMember],
+          entities: [User, Task, Project, Comment, KanbanColumn, ProjectMember, Organization, OrganizationMember, AiUserMemory],
           synchronize: true,
           logging: configService.get('NODE_ENV') === 'development',
         };
