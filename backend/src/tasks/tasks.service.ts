@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/commo
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from '../database/entities/task.entity';
+import { Label } from '../database/entities/label.entity';
 import { User, UserRole } from '../database/entities/user.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -12,6 +13,8 @@ export class TasksService {
   constructor(
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
+    @InjectRepository(Label)
+    private labelRepository: Repository<Label>,
   ) {}
 
   /**
@@ -296,5 +299,35 @@ export class TasksService {
       .andWhere('status = :status', { status })
       .andWhere('position > :removedPosition', { removedPosition })
       .execute();
+  }
+
+  async addLabel(taskId: string, labelId: string): Promise<Task> {
+    const task = await this.taskRepository.findOne({
+      where: { id: taskId },
+      relations: ['labels'],
+    });
+    if (!task) throw new NotFoundException('Task not found');
+
+    const label = await this.labelRepository.findOne({ where: { id: labelId } });
+    if (!label) throw new NotFoundException('Label not found');
+
+    if (!task.labels.some(l => l.id === labelId)) {
+      task.labels.push(label);
+      await this.taskRepository.save(task);
+    }
+
+    return task;
+  }
+
+  async removeLabel(taskId: string, labelId: string): Promise<Task> {
+    const task = await this.taskRepository.findOne({
+      where: { id: taskId },
+      relations: ['labels'],
+    });
+    if (!task) throw new NotFoundException('Task not found');
+
+    task.labels = task.labels.filter(l => l.id !== labelId);
+    await this.taskRepository.save(task);
+    return task;
   }
 }

@@ -35,6 +35,7 @@ export interface Task {
   updatedAt: string;
   assignee?: User;
   createdBy?: User;
+  labels?: Label[];
 }
 
 // Project types
@@ -80,6 +81,15 @@ export interface KanbanColumn {
   tasks?: Task[];
   createdAt: string;
   updatedAt: string;
+}
+
+// Label types
+export interface Label {
+  id: string;
+  name: string;
+  color: string;
+  projectId: string;
+  createdAt: string;
 }
 
 // Comment types

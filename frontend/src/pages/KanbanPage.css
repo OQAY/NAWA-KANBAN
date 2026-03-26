@@ -317,6 +317,19 @@
   overflow: hidden;
 }
 
+.task-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+
+.label-more {
+  background: var(--gray-100, #f3f4f6) !important;
+  color: var(--gray-600, #6b7280) !important;
+  border-color: var(--gray-400, #9ca3af) !important;
+}
+
 .task-footer {
   display: flex;
   align-items: center;

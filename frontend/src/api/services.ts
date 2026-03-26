@@ -13,6 +13,7 @@ import type {
   UpdateMemberRequest,
   Organization,
   OrganizationOverview,
+  Label,
 } from '../types';
 
 // Auth API
@@ -155,4 +156,25 @@ export const commentsApi = {
 
   delete: (id: string) =>
     api.delete(`/comments/${id}`),
+};
+
+// Labels API
+export const labelsApi = {
+  getByProject: (projectId: string) =>
+    api.get<Label[]>('/labels', { params: { projectId } }),
+
+  create: (data: { name: string; color: string; projectId: string }) =>
+    api.post<Label>('/labels', data),
+
+  update: (id: string, data: { name?: string; color?: string }) =>
+    api.patch<Label>(`/labels/${id}`, data),
+
+  delete: (id: string) =>
+    api.delete(`/labels/${id}`),
+
+  addToTask: (taskId: string, labelId: string) =>
+    api.post(`/tasks/${taskId}/labels/${labelId}`),
+
+  removeFromTask: (taskId: string, labelId: string) =>
+    api.delete(`/tasks/${taskId}/labels/${labelId}`),
 };

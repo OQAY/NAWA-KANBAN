@@ -6,6 +6,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { APP_GUARD } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
@@ -16,6 +17,7 @@ import { CommentsModule } from './comments/comments.module';
 import { ColumnsModule } from './columns/columns.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { AiModule } from './ai/ai.module';
+import { LabelsModule } from './labels/labels.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Task } from './database/entities/task.entity';
@@ -32,6 +34,8 @@ import { DataMigrationService } from './common/services/data-migration.service';
       ttl: 60000,
       limit: 60,
     }]),
+    // Event emitter for cross-cutting concerns (notifications, activity log)
+    EventEmitterModule.forRoot(),
     // Módulos funcionais do sistema Kanban
     DatabaseModule,    // TypeORM + Supabase
     AuthModule,       // JWT + RBAC
@@ -42,6 +46,7 @@ import { DataMigrationService } from './common/services/data-migration.service';
     ColumnsModule,    // Colunas personalizadas
     OrganizationsModule, // Empresas/Organizações
     AiModule,         // AI chat com Gemini + WebSocket
+    LabelsModule,     // Labels/Tags coloridas para tarefas
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],
