@@ -5,6 +5,7 @@ import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { AddOrganizationMemberDto } from './dto/add-member.dto';
+import { UpdateMemberRoleDto } from './dto/update-member-role.dto';
 
 @ApiTags('organizations')
 @ApiBearerAuth()
@@ -67,10 +68,10 @@ export class OrganizationsController {
   updateMember(
     @Param('id') id: string,
     @Param('memberId') memberId: string,
-    @Body('role') role: string,
+    @Body() dto: UpdateMemberRoleDto,
     @Req() req,
   ) {
-    return this.service.updateMember(id, memberId, role, req.user);
+    return this.service.updateMember(id, memberId, dto.role, req.user);
   }
 
   @Delete(':id/members/:memberId')

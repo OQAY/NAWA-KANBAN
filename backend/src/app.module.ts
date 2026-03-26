@@ -5,6 +5,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
@@ -25,6 +27,11 @@ import { DataMigrationService } from './common/services/data-migration.service';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    // Rate limiting global: 60 requests por minuto por IP
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 60,
+    }]),
     // Módulos funcionais do sistema Kanban
     DatabaseModule,    // TypeORM + Supabase
     AuthModule,       // JWT + RBAC
@@ -38,6 +45,10 @@ import { DataMigrationService } from './common/services/data-migration.service';
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],
-  providers: [AppService, DataMigrationService],
+  providers: [
+    AppService,
+    DataMigrationService,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}

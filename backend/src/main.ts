@@ -5,15 +5,20 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Security headers
+  app.use(helmet());
+
   // Habilita CORS para comunicação com frontend (incluindo portas Vite 5173-5177)
   app.enableCors({
     origin: process.env.NODE_ENV === 'production'
       ? [
+          'https://iakanba.oqay.pro',
           'https://kanban-oqay-git-main-lucas-projects-5fb33266.vercel.app',
           'https://kanban-oqay-c78fnebgu-lucas-projects-5fb33266.vercel.app',
           /https:\/\/.*\.vercel\.app$/
@@ -45,19 +50,21 @@ async function bootstrap() {
     }),
   );
 
-  // Configuração da documentação Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Kanban API')
-    .setDescription('Task Management System API')
-    .setVersion('1.0')
-    .addBearerAuth()        // Suporte para JWT Bearer Token
-    .addTag('auth', 'Authentication endpoints')
-    .addTag('tasks', 'Task management')
-    .addTag('users', 'User management')
-    .build();
+  // Swagger apenas em desenvolvimento
+  if (process.env.NODE_ENV !== 'production') {
+    const config = new DocumentBuilder()
+      .setTitle('Kanban API')
+      .setDescription('Task Management System API')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .addTag('auth', 'Authentication endpoints')
+      .addTag('tasks', 'Task management')
+      .addTag('users', 'User management')
+      .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);  // Disponível em /api/docs
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api/docs', app, document);
+  }
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

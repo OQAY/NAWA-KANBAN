@@ -14,10 +14,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private authService: AuthService,
     private configService: ConfigService,
   ) {
+    const secret = configService.get('JWT_SECRET');
+    if (!secret) {
+      throw new Error('JWT_SECRET environment variable is required');
+    }
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extrai token do header Authorization
-      ignoreExpiration: false,  // Rejeita tokens expirados
-      secretOrKey: configService.get('JWT_SECRET') || 'fallback-secret-key',
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: secret,
+      algorithms: ['HS256'],
     });
   }
 
