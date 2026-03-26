@@ -10,7 +10,6 @@ import TaskModal from '../components/TaskModal';
 import ConfirmDialog from '../components/ConfirmDialog';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ShareBoardModal from '../components/ShareBoardModal';
-import { useTaskForm } from '../hooks/useTaskForm';
 import { useDebounce } from '../hooks/useDebounce';
 import { useToastContext } from '../contexts/ToastContext';
 import { getPriorityColor, getPriorityLabel } from '../utils';
@@ -43,8 +42,6 @@ export default function KanbanPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
-  // Use custom hook for form state management
-  const taskForm = useTaskForm();
 
   // Debounce search query to avoid excessive re-renders
   const debouncedSearch = useDebounce(searchQuery, 300);
@@ -104,46 +101,22 @@ export default function KanbanPage() {
   const handleCreateTask = useCallback((columnStatus: string) => {
     setSelectedColumnId(columnStatus);
     setEditingTask(null);
-    taskForm.reset();
     setShowTaskModal(true);
-  }, [taskForm]);
+  }, []);
 
   const handleEditTask = useCallback((task: Task) => {
     setEditingTask(task);
-    taskForm.loadTask(task);
     setShowTaskModal(true);
-  }, [taskForm]);
+  }, []);
 
-  const handleSaveTask = useCallback(async () => {
-    if (!taskForm.isValid() || !projectId) return;
-
-    try {
-      const formData = taskForm.getFormData();
-
-      if (editingTask) {
-        const response = await tasksApi.update(editingTask.id, {
-          ...formData,
-          status: formData.status || editingTask.status,
-        });
-        updateTask(editingTask.id, response.data);
-        toast.success('Task updated successfully');
-      } else {
-        const response = await tasksApi.create({
-          ...formData,
-          status: selectedColumnId,
-          projectId,
-        });
-        addTask(response.data);
-        toast.success('Task created successfully');
-      }
-
-      setShowTaskModal(false);
-      taskForm.reset();
-    } catch (error) {
-      console.error('Failed to save task:', error);
-      toast.error('Failed to save task');
+  const handleTaskSaved = useCallback((task: Task) => {
+    if (editingTask) {
+      updateTask(editingTask.id, task);
+    } else {
+      addTask(task);
     }
-  }, [taskForm, editingTask, projectId, selectedColumnId, updateTask, addTask, toast]);
+    setShowTaskModal(false);
+  }, [editingTask, updateTask, addTask]);
 
   const handleDeleteTask = useCallback((taskId: string) => {
     setDeleteConfirm({ isOpen: true, taskId });
@@ -459,16 +432,10 @@ export default function KanbanPage() {
         isOpen={showTaskModal}
         editingTask={editingTask}
         columns={displayColumns}
-        title={taskForm.title}
-        description={taskForm.description}
-        priority={taskForm.priority}
-        status={taskForm.status}
-        onTitleChange={taskForm.setTitle}
-        onDescriptionChange={taskForm.setDescription}
-        onPriorityChange={taskForm.setPriority}
-        onStatusChange={taskForm.setStatus}
-        onSave={handleSaveTask}
+        projectId={projectId!}
+        initialStatus={selectedColumnId}
         onClose={() => setShowTaskModal(false)}
+        onTaskSaved={handleTaskSaved}
       />
 
       {/* Delete Confirmation Dialog */}
