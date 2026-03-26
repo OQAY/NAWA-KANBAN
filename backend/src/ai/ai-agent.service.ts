@@ -644,8 +644,8 @@ export class AiAgentService implements OnModuleInit {
 
     const addComment = tool(
       async (input) => {
-        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
-        if (!task) return { success: false, error: 'Task not found' };
+        const task = await this.verifyTaskAccess(user, input.taskId);
+        if (!task) return { success: false, error: 'Task not found or access denied' };
 
         const commentRepo = this.taskRepository.manager.getRepository(Comment);
         const comment = commentRepo.create({
@@ -668,8 +668,8 @@ export class AiAgentService implements OnModuleInit {
 
     const setDueDate = tool(
       async (input) => {
-        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
-        if (!task) return { success: false, error: 'Task not found' };
+        const task = await this.verifyTaskAccess(user, input.taskId);
+        if (!task) return { success: false, error: 'Task not found or access denied' };
 
         // Parse relative dates
         let dueDate: Date;
@@ -707,8 +707,8 @@ export class AiAgentService implements OnModuleInit {
 
     const assignMember = tool(
       async (input) => {
-        const task = await this.taskRepository.findOne({ where: { id: input.taskId } });
-        if (!task) return { success: false, error: 'Task not found' };
+        const task = await this.verifyTaskAccess(user, input.taskId);
+        if (!task) return { success: false, error: 'Task not found or access denied' };
 
         // Resolve member by name
         const members = await this.memberRepository.find({

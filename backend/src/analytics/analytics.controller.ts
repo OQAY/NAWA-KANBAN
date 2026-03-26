@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AnalyticsService } from './analytics.service';
@@ -12,7 +12,7 @@ export class AnalyticsController {
 
   @Get('project/:id')
   @ApiOperation({ summary: 'Get analytics for a project' })
-  getProjectAnalytics(@Param('id') id: string) {
-    return this.analyticsService.getProjectAnalytics(id);
+  getProjectAnalytics(@Param('id') id: string, @Request() req) {
+    return this.analyticsService.getProjectAnalytics(id, req.user.id);
   }
 }

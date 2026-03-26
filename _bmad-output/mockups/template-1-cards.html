@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Template 1 - Overview por Cards</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    h1 { margin-bottom: 20px; }
+
+    .overview { display: flex; flex-direction: column; gap: 24px; }
+
+    .company {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      border-left: 4px solid #333;
+    }
+    .company[data-color="blue"] { border-left-color: #2563eb; }
+    .company[data-color="green"] { border-left-color: #16a34a; }
+    .company[data-color="orange"] { border-left-color: #ea580c; }
+
+    .company-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .company-name { font-size: 18px; font-weight: bold; }
+    .company-stats { font-size: 12px; color: #666; }
+
+    .projects { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .project-card {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+      width: 280px;
+    }
+    .project-name { font-weight: bold; margin-bottom: 8px; }
+
+    .task-list { list-style: none; }
+    .task-list li {
+      padding: 4px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .task-list li:last-child { border-bottom: none; }
+
+    .prazo { font-size: 11px; color: #888; white-space: nowrap; margin-left: 8px; }
+    .prazo.atrasado { color: #dc2626; font-weight: bold; }
+    .prazo.hoje { color: #ea580c; font-weight: bold; }
+
+    .status-bar {
+      display: flex;
+      height: 4px;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .status-bar .done { background: #16a34a; }
+    .status-bar .progress { background: #eab308; }
+    .status-bar .todo { background: #e0e0e0; }
+  </style>
+</head>
+<body>
+
+<h1>Overview - Minhas Empresas</h1>
+
+<div class="overview">
+
+  <!-- Empresa do Alan -->
+  <div class="company" data-color="blue">
+    <div class="company-header">
+      <span class="company-name">Empresa do Alan</span>
+      <span class="company-stats">3 projetos | 19 tarefas ativas</span>
+    </div>
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="project-name">RecorraJa <span style="font-size:11px;color:#888;font-weight:normal">(10 tarefas)</span></div>
+        <ul class="task-list">
+          <li>
+            <span>Modulo Defesa - Fluxo completo</span>
+            <span class="prazo atrasado">10/03</span>
+          </li>
+          <li>
+            <span>Implementar raspagem DETRAN</span>
+            <span class="prazo hoje">12/03</span>
+          </li>
+          <li>
+            <span>Deploy producao v2.1</span>
+            <span class="prazo hoje">12/03</span>
+          </li>
+          <li>
+            <span>Integrar API pagamentos</span>
+            <span class="prazo">13/03</span>
+          </li>
+          <li>
+            <span>Template PDF defesa automatica</span>
+            <span class="prazo">14/03</span>
+          </li>
+          <li>
+            <span>Sistema de notificacoes email</span>
+            <span class="prazo">15/03</span>
+          </li>
+          <li>
+            <span>Dashboard metricas usuario</span>
+            <span class="prazo">17/03</span>
+          </li>
+          <li>
+            <span>Testes E2E fluxo defesa</span>
+            <span class="prazo">18/03</span>
+          </li>
+          <li>
+            <span>Documentacao API publica</span>
+            <span class="prazo">20/03</span>
+          </li>
+          <li>
+            <span>Landing page marketing</span>
+            <span class="prazo">22/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="done" style="width: 20%"></div>
+          <div class="progress" style="width: 30%"></div>
+          <div class="todo" style="width: 50%"></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Legibet</div>
+        <ul class="task-list">
+          <li>
+            <span>Ver implementacao</span>
+            <span class="prazo">12/03</span>
+          </li>
+          <li>
+            <span>Compliance check</span>
+            <span class="prazo">15/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="done" style="width: 50%"></div>
+          <div class="progress" style="width: 20%"></div>
+          <div class="todo" style="width: 30%"></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Nossos</div>
+        <ul class="task-list">
+          <li>
+            <span>Setup inicial</span>
+            <span class="prazo">14/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="todo" style="width: 100%"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Plin -->
+  <div class="company" data-color="green">
+    <div class="company-header">
+      <span class="company-name">Plin</span>
+      <span class="company-stats">2 projetos | 5 tarefas ativas</span>
+    </div>
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="project-name">Consensus</div>
+        <ul class="task-list">
+          <li>
+            <span>Apresentar e propor mudancas</span>
+            <span class="prazo hoje">12/03</span>
+          </li>
+          <li>
+            <span>Revisar contratos</span>
+            <span class="prazo">18/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="done" style="width: 60%"></div>
+          <div class="progress" style="width: 30%"></div>
+          <div class="todo" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">MediAI</div>
+        <ul class="task-list">
+          <li>
+            <span>Prototipo v1</span>
+            <span class="prazo">20/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="progress" style="width: 40%"></div>
+          <div class="todo" style="width: 60%"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Micelli -->
+  <div class="company" data-color="orange">
+    <div class="company-header">
+      <span class="company-name">Micelli</span>
+      <span class="company-stats">2 projetos | 4 tarefas ativas</span>
+    </div>
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="project-name">Santander VM</div>
+        <ul class="task-list">
+          <li>
+            <span>Integracao API</span>
+            <span class="prazo atrasado">10/03</span>
+          </li>
+          <li>
+            <span>Testes E2E</span>
+            <span class="prazo">14/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="done" style="width: 20%"></div>
+          <div class="progress" style="width: 50%"></div>
+          <div class="todo" style="width: 30%"></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">DataJuris</div>
+        <ul class="task-list">
+          <li>
+            <span>Migracao dados</span>
+            <span class="prazo">16/03</span>
+          </li>
+          <li>
+            <span>Dashboard analytics</span>
+            <span class="prazo">19/03</span>
+          </li>
+        </ul>
+        <div class="status-bar">
+          <div class="done" style="width: 40%"></div>
+          <div class="todo" style="width: 60%"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ia-kanba-postgres
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: kanban_user
+      POSTGRES_PASSWORD: kanban_pass
+    ports:
+      - '7432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U kanban_user -d kanban']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ia-kanba-redis
+    command: redis-server --appendonly yes
+    ports:
+      - '7379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: ia-kanba-backend
+    ports:
+      - '7001:3000'
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: kanban_user
+      DB_PASSWORD: kanban_pass
+      DB_NAME: kanban
+      DB_SSL: 'false'
+      JWT_SECRET: ${JWT_SECRET:-ia-kanba-prod-secret-change-me}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: ia-kanba-frontend
+    ports:
+      - '7173:80'
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA-KANBA — Brand Identity (Neubrutalism V25)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   IA-KANBA — BRAND IDENTITY SYSTEM
+   "Neubrutalism / Gumroad" — 100% baseado em Betify V25
+   Archivo Black + DM Sans + JetBrains Mono
+   ================================================================ */
+
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --off-white: #FAFAFA;
+
+  /* Neubrutalist Accents */
+  --lavender: #A78BFA;
+  --lavender-light: #DDD6FE;
+  --lavender-bg: #F5F3FF;
+  --coral: #F87171;
+  --coral-light: #FECACA;
+  --coral-bg: #FEF2F2;
+  --mint: #34D399;
+  --mint-light: #A7F3D0;
+  --mint-bg: #ECFDF5;
+  --sky: #38BDF8;
+  --sky-light: #BAE6FD;
+  --sky-bg: #F0F9FF;
+  --yellow: #FBBF24;
+  --yellow-light: #FDE68A;
+  --yellow-bg: #FFFBEB;
+
+  /* Semantic */
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --amber: #d97706;
+  --amber-bg: #fffbeb;
+
+  /* Neutrals */
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+
+  /* Typography */
+  --font-display: 'Archivo Black', Impact, sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Neubrutalist Tokens */
+  --border: 3px solid var(--black);
+  --border-thin: 2px solid var(--black);
+  --shadow: 4px 4px 0px var(--black);
+  --shadow-lg: 6px 6px 0px var(--black);
+  --shadow-xl: 8px 8px 0px var(--black);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); color: var(--gray-700); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+::selection { background: var(--yellow-light); color: var(--black); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ================================================================
+   NAV
+   ================================================================ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 40px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--white); border-bottom: var(--border);
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 22px; color: var(--black);
+  text-transform: uppercase; letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-brand-icon {
+  width: 36px; height: 36px; border-radius: var(--radius);
+  background: var(--lavender); border: var(--border-thin);
+  box-shadow: 2px 2px 0 var(--black);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 16px; font-weight: 900;
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  padding: 6px 14px; border-radius: var(--radius);
+  font-size: 14px; font-weight: 600; color: var(--gray-600);
+  text-decoration: none; border: 2px solid transparent;
+  transition: all 0.15s;
+}
+.nav-links a:hover {
+  color: var(--black); background: var(--yellow-light);
+  border-color: var(--black); box-shadow: 2px 2px 0 var(--black);
+}
+
+/* ================================================================
+   SECTIONS
+   ================================================================ */
+.section { max-width: 1140px; margin: 0 auto; padding: 80px 48px; }
+.section-num {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  color: var(--black); letter-spacing: 2px; margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 4px 12px; background: var(--yellow-light);
+  border: var(--border-thin); border-radius: var(--radius);
+  box-shadow: 2px 2px 0 var(--black);
+}
+.section-heading {
+  font-family: var(--font-display); font-size: 48px; color: var(--black);
+  line-height: 1.1; margin-bottom: 14px; text-transform: uppercase;
+  letter-spacing: -1px;
+}
+.section-desc { font-size: 17px; color: var(--gray-600); max-width: 560px; line-height: 1.7; font-weight: 500; }
+.section-divider { max-width: 1140px; margin: 0 auto; padding: 0 48px; }
+.section-divider::after { content: ''; display: block; height: 3px; background: var(--black); }
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero {
+  min-height: 55vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 120px 48px 60px;
+  position: relative; background: var(--white); overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px; pointer-events: none;
+}
+.hero-deco {
+  position: absolute; border: var(--border); border-radius: var(--radius);
+  pointer-events: none; z-index: 0;
+}
+.hero-deco-1 { top: 100px; left: 8%; width: 60px; height: 60px; background: var(--lavender-light); transform: rotate(-12deg); box-shadow: var(--shadow); animation: float1 6s ease-in-out infinite; }
+.hero-deco-2 { top: 180px; right: 10%; width: 40px; height: 40px; background: var(--coral-light); border-radius: 50%; box-shadow: var(--shadow); animation: float2 5s ease-in-out infinite; }
+.hero-deco-3 { bottom: 80px; left: 12%; width: 50px; height: 50px; background: var(--mint-light); transform: rotate(8deg); box-shadow: var(--shadow); animation: float3 7s ease-in-out infinite; }
+.hero-deco-4 { bottom: 60px; right: 15%; width: 35px; height: 35px; background: var(--sky-light); transform: rotate(-5deg); box-shadow: var(--shadow); animation: float1 8s ease-in-out infinite; }
+@keyframes float1 { 0%,100% { transform: translateY(0) rotate(-12deg); } 50% { transform: translateY(-12px) rotate(-8deg); } }
+@keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes float3 { 0%,100% { transform: translateY(0) rotate(8deg); } 50% { transform: translateY(-14px) rotate(12deg); } }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 18px 8px 10px; border-radius: var(--radius);
+  background: var(--lavender-bg); border: var(--border-thin);
+  box-shadow: 3px 3px 0 var(--black);
+  font-size: 13px; font-weight: 700; color: var(--black);
+  margin-bottom: 28px; position: relative; z-index: 1;
+}
+.hero-eyebrow-dot {
+  width: 24px; height: 24px; border-radius: var(--radius);
+  background: var(--lavender); border: 2px solid var(--black);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-eyebrow-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: white; animation: breathe 3s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } }
+
+.hero-mark { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; position: relative; z-index: 1; }
+.hero-shield {
+  width: 72px; height: 72px; border-radius: var(--radius-lg);
+  background: var(--black); border: var(--border); box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-family: var(--font-display); font-size: 28px;
+}
+.hero-wordmark {
+  font-family: var(--font-display); font-size: 56px; color: var(--black);
+  letter-spacing: -2px; line-height: 1; text-transform: uppercase;
+}
+.hero-tagline {
+  font-size: 18px; font-weight: 500; font-style: italic;
+  color: var(--gray-600); max-width: 480px; line-height: 1.6;
+  margin-bottom: 32px; position: relative; z-index: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: 15px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  border: var(--border); border-radius: var(--radius);
+  transition: all 0.12s; position: relative;
+}
+.btn:active { transform: translate(2px, 2px); box-shadow: none !important; }
+.btn-primary { padding: 14px 28px; background: var(--black); color: white; box-shadow: var(--shadow); }
+.btn-primary:hover { box-shadow: var(--shadow-lg); transform: translate(-2px, -2px); }
+.btn-secondary { padding: 14px 28px; background: var(--white); color: var(--black); box-shadow: var(--shadow); }
+.btn-secondary:hover { background: var(--yellow-light); box-shadow: var(--shadow-lg); transform: translate(-2px, -2px); }
+.btn-brand { padding: 14px 28px; background: var(--lavender); color: var(--black); box-shadow: var(--shadow); }
+.btn-brand:hover { box-shadow: var(--shadow-lg); transform: translate(-2px, -2px); }
+.btn-sm { padding: 8px 18px; font-size: 13px; }
+.btn-ghost { padding: 10px 18px; background: transparent; color: var(--gray-600); border: 2px solid var(--gray-300); box-shadow: none; }
+.btn-ghost:hover { border-color: var(--black); color: var(--black); box-shadow: 2px 2px 0 var(--black); }
+.btn-grid { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Badges */
+.badge {
+  padding: 4px 12px; border-radius: var(--radius); font-size: 11px; font-weight: 800;
+  display: inline-flex; align-items: center; gap: 4px;
+  border: 2px solid var(--black); text-transform: uppercase;
+}
+.b-danger { background: var(--coral-light); color: var(--red); }
+.b-warn { background: var(--yellow-light); color: var(--amber); }
+.b-ok { background: var(--mint-light); color: var(--green); }
+.b-info { background: var(--lavender-light); color: #7C3AED; }
+.b-neutral { background: var(--gray-200); color: var(--gray-600); }
+.b-sky { background: var(--sky-light); color: #0369A1; }
+
+/* ================================================================
+   DASHBOARD — CENTRAL DE OPERACOES
+   ================================================================ */
+.dash-frame {
+  margin-top: 48px; border-radius: var(--radius-xl);
+  border: var(--border); overflow: hidden;
+  background: var(--white); box-shadow: var(--shadow-xl);
+}
+.dash-chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 20px; background: var(--gray-100); border-bottom: var(--border);
+}
+.dash-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--black); }
+.dash-url { font-family: var(--font-mono); font-size: 12px; color: var(--gray-500); margin-left: 16px; }
+.dash-body { display: flex; min-height: 720px; }
+
+/* Sidebar */
+.dash-sidebar { width: 220px; padding: 16px 12px; background: var(--white); border-right: var(--border); }
+.dash-main { flex: 1; padding: 24px 28px; overflow: hidden; background: var(--off-white); }
+.ds-group { margin-bottom: 20px; }
+.ds-title { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; padding: 0 10px; margin-bottom: 8px; }
+.ds-brand { display: flex; align-items: center; gap: 10px; padding: 8px 10px; margin-bottom: 16px; }
+.ds-brand-icon { width: 32px; height: 32px; border-radius: var(--radius); background: var(--black); border: var(--border-thin); display: flex; align-items: center; justify-content: center; color: white; font-family: var(--font-display); font-size: 14px; }
+.ds-brand-name { font-family: var(--font-display); font-size: 16px; color: var(--black); }
+.ds-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: var(--radius);
+  font-size: 14px; font-weight: 600; color: var(--gray-500);
+  cursor: default; border: 2px solid transparent; transition: all 0.12s;
+}
+.ds-item:hover { background: var(--gray-100); color: var(--gray-700); border-color: var(--gray-300); }
+.ds-item.on { background: var(--lavender-bg); color: var(--black); border-color: var(--black); box-shadow: 2px 2px 0 var(--black); font-weight: 700; }
+.ds-icon { width: 18px; text-align: center; }
+.ds-count { margin-left: auto; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: var(--radius); background: var(--gray-100); color: var(--gray-500); border: 2px solid var(--gray-300); }
+.ds-count.alert { background: var(--coral-bg); color: var(--red); border-color: var(--red); }
+
+/* Alert banner */
+.alert-banner {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 18px; border-radius: var(--radius);
+  background: var(--yellow-bg); border: var(--border-thin);
+  box-shadow: 3px 3px 0 var(--black);
+  margin-bottom: 18px; font-size: 14px; font-weight: 600;
+}
+.alert-banner-icon { font-size: 20px; }
+.alert-banner-action {
+  margin-left: auto; font-size: 13px; font-weight: 700;
+  color: var(--black); cursor: pointer; white-space: nowrap;
+}
+
+/* Stat cards */
+.stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 18px; }
+.st-card {
+  padding: 16px 18px; border-radius: var(--radius);
+  background: var(--white); border: var(--border-thin);
+  box-shadow: 3px 3px 0 var(--black); transition: all 0.12s;
+}
+.st-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--black); }
+.st-card:nth-child(1) { border-left: 5px solid var(--lavender); }
+.st-card:nth-child(2) { border-left: 5px solid var(--sky); }
+.st-card:nth-child(3) { border-left: 5px solid var(--mint); }
+.st-card:nth-child(4) { border-left: 5px solid var(--coral); }
+.st-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; }
+.st-val { font-family: var(--font-display); font-size: 28px; color: var(--black); margin: 4px 0; letter-spacing: -0.5px; }
+.st-delta { font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; padding: 2px 10px; border-radius: var(--radius); border: 2px solid; }
+.st-delta.up { color: var(--green); background: var(--green-bg); border-color: var(--green); }
+.st-delta.down { color: var(--red); background: var(--red-bg); border-color: var(--red); }
+.st-delta.neutral { color: var(--gray-500); background: var(--gray-100); border-color: var(--gray-300); }
+
+/* Panels */
+.d-panel { padding: 18px; border-radius: var(--radius-lg); background: var(--white); border: var(--border-thin); box-shadow: 3px 3px 0 var(--black); margin-bottom: 14px; }
+.d-panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.d-panel-title { font-family: var(--font-display); font-size: 14px; color: var(--black); text-transform: uppercase; }
+.d-panel-action { font-size: 12px; font-weight: 700; color: var(--lavender); cursor: pointer; padding: 2px 8px; border-radius: var(--radius); border: 2px solid var(--lavender); transition: all 0.12s; }
+.d-panel-action:hover { background: var(--lavender); color: var(--black); box-shadow: 2px 2px 0 var(--black); border-color: var(--black); }
+
+/* Grid */
+.g2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 14px; }
+.g2e { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+
+/* Org cards */
+.org-card {
+  padding: 16px 18px; border-radius: var(--radius-lg);
+  background: var(--white); border: var(--border-thin);
+  box-shadow: 3px 3px 0 var(--black);
+  margin-bottom: 14px; transition: all 0.12s;
+}
+.org-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--black); }
+.org-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.org-name { font-family: var(--font-display); font-size: 16px; color: var(--black); text-transform: uppercase; }
+.org-meta { font-family: var(--font-mono); font-size: 11px; color: var(--gray-400); }
+.org-projects { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Project mini cards */
+.proj-mini {
+  min-width: 160px; flex: 1; padding: 12px;
+  background: var(--off-white); border-radius: var(--radius);
+  border: var(--border-thin); box-shadow: 2px 2px 0 var(--black);
+  transition: all 0.12s; cursor: pointer;
+}
+.proj-mini:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--black); background: var(--yellow-bg); }
+.proj-name { font-size: 13px; font-weight: 800; color: var(--black); margin-bottom: 4px; }
+.proj-tasks { font-size: 11px; color: var(--gray-500); }
+.proj-tasks .prazo { font-weight: 700; }
+.proj-tasks .atrasado { color: var(--red); }
+.proj-tasks .hoje { color: var(--amber); }
+.proj-bar { height: 6px; background: var(--gray-200); border-radius: 3px; margin-top: 8px; border: 1px solid var(--black); overflow: hidden; }
+.proj-bar-fill { height: 100%; }
+
+/* Mini kanban */
+.kanban-row { display: flex; gap: 10px; overflow-x: auto; padding: 4px 0; }
+.k-col { min-width: 170px; flex: 1; background: var(--gray-100); border-radius: var(--radius); padding: 10px; border: var(--border-thin); }
+.k-col-title { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.k-col-count { background: var(--gray-200); border-radius: var(--radius); padding: 0 6px; font-size: 10px; border: 1px solid var(--gray-300); }
+.k-task { background: var(--white); border: var(--border-thin); border-radius: var(--radius); padding: 8px 10px; margin-bottom: 6px; box-shadow: 2px 2px 0 var(--black); font-size: 12px; }
+.k-task-title { font-weight: 700; color: var(--black); margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+.k-task-meta { font-family: var(--font-mono); font-size: 10px; color: var(--gray-400); display: flex; justify-content: space-between; }
+.pri-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; border: 1px solid var(--black); }
+
+/* Timeline gantt */
+.gantt { border-radius: var(--radius-lg); border: var(--border); overflow: hidden; box-shadow: var(--shadow); }
+.gantt-head { display: grid; grid-template-columns: 200px repeat(7, 1fr); background: var(--black); color: white; }
+.gantt-head > div { padding: 8px; text-align: center; font-family: var(--font-mono); font-size: 11px; font-weight: 700; border-left: 1px solid rgba(255,255,255,0.15); }
+.gantt-head > div:first-child { text-align: left; border-left: none; }
+.gantt-head .today-h { background: rgba(251,191,36,0.3); }
+.gantt-row { display: grid; grid-template-columns: 200px repeat(7, 1fr); border-bottom: 2px solid var(--gray-200); min-height: 30px; align-items: center; }
+.gantt-row.org-row { background: var(--gray-100); border-bottom: var(--border-thin); }
+.gantt-lbl { padding: 0 12px; font-size: 12px; font-weight: 700; color: var(--black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gantt-lbl.sub { padding-left: 28px; font-weight: 600; color: var(--gray-600); font-size: 11px; }
+.gantt-lbl .dur { font-family: var(--font-mono); font-size: 9px; color: var(--gray-400); margin-left: 4px; background: var(--gray-100); padding: 1px 4px; border-radius: 3px; }
+.gantt-cell { position: relative; height: 100%; border-left: 1px solid var(--gray-200); }
+.gantt-cell.today { background: rgba(251,191,36,0.08); }
+.g-bar { position: absolute; top: 5px; bottom: 5px; left: 2px; right: 2px; border-radius: 4px; border: 2px solid var(--black); }
+.g-bar.start { left: 5px; }
+.g-bar.end { right: 5px; }
+.g-bar.lavender { background: var(--lavender-light); }
+.g-bar.mint { background: var(--mint-light); }
+.g-bar.coral { background: var(--coral-light); }
+.g-bar.sky { background: var(--sky-light); }
+.g-bar.yellow { background: var(--yellow-light); }
+.g-bar.muted { background: var(--gray-200); border-color: var(--gray-400); }
+
+.org-tag {
+  display: inline-block; padding: 1px 8px; border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: 9px; font-weight: 800;
+  border: 2px solid var(--black); margin-right: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Footer */
+.footer { text-align: center; padding: 48px; font-size: 13px; color: var(--gray-400); border-top: var(--border); }
+.footer strong { color: var(--black); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-brand-icon">K</div>
+    IA-KANBA
+  </div>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#empresa">Empresa</a>
+    <a href="#kanban">Kanban</a>
+    <a href="#timeline">Timeline</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco hero-deco-1"></div>
+  <div class="hero-deco hero-deco-2"></div>
+  <div class="hero-deco hero-deco-3"></div>
+  <div class="hero-deco hero-deco-4"></div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-dot"></div>
+    AI-POWERED KANBAN WITH VOICE ASSISTANT
+  </div>
+  <div class="hero-mark">
+    <div class="hero-shield">K</div>
+    <div class="hero-wordmark">IA-KANBA</div>
+  </div>
+  <p class="hero-tagline">
+    Gestao inteligente de empresas, projetos e tarefas.<br>
+    Com assistente AI integrado e visao em tempo real.
+  </p>
+  <div class="btn-grid" style="justify-content: center;">
+    <button class="btn btn-primary">Comecar Agora &rarr;</button>
+    <button class="btn btn-secondary">Ver Demo</button>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================
+     01 — OVERVIEW (CENTRAL DE OPERACOES)
+     ================================================================ -->
+<section class="section" id="overview">
+  <div class="section-num">01 — OVERVIEW</div>
+  <h2 class="section-heading">CENTRAL DE OPERACOES</h2>
+  <p class="section-desc">
+    Visao geral consolidada — empresas, projetos, tarefas e prazos num unico painel.
+  </p>
+
+  <div class="dash-frame">
+    <div class="dash-chrome">
+      <div class="dash-dot" style="background: var(--coral);"></div>
+      <div class="dash-dot" style="background: var(--yellow);"></div>
+      <div class="dash-dot" style="background: var(--mint);"></div>
+      <span class="dash-url">localhost:5174/overview</span>
+    </div>
+    <div class="dash-body">
+      <!-- Sidebar -->
+      <div class="dash-sidebar">
+        <div class="ds-brand">
+          <div class="ds-brand-icon">K</div>
+          <div class="ds-brand-name">IA-KANBA</div>
+        </div>
+        <div class="ds-group">
+          <div class="ds-title">Navegacao</div>
+          <div class="ds-item on"><span class="ds-icon">&#9632;</span> Overview</div>
+          <div class="ds-item"><span class="ds-icon">&#9588;</span> Timeline</div>
+          <div class="ds-item"><span class="ds-icon">&#9783;</span> Meus Boards</div>
+        </div>
+        <div class="ds-group">
+          <div class="ds-title">Empresas</div>
+          <div class="ds-item"><span class="ds-icon" style="color: var(--lavender);">&#9679;</span> Empresa do Alan <span class="ds-count">13</span></div>
+          <div class="ds-item"><span class="ds-icon" style="color: var(--mint);">&#9679;</span> Plin <span class="ds-count">4</span></div>
+          <div class="ds-item"><span class="ds-icon" style="color: var(--coral);">&#9679;</span> Micelli <span class="ds-count alert">2</span></div>
+        </div>
+        <div class="ds-group">
+          <div class="ds-title">AI Assistant</div>
+          <div class="ds-item"><span class="ds-icon" style="color: var(--lavender);">&#9733;</span> Chat AI <span class="ds-count" style="background: var(--lavender-bg); color: #7C3AED; border-color: var(--lavender);">F7</span></div>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="dash-main">
+        <div style="font-family: var(--font-display); font-size: 22px; color: var(--black); text-transform: uppercase; margin-bottom: 4px;">CENTRAL DE OPERACOES</div>
+        <div style="font-size: 13px; color: var(--gray-400); margin-bottom: 16px;">Visao geral consolidada — 13 Mar 2026</div>
+
+        <!-- Alert -->
+        <div class="alert-banner">
+          <span class="alert-banner-icon">&#9888;</span>
+          <span>2 tarefas atrasadas — 3 vencem hoje</span>
+          <span class="alert-banner-action">Ver alertas &rarr;</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="st-card">
+            <div class="st-label">Empresas</div>
+            <div class="st-val">3</div>
+            <span class="st-delta neutral">ativo</span>
+          </div>
+          <div class="st-card">
+            <div class="st-label">Projetos</div>
+            <div class="st-val">7</div>
+            <span class="st-delta up">+2 novos</span>
+          </div>
+          <div class="st-card">
+            <div class="st-label">Tarefas</div>
+            <div class="st-val">21</div>
+            <span class="st-delta up">+5 esta semana</span>
+          </div>
+          <div class="st-card">
+            <div class="st-label">Concluidas</div>
+            <div class="st-val">8</div>
+            <span class="st-delta up">38%</span>
+          </div>
+        </div>
+
+        <!-- Org: Alan -->
+        <div class="org-card" style="border-left: 5px solid var(--lavender);">
+          <div class="org-header">
+            <div class="org-name">Empresa do Alan</div>
+            <div class="org-meta">3 projetos | 13 tarefas</div>
+          </div>
+          <div class="org-projects">
+            <div class="proj-mini">
+              <div class="proj-name">RecorraJa</div>
+              <div class="proj-tasks">Modulo Defesa <span class="prazo atrasado">10/03</span></div>
+              <div class="proj-tasks">Raspagem DETRAN <span class="prazo hoje">12/03</span></div>
+              <div class="proj-tasks">Deploy v2.1 <span class="prazo hoje">12/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 20%; background: var(--lavender);"></div></div>
+            </div>
+            <div class="proj-mini">
+              <div class="proj-name">Legibet</div>
+              <div class="proj-tasks">Implementacao <span class="prazo hoje">12/03</span></div>
+              <div class="proj-tasks">Compliance <span class="prazo">15/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 50%; background: var(--mint);"></div></div>
+            </div>
+            <div class="proj-mini">
+              <div class="proj-name">Nossos</div>
+              <div class="proj-tasks">Setup inicial <span class="prazo">14/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 0%; background: var(--gray-300);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Org: Plin -->
+        <div class="org-card" style="border-left: 5px solid var(--mint);">
+          <div class="org-header">
+            <div class="org-name">Plin</div>
+            <div class="org-meta">2 projetos | 4 tarefas</div>
+          </div>
+          <div class="org-projects">
+            <div class="proj-mini">
+              <div class="proj-name">Consensus</div>
+              <div class="proj-tasks">Propor mudancas <span class="prazo hoje">12/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 60%; background: var(--mint);"></div></div>
+            </div>
+            <div class="proj-mini">
+              <div class="proj-name">MediAI</div>
+              <div class="proj-tasks">Prototipo v1 <span class="prazo">20/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 40%; background: var(--lavender);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Org: Micelli -->
+        <div class="org-card" style="border-left: 5px solid var(--coral);">
+          <div class="org-header">
+            <div class="org-name">Micelli</div>
+            <div class="org-meta">2 projetos | 4 tarefas</div>
+          </div>
+          <div class="org-projects">
+            <div class="proj-mini">
+              <div class="proj-name">Santander VM</div>
+              <div class="proj-tasks">Integracao API <span class="prazo atrasado">10/03</span></div>
+              <div class="proj-tasks">Testes E2E <span class="prazo">14/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 20%; background: var(--coral);"></div></div>
+            </div>
+            <div class="proj-mini">
+              <div class="proj-name">DataJuris</div>
+              <div class="proj-tasks">Migracao dados <span class="prazo">16/03</span></div>
+              <div class="proj-bar"><div class="proj-bar-fill" style="width: 0%; background: var(--gray-300);"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================
+     02 — EMPRESA DETAIL
+     ================================================================ -->
+<section class="section" id="empresa">
+  <div class="section-num">02 — EMPRESA DETALHE</div>
+  <h2 class="section-heading">EMPRESA DO ALAN</h2>
+  <p class="section-desc">
+    Drill-down na empresa — todos os projetos com mini kanban preview.
+  </p>
+
+  <div class="dash-frame">
+    <div class="dash-chrome">
+      <div class="dash-dot" style="background: var(--coral);"></div>
+      <div class="dash-dot" style="background: var(--yellow);"></div>
+      <div class="dash-dot" style="background: var(--mint);"></div>
+      <span class="dash-url">localhost:5174/organization/abc-123</span>
+    </div>
+    <div style="padding: 24px 28px; background: var(--off-white);">
+
+      <!-- Breadcrumb -->
+      <div style="font-size: 13px; color: var(--gray-400); margin-bottom: 16px;">
+        <span style="color: var(--lavender); font-weight: 700; cursor: pointer;">Overview</span>
+        <span style="margin: 0 6px;">&gt;</span>
+        <span style="color: var(--black); font-weight: 700;">Empresa do Alan</span>
+      </div>
+
+      <!-- Header stats -->
+      <div class="stats-grid" style="margin-bottom: 20px;">
+        <div class="st-card" style="border-left-color: var(--lavender);">
+          <div class="st-label">Total tarefas</div>
+          <div class="st-val">19</div>
+        </div>
+        <div class="st-card" style="border-left-color: var(--mint);">
+          <div class="st-label">Concluidas</div>
+          <div class="st-val">4</div>
+          <span class="st-delta up">21%</span>
+        </div>
+        <div class="st-card" style="border-left-color: var(--sky);">
+          <div class="st-label">Em Progresso</div>
+          <div class="st-val">8</div>
+        </div>
+        <div class="st-card" style="border-left-color: var(--coral);">
+          <div class="st-label">Atrasadas</div>
+          <div class="st-val">2</div>
+          <span class="st-delta down">urgente</span>
+        </div>
+      </div>
+
+      <!-- Project: RecorraJa with mini kanban -->
+      <div class="d-panel">
+        <div class="d-panel-head">
+          <div class="d-panel-title">RecorraJa — 10 tarefas</div>
+          <div class="d-panel-action">Abrir Board &rarr;</div>
+        </div>
+        <div style="height: 6px; background: var(--gray-200); border-radius: 3px; border: 1px solid var(--black); margin-bottom: 14px; overflow: hidden;">
+          <div style="width: 20%; height: 100%; background: var(--mint);"></div>
+        </div>
+        <div class="kanban-row">
+          <div class="k-col">
+            <div class="k-col-title"><span>CONCLUIDO</span> <span class="k-col-count">2</span></div>
+            <div class="k-task" style="opacity: 0.6;">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--mint);"></span> Setup projeto</div>
+              <div class="k-task-meta"><span class="badge b-ok" style="font-size: 9px; padding: 1px 6px;">05/03</span></div>
+            </div>
+            <div class="k-task" style="opacity: 0.6;">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--mint);"></span> Modelagem banco</div>
+              <div class="k-task-meta"><span class="badge b-ok" style="font-size: 9px; padding: 1px 6px;">08/03</span></div>
+            </div>
+          </div>
+          <div class="k-col">
+            <div class="k-col-title"><span>EM PROGRESSO</span> <span class="k-col-count">4</span></div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--coral);"></span> Modulo Defesa</div>
+              <div class="k-task-meta"><span class="badge b-danger" style="font-size: 9px; padding: 1px 6px;">ATRASADO 10/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--coral);"></span> Raspagem DETRAN</div>
+              <div class="k-task-meta"><span class="badge b-warn" style="font-size: 9px; padding: 1px 6px;">HOJE 12/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--coral);"></span> Deploy v2.1</div>
+              <div class="k-task-meta"><span class="badge b-warn" style="font-size: 9px; padding: 1px 6px;">HOJE 12/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--yellow);"></span> API pagamentos</div>
+              <div class="k-task-meta"><span style="font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);">13/03</span></div>
+            </div>
+          </div>
+          <div class="k-col">
+            <div class="k-col-title"><span>PENDENTE</span> <span class="k-col-count">4</span></div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--yellow);"></span> Template PDF</div>
+              <div class="k-task-meta"><span style="font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);">14/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--mint);"></span> Notificacoes</div>
+              <div class="k-task-meta"><span style="font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);">15/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--gray-300);"></span> Dashboard</div>
+              <div class="k-task-meta"><span style="font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);">17/03</span></div>
+            </div>
+            <div class="k-task">
+              <div class="k-task-title"><span class="pri-dot" style="background: var(--gray-300);"></span> Testes E2E</div>
+              <div class="k-task-meta"><span style="font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);">18/03</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project: Legibet -->
+      <div class="d-panel">
+        <div class="d-panel-head">
+          <div class="d-panel-title">Legibet — 6 tarefas</div>
+          <div class="d-panel-action">Abrir Board &rarr;</div>
+        </div>
+        <div style="height: 6px; background: var(--gray-200); border-radius: 3px; border: 1px solid var(--black); margin-bottom: 14px; overflow: hidden;">
+          <div style="width: 50%; height: 100%; background: var(--mint);"></div>
+        </div>
+        <div style="font-size: 12px; color: var(--gray-500);">3 concluidas | 2 em progresso | 1 pendente — <span style="font-weight: 700; color: var(--green);">50% concluido</span></div>
+      </div>
+
+      <!-- Project: Nossos -->
+      <div class="d-panel">
+        <div class="d-panel-head">
+          <div class="d-panel-title">Nossos — 3 tarefas</div>
+          <div class="d-panel-action">Abrir Board &rarr;</div>
+        </div>
+        <div style="height: 6px; background: var(--gray-200); border-radius: 3px; border: 1px solid var(--black); margin-bottom: 14px; overflow: hidden;">
+          <div style="width: 0%; height: 100%;"></div>
+        </div>
+        <div style="font-size: 12px; color: var(--gray-500);">0 concluidas | 1 em progresso | 2 pendentes — <span style="font-weight: 700; color: var(--gray-400);">0% concluido</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================
+     03 — TIMELINE GANTT
+     ================================================================ -->
+<section class="section" id="timeline">
+  <div class="section-num">03 — TIMELINE</div>
+  <h2 class="section-heading">TIMELINE OVERVIEW</h2>
+  <p class="section-desc">
+    Historico de 15 dias — quanto tempo cada tarefa levou para ser implementada.
+  </p>
+
+  <div style="margin-top: 32px;">
+    <!-- Legend -->
+    <div style="display: flex; gap: 14px; margin-bottom: 12px; font-size: 11px; font-weight: 700; color: var(--gray-500);">
+      <span><span style="display:inline-block;width:16px;height:8px;background:var(--lavender-light);border:2px solid var(--black);border-radius:3px;"></span> Em progresso</span>
+      <span><span style="display:inline-block;width:16px;height:8px;background:var(--mint-light);border:2px solid var(--black);border-radius:3px;"></span> Concluido</span>
+      <span><span style="display:inline-block;width:16px;height:8px;background:var(--coral-light);border:2px solid var(--black);border-radius:3px;"></span> Atrasado</span>
+      <span><span style="display:inline-block;width:16px;height:8px;background:var(--gray-200);border:2px solid var(--gray-400);border-radius:3px;"></span> Pendente</span>
+      <span><span style="display:inline-block;width:2px;height:12px;background:var(--yellow);"></span> Hoje</span>
+    </div>
+
+    <div class="gantt">
+      <div class="gantt-head">
+        <div>TAREFA</div>
+        <div>08 Sab</div>
+        <div>09 Dom</div>
+        <div>10 Seg</div>
+        <div>11 Ter</div>
+        <div class="today-h">12 Qua</div>
+        <div>13 Qui</div>
+        <div>14 Sex</div>
+      </div>
+
+      <!-- Alan / RecorraJa -->
+      <div class="gantt-row org-row">
+        <div class="gantt-lbl"><span class="org-tag" style="background: var(--lavender-light);">ALAN</span> RecorraJa</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell today"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Modulo Defesa <span class="dur">5d</span></div>
+        <div class="gantt-cell"><div class="g-bar lavender start"></div></div>
+        <div class="gantt-cell"><div class="g-bar lavender"></div></div>
+        <div class="gantt-cell"><div class="g-bar lavender"></div></div>
+        <div class="gantt-cell"><div class="g-bar lavender"></div></div>
+        <div class="gantt-cell today"><div class="g-bar coral end"></div></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Raspagem DETRAN <span class="dur">3d</span></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="g-bar sky start"></div></div>
+        <div class="gantt-cell"><div class="g-bar sky"></div></div>
+        <div class="gantt-cell today"><div class="g-bar sky end"></div></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Deploy v2.1 <span class="dur">1d</span></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell today"><div class="g-bar muted start end"></div></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Template PDF <span class="dur">2d</span></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell today"></div>
+        <div class="gantt-cell"><div class="g-bar muted start"></div></div>
+        <div class="gantt-cell"><div class="g-bar muted end"></div></div>
+      </div>
+
+      <!-- Plin / Consensus -->
+      <div class="gantt-row org-row">
+        <div class="gantt-lbl"><span class="org-tag" style="background: var(--mint-light);">PLIN</span> Consensus</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell today"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Propor mudancas <span class="dur">5d</span></div>
+        <div class="gantt-cell"><div class="g-bar mint start"></div></div>
+        <div class="gantt-cell"><div class="g-bar mint"></div></div>
+        <div class="gantt-cell"><div class="g-bar mint"></div></div>
+        <div class="gantt-cell"><div class="g-bar mint"></div></div>
+        <div class="gantt-cell today"><div class="g-bar mint end"></div></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
+      </div>
+
+      <!-- Micelli / Santander VM -->
+      <div class="gantt-row org-row">
+        <div class="gantt-lbl"><span class="org-tag" style="background: var(--coral-light);">MIC</span> Santander VM</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell today"></div><div class="gantt-cell"></div><div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Integracao API <span class="dur">5d</span></div>
+        <div class="gantt-cell"><div class="g-bar coral start"></div></div>
+        <div class="gantt-cell"><div class="g-bar coral"></div></div>
+        <div class="gantt-cell"><div class="g-bar coral"></div></div>
+        <div class="gantt-cell"><div class="g-bar coral"></div></div>
+        <div class="gantt-cell today"><div class="g-bar coral end"></div></div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-lbl sub">Testes E2E <span class="dur">1d</span></div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell"></div><div class="gantt-cell today"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="g-bar muted start end"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================
+     04 — COMPONENTS
+     ================================================================ -->
+<section class="section">
+  <div class="section-num">04 — COMPONENTES</div>
+  <h2 class="section-heading">DESIGN SYSTEM</h2>
+  <p class="section-desc">
+    Botoes, badges, fontes e tokens — tudo neubrutalist.
+  </p>
+
+  <div style="margin-top: 32px;">
+    <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Botoes</div>
+    <div class="btn-grid" style="margin-bottom: 32px;">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-brand">Brand</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-primary btn-sm">Small</button>
+    </div>
+
+    <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Badges</div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px;">
+      <span class="badge b-danger">Atrasado</span>
+      <span class="badge b-warn">Vence Hoje</span>
+      <span class="badge b-ok">Concluido</span>
+      <span class="badge b-info">Em Progresso</span>
+      <span class="badge b-sky">Info</span>
+      <span class="badge b-neutral">Pendente</span>
+    </div>
+
+    <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Tipografia</div>
+    <div style="margin-bottom: 32px;">
+      <div style="font-family: var(--font-display); font-size: 36px; color: var(--black); text-transform: uppercase; margin-bottom: 8px;">IA-KANBA OVERVIEW</div>
+      <div style="font-size: 18px; font-weight: 700; color: var(--black); margin-bottom: 4px;">Empresa do Alan — 3 projetos ativos</div>
+      <div style="font-size: 15px; color: var(--gray-600); margin-bottom: 4px;">Gerencie seus projetos com inteligencia artificial integrada.</div>
+      <div style="font-family: var(--font-mono); font-size: 13px; color: var(--lavender); font-weight: 600;">Prazo: 12/03 — Duracao: 3d — Status: in_progress</div>
+    </div>
+
+    <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Cores de Acento</div>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+      <div style="border: var(--border-thin); border-radius: var(--radius); overflow: hidden; box-shadow: 2px 2px 0 var(--black);">
+        <div style="height: 48px; background: var(--lavender);"></div>
+        <div style="padding: 6px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;">LAVENDER<br><span style="color: var(--gray-400);">#A78BFA</span></div>
+      </div>
+      <div style="border: var(--border-thin); border-radius: var(--radius); overflow: hidden; box-shadow: 2px 2px 0 var(--black);">
+        <div style="height: 48px; background: var(--mint);"></div>
+        <div style="padding: 6px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;">MINT<br><span style="color: var(--gray-400);">#34D399</span></div>
+      </div>
+      <div style="border: var(--border-thin); border-radius: var(--radius); overflow: hidden; box-shadow: 2px 2px 0 var(--black);">
+        <div style="height: 48px; background: var(--coral);"></div>
+        <div style="padding: 6px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;">CORAL<br><span style="color: var(--gray-400);">#F87171</span></div>
+      </div>
+      <div style="border: var(--border-thin); border-radius: var(--radius); overflow: hidden; box-shadow: 2px 2px 0 var(--black);">
+        <div style="height: 48px; background: var(--sky);"></div>
+        <div style="padding: 6px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;">SKY<br><span style="color: var(--gray-400);">#38BDF8</span></div>
+      </div>
+      <div style="border: var(--border-thin); border-radius: var(--radius); overflow: hidden; box-shadow: 2px 2px 0 var(--black);">
+        <div style="height: 48px; background: var(--yellow);"></div>
+        <div style="padding: 6px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;">YELLOW<br><span style="color: var(--gray-400);">#FBBF24</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>IA-KANBA</strong> — Brand Identity System<br>
+  Neubrutalism / Gumroad Style — 100% baseado em Betify V25<br>
+  Archivo Black + DM Sans + JetBrains Mono
+</div>
+
+<!-- Scroll reveal -->
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

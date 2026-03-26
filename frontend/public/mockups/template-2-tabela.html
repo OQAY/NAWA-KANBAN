@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Template 2 - Tabela Estilo Vidro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    h1 { margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 20px; font-size: 14px; }
+
+    /* Reproduz o estilo do vidro do Oqay - 3 colunas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    thead th {
+      background: #333;
+      color: white;
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+    tbody td {
+      padding: 8px 16px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    /* Empresa agrupadora */
+    .empresa-row td {
+      background: #f0f4ff;
+      font-weight: bold;
+      font-size: 14px;
+      padding-top: 12px;
+      border-bottom: 2px solid #ddd;
+    }
+    .empresa-row .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: white;
+    }
+    .tag-blue { background: #2563eb; }
+    .tag-green { background: #16a34a; }
+    .tag-orange { background: #ea580c; }
+
+    /* Projeto sub-header */
+    .projeto-row td {
+      background: #fafafa;
+      font-weight: 600;
+      font-size: 13px;
+      padding-left: 32px;
+    }
+
+    /* Tarefa normal */
+    .tarefa-row td {
+      padding-left: 48px;
+      color: #444;
+    }
+
+    /* Prazos */
+    .prazo { font-weight: normal; }
+    .prazo.atrasado { color: #dc2626; font-weight: bold; }
+    .prazo.hoje { color: #ea580c; font-weight: bold; }
+    .prazo.ok { color: #16a34a; }
+
+    /* Status */
+    .status {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
+    .status-done { background: #dcfce7; color: #166534; }
+    .status-progress { background: #fef9c3; color: #854d0e; }
+    .status-todo { background: #f3f4f6; color: #6b7280; }
+
+    .resumo {
+      margin-top: 20px;
+      display: flex;
+      gap: 16px;
+    }
+    .resumo-card {
+      background: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .resumo-card .num { font-size: 24px; font-weight: bold; }
+    .resumo-card .label { font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+
+<h1>Painel de Atividades</h1>
+<p class="subtitle">Igual ao vidro, mas digital - Empresa | Atividade | Prazo</p>
+
+<!-- Resumo rapido -->
+<div class="resumo">
+  <div class="resumo-card">
+    <div class="num">3</div>
+    <div class="label">Empresas</div>
+  </div>
+  <div class="resumo-card">
+    <div class="num">7</div>
+    <div class="label">Projetos</div>
+  </div>
+  <div class="resumo-card">
+    <div class="num">12</div>
+    <div class="label">Tarefas ativas</div>
+  </div>
+  <div class="resumo-card">
+    <div class="num" style="color: #dc2626;">2</div>
+    <div class="label">Atrasadas</div>
+  </div>
+  <div class="resumo-card">
+    <div class="num" style="color: #ea580c;">3</div>
+    <div class="label">Vencem hoje</div>
+  </div>
+</div>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 35%">Empresa / Projeto / Atividade</th>
+      <th style="width: 15%">Status</th>
+      <th style="width: 15%">Prazo A (inicio)</th>
+      <th style="width: 15%">Prazo B (entrega)</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- === ALAN === -->
+    <tr class="empresa-row">
+      <td><span class="tag tag-blue">ALAN</span> Empresa do Alan</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>RecorraJa</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Modulo Defesa</td>
+      <td><span class="status status-progress">em progresso</span></td>
+      <td>10/03</td>
+      <td class="prazo hoje">12/03</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Implementar raspagem</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>12/03</td>
+      <td class="prazo">13/03</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Deploy producao</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo hoje">12/03</td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>Legibet</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Ver implementacao</td>
+      <td><span class="status status-progress">em progresso</span></td>
+      <td>11/03</td>
+      <td class="prazo hoje">12/03</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Compliance check</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo">15/03</td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>Nossos</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Setup inicial</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo">14/03</td>
+    </tr>
+
+    <!-- === PLIN === -->
+    <tr class="empresa-row">
+      <td><span class="tag tag-green">PLIN</span> Plin</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>Consensus</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Apresentar e propor mudancas</td>
+      <td><span class="status status-progress">em progresso</span></td>
+      <td>10/03</td>
+      <td class="prazo hoje">12/03</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Revisar contratos</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo">18/03</td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>MediAI</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Prototipo v1</td>
+      <td><span class="status status-progress">em progresso</span></td>
+      <td>08/03</td>
+      <td class="prazo">20/03</td>
+    </tr>
+
+    <!-- === MICELLI === -->
+    <tr class="empresa-row">
+      <td><span class="tag tag-orange">MICELLI</span> Micelli</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>Santander VM</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Integracao API</td>
+      <td><span class="status status-progress">em progresso</span></td>
+      <td>05/03</td>
+      <td class="prazo atrasado">10/03 (ATRASADO)</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Testes E2E</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo">14/03</td>
+    </tr>
+
+    <tr class="projeto-row">
+      <td>DataJuris</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Migracao dados</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>14/03</td>
+      <td class="prazo">16/03</td>
+    </tr>
+    <tr class="tarefa-row">
+      <td>Dashboard analytics</td>
+      <td><span class="status status-todo">pendente</span></td>
+      <td>-</td>
+      <td class="prazo">19/03</td>
+    </tr>
+
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SprintsService } from './sprints.service';
@@ -25,25 +25,25 @@ export class SprintsController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a sprint' })
-  update(@Param('id') id: string, @Body() body: Partial<Sprint>) {
-    return this.sprintsService.update(id, body);
+  update(@Param('id') id: string, @Body() body: Partial<Sprint>, @Request() req) {
+    return this.sprintsService.update(id, body, req.user.id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a sprint (planning only)' })
-  remove(@Param('id') id: string) {
-    return this.sprintsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.sprintsService.remove(id, req.user.id);
   }
 
   @Post(':id/start')
   @ApiOperation({ summary: 'Start a sprint' })
-  start(@Param('id') id: string) {
-    return this.sprintsService.start(id);
+  start(@Param('id') id: string, @Request() req) {
+    return this.sprintsService.start(id, req.user.id);
   }
 
   @Post(':id/complete')
   @ApiOperation({ summary: 'Complete a sprint' })
-  complete(@Param('id') id: string) {
-    return this.sprintsService.complete(id);
+  complete(@Param('id') id: string, @Request() req) {
+    return this.sprintsService.complete(id, req.user.id);
   }
 }

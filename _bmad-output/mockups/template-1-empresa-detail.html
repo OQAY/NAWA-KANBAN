@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Empresa do Alan - Detalhes</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+
+    /* Breadcrumb */
+    .breadcrumb { font-size: 13px; color: #888; margin-bottom: 16px; }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* Header da empresa */
+    .empresa-header {
+      background: white;
+      border-left: 4px solid #2563eb;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .empresa-info h1 { font-size: 22px; margin-bottom: 4px; }
+    .empresa-info p { font-size: 13px; color: #666; }
+
+    .empresa-stats {
+      display: flex;
+      gap: 20px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat .num { font-size: 22px; font-weight: bold; }
+    .stat .label { font-size: 11px; color: #888; }
+    .stat .num.atrasado { color: #dc2626; }
+    .stat .num.hoje { color: #ea580c; }
+
+    /* Projetos grid */
+    .projetos-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .projeto {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .projeto-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .projeto-header:hover .projeto-name { color: #2563eb; }
+    .projeto-name { font-size: 16px; font-weight: bold; }
+    .projeto-meta { font-size: 12px; color: #888; }
+    .projeto-link {
+      font-size: 12px;
+      color: #2563eb;
+      text-decoration: none;
+      border: 1px solid #2563eb;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Status bar do projeto */
+    .projeto-status-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .status-bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      background: #e0e0e0;
+    }
+    .status-bar .done { background: #16a34a; }
+    .status-bar .progress { background: #eab308; }
+    .status-bar .todo { background: #e0e0e0; }
+    .status-text { font-size: 11px; color: #888; white-space: nowrap; }
+
+    /* Colunas kanban preview */
+    .kanban-preview {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+    .kanban-col {
+      min-width: 180px;
+      flex: 1;
+      background: #f8f8f8;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .kanban-col-header {
+      font-size: 11px;
+      font-weight: bold;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .kanban-col-header .count {
+      background: #e0e0e0;
+      border-radius: 10px;
+      padding: 0 6px;
+      font-size: 10px;
+    }
+
+    .mini-task {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 6px 8px;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+    .mini-task .title { margin-bottom: 2px; }
+    .mini-task .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #aaa;
+    }
+    .mini-task .meta .prazo { color: #888; }
+    .mini-task .meta .prazo.atrasado { color: #dc2626; font-weight: bold; }
+    .mini-task .meta .prazo.hoje { color: #ea580c; font-weight: bold; }
+
+    .priority-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .priority-high { background: #dc2626; }
+    .priority-medium { background: #eab308; }
+    .priority-low { background: #16a34a; }
+    .priority-none { background: #d1d5db; }
+  </style>
+</head>
+<body>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="template-1-cards.html">Overview</a> &gt; Empresa do Alan
+</div>
+
+<!-- Header -->
+<div class="empresa-header">
+  <div class="empresa-info">
+    <h1>Empresa do Alan</h1>
+    <p>3 projetos | 5 membros | Criada em 01/01/2024</p>
+  </div>
+  <div class="empresa-stats">
+    <div class="stat">
+      <div class="num">19</div>
+      <div class="label">Total tarefas</div>
+    </div>
+    <div class="stat">
+      <div class="num">4</div>
+      <div class="label">Concluidas</div>
+    </div>
+    <div class="stat">
+      <div class="num">8</div>
+      <div class="label">Em progresso</div>
+    </div>
+    <div class="stat">
+      <div class="num atrasado">2</div>
+      <div class="label">Atrasadas</div>
+    </div>
+    <div class="stat">
+      <div class="num hoje">3</div>
+      <div class="label">Vencem hoje</div>
+    </div>
+  </div>
+</div>
+
+<!-- Projetos -->
+<div class="projetos-grid">
+
+  <!-- ======== RECORRAJA ======== -->
+  <div class="projeto">
+    <div class="projeto-header">
+      <div>
+        <span class="projeto-name">RecorraJa</span>
+        <span class="projeto-meta"> - 10 tarefas | 2 concluidas, 4 em progresso, 4 pendentes</span>
+      </div>
+      <a href="#" class="projeto-link">Abrir Board</a>
+    </div>
+
+    <div class="projeto-status-row">
+      <div class="status-bar">
+        <div class="done" style="width: 20%"></div>
+        <div class="progress" style="width: 40%"></div>
+        <div class="todo" style="width: 40%"></div>
+      </div>
+      <span class="status-text">20% concluido</span>
+    </div>
+
+    <div class="kanban-preview">
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Concluido</span>
+          <span class="count">2</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Setup projeto inicial</div>
+          <div class="meta"><span>Concluido 05/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Modelagem banco dados</div>
+          <div class="meta"><span>Concluido 08/03</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Em Progresso</span>
+          <span class="count">4</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Modulo Defesa - Fluxo completo</div>
+          <div class="meta"><span class="prazo atrasado">Prazo: 10/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Implementar raspagem DETRAN</div>
+          <div class="meta"><span class="prazo hoje">Prazo: 12/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Deploy producao v2.1</div>
+          <div class="meta"><span class="prazo hoje">Prazo: 12/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Integrar API pagamentos</div>
+          <div class="meta"><span class="prazo">Prazo: 13/03</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Pendente</span>
+          <span class="count">4</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Template PDF defesa automatica</div>
+          <div class="meta"><span class="prazo">Prazo: 14/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-low"></span>Sistema notificacoes email</div>
+          <div class="meta"><span class="prazo">Prazo: 15/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-low"></span>Dashboard metricas usuario</div>
+          <div class="meta"><span class="prazo">Prazo: 17/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-none"></span>Testes E2E fluxo defesa</div>
+          <div class="meta"><span class="prazo">Prazo: 18/03</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== LEGIBET ======== -->
+  <div class="projeto">
+    <div class="projeto-header">
+      <div>
+        <span class="projeto-name">Legibet</span>
+        <span class="projeto-meta"> - 6 tarefas | 3 concluidas, 2 em progresso, 1 pendente</span>
+      </div>
+      <a href="#" class="projeto-link">Abrir Board</a>
+    </div>
+
+    <div class="projeto-status-row">
+      <div class="status-bar">
+        <div class="done" style="width: 50%"></div>
+        <div class="progress" style="width: 33%"></div>
+        <div class="todo" style="width: 17%"></div>
+      </div>
+      <span class="status-text">50% concluido</span>
+    </div>
+
+    <div class="kanban-preview">
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Concluido</span>
+          <span class="count">3</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Pesquisa regulamentacao</div>
+          <div class="meta"><span>Concluido 28/02</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Prototipo v1</div>
+          <div class="meta"><span>Concluido 05/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Setup CI/CD</div>
+          <div class="meta"><span>Concluido 09/03</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Em Progresso</span>
+          <span class="count">2</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-high"></span>Ver implementacao odds</div>
+          <div class="meta"><span class="prazo hoje">Prazo: 12/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Integracao dados esportivos</div>
+          <div class="meta"><span class="prazo">Prazo: 14/03</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Pendente</span>
+          <span class="count">1</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-low"></span>Compliance check</div>
+          <div class="meta"><span class="prazo">Prazo: 15/03</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== NOSSOS ======== -->
+  <div class="projeto">
+    <div class="projeto-header">
+      <div>
+        <span class="projeto-name">Nossos</span>
+        <span class="projeto-meta"> - 3 tarefas | 0 concluidas, 1 em progresso, 2 pendentes</span>
+      </div>
+      <a href="#" class="projeto-link">Abrir Board</a>
+    </div>
+
+    <div class="projeto-status-row">
+      <div class="status-bar">
+        <div class="progress" style="width: 33%"></div>
+        <div class="todo" style="width: 67%"></div>
+      </div>
+      <span class="status-text">0% concluido</span>
+    </div>
+
+    <div class="kanban-preview">
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Concluido</span>
+          <span class="count">0</span>
+        </div>
+        <div style="font-size:11px;color:#ccc;text-align:center;padding:12px;">Nenhuma tarefa</div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Em Progresso</span>
+          <span class="count">1</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-medium"></span>Setup inicial plataforma</div>
+          <div class="meta"><span class="prazo">Prazo: 14/03</span></div>
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-header">
+          <span>Pendente</span>
+          <span class="count">2</span>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-none"></span>Definir escopo MVP</div>
+          <div class="meta"><span class="prazo">Prazo: 16/03</span></div>
+        </div>
+        <div class="mini-task">
+          <div class="title"><span class="priority-dot priority-none"></span>Wireframes telas principais</div>
+          <div class="meta"><span class="prazo">Prazo: 20/03</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

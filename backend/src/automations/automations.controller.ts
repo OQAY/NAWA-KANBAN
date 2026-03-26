@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AutomationsService } from './automations.service';
@@ -25,13 +25,13 @@ export class AutomationsController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update an automation rule' })
-  update(@Param('id') id: string, @Body() body: Partial<AutomationRule>) {
-    return this.automationsService.update(id, body);
+  update(@Param('id') id: string, @Body() body: Partial<AutomationRule>, @Request() req) {
+    return this.automationsService.update(id, body, req.user.id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an automation rule' })
-  remove(@Param('id') id: string) {
-    return this.automationsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.automationsService.remove(id, req.user.id);
   }
 }

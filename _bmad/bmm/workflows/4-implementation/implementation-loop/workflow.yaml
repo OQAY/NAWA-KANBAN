@@ -1,0 +1,79 @@
+# Implementation Loop - Autonomous Sprint Execution Orchestrator
+name: implementation-loop
+description: "Autonomous implementation loop that continuously executes Phase 4 workflows (create-story → dev-story → code-review → retrospective) until the entire sprint is complete. Inspired by the Ralph Wiggum technique but with intelligent status-driven routing and automatic model switching."
+author: "BMad"
+
+# Critical variables from config
+config_source: "{project-root}/_bmad/bmm/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+user_skill_level: "{config_source}:user_skill_level"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+planning_artifacts: "{config_source}:planning_artifacts"
+implementation_artifacts: "{config_source}:implementation_artifacts"
+
+# Workflow components
+installed_path: "{project-root}/_bmad/bmm/workflows/4-implementation/implementation-loop"
+instructions: "{installed_path}/instructions.xml"
+template: false
+
+# Variables
+variables:
+  sprint_status_file: "{implementation_artifacts}/sprint-status.yaml || {output_folder}/sprint-status.yaml"
+  story_dir: "{implementation_artifacts}"
+  project_context: "**/project-context.md"
+  tracking_system: "file-system"
+
+  # Loop configuration (user-configurable at init)
+  max_iterations: 50
+  skip_code_review: false
+  skip_retrospective: false
+
+# ============================================================
+# MODEL STRATEGY — Intelligent model assignment per workflow
+# ============================================================
+# Each sub-workflow runs on the model best suited for its task.
+# When spawning subagents via the Task tool, the "model" param
+# controls which model executes. This maps BMAD workflows to
+# the optimal model for each type of work.
+#
+# Rationale:
+#   opus  → Deep reasoning, architecture, adversarial review
+#   sonnet → Fast execution, code generation, implementation
+#   haiku  → Quick checks, simple validations
+#
+# Users can override by setting model_strategy to "single"
+# which uses whatever model the session is running on.
+# ============================================================
+model_strategy: "optimized" # "optimized" (multi-model) or "single" (session model)
+
+model_map:
+  create_story: "opus"       # Heavy context analysis, architecture cross-ref
+  dev_story: "sonnet"        # Code implementation, TDD, fast iteration
+  code_review: "opus"        # Adversarial review requires deep reasoning
+  retrospective: "opus"      # Synthesis, pattern detection, strategic analysis
+  routing: "haiku"           # Sprint-status parsing, simple routing decisions
+
+# Orchestrated workflow paths (invoked dynamically)
+orchestrated_workflows:
+  sprint_status: "{project-root}/_bmad/bmm/workflows/4-implementation/sprint-status/workflow.yaml"
+  create_story: "{project-root}/_bmad/bmm/workflows/4-implementation/create-story/workflow.yaml"
+  dev_story: "{project-root}/_bmad/bmm/workflows/4-implementation/dev-story/workflow.yaml"
+  code_review: "{project-root}/_bmad/bmm/workflows/4-implementation/code-review/workflow.yaml"
+  retrospective: "{project-root}/_bmad/bmm/workflows/4-implementation/retrospective/workflow.yaml"
+
+# Smart input file references
+input_file_patterns:
+  sprint_status:
+    description: "Sprint status file for loop state tracking"
+    whole: "{implementation_artifacts}/sprint-status.yaml || {output_folder}/sprint-status.yaml"
+    load_strategy: "FULL_LOAD"
+  epics:
+    description: "All epics for progress tracking"
+    whole: "{planning_artifacts}/*epic*.md"
+    sharded: "{planning_artifacts}/*epic*/*.md"
+    load_strategy: "FULL_LOAD"
+
+standalone: true

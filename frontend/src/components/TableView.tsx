@@ -111,7 +111,7 @@ export default function TableView({ tasks, columns, onTaskClick }: TableViewProp
                       {l.name}
                     </span>
                   ))}
-                  {(task.labels?.length || 0) > 2 && <span className="label-badge label-more">+{task.labels!.length - 2}</span>}
+                  {(task.labels?.length ?? 0) > 2 && <span className="label-badge label-more">+{(task.labels?.length ?? 0) - 2}</span>}
                 </div>
               </td>
               <td>

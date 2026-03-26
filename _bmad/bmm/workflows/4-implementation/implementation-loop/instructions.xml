@@ -1,0 +1,511 @@
+<workflow>
+  <critical>The workflow execution engine is governed by: {project-root}/_bmad/core/tasks/workflow.xml</critical>
+  <critical>You MUST have already loaded and processed: {installed_path}/workflow.yaml</critical>
+  <critical>Communicate all responses in {communication_language}</critical>
+  <critical>⚠️ ABSOLUTELY NO TIME ESTIMATES. Do NOT mention hours, days, weeks, or timelines.</critical>
+
+  <!-- ============================================== -->
+  <!-- AUTONOMOUS DECISION PROTOCOL                    -->
+  <!-- This is the core innovation of this workflow.   -->
+  <!-- ============================================== -->
+
+  <critical id="autonomous-protocol">
+    🧠 AUTONOMOUS DECISION PROTOCOL — ACTIVE FOR ENTIRE LOOP EXECUTION
+
+    When autonomous_mode == true (set during initialization):
+
+    1. ALL &lt;ask&gt; tags in ANY sub-workflow (dev-story, code-review, create-story, retrospective)
+       MUST be AUTO-ANSWERED by YOU using your best judgment. DO NOT wait for user input.
+       Simply log your decision briefly and continue.
+
+    2. DECISION INTELLIGENCE RULES — when auto-answering, follow these priorities:
+
+       CODE-REVIEW decisions:
+       - "Fix them automatically" → ALWAYS choose this. Fix all HIGH and MEDIUM issues.
+       - Never choose "create action items" or "show details" — just fix and move on.
+
+       DEV-STORY decisions:
+       - Story discovery → The loop already provides story_path. Use it directly.
+       - "No stories found" options → Skip, the loop handles routing.
+       - HALT: 3 consecutive failures → Log the failure, skip story, continue loop.
+       - HALT: dependencies needed → Install/add if safe, otherwise skip story.
+       - HALT: config missing → Log and skip story, continue loop.
+       - Ambiguous task requirements → Use best judgment based on AC and Dev Notes.
+
+       CREATE-STORY decisions:
+       - Story selection → The loop provides story_key. Use it directly.
+       - "No sprint-status" → Never happens (loop verifies first).
+       - "No backlog stories" → Return to loop, it will route elsewhere.
+       - Any template-output checkpoints → Auto-continue (#yolo style).
+
+       RETROSPECTIVE decisions:
+       - Epic selection → The loop provides epic_num. Use it directly.
+       - Party-mode discussions → Run in #yolo mode: simulate agent discussion concisely,
+         extract key lessons, generate retrospective document. Do NOT run interactive dialogue.
+       - Action items → Generate SMART action items autonomously.
+       - "Epic update required" → Log the flag, continue loop. User reviews after loop completes.
+
+       GENERAL RULES:
+       - template-output checkpoints → Always auto-continue (never prompt [a/c/p/y]).
+       - "Continue to next step?" prompts → Always yes.
+       - Any "exit/quit" option → NEVER choose. Always continue.
+       - When in doubt → Choose the option that KEEPS THE LOOP MOVING.
+
+    3. LOGGING: For every auto-decision, output ONE line:
+       `⚡ AUTO: [workflow] [decision made] — [brief reason]`
+       Then immediately continue execution. No pausing.
+
+    4. HALT ESCALATION: The ONLY things that stop the loop are:
+       - max_iterations reached
+       - ALL stories are done (sprint complete)
+       - A sub-workflow fails 3 times on the SAME story (skip it, continue others)
+       - User explicitly presses Ctrl+C
+  </critical>
+
+  <!-- ============================================== -->
+  <!-- MODEL SWITCHING PROTOCOL                        -->
+  <!-- Assigns the optimal model per workflow type.    -->
+  <!-- ============================================== -->
+
+  <critical id="model-switching">
+    🔀 MODEL SWITCHING PROTOCOL
+
+    When model_strategy == "optimized" (from workflow.yaml):
+
+    Each sub-workflow SHOULD be executed on the model specified in {model_map}.
+    The orchestrator uses the Task tool with the `model` parameter to spawn
+    sub-workflows on the appropriate model.
+
+    MODEL ASSIGNMENTS (from workflow.yaml model_map):
+    - create-story  → opus   (heavy context analysis, cross-referencing architecture)
+    - dev-story     → sonnet (code implementation, TDD, fast iteration)
+    - code-review   → opus   (adversarial review, deep reasoning)
+    - retrospective → opus   (synthesis, pattern detection, strategic analysis)
+    - routing       → haiku  (sprint-status parsing, simple decisions)
+
+    IMPLEMENTATION:
+    When invoking a sub-workflow, use the Task tool like this:
+      Task(subagent_type="general-purpose", model="{model_map.workflow_name}", prompt="...")
+
+    The prompt MUST include:
+      1. Load workflow.xml engine: @_bmad/core/tasks/workflow.xml
+      2. Execute specific workflow: @_bmad/bmm/workflows/4-implementation/{workflow}/workflow.yaml
+      3. The autonomous_mode flag and decision protocol
+      4. All relevant parameters (story_path, story_key, epic_num)
+
+    When model_strategy == "single":
+    - Do NOT use the Task tool for model switching
+    - Use invoke-workflow directly (all workflows run on session model)
+    - This is the fallback for users who prefer a single model
+
+    LOGGING: When switching models, output:
+      `🔀 MODEL: {{workflow}} → {{model}} ({{reason}})`
+  </critical>
+
+  <!-- ============================================== -->
+  <!-- STEP 1: INITIALIZATION                          -->
+  <!-- ============================================== -->
+
+  <step n="1" goal="Initialize loop, verify prerequisites, configure mode">
+    <action>Load sprint-status.yaml from {sprint_status_file}</action>
+
+    <check if="sprint-status.yaml does not exist">
+      <output>❌ sprint-status.yaml not found.
+
+Run `/bmad:bmm:workflows:sprint-planning` first to generate the sprint tracking file.
+Then run `/bmad:bmm:workflows:implementation-loop` again.</output>
+      <action>EXIT workflow</action>
+    </check>
+
+    <action>Parse sprint-status.yaml completely:
+      - Count stories by status: backlog, ready-for-dev, in-progress, review, done
+      - Count epics by status: backlog, in-progress, done
+      - Count retrospectives by status: optional, done
+      - Map legacy statuses: "drafted" → "ready-for-dev", "contexted" → "in-progress"
+      - Calculate total_remaining = count_backlog + count_ready + count_in_progress + count_review
+    </action>
+
+    <check if="total_remaining == 0 AND no retrospectives with status optional">
+      <output>✅ Sprint already complete! All stories are done and retrospectives finished.
+
+Run `/bmad:bmm:workflows:workflow-status` to plan next phase.</output>
+      <action>EXIT workflow</action>
+    </check>
+
+    <output>
+## 🔄 Implementation Loop - Autonomous Sprint Execution
+
+**Sprint Overview:**
+| Status | Count |
+|--------|-------|
+| 📦 Backlog | {{count_backlog}} |
+| 🟡 Ready for Dev | {{count_ready}} |
+| 🔵 In Progress | {{count_in_progress}} |
+| 🔍 In Review | {{count_review}} |
+| ✅ Done | {{count_done}} |
+| **📋 Remaining** | **{{total_remaining}}** |
+
+**Epics:** {{epic_backlog}} backlog | {{epic_in_progress}} in-progress | {{epic_done}} done
+    </output>
+
+    <ask>Configure the loop:
+
+1) **Full Autonomous** - create-story → dev-story → code-review → retrospective (Recommended)
+2) **Dev Only** - Skip code-review and retrospective (fastest)
+3) **Dev + Review** - Skip retrospective only
+4) **Custom** - Choose what to include/skip
+
+Choice [1/2/3/4]:</ask>
+
+    <check if="choice == 1">
+      <action>Set skip_code_review = false, skip_retrospective = false</action>
+    </check>
+    <check if="choice == 2">
+      <action>Set skip_code_review = true, skip_retrospective = true</action>
+    </check>
+    <check if="choice == 3">
+      <action>Set skip_code_review = false, skip_retrospective = true</action>
+    </check>
+    <check if="choice == 4">
+      <ask>Skip code-review? [y/n]</ask>
+      <ask>Skip retrospective? [y/n]</ask>
+    </check>
+
+    <action>Set autonomous_mode = true</action>
+    <action>Set iteration_count = 0</action>
+    <action>Set completed_stories = []</action>
+    <action>Set failed_stories = []</action>
+    <action>Set retry_tracker = {} (story_key → retry_count)</action>
+
+    <!-- Resolve model strategy -->
+    <action>Read model_strategy from workflow.yaml</action>
+    <check if="model_strategy == 'optimized'">
+      <action>Read model_map from workflow.yaml</action>
+      <action>Set active_model_switching = true</action>
+      <output>
+### Configuration
+- 🤖 Autonomous Mode: **ACTIVE** — all decisions auto-resolved by AI
+- 🔀 Model Strategy: **OPTIMIZED** — each workflow on its best model
+  - create-story → **Opus** (deep analysis)
+  - dev-story → **Sonnet** (fast coding)
+  - code-review → **Opus** (adversarial review)
+  - retrospective → **Opus** (synthesis)
+- Code Review: {{skip_code_review ? "SKIPPED" : "ENABLED"}}
+- Retrospective: {{skip_retrospective ? "SKIPPED" : "ENABLED"}}
+- Max Iterations: {{max_iterations}}
+- Safety: stories with 3+ failures are auto-skipped
+
+🚀 **Loop starting. I will not stop until the sprint is done or max iterations reached.**
+
+---
+      </output>
+    </check>
+
+    <check if="model_strategy == 'single'">
+      <action>Set active_model_switching = false</action>
+      <output>
+### Configuration
+- 🤖 Autonomous Mode: **ACTIVE** — all decisions auto-resolved by AI
+- 🔀 Model Strategy: **SINGLE** — all workflows on current session model
+- Code Review: {{skip_code_review ? "SKIPPED" : "ENABLED"}}
+- Retrospective: {{skip_retrospective ? "SKIPPED" : "ENABLED"}}
+- Max Iterations: {{max_iterations}}
+
+🚀 **Loop starting.**
+
+---
+      </output>
+    </check>
+
+    <goto step="2" />
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 2: ROUTE — the loop brain                  -->
+  <!-- ============================================== -->
+
+  <step n="2" goal="Read sprint state and route to next workflow">
+    <action>Increment iteration_count</action>
+
+    <check if="iteration_count > max_iterations">
+      <output>⚠️ Safety limit: {{max_iterations}} iterations reached.</output>
+      <goto step="6" />
+    </check>
+
+    <action>Re-read sprint-status.yaml COMPLETELY (sub-workflows may have updated it)</action>
+    <action>Re-parse all statuses and counts fresh</action>
+
+    <action>Determine next action using routing priority:
+      1. IF any story == "in-progress" → dev-story (first by epic.story order)
+      2. ELSE IF any story == "review"
+         → IF skip_code_review → directly update sprint-status to "done", add to completed_stories, goto step 2
+         → ELSE → code-review
+      3. ELSE IF any story == "ready-for-dev" → dev-story (first by epic.story order)
+      4. ELSE IF any story == "backlog" → create-story (first by epic.story order)
+      5. ELSE IF any retrospective == "optional" AND NOT skip_retrospective → retrospective
+      6. ELSE → complete (all done!)
+    </action>
+
+    <output>
+---
+**[#{{iteration_count}}]** {{count_done}}/{{total_stories}} done | Next: **{{next_action}}** {{target ? "→ " + target : ""}}
+    </output>
+
+    <check if="next_action == 'dev-story'">
+      <goto step="3" />
+    </check>
+    <check if="next_action == 'create-story'">
+      <goto step="4" />
+    </check>
+    <check if="next_action == 'code-review'">
+      <goto step="5" />
+    </check>
+    <check if="next_action == 'retrospective'">
+      <goto step="7" />
+    </check>
+    <check if="next_action == 'complete'">
+      <goto step="6" />
+    </check>
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 3: DEV-STORY (Sonnet — fast coding)        -->
+  <!-- ============================================== -->
+
+  <step n="3" goal="Execute dev-story for target story">
+    <action>Check retry_tracker[{{target}}]. If >= 3 retries:
+      - Log: "⚡ AUTO: dev-story — skipping {{target}} after 3 failures"
+      - Add to failed_stories with reason "3 consecutive failures"
+      - GOTO step 2
+    </action>
+
+    <action>Resolve story file path: search {story_dir} for {{target}}.md or *{{target}}*.md</action>
+
+    <check if="story file not found">
+      <output>⚡ AUTO: dev-story — {{target}} file not found, skipping</output>
+      <action>Add to failed_stories: "story file not found"</action>
+      <goto step="2" />
+    </check>
+
+    <check if="active_model_switching == true">
+      <output>🔀 MODEL: dev-story → Sonnet (fast code implementation)</output>
+      <action>Use Task tool with model="sonnet" to spawn a general-purpose subagent.
+        The subagent prompt MUST include:
+        - "You are executing BMAD dev-story workflow AUTONOMOUSLY."
+        - "autonomous_mode = true — auto-answer ALL ask tags, never wait for user input."
+        - "Load @_bmad/core/tasks/workflow.xml as the execution engine."
+        - "Execute workflow config: @_bmad/bmm/workflows/4-implementation/dev-story/workflow.yaml"
+        - "story_file = {{story_path}}"
+        - The full Autonomous Decision Protocol for dev-story decisions.
+        - "When done, report final story status (review/done/halted)."
+      </action>
+    </check>
+
+    <check if="active_model_switching == false">
+      <critical>autonomous_mode is ACTIVE.
+        All ask tags inside dev-story must be auto-answered.
+        Provide story_file={{story_path}} so dev-story skips discovery.
+      </critical>
+      <invoke-workflow path="{project-root}/_bmad/bmm/workflows/4-implementation/dev-story/workflow.yaml">
+        <param name="story_file" value="{{story_path}}" />
+      </invoke-workflow>
+    </check>
+
+    <check if="dev-story completed (story status now == review OR done)">
+      <output>✅ dev-story → {{target}} complete</output>
+      <action>Reset retry_tracker[{{target}}] = 0</action>
+      <goto step="2" />
+    </check>
+
+    <check if="dev-story HALTed or failed">
+      <output>⚡ AUTO: dev-story HALTed for {{target}} — incrementing retry count</output>
+      <action>Increment retry_tracker[{{target}}]</action>
+      <goto step="2" />
+    </check>
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 4: CREATE-STORY (Opus — deep analysis)     -->
+  <!-- ============================================== -->
+
+  <step n="4" goal="Execute create-story for target story">
+    <check if="active_model_switching == true">
+      <output>🔀 MODEL: create-story → Opus (deep context analysis)</output>
+      <action>Use Task tool with model="opus" to spawn a general-purpose subagent.
+        The subagent prompt MUST include:
+        - "You are executing BMAD create-story workflow AUTONOMOUSLY."
+        - "autonomous_mode = true — auto-answer ALL ask tags, auto-continue all template-output."
+        - "Load @_bmad/core/tasks/workflow.xml as the execution engine."
+        - "Execute workflow config: @_bmad/bmm/workflows/4-implementation/create-story/workflow.yaml"
+        - "story_path = {{target}}"
+        - The full Autonomous Decision Protocol for create-story decisions.
+        - "When done, report if story is now ready-for-dev or if it HALTed."
+      </action>
+    </check>
+
+    <check if="active_model_switching == false">
+      <critical>autonomous_mode is ACTIVE.
+        All ask tags inside create-story must be auto-answered.
+        All template-output checkpoints must auto-continue.
+        Provide story_key={{target}} so create-story skips discovery.
+      </critical>
+      <invoke-workflow path="{project-root}/_bmad/bmm/workflows/4-implementation/create-story/workflow.yaml">
+        <param name="story_path" value="{{target}}" />
+      </invoke-workflow>
+    </check>
+
+    <check if="create-story completed (story now ready-for-dev)">
+      <output>✅ create-story → {{target}} ready for dev</output>
+      <goto step="2" />
+    </check>
+
+    <check if="create-story HALTed">
+      <output>⚡ AUTO: create-story failed for {{target}} — skipping</output>
+      <action>Add to failed_stories: reason from HALT</action>
+      <goto step="2" />
+    </check>
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 5: CODE-REVIEW (Opus — adversarial)        -->
+  <!-- ============================================== -->
+
+  <step n="5" goal="Execute code-review for target story">
+    <action>Resolve story file path for {{target}}</action>
+
+    <check if="active_model_switching == true">
+      <output>🔀 MODEL: code-review → Opus (adversarial deep review)</output>
+      <action>Use Task tool with model="opus" to spawn a general-purpose subagent.
+        The subagent prompt MUST include:
+        - "You are executing BMAD code-review workflow AUTONOMOUSLY."
+        - "autonomous_mode = true — auto-answer ALL ask tags."
+        - "Load @_bmad/core/tasks/workflow.xml as the execution engine."
+        - "Execute workflow config: @_bmad/bmm/workflows/4-implementation/code-review/workflow.yaml"
+        - "story_path = {{story_path}}"
+        - "CRITICAL: When Step 4 asks 'What should I do with these issues?' → ALWAYS choose Option 1: Fix them automatically."
+        - "When done, report final story status (done or in-progress)."
+      </action>
+    </check>
+
+    <check if="active_model_switching == false">
+      <critical>autonomous_mode is ACTIVE.
+        When code-review Step 4 asks "What should I do with these issues?":
+        → AUTO-ANSWER: Option 1 "Fix them automatically". Always.
+      </critical>
+      <invoke-workflow path="{project-root}/_bmad/bmm/workflows/4-implementation/code-review/workflow.yaml">
+        <param name="story_path" value="{{story_path}}" />
+      </invoke-workflow>
+    </check>
+
+    <check if="code-review result: story marked done">
+      <output>✅ code-review APPROVED → {{target}} done</output>
+      <action>Add {{target}} to completed_stories</action>
+      <goto step="2" />
+    </check>
+
+    <check if="code-review result: story marked in-progress (issues remain after fix)">
+      <output>⚡ AUTO: code-review found issues that need dev work → routing back</output>
+      <goto step="2" />
+    </check>
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 6: FINAL REPORT                            -->
+  <!-- ============================================== -->
+
+  <step n="6" goal="Generate completion report">
+    <action>Re-read sprint-status.yaml final state</action>
+    <action>Calculate final counts and total_stories</action>
+
+    <output>
+---
+
+## 🏁 Implementation Loop — Final Report
+
+| Metric | Value |
+|--------|-------|
+| Iterations | {{iteration_count}} |
+| Stories Completed | {{completed_stories.length}} |
+| Stories Failed/Skipped | {{failed_stories.length}} |
+| Model Strategy | {{model_strategy}} |
+
+### Final Sprint State
+| Status | Count |
+|--------|-------|
+| 📦 Backlog | {{count_backlog}} |
+| 🟡 Ready for Dev | {{count_ready}} |
+| 🔵 In Progress | {{count_in_progress}} |
+| 🔍 In Review | {{count_review}} |
+| ✅ Done | {{count_done}} |
+
+{{#if completed_stories.length}}
+### Completed
+{{#each completed_stories}}
+- ✅ {{this}}
+{{/each}}
+{{/if}}
+
+{{#if failed_stories.length}}
+### Failed/Skipped
+{{#each failed_stories}}
+- ⚠️ {{this.story}}: {{this.reason}}
+{{/each}}
+{{/if}}
+
+{{#if count_backlog == 0 AND count_ready == 0 AND count_in_progress == 0 AND count_review == 0}}
+### 🎉 Sprint Complete!
+All stories implemented. Run `/bmad:bmm:workflows:workflow-status` for next phase.
+{{else}}
+### Remaining Work
+Run `/bmad:bmm:workflows:implementation-loop` again to continue.
+Or `/bmad:bmm:workflows:sprint-status` to review state.
+{{/if}}
+    </output>
+
+    <action>EXIT workflow</action>
+  </step>
+
+  <!-- ============================================== -->
+  <!-- STEP 7: RETROSPECTIVE (Opus — synthesis)        -->
+  <!-- ============================================== -->
+
+  <step n="7" goal="Execute retrospective for completed epic">
+    <action>Find epic with all stories "done" and retrospective "optional"</action>
+    <action>Extract epic_num from key (e.g., "epic-1-retrospective" → 1)</action>
+
+    <output>
+**[#{{iteration_count}}]** Running retrospective → Epic {{epic_num}}
+    </output>
+
+    <check if="active_model_switching == true">
+      <output>🔀 MODEL: retrospective → Opus (deep synthesis and analysis)</output>
+      <action>Use Task tool with model="opus" to spawn a general-purpose subagent.
+        The subagent prompt MUST include:
+        - "You are executing BMAD retrospective workflow AUTONOMOUSLY."
+        - "autonomous_mode = true — auto-answer ALL ask tags."
+        - "Run in #yolo mode: skip party-mode interactive dialogue, simulate concisely."
+        - "Load @_bmad/core/tasks/workflow.xml as the execution engine."
+        - "Execute workflow config: @_bmad/bmm/workflows/4-implementation/retrospective/workflow.yaml"
+        - "epic_num = {{epic_num}}"
+        - "Auto-generate SMART action items."
+        - "If 'epic update required' is flagged: LOG IT but do NOT stop."
+        - "When done, report retrospective completion status."
+      </action>
+    </check>
+
+    <check if="active_model_switching == false">
+      <critical>autonomous_mode is ACTIVE.
+        Run retrospective in #yolo mode.
+        Auto-answer all ask prompts.
+        If "epic update required" is flagged: LOG IT but continue.
+      </critical>
+      <invoke-workflow path="{project-root}/_bmad/bmm/workflows/4-implementation/retrospective/workflow.yaml">
+        <param name="epic_num" value="{{epic_num}}" />
+      </invoke-workflow>
+    </check>
+
+    <output>✅ Retrospective Epic {{epic_num}} complete</output>
+    <goto step="2" />
+  </step>
+
+</workflow>

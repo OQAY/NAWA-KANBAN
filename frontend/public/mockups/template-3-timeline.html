@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Template 3 - Timeline / Gantt Simplificado</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    h1 { margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 20px; font-size: 14px; }
+
+    .timeline-container {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    /* Grid de dias */
+    .timeline-header {
+      display: grid;
+      grid-template-columns: 220px repeat(14, 1fr);
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+      min-width: 900px;
+    }
+    .timeline-header .label { font-size: 12px; font-weight: bold; }
+    .timeline-header .day {
+      font-size: 10px;
+      text-align: center;
+      color: #888;
+    }
+    .timeline-header .day.today {
+      color: #ea580c;
+      font-weight: bold;
+    }
+
+    /* Empresa header */
+    .empresa-header {
+      display: grid;
+      grid-template-columns: 220px repeat(14, 1fr);
+      padding: 8px 0 4px;
+      min-width: 900px;
+    }
+    .empresa-header .name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      color: white;
+      margin-right: 4px;
+    }
+    .tag-blue { background: #2563eb; }
+    .tag-green { background: #16a34a; }
+    .tag-orange { background: #ea580c; }
+
+    /* Projeto header */
+    .projeto-header {
+      display: grid;
+      grid-template-columns: 220px repeat(14, 1fr);
+      padding: 4px 0;
+      min-width: 900px;
+    }
+    .projeto-header .name {
+      font-size: 12px;
+      font-weight: 600;
+      padding-left: 16px;
+      color: #555;
+    }
+
+    /* Tarefa row com barra */
+    .tarefa-row {
+      display: grid;
+      grid-template-columns: 220px repeat(14, 1fr);
+      padding: 2px 0;
+      min-width: 900px;
+      align-items: center;
+    }
+    .tarefa-row .name {
+      font-size: 11px;
+      padding-left: 32px;
+      color: #444;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Barras de Gantt */
+    .bar-cell {
+      position: relative;
+      height: 16px;
+    }
+    .bar {
+      position: absolute;
+      height: 12px;
+      top: 2px;
+      border-radius: 3px;
+      left: 0;
+      right: 0;
+    }
+    .bar-progress { background: #60a5fa; }
+    .bar-todo { background: #d1d5db; }
+    .bar-done { background: #86efac; }
+    .bar-atrasado { background: #fca5a5; }
+
+    /* Linha do hoje */
+    .today-line {
+      position: relative;
+    }
+    .today-line::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      bottom: -100%;
+      left: 50%;
+      width: 2px;
+      background: #ea580c;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* Separator */
+    .separator {
+      border-top: 1px solid #eee;
+      margin: 4px 0;
+    }
+
+    /* Legenda */
+    .legenda {
+      margin-top: 16px;
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: #666;
+    }
+    .legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .legenda-box {
+      width: 16px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    /* Drill-down hint */
+    .drill-hint {
+      margin-top: 20px;
+      padding: 12px;
+      background: #eff6ff;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #1e40af;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Timeline Overview</h1>
+<p class="subtitle">Visao de prazos por empresa - 2 semanas (10/03 a 23/03)</p>
+
+<div class="timeline-container">
+
+  <!-- Header dias -->
+  <div class="timeline-header">
+    <div class="label">Empresa / Projeto / Tarefa</div>
+    <div class="day">10</div>
+    <div class="day">11</div>
+    <div class="day today">12</div>
+    <div class="day">13</div>
+    <div class="day">14</div>
+    <div class="day">15</div>
+    <div class="day">16</div>
+    <div class="day">17</div>
+    <div class="day">18</div>
+    <div class="day">19</div>
+    <div class="day">20</div>
+    <div class="day">21</div>
+    <div class="day">22</div>
+    <div class="day">23</div>
+  </div>
+
+  <!-- === ALAN === -->
+  <div class="empresa-header">
+    <div class="name"><span class="tag tag-blue">ALAN</span> Empresa do Alan</div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">RecorraJa</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Modulo Defesa</div>
+    <!-- dia 10 --> <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <!-- dia 11 --> <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <!-- dia 12 --> <div class="bar-cell today-line"><div class="bar bar-progress"></div></div>
+    <!-- dia 13-23 vazio --> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Implementar raspagem</div>
+    <div></div>
+    <div></div>
+    <div class="bar-cell today-line"><div class="bar bar-todo"></div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Deploy producao</div>
+    <div></div>
+    <div></div>
+    <div class="bar-cell today-line"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">Legibet</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Ver implementacao</div>
+    <div></div>
+    <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <div class="bar-cell today-line"><div class="bar bar-progress"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Compliance check</div>
+    <div></div><div></div><div class="today-line"></div><div></div><div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- === PLIN === -->
+  <div class="empresa-header">
+    <div class="name"><span class="tag tag-green">PLIN</span> Plin</div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">Consensus</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Apresentar mudancas</div>
+    <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <div class="bar-cell today-line"><div class="bar bar-progress"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Revisar contratos</div>
+    <div></div><div></div><div class="today-line"></div><div></div><div></div><div></div><div></div><div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">MediAI</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Prototipo v1</div>
+    <div></div><div></div><div class="today-line"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    <div class="bar-cell"><div class="bar bar-progress"></div></div>
+    <div></div><div></div><div></div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- === MICELLI === -->
+  <div class="empresa-header">
+    <div class="name"><span class="tag tag-orange">MICELLI</span> Micelli</div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">Santander VM</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Integracao API</div>
+    <div class="bar-cell"><div class="bar bar-atrasado"></div></div>
+    <div class="bar-cell"><div class="bar bar-atrasado"></div></div>
+    <div class="bar-cell today-line"><div class="bar bar-atrasado"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Testes E2E</div>
+    <div></div><div></div><div class="today-line"></div><div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="projeto-header">
+    <div class="name">DataJuris</div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Migracao dados</div>
+    <div></div><div></div><div class="today-line"></div><div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="tarefa-row">
+    <div class="name">Dashboard analytics</div>
+    <div></div><div></div><div class="today-line"></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    <div class="bar-cell"><div class="bar bar-todo"></div></div>
+    <div></div><div></div><div></div><div></div>
+  </div>
+
+</div>
+
+<!-- Legenda -->
+<div class="legenda">
+  <div class="legenda-item"><div class="legenda-box" style="background: #60a5fa;"></div> Em progresso</div>
+  <div class="legenda-item"><div class="legenda-box" style="background: #d1d5db;"></div> Pendente</div>
+  <div class="legenda-item"><div class="legenda-box" style="background: #86efac;"></div> Concluido</div>
+  <div class="legenda-item"><div class="legenda-box" style="background: #fca5a5;"></div> Atrasado</div>
+  <div class="legenda-item"><div style="width: 2px; height: 10px; background: #ea580c;"></div> Hoje (12/03)</div>
+</div>
+
+<!-- Drill-down -->
+<div class="drill-hint">
+  Clique em qualquer projeto para abrir o board Kanban completo com colunas e tarefas detalhadas.
+</div>
+
+</body>
+</html>

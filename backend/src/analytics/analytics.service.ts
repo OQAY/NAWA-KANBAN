@@ -1,16 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from '../database/entities/task.entity';
+import { Project } from '../database/entities/project.entity';
 
 @Injectable()
 export class AnalyticsService {
   constructor(
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
+    @InjectRepository(Project)
+    private projectRepository: Repository<Project>,
   ) {}
 
-  async getProjectAnalytics(projectId: string) {
+  async getProjectAnalytics(projectId: string, userId: string) {
+    // Verify project ownership
+    const project = await this.projectRepository.findOne({ where: { id: projectId } });
+    if (!project || project.ownerId !== userId) throw new ForbiddenException('Access denied');
     // Tasks by status
     const byStatus = await this.taskRepository
       .createQueryBuilder('task')

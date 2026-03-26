@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -23,16 +23,21 @@ export class AutomationsService {
     return this.ruleRepository.save(rule);
   }
 
-  async update(id: string, data: Partial<AutomationRule>): Promise<AutomationRule> {
-    const rule = await this.ruleRepository.findOne({ where: { id } });
+  private async findAndVerify(id: string, userId: string): Promise<AutomationRule> {
+    const rule = await this.ruleRepository.findOne({ where: { id }, relations: ['project'] });
     if (!rule) throw new NotFoundException('Automation rule not found');
+    if (rule.project?.ownerId !== userId) throw new ForbiddenException('Access denied');
+    return rule;
+  }
+
+  async update(id: string, data: Partial<AutomationRule>, userId: string): Promise<AutomationRule> {
+    const rule = await this.findAndVerify(id, userId);
     Object.assign(rule, data);
     return this.ruleRepository.save(rule);
   }
 
-  async remove(id: string): Promise<void> {
-    const rule = await this.ruleRepository.findOne({ where: { id } });
-    if (!rule) throw new NotFoundException('Automation rule not found');
+  async remove(id: string, userId: string): Promise<void> {
+    const rule = await this.findAndVerify(id, userId);
     await this.ruleRepository.remove(rule);
   }
 
