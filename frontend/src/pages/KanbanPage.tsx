@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent, closestCorners, useDroppable, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -120,14 +120,18 @@ export default function KanbanPage() {
     setShowTaskModal(true);
   }, []);
 
+  // Use ref to avoid stale closure on editingTask
+  const editingTaskRef = useRef(editingTask);
+  useEffect(() => { editingTaskRef.current = editingTask; }, [editingTask]);
+
   const handleTaskSaved = useCallback((task: Task) => {
-    if (editingTask) {
-      updateTask(editingTask.id, task);
+    if (editingTaskRef.current) {
+      updateTask(editingTaskRef.current.id, task);
     } else {
       addTask(task);
     }
     setShowTaskModal(false);
-  }, [editingTask, updateTask, addTask]);
+  }, [updateTask, addTask]);
 
   const handleDeleteTask = useCallback((taskId: string) => {
     setDeleteConfirm({ isOpen: true, taskId });

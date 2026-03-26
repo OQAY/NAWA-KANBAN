@@ -75,7 +75,7 @@ export class UsersController {
   @ApiResponse({ status: 403, description: 'Current password is incorrect' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Request() req) {
-    await this.usersService.changePassword(req.user.sub, changePasswordDto.currentPassword, changePasswordDto.newPassword);
+    await this.usersService.changePassword(req.user.id, changePasswordDto.currentPassword, changePasswordDto.newPassword);
     return { message: 'Password changed successfully' };
   }
 
@@ -84,7 +84,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Board configuration retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getBoardConfig(@Request() req) {
-    return this.usersService.getBoardConfig(req.user.sub);
+    return this.usersService.getBoardConfig(req.user.id);
   }
 
   @Patch('me/board-config')
@@ -92,6 +92,6 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Board configuration updated successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   updateBoardConfig(@Body() updateBoardConfigDto: UpdateBoardConfigDto, @Request() req) {
-    return this.usersService.updateBoardConfig(req.user.sub, updateBoardConfigDto.boardConfig);
+    return this.usersService.updateBoardConfig(req.user.id, updateBoardConfigDto.boardConfig);
   }
 }

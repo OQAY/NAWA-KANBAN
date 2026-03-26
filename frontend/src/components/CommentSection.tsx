@@ -41,7 +41,8 @@ export default function CommentSection({ taskId, currentUserId }: CommentSection
         toast.error('Failed to load comments');
       })
       .finally(() => setLoading(false));
-  }, [taskId, toast]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taskId]);
 
   const handleSubmitComment = useCallback(async () => {
     if (!newCommentText.trim() || submitting) return;

@@ -4,6 +4,7 @@
 
 export function isDueDateOverdue(isoDate: string): boolean {
   const due = new Date(isoDate);
+  due.setHours(0, 0, 0, 0);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return due < today;
@@ -33,6 +34,7 @@ const AVATAR_COLORS = [
 ];
 
 export function getAvatarColor(name: string): string {
+  if (!name) return AVATAR_COLORS[0];
   const index = name.charCodeAt(0) % AVATAR_COLORS.length;
   return AVATAR_COLORS[index];
 }
