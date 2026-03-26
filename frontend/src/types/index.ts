@@ -36,6 +36,8 @@ export interface Task {
   assignee?: User;
   createdBy?: User;
   labels?: Label[];
+  parentId?: string;
+  subtasks?: Task[];
 }
 
 // Project types

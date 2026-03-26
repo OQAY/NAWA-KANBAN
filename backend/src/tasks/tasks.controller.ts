@@ -92,4 +92,16 @@ export class TasksController {
   removeLabel(@Param('id') id: string, @Param('labelId') labelId: string) {
     return this.tasksService.removeLabel(id, labelId);
   }
+
+  @Get(':id/subtasks')
+  @ApiOperation({ summary: 'Get subtasks for a task' })
+  getSubtasks(@Param('id') id: string) {
+    return this.tasksService.getSubtasks(id);
+  }
+
+  @Post(':id/subtasks')
+  @ApiOperation({ summary: 'Create a subtask' })
+  createSubtask(@Param('id') id: string, @Body() body: { title: string; projectId?: string }, @Request() req) {
+    return this.tasksService.createSubtask(id, body.title, body.projectId, req.user);
+  }
 }

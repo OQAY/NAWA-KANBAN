@@ -77,6 +77,17 @@ export class Task {
   @Column({ name: 'column_id', nullable: true })
   columnId: string;
 
+  // Subtask relationship (self-referencing)
+  @ManyToOne(() => Task, task => task.subtasks, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'parent_id' })
+  parent: Task;
+
+  @Column({ name: 'parent_id', type: 'uuid', nullable: true })
+  parentId: string;
+
+  @OneToMany(() => Task, task => task.parent)
+  subtasks: Task[];
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

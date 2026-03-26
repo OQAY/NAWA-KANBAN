@@ -100,6 +100,12 @@ export const tasksApi = {
 
   search: (query: string) =>
     api.get<Task[]>(`/tasks/search?query=${encodeURIComponent(query)}`),
+
+  getSubtasks: (taskId: string) =>
+    api.get<Task[]>(`/tasks/${taskId}/subtasks`),
+
+  createSubtask: (taskId: string, title: string) =>
+    api.post<Task>(`/tasks/${taskId}/subtasks`, { title }),
 };
 
 // Columns API

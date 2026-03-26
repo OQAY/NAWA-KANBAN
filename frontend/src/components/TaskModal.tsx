@@ -13,6 +13,7 @@ import { PRIORITY } from '../constants/priorities';
 import CommentSection from './CommentSection';
 import LabelSelector from './LabelSelector';
 import ChecklistSection from './ChecklistSection';
+import SubtaskSection from './SubtaskSection';
 import ActivityTab from './ActivityTab';
 import './TaskModal.css';
 import './Labels.css';
@@ -251,6 +252,11 @@ export default function TaskModal({
               onLabelsChange={setTaskLabels}
             />
           </div>
+        )}
+
+        {/* Subtasks — only for existing tasks */}
+        {editingTask && (
+          <SubtaskSection taskId={editingTask.id} />
         )}
 
         {/* Checklists — only for existing tasks */}
