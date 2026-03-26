@@ -12,6 +12,7 @@ import OrganizationDetailPage from './pages/OrganizationDetailPage';
 import TimelinePage from './pages/TimelinePage';
 import ProfilePage from './pages/ProfilePage';
 import AIChatPanel from './components/ai-chat/AIChatPanel';
+import NotificationBell from './components/NotificationBell';
 import './App.css';
 
 // Protected Route Component
@@ -156,6 +157,9 @@ function App() {
       <ToastProvider>
         <BrowserRouter>
           <AppRoutes />
+          <div className="global-notification-wrapper">
+            <NotificationBell />
+          </div>
           <GlobalAIChat />
         </BrowserRouter>
       </ToastProvider>

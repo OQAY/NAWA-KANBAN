@@ -16,6 +16,7 @@ import type {
   Label,
   Checklist,
   ChecklistItem,
+  AppNotification,
 } from '../types';
 
 // Auth API
@@ -206,4 +207,16 @@ export const checklistsApi = {
 
   deleteItem: (itemId: string) =>
     api.delete(`/checklist-items/${itemId}`),
+};
+
+// Notifications API
+export const notificationsApi = {
+  getAll: () =>
+    api.get<AppNotification[]>('/notifications'),
+
+  markAsRead: (id: string) =>
+    api.patch<AppNotification>(`/notifications/${id}/read`),
+
+  markAllAsRead: () =>
+    api.patch('/notifications/read-all'),
 };

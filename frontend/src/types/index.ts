@@ -92,6 +92,19 @@ export interface Label {
   createdAt: string;
 }
 
+// Notification types
+export interface AppNotification {
+  id: string;
+  userId: string;
+  type: 'task_assigned' | 'task_commented' | 'due_date_warning' | 'member_added';
+  title: string;
+  body?: string;
+  read: boolean;
+  entityId?: string;
+  entityType?: string;
+  createdAt: string;
+}
+
 // Checklist types
 export interface ChecklistItem {
   id: string;
