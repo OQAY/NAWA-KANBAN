@@ -56,6 +56,12 @@ export class Task {
   @Column({ name: 'due_date', nullable: true })
   dueDate: Date;
 
+  @Column({ name: 'start_date', type: 'timestamp', nullable: true })
+  startDate: Date;
+
+  @Column({ name: 'completed_at', type: 'timestamp', nullable: true })
+  completedAt: Date;
+
   @OneToMany(() => Comment, comment => comment.task)
   comments: Comment[];
 

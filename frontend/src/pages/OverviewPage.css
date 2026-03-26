@@ -1,0 +1,330 @@
+/* ================================================================
+   OVERVIEW PAGE — Neubrutalism V25 (Readability Pass)
+   ================================================================ */
+
+.overview-container {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+.overview-content {
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 40px;
+  width: 100%;
+}
+
+.overview-empty {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--gray-600);
+}
+
+.overview-empty p {
+  font-size: var(--text-lg);
+  margin-bottom: 20px;
+}
+
+/* Org cards */
+.overview-orgs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.org-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  border-left: 5px solid var(--black);
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 10px;
+  cursor: default;
+  transition: all 0.2s;
+}
+
+.org-card[draggable="true"] {
+  cursor: grab;
+}
+
+/* Drag handle */
+.org-drag-handle {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+  cursor: grab;
+  color: var(--gray-300);
+  font-size: 14px;
+  letter-spacing: 2px;
+  user-select: none;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.org-drag-handle:hover {
+  color: var(--gray-600);
+}
+
+.org-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Dragging state */
+.org-card-dragging {
+  opacity: 0.5;
+  transform: rotate(1deg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Drop target indicator */
+.org-card-drop-target {
+  border-top: 4px solid var(--yellow);
+  padding-top: 14px;
+  background: var(--yellow-bg);
+}
+
+.org-card-create {
+  border: 2px dashed var(--gray-300);
+  border-left: 2px dashed var(--gray-300);
+  background: var(--off-white);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  cursor: pointer;
+  color: var(--gray-500);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.org-card-create:hover {
+  border-color: var(--black);
+  color: var(--black);
+  background: var(--yellow-bg);
+  box-shadow: var(--shadow);
+}
+
+/* Org header - clickable row with name + stats */
+.org-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.org-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.org-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -0.3px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.org-name:hover {
+  opacity: 0.7;
+}
+
+/* Color picker in create form */
+.form-row-color {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-row-color input {
+  flex: 1;
+}
+
+.org-stats {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--gray-600);
+  background: var(--gray-100);
+  padding: 2px 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+}
+
+/* Project cards row */
+.org-projects {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.ov-project-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  width: 260px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all var(--transition-fast);
+}
+
+.ov-project-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ov-project-add-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-height: 60px;
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.ov-project-add-small:hover {
+  color: var(--black);
+  border-color: var(--black);
+  background: var(--yellow-bg);
+  box-shadow: var(--shadow);
+}
+
+.ov-project-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: var(--black);
+  letter-spacing: -0.2px;
+}
+
+.ov-task-count {
+  font-weight: 500;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--gray-500);
+  margin-left: 4px;
+}
+
+/* Task list - improved contrast */
+.ov-task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ov-task-list li {
+  padding: 3px 0;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ov-task-list li:last-child {
+  border-bottom: none;
+}
+
+.ov-task-title {
+  color: var(--gray-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 170px;
+  font-weight: 500;
+}
+
+.ov-prazo {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--gray-500);
+  white-space: nowrap;
+  margin-left: 6px;
+}
+
+.ov-prazo.atrasado {
+  color: var(--coral);
+  font-weight: 800;
+  background: var(--coral-bg);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.ov-prazo.hoje {
+  color: var(--color-warning);
+  font-weight: 800;
+  background: var(--yellow-bg);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.ov-more {
+  color: var(--gray-500);
+  font-style: italic;
+  font-size: 11px;
+  justify-content: center !important;
+  padding-top: 3px !important;
+}
+
+/* Status bar */
+.ov-status-bar {
+  display: flex;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+  background: var(--gray-200);
+  border: 1px solid var(--gray-300);
+}
+
+.ov-status-bar .done { background: var(--mint); }
+.ov-status-bar .progress { background: var(--yellow); }
+.ov-status-bar .todo { background: var(--gray-200); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .overview-content {
+    padding: 16px;
+  }
+
+  .org-projects {
+    flex-direction: column;
+  }
+
+  .ov-project-card {
+    width: 100%;
+  }
+
+  .ov-project-add-small {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .org-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

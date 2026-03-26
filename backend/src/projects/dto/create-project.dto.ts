@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsUUID, Matches } from 'class-validator';
 
 export class CreateProjectDto {
   @ApiProperty({ example: 'Kanban Board Project' })
@@ -10,4 +10,15 @@ export class CreateProjectDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @ApiProperty({ example: 'uuid-organization-id', required: false })
+  @IsOptional()
+  @IsUUID()
+  organizationId?: string;
+
+  @ApiProperty({ example: '#38BDF8', required: false })
+  @IsOptional()
+  @IsString()
+  @Matches(/^#[0-9A-Fa-f]{6}$/, { message: 'Color must be a valid hex color (e.g. #38BDF8)' })
+  color?: string;
 }

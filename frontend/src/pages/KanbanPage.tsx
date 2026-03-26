@@ -32,6 +32,7 @@ export default function KanbanPage() {
   const { currentProject, tasks, columns, setCurrentProject, setTasks, setColumns, addTask, updateTask, deleteTask } = useKanbanStore();
 
   const [loading, setLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [selectedColumnId, setSelectedColumnId] = useState<string>('');
@@ -42,7 +43,6 @@ export default function KanbanPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; taskId: string | null }>({ isOpen: false, taskId: null });
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
-
   // Use custom hook for form state management
   const taskForm = useTaskForm();
 
@@ -58,16 +58,11 @@ export default function KanbanPage() {
     })
   );
 
-  useEffect(() => {
-    if (projectId) {
-      loadProjectData();
-    }
-  }, [projectId]);
-
   const loadProjectData = useCallback(async () => {
     if (!projectId) return;
 
-    setLoading(true);
+    // Only show full loading spinner on initial load, not on refreshes
+    if (isInitialLoad) setLoading(true);
     try {
       const [projectRes, tasksRes, columnsRes] = await Promise.all([
         projectsApi.getById(projectId),
@@ -89,8 +84,22 @@ export default function KanbanPage() {
       setColumns([]);
     } finally {
       setLoading(false);
+      if (isInitialLoad) setIsInitialLoad(false);
     }
-  }, [projectId, setCurrentProject, setTasks, setColumns, toast]);
+  }, [projectId, isInitialLoad, setCurrentProject, setTasks, setColumns, toast]);
+
+  useEffect(() => {
+    if (projectId) {
+      loadProjectData();
+    }
+  }, [projectId, loadProjectData]);
+
+  // Refresh board when AI makes changes
+  useEffect(() => {
+    const handleBoardUpdate = () => loadProjectData();
+    window.addEventListener('ai-board-updated', handleBoardUpdate);
+    return () => window.removeEventListener('ai-board-updated', handleBoardUpdate);
+  }, [loadProjectData]);
 
   const handleCreateTask = useCallback((columnStatus: string) => {
     setSelectedColumnId(columnStatus);
@@ -327,7 +336,7 @@ export default function KanbanPage() {
       {/* Header */}
       <header className="kanban-header">
         <div className="header-left">
-          <button onClick={() => navigate('/dashboard')} className="btn-back">
+          <button onClick={() => navigate('/overview')} className="btn-back">
             ← Back
           </button>
           <h1>{currentProject?.name || 'Kanban Board'}</h1>
@@ -480,6 +489,7 @@ export default function KanbanPage() {
         project={currentProject}
         onClose={() => setShowShareModal(false)}
       />
+
     </div>
   );
 }

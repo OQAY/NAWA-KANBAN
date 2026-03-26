@@ -41,6 +41,7 @@ export interface Project {
   id: string;
   name: string;
   description?: string;
+  color?: string;
   ownerId: string;
   owner?: User;
   tasks?: Task[];
@@ -89,6 +90,51 @@ export interface Comment {
   user?: User;
   createdAt: string;
   updatedAt: string;
+}
+
+// Organization types
+export interface Organization {
+  id: string;
+  name: string;
+  description?: string;
+  color?: string;
+  ownerId: string;
+  owner?: User;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface OrganizationOverviewTask {
+  id: string;
+  title: string;
+  status: string;
+  priority: number;
+  dueDate?: string;
+  startDate?: string;
+  completedAt?: string;
+  position?: number;
+  createdAt?: string;
+}
+
+export interface OrganizationOverviewProject {
+  id: string;
+  name: string;
+  description?: string;
+  color?: string;
+  totalTasks: number;
+  tasksByStatus: Record<string, number>;
+  tasks: OrganizationOverviewTask[];
+  createdAt: string;
+}
+
+export interface OrganizationOverview {
+  id: string;
+  name: string;
+  description?: string;
+  color?: string;
+  ownerId: string;
+  createdAt: string;
+  projects: OrganizationOverviewProject[];
 }
 
 // Auth types

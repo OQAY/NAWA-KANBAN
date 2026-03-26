@@ -11,6 +11,8 @@ import type {
   ProjectMember,
   AddMemberRequest,
   UpdateMemberRequest,
+  Organization,
+  OrganizationOverview,
 } from '../types';
 
 // Auth API
@@ -108,6 +110,33 @@ export const columnsApi = {
 
   delete: (id: string) =>
     api.delete(`/columns/${id}`),
+};
+
+// Organizations API
+export const organizationsApi = {
+  getAll: () =>
+    api.get<Organization[]>('/organizations'),
+
+  getById: (id: string) =>
+    api.get<Organization>(`/organizations/${id}`),
+
+  getMyOverview: () =>
+    api.get<OrganizationOverview[]>('/organizations/my-overview'),
+
+  getOverview: (id: string) =>
+    api.get<OrganizationOverview>(`/organizations/${id}/overview`),
+
+  create: (data: { name: string; description?: string; color?: string }) =>
+    api.post<Organization>('/organizations', data),
+
+  update: (id: string, data: Partial<Organization>) =>
+    api.patch<Organization>(`/organizations/${id}`, data),
+
+  delete: (id: string) =>
+    api.delete(`/organizations/${id}`),
+
+  reorder: (orgIds: string[]) =>
+    api.patch('/organizations/reorder', { orgIds }),
 };
 
 // Comments API

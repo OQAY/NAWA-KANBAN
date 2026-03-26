@@ -123,6 +123,18 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="header-actions">
+            <button
+              className="btn-nav"
+              onClick={() => navigate('/overview')}
+            >
+              Overview
+            </button>
+            <button
+              className="btn-nav"
+              onClick={() => navigate('/timeline')}
+            >
+              Timeline
+            </button>
             <div className="user-info">
               <div className="user-avatar">
                 {user?.name?.charAt(0).toUpperCase()}

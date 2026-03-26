@@ -1,4 +1,6 @@
-/* ErrorBoundary Component Styles */
+/* ================================================================
+   ERROR BOUNDARY — Neubrutalism V25
+   ================================================================ */
 
 .error-boundary {
   min-height: 100vh;
@@ -6,27 +8,44 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--coral-light);
+  position: relative;
+}
+
+.error-boundary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
 .error-content {
-  background: white;
-  border-radius: 12px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
   padding: 3rem;
   max-width: 600px;
   text-align: center;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .error-content h1 {
+  font-family: var(--font-display);
   font-size: 2rem;
-  color: #1f2937;
+  font-weight: 800;
+  color: var(--black);
   margin: 0 0 1rem 0;
 }
 
 .error-message {
-  color: #6b7280;
-  font-size: 1.125rem;
+  color: var(--gray-600);
+  font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
 }
@@ -35,14 +54,15 @@
   text-align: left;
   margin: 2rem 0;
   padding: 1rem;
-  background: #f9fafb;
-  border-radius: 6px;
+  background: var(--off-white);
+  border: var(--border-thin);
+  border-radius: var(--radius);
   cursor: pointer;
 }
 
 .error-details summary {
-  font-weight: 500;
-  color: #374151;
+  font-weight: 700;
+  color: var(--black);
   cursor: pointer;
   user-select: none;
 }
@@ -50,52 +70,23 @@
 .error-details pre {
   margin-top: 1rem;
   padding: 1rem;
-  background: #1f2937;
-  color: #f3f4f6;
-  border-radius: 6px;
+  background: var(--black);
+  color: var(--mint-light);
+  border: var(--border);
+  border-radius: var(--radius);
   overflow-x: auto;
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
 .error-actions {
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.error-actions button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-
-.error-actions .btn-primary {
-  background: #3b82f6;
-  color: white;
-}
-
-.error-actions .btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.error-actions .btn-secondary {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.error-actions .btn-secondary:hover {
-  background: #e5e7eb;
-}
-
-/* Responsive */
 @media (max-width: 640px) {
   .error-content {
     padding: 2rem 1.5rem;
@@ -103,10 +94,6 @@
 
   .error-content h1 {
     font-size: 1.5rem;
-  }
-
-  .error-message {
-    font-size: 1rem;
   }
 
   .error-actions {

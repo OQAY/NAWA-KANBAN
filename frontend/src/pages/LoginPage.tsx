@@ -64,7 +64,7 @@ export default function LoginPage() {
         console.log('[AUTH] Login successful:', response.data);
         setAuth(response.data.user, response.data.access_token);
         toast.success('Welcome back!');
-        navigate('/dashboard');
+        navigate('/overview');
       } else {
         // Register
         console.log('[AUTH] Attempting registration...', { email, name });
@@ -76,7 +76,7 @@ export default function LoginPage() {
         console.log('[AUTH] Registration successful:', response.data);
         setAuth(response.data.user, response.data.access_token);
         toast.success('Account created successfully!');
-        navigate('/dashboard');
+        navigate('/overview');
       }
     } catch (err: any) {
       console.error('[AUTH] Error:', err);
@@ -98,17 +98,17 @@ export default function LoginPage() {
             <div className="logo-icon">
               <ClipboardIcon size={32} />
             </div>
-            <h2 className="logo-text">Nawa Kanban</h2>
+            <h2 className="logo-text">IA-KANBA</h2>
           </div>
 
           <h1 className="hero-title">
-            Organize your work,<br />
-            <span className="hero-highlight">boost productivity</span>
+            Organize seu trabalho,<br />
+            <span className="hero-highlight">com IA</span>
           </h1>
 
           <p className="hero-description">
-            Manage your projects with a beautiful, intuitive Kanban board.
-            Collaborate with your team and get things done.
+            Gerencie seus projetos com um Kanban inteligente e intuitivo.
+            Colabore com sua equipe e entregue resultados.
           </p>
 
           <div className="hero-features">

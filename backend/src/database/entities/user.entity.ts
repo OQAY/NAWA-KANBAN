@@ -1,7 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { Task } from './task.entity';
 import { Project } from './project.entity';
 import { KanbanColumn } from './column.entity';
+import { Organization } from './organization.entity';
+import { OrganizationMember } from './organization-member.entity';
 
 /**
  * Sistema RBAC com 4 níveis hierárquicos de permissão
@@ -25,6 +28,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column({ name: 'password_hash' })
   passwordHash: string;
 
@@ -48,6 +52,12 @@ export class User {
 
   @OneToMany(() => KanbanColumn, column => column.user)
   ownedColumns: KanbanColumn[];
+
+  @OneToMany(() => Organization, org => org.owner)
+  ownedOrganizations: Organization[];
+
+  @OneToMany(() => OrganizationMember, member => member.user)
+  organizationMemberships: OrganizationMember[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

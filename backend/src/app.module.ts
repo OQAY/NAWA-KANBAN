@@ -12,6 +12,8 @@ import { UsersModule } from './users/users.module';
 import { ProjectsModule } from './projects/projects.module';
 import { CommentsModule } from './comments/comments.module';
 import { ColumnsModule } from './columns/columns.module';
+import { OrganizationsModule } from './organizations/organizations.module';
+import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Task } from './database/entities/task.entity';
@@ -31,6 +33,8 @@ import { DataMigrationService } from './common/services/data-migration.service';
     ProjectsModule,   // Sistema de projetos
     CommentsModule,   // Comentários em tarefas
     ColumnsModule,    // Colunas personalizadas
+    OrganizationsModule, // Empresas/Organizações
+    AiModule,         // AI chat com Gemini + WebSocket
     TypeOrmModule.forFeature([Task]), // Para o serviço de migração
   ],
   controllers: [AppController],

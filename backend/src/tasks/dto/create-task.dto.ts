@@ -42,4 +42,14 @@ export class CreateTaskDto {
   @IsOptional()
   @IsDateString()
   dueDate?: string;
+
+  @ApiProperty({ example: '2024-12-01T00:00:00Z', required: false, description: 'Data de início (prazo A)' })
+  @IsOptional()
+  @IsDateString()
+  startDate?: string;
+
+  @ApiProperty({ example: '2024-12-31T23:59:59Z', required: false, description: 'Data de conclusão (prazo B)' })
+  @IsOptional()
+  @IsDateString()
+  completedAt?: string;
 }

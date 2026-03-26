@@ -2,8 +2,8 @@
  * Ponto de entrada da aplicação Kanban API
  * Configura middleware global, validação e documentação Swagger
  */
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -26,11 +26,15 @@ async function bootstrap() {
           'http://localhost:5175',
           'http://localhost:5176',
           'http://localhost:5177',
+          'http://localhost:7173',
         ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
+
+  // Interceptor global para serialização — exclui campos @Exclude() (ex: passwordHash)
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   // Validação automática de DTOs em todas as rotas
   app.useGlobalPipes(

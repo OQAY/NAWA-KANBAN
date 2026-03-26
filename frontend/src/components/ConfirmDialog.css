@@ -1,8 +1,11 @@
-/* Confirm Dialog Overlay */
+/* ================================================================
+   CONFIRM DIALOG — Neubrutalism V25
+   ================================================================ */
+
 .confirm-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,47 +13,44 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-/* Confirm Dialog */
 .confirm-dialog {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  max-width: 400px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 420px;
   width: 90%;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-              0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  animation: slideUp 0.3s ease-out;
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.3s cubic-bezier(0.16,1,0.3,1);
 }
 
 .confirm-dialog-danger {
-  border-top: 4px solid #ef4444;
+  border-top: 6px solid var(--coral);
 }
 
 .confirm-dialog-warning {
-  border-top: 4px solid #f59e0b;
+  border-top: 6px solid var(--yellow);
 }
 
 .confirm-dialog-info {
-  border-top: 4px solid #3b82f6;
+  border-top: 6px solid var(--sky);
 }
 
-/* Confirm Title */
 .confirm-title {
   margin: 0 0 12px 0;
+  font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 800;
+  color: var(--black);
 }
 
-/* Confirm Message */
 .confirm-message {
   margin: 0 0 24px 0;
   font-size: 14px;
-  line-height: 1.5;
-  color: #6b7280;
+  line-height: 1.6;
+  color: var(--gray-600);
 }
 
-/* Confirm Actions */
 .confirm-actions {
   display: flex;
   gap: 12px;
@@ -59,70 +59,14 @@
 
 .confirm-actions button {
   padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-
-.btn-secondary {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-.btn-secondary:hover {
-  background-color: #e5e7eb;
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-}
-
-.btn-danger {
-  background-color: #ef4444;
-}
-
-.btn-danger:hover {
-  background-color: #dc2626;
-}
-
-.btn-warning {
-  background-color: #f59e0b;
-}
-
-.btn-warning:hover {
-  background-color: #d97706;
+  transition: all var(--transition-fast);
 }
 
 button:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 3px solid var(--lavender);
   outline-offset: 2px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
