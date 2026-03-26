@@ -108,6 +108,21 @@ export const tasksApi = {
     api.post<Task>(`/tasks/${taskId}/subtasks`, { title }),
 };
 
+// Automations API
+export const automationsApi = {
+  getByProject: (projectId: string) =>
+    api.get('/automations', { params: { projectId } }),
+
+  create: (data: { projectId: string; name: string; trigger: unknown; actions: unknown[]; enabled?: boolean }) =>
+    api.post('/automations', data),
+
+  update: (id: string, data: Record<string, unknown>) =>
+    api.patch(`/automations/${id}`, data),
+
+  delete: (id: string) =>
+    api.delete(`/automations/${id}`),
+};
+
 // Columns API
 export const columnsApi = {
   getAll: () =>
