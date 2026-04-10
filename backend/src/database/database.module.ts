@@ -17,6 +17,10 @@ import { ActivityLog } from './entities/activity-log.entity';
 import { AutomationRule } from './entities/automation-rule.entity';
 import { Sprint } from './entities/sprint.entity';
 import { TaskTemplate } from './entities/task-template.entity';
+import { ProductivityHeartbeat } from './entities/productivity-heartbeat.entity';
+import { PomodoroSession } from './entities/pomodoro-session.entity';
+import { DailySummary } from './entities/daily-summary.entity';
+import { IdleResolution } from './entities/idle-resolution.entity';
 
 @Module({
   imports: [
@@ -37,6 +41,7 @@ import { TaskTemplate } from './entities/task-template.entity';
             ProjectMember, Organization, OrganizationMember, AiUserMemory,
             Label, Checklist, ChecklistItem, Notification,
             ActivityLog, AutomationRule, Sprint, TaskTemplate,
+            ProductivityHeartbeat, PomodoroSession, DailySummary, IdleResolution,
           ],
           synchronize: true,
           logging: configService.get('NODE_ENV') === 'development',

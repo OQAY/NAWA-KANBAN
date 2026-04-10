@@ -1,0 +1,1839 @@
+{
+  "id": "v1_ChdMbGZZYWFPSERLcWxtdGtQLWRPQmdBVRIXTGxmWWFhT0hES3FsbXRrUC1kT0JnQVU",
+  "status": "completed",
+  "created": "2026-04-10T01:49:34Z",
+  "agent": "deep-research-pro-preview-12-2025",
+  "outputs": [
+    {
+      "signature": "",
+      "summary": [
+        {
+          "text": "**Dissecting Behavioral Indicators**\n\nI am examining the architectural layers that allow productivity tools to move beyond simple idle detection. By investigating the specific logic used in open-source projects and the telemetry gathered by development-specific extensions, I am beginning to map how granular events—such as browser tab transitions and specific code-level interactions—are captured and structured into actionable data schemas.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Identifying Detection Gaps**\n\nOne area I'm focusing on is the technical challenge of validating authentic human presence versus automated simulation. I am exploring the algorithms designed to filter out artificial activity, such as mechanical movement simulators, while also addressing the complex trade-off between analyzing keystroke dynamics for workflow patterns and maintaining user privacy through non-invasive metrics.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Strategy for Technical Synthesis**\n\nI will now synthesize information on scoring methodologies, particularly the Digital Labor Efficiency model, and look for specific code patterns that implement machine learning for task classification. My next step involves thinking through how unconventional signals, like the usage of speech-to-text tools, can be integrated as a viable indicator of active work.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Analyzing Telemetry Schemas**\n\nI have begun uncovering the logic used to transform raw telemetry into sophisticated productivity signals. Specifically, I've identified how high-resolution events—like browser tab transitions, IDE heartbeats, and specific keyboard-to-mouse activity ratios—provide a much more nuanced picture of work than simple idle detection. I'm finding that effective frameworks rely on structured data schemas that capture properties such as audible states and git metadata to contextually validate active engagement.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Validating Authentic Engagement**\n\nA critical area I'm addressing is the technical tension between comprehensive monitoring and privacy-safe data collection. While I've mapped out how metrics like 'burstiness' and typing speed are used to analyze workflow without logging actual keystrokes, there is still a gap in identifying the specific mathematical foundations of certain labor efficiency models. I am currently reconciling the nuances of automated activity detection, where AI is used to distinguish between organic human inconsistency and mechanical simulation patterns.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Expanding the Signal Matrix**\n\nI am moving toward synthesizing implementation details for machine learning classification while thinking through how to integrate unconventional indicators into a cohesive model. My next steps involve investigating the specific logic required to track microphone activity as a signal for speech-to-text tools and examining code patterns that automate the categorization of applications into productivity tiers.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Mapping High-Fidelity Interaction Patterns**\n\nI have uncovered sophisticated methods for distinguishing authentic human interaction from automated simulation by analyzing the 'burstiness' of input and the specific distribution of non-alphanumeric keystrokes. By integrating diverse signals such as voice activity detection and development-environment heartbeats, I am now able to define a more granular definition of active work that moves far beyond simple movement detection.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Quantifying Human and AI Contributions**\n\nI am synthesizing the mathematical foundations used to score efficiency, ranging from weighted productivity scales to specialized metrics that differentiate between human-authored and machine-generated content. I have reconciled how modern frameworks utilize categorization logic to classify activities based on window metadata and application state, providing a clear path for translating raw telemetry into actionable productivity insights.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Finalizing the Technical Framework**\n\nHaving gathered a comprehensive set of data schemas, algorithmic patterns, and architectural references from leading open-source implementations, I am prepared to conclude the investigation. My final phase involves structuring these technical findings into a complete guide that covers everything from low-level event capture to high-level scoring logic.",
+          "type": "text"
+        },
+        {
+          "text": "**Analyzing Productivity Metrics**\n\nI am beginning an investigation into the underlying mechanisms that distinguish meaningful work from idle time across several desktop monitoring platforms. My primary focus is on verifying technical claims regarding behavioral signals, such as how platforms detect repetitive mouse movements indicative of automation and how they classify application usage into productivity categories using weighted scoring systems.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Technical Validation of Monitoring Logic**\n\nI am particularly interested in synthesizing the logic behind heartbeat architectures used in developer-focused tracking and the Digital Labor Efficiency models that measure the balance between automated and manual tasks. I also need to reconcile how keystroke dynamics can be analyzed for productivity without compromising user privacy by focusing on patterns like burstiness and cadence rather than specific character inputs.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Verifying Core Algorithms**\n\nMy next steps involve cross-referencing specific algorithmic formulas for productivity pulses and examining the implementation of open-source watchers for web activity. I am moving to seek documentation on voice activity detection as a work signal and the use of machine learning models for sophisticated classification of work patterns.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Mapping Productivity Metrics**\n\nI have successfully identified the specific weighted formulas used to calculate productivity scores, distinguishing between highly productive and distracting activities. I've also mapped out how monitoring tools utilize heartbeat signals and browser tab metadata to track active engagement while filtering out periods of inactivity using intersection filters to subtract idle time.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Resolving Behavioral Information Gaps**\n\nI am currently resolving gaps concerning how keystroke biometrics and behavioral dynamics can be leveraged for security without overstepping privacy boundaries. Additionally, I am seeking more technical clarity on models that evaluate the efficiency of digital labor and the automated detection of simulated activity designed to bypass monitoring systems.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Synthesizing Analytic Frameworks**\n\nMoving forward, I will synthesize these distinct tracking methods to understand the broader ecosystem of behavioral analytics. I intend to analyze how voice activity functions as a work signal and look deeper into the machine learning models used for the sophisticated classification of complex work patterns.",
+          "type": "text"
+        }
+      ],
+      "type": "thought"
+    },
+    {
+      "text": "# Advanced Productivity Monitoring: Detecting Real Work versus Procrastination in Desktop Environments\n\n**Key Points:**\n*   **Behavioral Signals**: Modern monitoring transcends basic mouse/keyboard idle detection, utilizing deep contextual signals like application-specific metadata, active window states, browser tab audibility, and even voice activity detection to build a holistic profile of user engagement. \n*   **Algorithmic Detection**: The identification of \"fake activity\" (e.g., mouse jigglers) relies on anomaly detection algorithms that analyze behavioral variance, burstiness, and temporal repetition, rather than simple input counting. \n*   **Privacy-Preserving Telemetry**: It is highly feasible to measure cognitive load, typing speed (WPM), and work rhythm using advanced mathematical models (like Siamese Neural Networks) without ever logging the actual characters typed, thereby preserving user privacy. \n*   **Machine Learning Integration**: Platforms increasingly deploy machine learning—from Random Forests for website categorization to Deep Learning for keystroke biometrics—to intelligently distinguish focused labor from digital procrastination.\n\nThe modern digital workplace relies heavily on productivity analytics to understand how time is spent on desktop environments. However, traditional metrics based solely on idle time are easily manipulated and often fail to capture the nuance of knowledge work, where reading, thinking, or participating in a meeting are productive activities that generate zero keyboard or mouse input. This report explores the advanced technical mechanisms, algorithms, and architectures employed by sophisticated productivity tools such as RescueTime, ActivityWatch, Toggl Track, and WakaTime. By analyzing open-source implementations, mathematical models, and machine learning architectures, this guide provides a comprehensive technical blueprint for building an intelligent, privacy-respecting Windows desktop monitoring system in Python.\n\n## 1. Multi-Dimensional Behavioral Signals Beyond Idle Detection\n\nTraditional productivity monitors rely on a rudimentary metric: the presence or absence of keyboard and mouse events. If no input is detected for a specific threshold (e.g., 3 minutes), the system assumes the user is \"Away From Keyboard\" (AFK) [cite: 1]. However, this binary approach is insufficient for modern knowledge work. Advanced tools utilize a multi-dimensional array of behavioral signals to ascertain genuine engagement.\n\n### 1.1. Contextual Window and Application Telemetry\nActivityWatch, a leading open-source time tracker, utilizes a modular architecture of \"watchers\" to extract deep contextual data from the operating system [cite: 2, 3]. Beyond the executable name, the system captures:\n*   **Active Window Titles**: The exact title of the focused window, which often contains document names, project directories, or website titles [cite: 1].\n*   **Application Metadata**: Extracting underlying bundle identifiers or executable paths to differentiate between multiple instances of the same application.\n*   **Audible and Media States**: The browser watcher (`aw-watcher-web`) and media watchers (`aw-watcher-spotify`, `aw-watcher-mpv`) monitor if a tab or application is actively emitting sound [cite: 1]. If a user is watching a work-related video tutorial or participating in a video conference, the presence of audio output overrides the AFK status, marking the user as active despite input inactivity [cite: 1, 4].\n\n### 1.2. IDE and File-Level Telemetry\nFor software engineering contexts, tools like WakaTime capture highly granular signals without logging actual source code. WakaTime's plugins detect:\n*   **Cursor Movements**: Reading or scrolling through code triggers \"heartbeats\" if the cursor changes position, indicating code comprehension [cite: 5].\n*   **File Modifications**: Tracking lines added and removed, as well as file save events [cite: 5, 6].\n*   **Project and Language Context**: Parsing the active file's extension, Git repository branch, and specific frameworks (e.g., Django, React) in use [cite: 5, 6].\n*   **AI-Assisted Coding Metrics**: Modern WakaTime implementations track `--ai-line-changes` to differentiate between code written manually by the user and code generated by AI assistants (like GitHub Copilot or Claude) [cite: 7, 8].\n\n### 1.3. Communication and Voice Signals\nTools are increasingly integrating metrics related to Video Conference Fatigue (VCF) and collaboration [cite: 9]. Signals include the duration of Zoom meetings, the burstiness of the meeting schedules, and local microphone activation events [cite: 9, 10].\n\n## 2. Classification Algorithms: Productive versus Distracting\n\nOnce behavioral data is captured, it must be categorized to calculate productivity scores. This is typically achieved through either rule-based systems or machine learning classifications.\n\n### 2.1. The 5-Point Productivity Scale (RescueTime Model)\nRescueTime utilizes a community-sourced, user-customizable categorization system that assigns every activity to a predefined productivity level on a five-point scale [cite: 11, 12]. The scale is defined as follows:\n*   **+2: Very Productive**: Core work applications (IDEs, Word processors, Terminal) [cite: 12, 13].\n*   **+1: Productive**: Reference materials, communication tools, learning platforms [cite: 13].\n*   **0: Neutral**: Uncategorized applications, system utilities [cite: 13].\n*   **-1: Distracting**: News sites, online shopping [cite: 13].\n*   **-2: Very Distracting**: Social media, video games [cite: 12, 13].\n\nThis classification forms the basis of the \"Productivity Pulse\" scoring formula, which we will mathematically define in Section 6.\n\n### 2.2. Rule-Based Categorization (ActivityWatch Model)\nActivityWatch utilizes a robust, hierarchical rule engine implemented in the `aw-analysis` library (`aw_transform.classify.Rule`) [cite: 14, 15]. Categories are defined using Regular Expressions (Regex) that match against window titles and application names [cite: 14, 16].\n\n**Implementation Pattern: Regex-Based Categorizer in Python**\n```python\nimport re\nfrom typing import List, Dict, Optional, Any\nfrom dataclasses import dataclass\n\n@dataclass\nclass Event:\n    timestamp: str\n    duration: float\n    data: Dict[str, Any]\n\nclass Rule:\n    def __init__(self, rules: Dict[str, Any]):\n        self.select_keys = rules.get(\"select_keys\", None)\n        self.ignore_case = rules.get(\"ignore_case\", False)\n        regex_str = rules.get(\"regex\", None)\n        # Compile regex with appropriate flags [cite: 15]\n        self.regex = re.compile(\n            regex_str, \n            (re.IGNORECASE if self.ignore_case else 0) | re.UNICODE\n        ) if regex_str else None\n\n    def match(self, event: Event) -> bool:\n        if self.select_keys:\n            values = [event.data.get(key, \"\") for key in self.select_keys]\n        else:\n            values = list(event.data.values())\n            \n        if self.regex:\n            for val in values:\n                if isinstance(val, str) and self.regex.search(val):\n                    return True\n        return False\n\n# Example Category Definition\nwork_rule = Rule({\n    \"regex\": r\"(Visual Studio Code|github\\.com|Terminal)\",\n    \"select_keys\": [\"app\", \"title\"],\n    \"ignore_case\": True\n})\n```\nWhen an event occurs, the system iterates through the rules. If multiple categories match, the deepest sub-category in the hierarchy (e.g., `Work -> Software Development -> IDE`) is chosen [cite: 14, 15].\n\n### 2.3. Machine Learning Categorization\nFor domains that are uncategorized, Random Forest algorithms have been successfully deployed. By transforming the historical domain sequence, duration, and time-until-next-activity into categorical feature vectors via one-hot encoding, a Random Forest classifier can predict the productivity category of an unknown URL with over 76% accuracy based on the user's surrounding behavior context [cite: 11].\n\n## 3. Algorithmic Detection of \"Fake Activity\" (Mouse Jigglers)\n\nWith the rise of remote work, employees have increasingly turned to \"mouse jigglers\"—hardware devices or software programs that simulate input to trick productivity monitors into registering the user as active [cite: 17, 18]. Sophisticated monitoring tools (like ActivTrak and EmpMonitor) use multi-layered detection algorithms to identify artificial activity [cite: 19, 20].\n\n### 3.1. Hardware and Software Signature Detection\nThe first line of defense is OS-level endpoint monitoring. Software jigglers are detected by scanning running process names against a blacklist [cite: 19]. Hardware USB jigglers operate by presenting themselves as Human Interface Devices (HIDs). Advanced tools log USB device connection events and flag unrecognized or anomalous input devices [cite: 18, 20].\n\n### 3.2. Duration and Window Analysis\nA primary heuristic for detecting fake activity is analyzing the duration of time spent on a single screen without context switching. ActivTrak utilizes a \"High Duration Activity\" alarm that triggers when a user spends more than 45 minutes on a single active window or tab [cite: 19]. Human knowledge work inherently involves context switching (e.g., referencing a browser, replying to a message, writing code). An uninterrupted 45-minute block on a single static screen is highly anomalous and strongly indicates a jiggler [cite: 19].\n\n### 3.3. Burstiness and Variance Analysis (Rhythm Recognition)\nArtificial input generators generally produce mathematically uniform patterns. Basic jigglers move the mouse by a fixed number of pixels at exact, uniform intervals. Human behavior is characterized by high variance and \"burstiness\"—rapid periods of intense activity followed by cognitive pauses [cite: 17, 21, 22].\n\n**Algorithm: Inter-Event Interval Variance Detection**\nTo detect a jiggler, the system calculates the variance of the Inter-Event Intervals (IEI) of mouse movements. \n\nLet \\( T = [t_1, t_2, ..., t_n] \\) be the timestamps of mouse movement events. The Inter-Event Intervals are \\( \\Delta T_i = t_{i} - t_{i-1} \\).\nThe mean interval is \\( \\mu = \\frac{1}{n-1} \\sum \\Delta T_i \\).\nThe variance is \\( \\sigma^2 = \\frac{1}{n-1} \\sum (\\Delta T_i - \\mu)^2 \\).\n\nIf \\( \\sigma^2 \\) falls below a predetermined epsilon threshold \\( \\epsilon \\) (indicating mechanical consistency), the activity is flagged as artificial [cite: 17, 19].\n\n**Python Implementation Pattern: Jiggler Detection**\n```python\nimport numpy as np\nfrom typing import List, Tuple\n\ndef analyze_input_rhythm(mouse_events: List[Tuple[float, int, int]], time_threshold=2700) -> dict:\n    \"\"\"\n    Analyzes mouse events to detect potential 'fake activity'.\n    mouse_events: List of tuples (timestamp, x_coord, y_coord)\n    time_threshold: 45 minutes (2700 seconds) [cite: 19]\n    \"\"\"\n    if not mouse_events:\n        return {\"status\": \"inactive\"}\n        \n    timestamps = np.array([e for e in mouse_events])\n    total_duration = timestamps[-1] - timestamps\n    \n    # Heuristic 1: High Duration Activity [cite: 19]\n    if total_duration > time_threshold:\n        # Check if the active window hasn't changed (assumed handled outside this function)\n        duration_flag = True\n    else:\n        duration_flag = False\n\n    # Heuristic 2: Repetitive Variance Analysis [cite: 17, 19]\n    intervals = np.diff(timestamps)\n    interval_variance = np.var(intervals)\n    \n    # Calculate geometric variance of mouse vectors\n    x_coords = np.array([e[cite: 2] for e in mouse_events])\n    y_coords = np.array([e[cite: 3] for e in mouse_events])\n    distances = np.sqrt(np.diff(x_coords)**2 + np.diff(y_coords)**2)\n    distance_variance = np.var(distances)\n    \n    # Extremely low variance indicates mechanical automation\n    is_robotic = interval_variance < 0.05 and distance_variance < 0.5\n    \n    return {\n        \"is_jiggler_suspected\": is_robotic or duration_flag,\n        \"interval_variance\": float(interval_variance),\n        \"distance_variance\": float(distance_variance)\n    }\n```\n\n## 4. Privacy-Safe Keystroke Pattern Analysis\n\nMonitoring keystrokes is highly sensitive; logging actual character codes (Keylogging) introduces severe security and privacy risks. However, productivity monitors can analyze *typing dynamics* and *keystroke biometrics* utilizing anonymous timing data [cite: 19, 21].\n\n### 4.1. Timing Metrics: Dwell Time and Flight Time\nKeystroke pattern analysis relies on two fundamental metrics captured via OS hooks (e.g., `WM_KEYDOWN` and `WM_KEYUP` on Windows):\n*   **Dwell Time (Hold Time)**: The duration a single key is pressed down.\n*   **Flight Time (Inter-Key Interval)**: The time elapsed between releasing one key and pressing the next.\n\nBy capturing only the timestamp and an obfuscated identifier (e.g., `is_alphanumeric`), the system can calculate:\n*   **Words Per Minute (WPM)**: Estimated by counting the total alphanumeric keydown events divided by 5 (standard word length) over a minute [cite: 21, 22].\n*   **Error Rates (Uncorrected)**: Detected by the frequency of `Backspace` or `Delete` events relative to total keystrokes [cite: 21].\n\n### 4.2. Burstiness in Cognitive Load\n\"Burstiness\" is a statistical measure of how events cluster together in time. In text generation (coding or writing), humans type in bursts followed by pauses for thought. AI-generated text or pasted text lacks this organic burstiness [cite: 21, 22]. Monitoring the ratio of active typing bursts to cognitive pauses provides a proxy metric for mental fatigue and focus depth [cite: 21, 22].\n\n### 4.3. Homomorphic Encryption and Advanced Neural Networks\nTo completely preserve privacy, researchers utilize **Homomorphic Encryption**, which allows statistical analyses (like logistic regressions and neural network evaluations) to be performed directly on encrypted keystroke data without ever decrypting it [cite: 21]. \n\nState-of-the-art keystroke detection (like the TypeNet model) utilizes **Siamese Neural Networks** combined with Long Short-Term Memory (LSTM) layers. These networks learn spatial and temporal information independently, utilizing Triplet Loss to authenticate user identity or detect physiological states (like fatigue) based purely on the encrypted rhythm of their typing [cite: 21].\n\n## 5. The Digital Labor Efficiency (DLE) Model\n\nAs organizations transition to hybrid teams blending human workers and \"Digital Labor\" (AI Agents), the metrics for productivity have evolved. The Digital Labor Efficiency (DLE) model quantifies the return on investment and output optimization achieved by this synergy [cite: 23, 24, 25].\n\n### 5.1. Core DLE Metrics\nThe DLE model focuses on tracking:\n*   **Automation Rate**: The percentage of tasks managed entirely by AI agents versus human employees. A high-efficiency system aims for 70-90% automation on routine tasks [cite: 23].\n*   **Task Deflection**: Measuring how many queries or sub-tasks were resolved by AI without requiring human intervention [cite: 23].\n*   **Time-to-Productivity (Ramp-up)**: The duration required for a new employee to reach baseline efficiency, which is significantly reduced (up to 30%) when augmented by digital labor workflows [cite: 23, 26].\n\n### 5.2. Calculating Efficiency Gains\nDigital labor efficiency is directly tied to financial ROI. The efficiency score can be modeled by comparing the baseline operational costs to the automated workflow costs [cite: 23, 26].\n\\[ \\text{ROI} = \\left( \\frac{\\text{Net Benefits}}{\\text{Total Costs}} \\right) \\times 100\\% \\]\nIn industries like Quick Service Restaurants (QSR) or Private Equity, integrating AI-driven task management (like KanBo or Agentforce) has yielded reported digital-enabled labor efficiencies of up to 15% [cite: 25, 26].\n\n## 6. Browser Tab and Web Activity Detection Architecture\n\nBrowser telemetry is crucial, as the active window title of a browser often does not contain the full context of the work being performed.\n\n### 6.1. The Watcher Architecture (ActivityWatch)\nActivityWatch utilizes a local server (`aw-server`) and multiple client programs called \"watchers\" [cite: 2, 3]. To track browser tabs, the `aw-watcher-web` extension is installed directly into Chrome, Firefox, or Edge [cite: 1].\n\nWhen a user switches tabs, the extension captures the `web.tab.current` event schema, which includes [cite: 1, 14, 27]:\n*   `url`: The full web address (crucial for distinguishing between `github.com/personal` and `github.com/work`).\n*   `title`: The `<title>` attribute of the webpage.\n*   `audible`: A boolean indicating if the tab is playing audio [cite: 1].\n*   `incognito`: A boolean indicating privacy mode.\n\n### 6.2. Heartbeats and Event Merging\nTo optimize SQLite database storage and reduce disk I/O, events are not logged continuously per millisecond. Instead, watchers send \"heartbeats\". If a new heartbeat is identical to the previous one (e.g., the user is still on the same URL) and falls within a specific \"pulsetime\" window, the `aw-server` executes a `heartbeat_merge` operation [cite: 27]. The original event's `duration` is simply extended by the time difference, rather than creating a new database row [cite: 27].\n\n## 7. Detecting Actual Coding Activity: The WakaTime Architecture\n\nFor developers, distinguishing between staring blankly at an IDE and actually writing code is critical. WakaTime achieves this via deep integration plugins for over 50 editors (VS Code, JetBrains, Vim) [cite: 28, 29, 30].\n\n### 7.1. IDE Event Triggers\nWakaTime plugins do not use standard OS AFK timers. Instead, they track internal IDE events [cite: 5]. A heartbeat is sent to the WakaTime API only when:\n*   The user types a character in the editor window.\n*   The user saves a file.\n*   The active cursor position changes (indicating reading/navigating code) [cite: 5].\nIf typing ceases for longer than the configured timeout preference, the tracking halts immediately [cite: 5, 6].\n\n### 7.2. Precision and Payload Data\nWakaTime claims a precision of 1 microsecond natively, restricted to ±16 milliseconds on Windows OS clocks [cite: 5]. The JSON payload sent by the open-source CLI (`wakatime-cli`) includes [cite: 5, 6]:\n*   `entity`: The exact file path.\n*   `project`: Extracted via Git repository root directory.\n*   `language`: Inferred from file extension and internal AST parsers.\n*   `category`: e.g., 'Coding', 'Debugging', 'Building' [cite: 6].\n\n### 7.3. AI-Assisted Code Tracking\nWith the proliferation of AI coding assistants, modern implementations like `opencode-wakatime` and `claude-code-wakatime` inject a specific parameter: `--ai-line-changes`. This allows the platform to calculate the ratio of lines written manually by the human versus lines generated autonomously by the AI, integrating directly into the overall productivity analytics [cite: 7, 8, 29].\n\n## 8. Voice Activity and Speech-to-Text as a Productivity Signal\n\nIn an era of endless remote meetings, measuring verbal participation is a potent proxy for engagement. Capturing microphone usage and transcribing speech locally provides deep insight into collaborative productivity [cite: 9, 10, 31].\n\n### 8.1. Voice Activity Detection (VAD)\nConstantly running a high-end speech-to-text model is computationally prohibitive. Instead, tools use Voice Activity Detection (VAD) algorithms like WebRTCVAD or SileroVAD [cite: 32]. VAD operates by analyzing raw PCM audio chunks (typically 16-bit mono, 16000Hz) and determining the probability of human speech presence [cite: 32]. \n\n### 8.2. Local Speech-to-Text Integration\nOnce speech is detected, the audio chunk can be passed to a local inference model to preserve privacy.\n*   **RealtimeSTT**: An open-source Python library that streams audio from the microphone, utilizes SileroVAD for speech verification, and utilizes GPU-accelerated `Faster_Whisper` for instant transcription [cite: 32]. \n*   **Diarization**: Tools like Deepgram offer APIs that recognize *who* is speaking (Speaker 1 vs Speaker 2) [cite: 31]. By tracking the dictionary of `total_speaker_time`, the system can quantify how long an employee spoke during a meeting [cite: 31].\n\n**Implementation Pattern: VAD and Whisper Tracking (Python)**\n```python\n# Utilizing standard audio and STT packages [cite: 32, 33]\nimport speech_recognition as sr\nimport time\n\ndef monitor_voice_activity():\n    \"\"\"\n    Monitors microphone usage as a productive signal [cite: 33].\n    Does not store audio, only logs duration of speaking events.\n    \"\"\"\n    r = sr.Recognizer()\n    mic = sr.Microphone()\n    \n    # Adjust for ambient noise\n    with mic as source:\n        r.adjust_for_ambient_noise(source)\n    \n    while True:\n        with mic as source:\n            print(\"Listening for work-related speech...\")\n            # listen() captures data until silence is detected [cite: 33]\n            try:\n                # Capture speech burst\n                audio = r.listen(source, timeout=5, phrase_time_limit=30)\n                duration = len(audio.frame_data) / (audio.sample_rate * audio.sample_width)\n                \n                # Log the voice activity as a productivity signal\n                log_productivity_event(\n                    event_type=\"voice_activity\", \n                    duration_seconds=duration,\n                    status=\"active_collaboration\"\n                )\n                \n                # Optional: Local Whisper inference for keyword extraction\n                # text = r.recognize_whisper(audio, model=\"base.en\")\n                \n            except sr.WaitTimeoutError:\n                pass # No speech detected\n```\n\n## 9. Advanced Machine Learning for Work Pattern Classification\n\nBeyond basic regex categorization, sophisticated systems utilize machine learning for profound contextual understanding [cite: 11, 18, 21].\n\n1.  **Siamese Convolutional Neural Networks (mmSNN)**: Used in systems like TypeNet, these models take multi-modal sensor data (keystroke timings, mouse vectors) and map them to a latent space. By minimizing the Euclidean distance between a user's normal work rhythm and the current rhythm, the system detects anomalies (fatigue, imposter usage, or automation) without relying on hardcoded thresholds [cite: 21].\n2.  **K-Means Clustering**: Applied to user state spaces to classify generalized work modes (e.g., \"Deep Work\", \"Shallow Work\", \"Distracted\") based on the high-dimensional vector of app switches, WPM, and audio states [cite: 9].\n3.  **NLP Context Extraction**: Applying lightweight NLP (like TF-IDF or local BERT embeddings) to the aggregated active window titles over a day to generate thematic tags (e.g., \"Financial Analysis\", \"Frontend Debugging\") rather than relying purely on the app name.\n\n## 10. Open-Source Ecosystem on Windows\n\nIf you are building a custom Python monitor on Windows, several robust open-source architectures can serve as references or direct dependencies:\n\n*   **ActivityWatch Ecosystem**: The quintessential open-source tracker. Written in Python (and transitioning server storage to Rust for performance) [cite: 34]. It utilizes `aw-core` for the data model, `aw-client` for API interactions, and watchers like `aw-watcher-window` and `aw-watcher-afk` which use Windows API hooks to track states [cite: 1, 3, 34].\n*   **WakaTime / Wakapi / Hakatime**: WakaTime's editor plugins and CLI (`wakatime-cli`) are completely open source [cite: 5, 8, 30]. If you wish to host the backend yourself, **Wakapi** and **Hakatime** are open-source backend implementations compatible with the WakaTime API schema, processing heartbeats and generating statistics locally [cite: 30].\n*   **OpenCode**: A plugin ecosystem focused on tracking AI coding activity, tracking file modifications, and sending heartbeats to a local server [cite: 8].\n\n## 11. Technical Implementation Guide: Python Productivity Monitor Upgrade\n\nTo upgrade your existing Python script (which currently captures window titles and idle time) into a highly intelligent productivity tracker, implement the following architectural enhancements.\n\n### 11.1. Data Schema Architecture\nAdopt an event-driven JSON schema similar to ActivityWatch's canonical events. This structure accommodates app data, browser extensions, and IDE heartbeats [cite: 27, 35].\n\n```json\n{\n  \"timestamp\": \"2025-10-24T14:32:00Z\",\n  \"duration\": 45.5,\n  \"event_type\": \"app.window.active\",\n  \"client\": \"my-custom-python-watcher\",\n  \"data\": {\n    \"app_name\": \"Code.exe\",\n    \"window_title\": \"main.py - Project_X - Visual Studio Code\",\n    \"category\": \"Software Development\",\n    \"productivity_weight\": 2,\n    \"is_audible\": false,\n    \"wpm_estimate\": 45.2,\n    \"input_variance_score\": 0.85\n  }\n}\n```\n\n### 11.2. The Productivity Scoring Formula (RescueTime Pulse)\nImplement a dynamic scoring engine. RescueTime's \"Productivity Pulse\" creates a normalized score out of 100 based on the time-weighted average of categorized activities [cite: 12, 36]. \n\nLet \\( t_{vp}, t_p, t_n, t_d, t_{vd} \\) represent the total duration in seconds spent in Very Productive (+2), Productive (+1), Neutral (0), Distracting (-1), and Very Distracting (-2) states respectively [cite: 12, 13].\n\nThe raw weight sum is:\n\\[ W = (t_{vp} \\times 2) + (t_p \\times 1) + (t_n \\times 0) + (t_d \\times -1) + (t_{vd} \\times -2) \\]\n\nBecause the maximum possible weight for a given total time \\( T_{total} \\) is \\( 2 \\times T_{total} \\) and the minimum is \\( -2 \\times T_{total} \\), the normalized Productivity Pulse score \\( P \\) (from 0 to 100) is:\n\n\\[ P = \\left( \\frac{W + 2 \\times T_{total}}{4 \\times T_{total}} \\right) \\times 100 \\]\n\n**Python Implementation:**\n```python\ndef calculate_productivity_pulse(activity_durations: dict) -> float:\n    \"\"\"\n    Calculates the 0-100 Productivity Pulse score [cite: 12, 36].\n    activity_durations: dict with keys 'vp', 'p', 'n', 'd', 'vd' \n                        containing duration in seconds.\n    \"\"\"\n    t_vp = activity_durations.get('vp', 0)\n    t_p  = activity_durations.get('p', 0)\n    t_n  = activity_durations.get('n', 0)\n    t_d  = activity_durations.get('d', 0)\n    t_vd = activity_durations.get('vd', 0)\n    \n    total_time = t_vp + t_p + t_n + t_d + t_vd\n    if total_time == 0:\n        return 0.0\n        \n    raw_weight = (t_vp * 2) + (t_p * 1) + (t_n * 0) + (t_d * -1) + (t_vd * -2)\n    \n    # Normalize to 0 - 100\n    pulse = ((raw_weight + (2 * total_time)) / (4 * total_time)) * 100\n    return round(pulse, 1)\n\n# Example Usage:\n# 2 hours coding (vp), 1 hour slack (p), 30 min unknown (n), 1 hour youtube (vd)\ndurations = {'vp': 7200, 'p': 3600, 'n': 1800, 'd': 0, 'vd': 3600}\n# Total = 16200 sec (4.5 hours)\n# raw_weight = 14400 + 3600 + 0 + 0 - 7200 = 10800\n# Pulse = ((10800 + 32400) / 64800) * 100 = 66.6\nprint(f\"Productivity Pulse: {calculate_productivity_pulse(durations)}\")\n```\n\n### 11.3. System Architecture Blueprint for the Python Monitor\n\nTo integrate these concepts into your application, structure your Python application using asynchronous thread pools or the `multiprocessing` library to ensure UI and telemetry operations do not block one another [cite: 32].\n\n1.  **Core Event Loop (`aw-server` equivalent)**: A local SQLite database utilizing SQLAlchemy. Expose a local REST API using FastAPI. This allows you to easily inject browser tab data via a Chrome extension in the future.\n2.  **Input Watcher Thread**: Utilize the `pynput` library to attach non-blocking hooks to the OS. \n    *   *Do not log key characters.*\n    *   Maintain a rolling window (e.g., a `collections.deque`) of the last 100 `time.time()` stamps for keypresses and mouse coordinates.\n    *   Calculate WPM and Burstiness dynamically every 60 seconds and flush to the database.\n3.  **Active Window Thread**: Utilize `ctypes.windll.user32.GetForegroundWindow` to poll the active title. Apply your `Rule` regex categorizer immediately to assign the productivity weight [cite: 15].\n4.  **Audio/Meeting Thread**: Utilize `pyaudio` and `webrtcvad` to monitor the local microphone [cite: 32, 33]. Set a flag `is_in_meeting = True` if VAD detects human speech for more than 15% of a sliding 1-minute window.\n5.  **Anomaly Detection Engine**: Run the `analyze_input_rhythm` variance function periodically. If `is_jiggler_suspected` returns true, override the categorization to `Neutral` or tag the database entry with a `fake_activity` flag [cite: 19].\n\nBy merging advanced window parsing, anonymous input variance analysis, heuristic anomaly detection, and real-time voice activity monitoring, your Python desktop monitor will transcend basic idle tracking, offering a sophisticated, enterprise-grade analysis of genuine productivity and digital labor efficiency.\n\n**Sources:**\n1. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==)\n2. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=)\n3. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=)\n4. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpl7WghQZxBlVR2pcK-31aCG_LyYtKc-KKUa2Yqeh47ajGny_xcbjU1Xh7mg1k0Cp6axfa_iKwHFkJMKl4qhBiEarESeHK0GIcGT-sw57fY9ep9r8C8-P5Ra4CQBGZ1y4Nm4kfks0=)\n5. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==)\n6. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw)\n7. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=)\n8. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=)\n9. [neurois.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5)\n10. [reddit.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5)\n11. [gkovacs.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X)\n12. [computer.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==)\n13. [lobehub.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==)\n14. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==)\n15. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=)\n16. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNH02bH8s2B7ulT6x_TsaCKM_Qy_FZQZ3AqCaQA9Z-yyQXcgQatyF4xZx0Ycp9f8KCTJSXviuP4vZmt0USH_PI8tilvaF4bDB3vJmZrSVyBpdOWe4p_05aLXiHyiQBOXPydgUksg1fSIr0jA==)\n17. [wanywhere.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o)\n18. [kickidler.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==)\n19. [activtrak.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=)\n20. [empmonitor.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q)\n21. [researchgate.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==)\n22. [asling.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G)\n23. [questionbase.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5)\n24. [vercel.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEFL-znmgYV8iGwylFwkFhbHyJ83DYtpWSFI6MoIKm3U6pXAuPYTpzuo_YIeoEGArxnG9V2OWIYSLwdIXxMhFznUaAzniXCQmKFbP7TIHgkL1fj_Sx3BrfikQ==)\n25. [kanboapp.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==)\n26. [portersfiveforce.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI)\n27. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=)\n28. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvH8z9m-0TLjOqsbrEyDcX2ufndZ4AoB8fuXZN3RrwOaqhnIJPcDhFNSm29BmQZvpmpGiX4-_ZfVXtv0UomTDAWaMH0hukx-kuTshgNsVi4rw=)\n29. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==)\n30. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=)\n31. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=)\n32. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=)\n33. [realpython.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=)\n34. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==)\n35. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWhO-E7ywHUXgpmWTT3K_6mSIIy8n7DypRRMjbLQG_0M146WsB3pTzgIvQ4nxHjlM9224HN-VyPAe15lMqIj_zmH4pK1A8PER7MZcd6G8vqag2EdJfDijniA1fPFOeL7PcvjwBEnQR3ghSSgnWmFwOQCaD1pl_2O3KLGJNpQ==)\n36. [jibble.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=)\n",
+      "annotations": [
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 2314,
+          "end_index": 2323
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+          "type": "url_citation",
+          "start_index": 2711,
+          "end_index": 2723
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+          "type": "url_citation",
+          "start_index": 2711,
+          "end_index": 2723
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 2919,
+          "end_index": 2928
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 3282,
+          "end_index": 3291
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 3492,
+          "end_index": 3504
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpl7WghQZxBlVR2pcK-31aCG_LyYtKc-KKUa2Yqeh47ajGny_xcbjU1Xh7mg1k0Cp6axfa_iKwHFkJMKl4qhBiEarESeHK0GIcGT-sw57fY9ep9r8C8-P5Ra4CQBGZ1y4Nm4kfks0=",
+          "type": "url_citation",
+          "start_index": 3492,
+          "end_index": 3504
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 3839,
+          "end_index": 3848
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+          "type": "url_citation",
+          "start_index": 3940,
+          "end_index": 3952
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 3940,
+          "end_index": 3952
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+          "type": "url_citation",
+          "start_index": 4105,
+          "end_index": 4117
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 4105,
+          "end_index": 4117
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+          "type": "url_citation",
+          "start_index": 4340,
+          "end_index": 4352
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=",
+          "type": "url_citation",
+          "start_index": 4340,
+          "end_index": 4352
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+          "type": "url_citation",
+          "start_index": 4499,
+          "end_index": 4508
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5",
+          "type": "url_citation",
+          "start_index": 4637,
+          "end_index": 4650
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+          "type": "url_citation",
+          "start_index": 4637,
+          "end_index": 4650
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 5132,
+          "end_index": 5146
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+          "type": "url_citation",
+          "start_index": 5132,
+          "end_index": 5146
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 5267,
+          "end_index": 5281
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 5267,
+          "end_index": 5281
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 5368,
+          "end_index": 5378
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 5445,
+          "end_index": 5455
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 5510,
+          "end_index": 5520
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 5578,
+          "end_index": 5592
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 5578,
+          "end_index": 5592
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+          "type": "url_citation",
+          "start_index": 5914,
+          "end_index": 5928
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+          "type": "url_citation",
+          "start_index": 5914,
+          "end_index": 5928
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+          "type": "url_citation",
+          "start_index": 6042,
+          "end_index": 6056
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNH02bH8s2B7ulT6x_TsaCKM_Qy_FZQZ3AqCaQA9Z-yyQXcgQatyF4xZx0Ycp9f8KCTJSXviuP4vZmt0USH_PI8tilvaF4bDB3vJmZrSVyBpdOWe4p_05aLXiHyiQBOXPydgUksg1fSIr0jA==",
+          "type": "url_citation",
+          "start_index": 6042,
+          "end_index": 6056
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+          "type": "url_citation",
+          "start_index": 6578,
+          "end_index": 6588
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+          "type": "url_citation",
+          "start_index": 7510,
+          "end_index": 7524
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+          "type": "url_citation",
+          "start_index": 7510,
+          "end_index": 7524
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+          "type": "url_citation",
+          "start_index": 7959,
+          "end_index": 7969
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+          "type": "url_citation",
+          "start_index": 8249,
+          "end_index": 8263
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+          "type": "url_citation",
+          "start_index": 8249,
+          "end_index": 8263
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q",
+          "type": "url_citation",
+          "start_index": 8399,
+          "end_index": 8413
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 8399,
+          "end_index": 8413
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 8611,
+          "end_index": 8621
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q",
+          "type": "url_citation",
+          "start_index": 8810,
+          "end_index": 8824
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+          "type": "url_citation",
+          "start_index": 8810,
+          "end_index": 8824
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 9138,
+          "end_index": 9148
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 9389,
+          "end_index": 9399
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+          "type": "url_citation",
+          "start_index": 9762,
+          "end_index": 9780
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+          "type": "url_citation",
+          "start_index": 9762,
+          "end_index": 9780
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 9762,
+          "end_index": 9780
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 10389,
+          "end_index": 10403
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+          "type": "url_citation",
+          "start_index": 10389,
+          "end_index": 10403
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 10799,
+          "end_index": 10809
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 11039,
+          "end_index": 11049
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 11300,
+          "end_index": 11314
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+          "type": "url_citation",
+          "start_index": 11300,
+          "end_index": 11314
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+          "type": "url_citation",
+          "start_index": 11476,
+          "end_index": 11485
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+          "type": "url_citation",
+          "start_index": 11536,
+          "end_index": 11545
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 12316,
+          "end_index": 12330
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 12316,
+          "end_index": 12330
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+          "type": "url_citation",
+          "start_index": 12956,
+          "end_index": 12970
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 12956,
+          "end_index": 12970
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 13096,
+          "end_index": 13106
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+          "type": "url_citation",
+          "start_index": 13382,
+          "end_index": 13396
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 13382,
+          "end_index": 13396
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+          "type": "url_citation",
+          "start_index": 13522,
+          "end_index": 13536
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 13522,
+          "end_index": 13536
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 13853,
+          "end_index": 13863
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 14239,
+          "end_index": 14249
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+          "type": "url_citation",
+          "start_index": 14569,
+          "end_index": 14587
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEFL-znmgYV8iGwylFwkFhbHyJ83DYtpWSFI6MoIKm3U6pXAuPYTpzuo_YIeoEGArxnG9V2OWIYSLwdIXxMhFznUaAzniXCQmKFbP7TIHgkL1fj_Sx3BrfikQ==",
+          "type": "url_citation",
+          "start_index": 14569,
+          "end_index": 14587
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==",
+          "type": "url_citation",
+          "start_index": 14569,
+          "end_index": 14587
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+          "type": "url_citation",
+          "start_index": 14823,
+          "end_index": 14833
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+          "type": "url_citation",
+          "start_index": 14957,
+          "end_index": 14967
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+          "type": "url_citation",
+          "start_index": 15165,
+          "end_index": 15179
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+          "type": "url_citation",
+          "start_index": 15165,
+          "end_index": 15179
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+          "type": "url_citation",
+          "start_index": 15392,
+          "end_index": 15406
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+          "type": "url_citation",
+          "start_index": 15392,
+          "end_index": 15406
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+          "type": "url_citation",
+          "start_index": 15706,
+          "end_index": 15720
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==",
+          "type": "url_citation",
+          "start_index": 15706,
+          "end_index": 15720
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+          "type": "url_citation",
+          "start_index": 16071,
+          "end_index": 16083
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+          "type": "url_citation",
+          "start_index": 16071,
+          "end_index": 16083
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 16191,
+          "end_index": 16200
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+          "type": "url_citation",
+          "start_index": 16304,
+          "end_index": 16321
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+          "type": "url_citation",
+          "start_index": 16304,
+          "end_index": 16321
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 16304,
+          "end_index": 16321
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 16554,
+          "end_index": 16563
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+          "type": "url_citation",
+          "start_index": 16999,
+          "end_index": 17009
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+          "type": "url_citation",
+          "start_index": 17126,
+          "end_index": 17136
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+          "type": "url_citation",
+          "start_index": 17408,
+          "end_index": 17426
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==",
+          "type": "url_citation",
+          "start_index": 17408,
+          "end_index": 17426
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvH8z9m-0TLjOqsbrEyDcX2ufndZ4AoB8fuXZN3RrwOaqhnIJPcDhFNSm29BmQZvpmpGiX4-_ZfVXtv0UomTDAWaMH0hukx-kuTshgNsVi4rw=",
+          "type": "url_citation",
+          "start_index": 17408,
+          "end_index": 17426
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 17549,
+          "end_index": 17558
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 17767,
+          "end_index": 17776
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+          "type": "url_citation",
+          "start_index": 17877,
+          "end_index": 17889
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 17877,
+          "end_index": 17889
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 18036,
+          "end_index": 18045
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+          "type": "url_citation",
+          "start_index": 18118,
+          "end_index": 18130
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 18118,
+          "end_index": 18130
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+          "type": "url_citation",
+          "start_index": 18354,
+          "end_index": 18363
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+          "type": "url_citation",
+          "start_index": 18769,
+          "end_index": 18785
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==",
+          "type": "url_citation",
+          "start_index": 18769,
+          "end_index": 18785
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=",
+          "type": "url_citation",
+          "start_index": 18769,
+          "end_index": 18785
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+          "type": "url_citation",
+          "start_index": 19070,
+          "end_index": 19087
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5",
+          "type": "url_citation",
+          "start_index": 19070,
+          "end_index": 19087
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+          "type": "url_citation",
+          "start_index": 19070,
+          "end_index": 19087
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 19302,
+          "end_index": 19312
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 19451,
+          "end_index": 19461
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 19817,
+          "end_index": 19827
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+          "type": "url_citation",
+          "start_index": 19940,
+          "end_index": 19950
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+          "type": "url_citation",
+          "start_index": 20072,
+          "end_index": 20082
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 20201,
+          "end_index": 20215
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+          "type": "url_citation",
+          "start_index": 20201,
+          "end_index": 20215
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+          "type": "url_citation",
+          "start_index": 20352,
+          "end_index": 20362
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+          "type": "url_citation",
+          "start_index": 20760,
+          "end_index": 20770
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+          "type": "url_citation",
+          "start_index": 21731,
+          "end_index": 21749
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+          "type": "url_citation",
+          "start_index": 21731,
+          "end_index": 21749
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 21731,
+          "end_index": 21749
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+          "type": "url_citation",
+          "start_index": 22153,
+          "end_index": 22163
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+          "type": "url_citation",
+          "start_index": 22383,
+          "end_index": 22392
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==",
+          "type": "url_citation",
+          "start_index": 22999,
+          "end_index": 23009
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==",
+          "type": "url_citation",
+          "start_index": 23190,
+          "end_index": 23206
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+          "type": "url_citation",
+          "start_index": 23190,
+          "end_index": 23206
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+          "type": "url_citation",
+          "start_index": 23190,
+          "end_index": 23206
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+          "type": "url_citation",
+          "start_index": 23324,
+          "end_index": 23340
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+          "type": "url_citation",
+          "start_index": 23324,
+          "end_index": 23340
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+          "type": "url_citation",
+          "start_index": 23324,
+          "end_index": 23340
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+          "type": "url_citation",
+          "start_index": 23549,
+          "end_index": 23559
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+          "type": "url_citation",
+          "start_index": 23708,
+          "end_index": 23717
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWhO-E7ywHUXgpmWTT3K_6mSIIy8n7DypRRMjbLQG_0M146WsB3pTzgIvQ4nxHjlM9224HN-VyPAe15lMqIj_zmH4pK1A8PER7MZcd6G8vqag2EdJfDijniA1fPFOeL7PcvjwBEnQR3ghSSgnWmFwOQCaD1pl_2O3KLGJNpQ==",
+          "type": "url_citation",
+          "start_index": 24182,
+          "end_index": 24196
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+          "type": "url_citation",
+          "start_index": 24182,
+          "end_index": 24196
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 24845,
+          "end_index": 24859
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=",
+          "type": "url_citation",
+          "start_index": 24845,
+          "end_index": 24859
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 25068,
+          "end_index": 25082
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+          "type": "url_citation",
+          "start_index": 25068,
+          "end_index": 25082
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+          "type": "url_citation",
+          "start_index": 25679,
+          "end_index": 25693
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=",
+          "type": "url_citation",
+          "start_index": 25679,
+          "end_index": 25693
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 27002,
+          "end_index": 27012
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+          "type": "url_citation",
+          "start_index": 27796,
+          "end_index": 27806
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+          "type": "url_citation",
+          "start_index": 27904,
+          "end_index": 27918
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+          "type": "url_citation",
+          "start_index": 27904,
+          "end_index": 27918
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+          "type": "url_citation",
+          "start_index": 28262,
+          "end_index": 28272
+        }
+      ],
+      "type": "text"
+    }
+  ],
+  "rawInteraction": {
+    "id": "v1_ChdMbGZZYWFPSERLcWxtdGtQLWRPQmdBVRIXTGxmWWFhT0hES3FsbXRrUC1kT0JnQVU",
+    "status": "completed",
+    "outputs": [
+      {
+        "signature": "",
+        "summary": [
+          {
+            "text": "**Dissecting Behavioral Indicators**\n\nI am examining the architectural layers that allow productivity tools to move beyond simple idle detection. By investigating the specific logic used in open-source projects and the telemetry gathered by development-specific extensions, I am beginning to map how granular events—such as browser tab transitions and specific code-level interactions—are captured and structured into actionable data schemas.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Identifying Detection Gaps**\n\nOne area I'm focusing on is the technical challenge of validating authentic human presence versus automated simulation. I am exploring the algorithms designed to filter out artificial activity, such as mechanical movement simulators, while also addressing the complex trade-off between analyzing keystroke dynamics for workflow patterns and maintaining user privacy through non-invasive metrics.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Strategy for Technical Synthesis**\n\nI will now synthesize information on scoring methodologies, particularly the Digital Labor Efficiency model, and look for specific code patterns that implement machine learning for task classification. My next step involves thinking through how unconventional signals, like the usage of speech-to-text tools, can be integrated as a viable indicator of active work.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Analyzing Telemetry Schemas**\n\nI have begun uncovering the logic used to transform raw telemetry into sophisticated productivity signals. Specifically, I've identified how high-resolution events—like browser tab transitions, IDE heartbeats, and specific keyboard-to-mouse activity ratios—provide a much more nuanced picture of work than simple idle detection. I'm finding that effective frameworks rely on structured data schemas that capture properties such as audible states and git metadata to contextually validate active engagement.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Validating Authentic Engagement**\n\nA critical area I'm addressing is the technical tension between comprehensive monitoring and privacy-safe data collection. While I've mapped out how metrics like 'burstiness' and typing speed are used to analyze workflow without logging actual keystrokes, there is still a gap in identifying the specific mathematical foundations of certain labor efficiency models. I am currently reconciling the nuances of automated activity detection, where AI is used to distinguish between organic human inconsistency and mechanical simulation patterns.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Expanding the Signal Matrix**\n\nI am moving toward synthesizing implementation details for machine learning classification while thinking through how to integrate unconventional indicators into a cohesive model. My next steps involve investigating the specific logic required to track microphone activity as a signal for speech-to-text tools and examining code patterns that automate the categorization of applications into productivity tiers.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Mapping High-Fidelity Interaction Patterns**\n\nI have uncovered sophisticated methods for distinguishing authentic human interaction from automated simulation by analyzing the 'burstiness' of input and the specific distribution of non-alphanumeric keystrokes. By integrating diverse signals such as voice activity detection and development-environment heartbeats, I am now able to define a more granular definition of active work that moves far beyond simple movement detection.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Quantifying Human and AI Contributions**\n\nI am synthesizing the mathematical foundations used to score efficiency, ranging from weighted productivity scales to specialized metrics that differentiate between human-authored and machine-generated content. I have reconciled how modern frameworks utilize categorization logic to classify activities based on window metadata and application state, providing a clear path for translating raw telemetry into actionable productivity insights.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Finalizing the Technical Framework**\n\nHaving gathered a comprehensive set of data schemas, algorithmic patterns, and architectural references from leading open-source implementations, I am prepared to conclude the investigation. My final phase involves structuring these technical findings into a complete guide that covers everything from low-level event capture to high-level scoring logic.",
+            "type": "text"
+          },
+          {
+            "text": "**Analyzing Productivity Metrics**\n\nI am beginning an investigation into the underlying mechanisms that distinguish meaningful work from idle time across several desktop monitoring platforms. My primary focus is on verifying technical claims regarding behavioral signals, such as how platforms detect repetitive mouse movements indicative of automation and how they classify application usage into productivity categories using weighted scoring systems.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Technical Validation of Monitoring Logic**\n\nI am particularly interested in synthesizing the logic behind heartbeat architectures used in developer-focused tracking and the Digital Labor Efficiency models that measure the balance between automated and manual tasks. I also need to reconcile how keystroke dynamics can be analyzed for productivity without compromising user privacy by focusing on patterns like burstiness and cadence rather than specific character inputs.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Verifying Core Algorithms**\n\nMy next steps involve cross-referencing specific algorithmic formulas for productivity pulses and examining the implementation of open-source watchers for web activity. I am moving to seek documentation on voice activity detection as a work signal and the use of machine learning models for sophisticated classification of work patterns.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Mapping Productivity Metrics**\n\nI have successfully identified the specific weighted formulas used to calculate productivity scores, distinguishing between highly productive and distracting activities. I've also mapped out how monitoring tools utilize heartbeat signals and browser tab metadata to track active engagement while filtering out periods of inactivity using intersection filters to subtract idle time.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Resolving Behavioral Information Gaps**\n\nI am currently resolving gaps concerning how keystroke biometrics and behavioral dynamics can be leveraged for security without overstepping privacy boundaries. Additionally, I am seeking more technical clarity on models that evaluate the efficiency of digital labor and the automated detection of simulated activity designed to bypass monitoring systems.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Synthesizing Analytic Frameworks**\n\nMoving forward, I will synthesize these distinct tracking methods to understand the broader ecosystem of behavioral analytics. I intend to analyze how voice activity functions as a work signal and look deeper into the machine learning models used for the sophisticated classification of complex work patterns.",
+            "type": "text"
+          }
+        ],
+        "type": "thought"
+      },
+      {
+        "text": "# Advanced Productivity Monitoring: Detecting Real Work versus Procrastination in Desktop Environments\n\n**Key Points:**\n*   **Behavioral Signals**: Modern monitoring transcends basic mouse/keyboard idle detection, utilizing deep contextual signals like application-specific metadata, active window states, browser tab audibility, and even voice activity detection to build a holistic profile of user engagement. \n*   **Algorithmic Detection**: The identification of \"fake activity\" (e.g., mouse jigglers) relies on anomaly detection algorithms that analyze behavioral variance, burstiness, and temporal repetition, rather than simple input counting. \n*   **Privacy-Preserving Telemetry**: It is highly feasible to measure cognitive load, typing speed (WPM), and work rhythm using advanced mathematical models (like Siamese Neural Networks) without ever logging the actual characters typed, thereby preserving user privacy. \n*   **Machine Learning Integration**: Platforms increasingly deploy machine learning—from Random Forests for website categorization to Deep Learning for keystroke biometrics—to intelligently distinguish focused labor from digital procrastination.\n\nThe modern digital workplace relies heavily on productivity analytics to understand how time is spent on desktop environments. However, traditional metrics based solely on idle time are easily manipulated and often fail to capture the nuance of knowledge work, where reading, thinking, or participating in a meeting are productive activities that generate zero keyboard or mouse input. This report explores the advanced technical mechanisms, algorithms, and architectures employed by sophisticated productivity tools such as RescueTime, ActivityWatch, Toggl Track, and WakaTime. By analyzing open-source implementations, mathematical models, and machine learning architectures, this guide provides a comprehensive technical blueprint for building an intelligent, privacy-respecting Windows desktop monitoring system in Python.\n\n## 1. Multi-Dimensional Behavioral Signals Beyond Idle Detection\n\nTraditional productivity monitors rely on a rudimentary metric: the presence or absence of keyboard and mouse events. If no input is detected for a specific threshold (e.g., 3 minutes), the system assumes the user is \"Away From Keyboard\" (AFK) [cite: 1]. However, this binary approach is insufficient for modern knowledge work. Advanced tools utilize a multi-dimensional array of behavioral signals to ascertain genuine engagement.\n\n### 1.1. Contextual Window and Application Telemetry\nActivityWatch, a leading open-source time tracker, utilizes a modular architecture of \"watchers\" to extract deep contextual data from the operating system [cite: 2, 3]. Beyond the executable name, the system captures:\n*   **Active Window Titles**: The exact title of the focused window, which often contains document names, project directories, or website titles [cite: 1].\n*   **Application Metadata**: Extracting underlying bundle identifiers or executable paths to differentiate between multiple instances of the same application.\n*   **Audible and Media States**: The browser watcher (`aw-watcher-web`) and media watchers (`aw-watcher-spotify`, `aw-watcher-mpv`) monitor if a tab or application is actively emitting sound [cite: 1]. If a user is watching a work-related video tutorial or participating in a video conference, the presence of audio output overrides the AFK status, marking the user as active despite input inactivity [cite: 1, 4].\n\n### 1.2. IDE and File-Level Telemetry\nFor software engineering contexts, tools like WakaTime capture highly granular signals without logging actual source code. WakaTime's plugins detect:\n*   **Cursor Movements**: Reading or scrolling through code triggers \"heartbeats\" if the cursor changes position, indicating code comprehension [cite: 5].\n*   **File Modifications**: Tracking lines added and removed, as well as file save events [cite: 5, 6].\n*   **Project and Language Context**: Parsing the active file's extension, Git repository branch, and specific frameworks (e.g., Django, React) in use [cite: 5, 6].\n*   **AI-Assisted Coding Metrics**: Modern WakaTime implementations track `--ai-line-changes` to differentiate between code written manually by the user and code generated by AI assistants (like GitHub Copilot or Claude) [cite: 7, 8].\n\n### 1.3. Communication and Voice Signals\nTools are increasingly integrating metrics related to Video Conference Fatigue (VCF) and collaboration [cite: 9]. Signals include the duration of Zoom meetings, the burstiness of the meeting schedules, and local microphone activation events [cite: 9, 10].\n\n## 2. Classification Algorithms: Productive versus Distracting\n\nOnce behavioral data is captured, it must be categorized to calculate productivity scores. This is typically achieved through either rule-based systems or machine learning classifications.\n\n### 2.1. The 5-Point Productivity Scale (RescueTime Model)\nRescueTime utilizes a community-sourced, user-customizable categorization system that assigns every activity to a predefined productivity level on a five-point scale [cite: 11, 12]. The scale is defined as follows:\n*   **+2: Very Productive**: Core work applications (IDEs, Word processors, Terminal) [cite: 12, 13].\n*   **+1: Productive**: Reference materials, communication tools, learning platforms [cite: 13].\n*   **0: Neutral**: Uncategorized applications, system utilities [cite: 13].\n*   **-1: Distracting**: News sites, online shopping [cite: 13].\n*   **-2: Very Distracting**: Social media, video games [cite: 12, 13].\n\nThis classification forms the basis of the \"Productivity Pulse\" scoring formula, which we will mathematically define in Section 6.\n\n### 2.2. Rule-Based Categorization (ActivityWatch Model)\nActivityWatch utilizes a robust, hierarchical rule engine implemented in the `aw-analysis` library (`aw_transform.classify.Rule`) [cite: 14, 15]. Categories are defined using Regular Expressions (Regex) that match against window titles and application names [cite: 14, 16].\n\n**Implementation Pattern: Regex-Based Categorizer in Python**\n```python\nimport re\nfrom typing import List, Dict, Optional, Any\nfrom dataclasses import dataclass\n\n@dataclass\nclass Event:\n    timestamp: str\n    duration: float\n    data: Dict[str, Any]\n\nclass Rule:\n    def __init__(self, rules: Dict[str, Any]):\n        self.select_keys = rules.get(\"select_keys\", None)\n        self.ignore_case = rules.get(\"ignore_case\", False)\n        regex_str = rules.get(\"regex\", None)\n        # Compile regex with appropriate flags [cite: 15]\n        self.regex = re.compile(\n            regex_str, \n            (re.IGNORECASE if self.ignore_case else 0) | re.UNICODE\n        ) if regex_str else None\n\n    def match(self, event: Event) -> bool:\n        if self.select_keys:\n            values = [event.data.get(key, \"\") for key in self.select_keys]\n        else:\n            values = list(event.data.values())\n            \n        if self.regex:\n            for val in values:\n                if isinstance(val, str) and self.regex.search(val):\n                    return True\n        return False\n\n# Example Category Definition\nwork_rule = Rule({\n    \"regex\": r\"(Visual Studio Code|github\\.com|Terminal)\",\n    \"select_keys\": [\"app\", \"title\"],\n    \"ignore_case\": True\n})\n```\nWhen an event occurs, the system iterates through the rules. If multiple categories match, the deepest sub-category in the hierarchy (e.g., `Work -> Software Development -> IDE`) is chosen [cite: 14, 15].\n\n### 2.3. Machine Learning Categorization\nFor domains that are uncategorized, Random Forest algorithms have been successfully deployed. By transforming the historical domain sequence, duration, and time-until-next-activity into categorical feature vectors via one-hot encoding, a Random Forest classifier can predict the productivity category of an unknown URL with over 76% accuracy based on the user's surrounding behavior context [cite: 11].\n\n## 3. Algorithmic Detection of \"Fake Activity\" (Mouse Jigglers)\n\nWith the rise of remote work, employees have increasingly turned to \"mouse jigglers\"—hardware devices or software programs that simulate input to trick productivity monitors into registering the user as active [cite: 17, 18]. Sophisticated monitoring tools (like ActivTrak and EmpMonitor) use multi-layered detection algorithms to identify artificial activity [cite: 19, 20].\n\n### 3.1. Hardware and Software Signature Detection\nThe first line of defense is OS-level endpoint monitoring. Software jigglers are detected by scanning running process names against a blacklist [cite: 19]. Hardware USB jigglers operate by presenting themselves as Human Interface Devices (HIDs). Advanced tools log USB device connection events and flag unrecognized or anomalous input devices [cite: 18, 20].\n\n### 3.2. Duration and Window Analysis\nA primary heuristic for detecting fake activity is analyzing the duration of time spent on a single screen without context switching. ActivTrak utilizes a \"High Duration Activity\" alarm that triggers when a user spends more than 45 minutes on a single active window or tab [cite: 19]. Human knowledge work inherently involves context switching (e.g., referencing a browser, replying to a message, writing code). An uninterrupted 45-minute block on a single static screen is highly anomalous and strongly indicates a jiggler [cite: 19].\n\n### 3.3. Burstiness and Variance Analysis (Rhythm Recognition)\nArtificial input generators generally produce mathematically uniform patterns. Basic jigglers move the mouse by a fixed number of pixels at exact, uniform intervals. Human behavior is characterized by high variance and \"burstiness\"—rapid periods of intense activity followed by cognitive pauses [cite: 17, 21, 22].\n\n**Algorithm: Inter-Event Interval Variance Detection**\nTo detect a jiggler, the system calculates the variance of the Inter-Event Intervals (IEI) of mouse movements. \n\nLet \\( T = [t_1, t_2, ..., t_n] \\) be the timestamps of mouse movement events. The Inter-Event Intervals are \\( \\Delta T_i = t_{i} - t_{i-1} \\).\nThe mean interval is \\( \\mu = \\frac{1}{n-1} \\sum \\Delta T_i \\).\nThe variance is \\( \\sigma^2 = \\frac{1}{n-1} \\sum (\\Delta T_i - \\mu)^2 \\).\n\nIf \\( \\sigma^2 \\) falls below a predetermined epsilon threshold \\( \\epsilon \\) (indicating mechanical consistency), the activity is flagged as artificial [cite: 17, 19].\n\n**Python Implementation Pattern: Jiggler Detection**\n```python\nimport numpy as np\nfrom typing import List, Tuple\n\ndef analyze_input_rhythm(mouse_events: List[Tuple[float, int, int]], time_threshold=2700) -> dict:\n    \"\"\"\n    Analyzes mouse events to detect potential 'fake activity'.\n    mouse_events: List of tuples (timestamp, x_coord, y_coord)\n    time_threshold: 45 minutes (2700 seconds) [cite: 19]\n    \"\"\"\n    if not mouse_events:\n        return {\"status\": \"inactive\"}\n        \n    timestamps = np.array([e for e in mouse_events])\n    total_duration = timestamps[-1] - timestamps\n    \n    # Heuristic 1: High Duration Activity [cite: 19]\n    if total_duration > time_threshold:\n        # Check if the active window hasn't changed (assumed handled outside this function)\n        duration_flag = True\n    else:\n        duration_flag = False\n\n    # Heuristic 2: Repetitive Variance Analysis [cite: 17, 19]\n    intervals = np.diff(timestamps)\n    interval_variance = np.var(intervals)\n    \n    # Calculate geometric variance of mouse vectors\n    x_coords = np.array([e[cite: 2] for e in mouse_events])\n    y_coords = np.array([e[cite: 3] for e in mouse_events])\n    distances = np.sqrt(np.diff(x_coords)**2 + np.diff(y_coords)**2)\n    distance_variance = np.var(distances)\n    \n    # Extremely low variance indicates mechanical automation\n    is_robotic = interval_variance < 0.05 and distance_variance < 0.5\n    \n    return {\n        \"is_jiggler_suspected\": is_robotic or duration_flag,\n        \"interval_variance\": float(interval_variance),\n        \"distance_variance\": float(distance_variance)\n    }\n```\n\n## 4. Privacy-Safe Keystroke Pattern Analysis\n\nMonitoring keystrokes is highly sensitive; logging actual character codes (Keylogging) introduces severe security and privacy risks. However, productivity monitors can analyze *typing dynamics* and *keystroke biometrics* utilizing anonymous timing data [cite: 19, 21].\n\n### 4.1. Timing Metrics: Dwell Time and Flight Time\nKeystroke pattern analysis relies on two fundamental metrics captured via OS hooks (e.g., `WM_KEYDOWN` and `WM_KEYUP` on Windows):\n*   **Dwell Time (Hold Time)**: The duration a single key is pressed down.\n*   **Flight Time (Inter-Key Interval)**: The time elapsed between releasing one key and pressing the next.\n\nBy capturing only the timestamp and an obfuscated identifier (e.g., `is_alphanumeric`), the system can calculate:\n*   **Words Per Minute (WPM)**: Estimated by counting the total alphanumeric keydown events divided by 5 (standard word length) over a minute [cite: 21, 22].\n*   **Error Rates (Uncorrected)**: Detected by the frequency of `Backspace` or `Delete` events relative to total keystrokes [cite: 21].\n\n### 4.2. Burstiness in Cognitive Load\n\"Burstiness\" is a statistical measure of how events cluster together in time. In text generation (coding or writing), humans type in bursts followed by pauses for thought. AI-generated text or pasted text lacks this organic burstiness [cite: 21, 22]. Monitoring the ratio of active typing bursts to cognitive pauses provides a proxy metric for mental fatigue and focus depth [cite: 21, 22].\n\n### 4.3. Homomorphic Encryption and Advanced Neural Networks\nTo completely preserve privacy, researchers utilize **Homomorphic Encryption**, which allows statistical analyses (like logistic regressions and neural network evaluations) to be performed directly on encrypted keystroke data without ever decrypting it [cite: 21]. \n\nState-of-the-art keystroke detection (like the TypeNet model) utilizes **Siamese Neural Networks** combined with Long Short-Term Memory (LSTM) layers. These networks learn spatial and temporal information independently, utilizing Triplet Loss to authenticate user identity or detect physiological states (like fatigue) based purely on the encrypted rhythm of their typing [cite: 21].\n\n## 5. The Digital Labor Efficiency (DLE) Model\n\nAs organizations transition to hybrid teams blending human workers and \"Digital Labor\" (AI Agents), the metrics for productivity have evolved. The Digital Labor Efficiency (DLE) model quantifies the return on investment and output optimization achieved by this synergy [cite: 23, 24, 25].\n\n### 5.1. Core DLE Metrics\nThe DLE model focuses on tracking:\n*   **Automation Rate**: The percentage of tasks managed entirely by AI agents versus human employees. A high-efficiency system aims for 70-90% automation on routine tasks [cite: 23].\n*   **Task Deflection**: Measuring how many queries or sub-tasks were resolved by AI without requiring human intervention [cite: 23].\n*   **Time-to-Productivity (Ramp-up)**: The duration required for a new employee to reach baseline efficiency, which is significantly reduced (up to 30%) when augmented by digital labor workflows [cite: 23, 26].\n\n### 5.2. Calculating Efficiency Gains\nDigital labor efficiency is directly tied to financial ROI. The efficiency score can be modeled by comparing the baseline operational costs to the automated workflow costs [cite: 23, 26].\n\\[ \\text{ROI} = \\left( \\frac{\\text{Net Benefits}}{\\text{Total Costs}} \\right) \\times 100\\% \\]\nIn industries like Quick Service Restaurants (QSR) or Private Equity, integrating AI-driven task management (like KanBo or Agentforce) has yielded reported digital-enabled labor efficiencies of up to 15% [cite: 25, 26].\n\n## 6. Browser Tab and Web Activity Detection Architecture\n\nBrowser telemetry is crucial, as the active window title of a browser often does not contain the full context of the work being performed.\n\n### 6.1. The Watcher Architecture (ActivityWatch)\nActivityWatch utilizes a local server (`aw-server`) and multiple client programs called \"watchers\" [cite: 2, 3]. To track browser tabs, the `aw-watcher-web` extension is installed directly into Chrome, Firefox, or Edge [cite: 1].\n\nWhen a user switches tabs, the extension captures the `web.tab.current` event schema, which includes [cite: 1, 14, 27]:\n*   `url`: The full web address (crucial for distinguishing between `github.com/personal` and `github.com/work`).\n*   `title`: The `<title>` attribute of the webpage.\n*   `audible`: A boolean indicating if the tab is playing audio [cite: 1].\n*   `incognito`: A boolean indicating privacy mode.\n\n### 6.2. Heartbeats and Event Merging\nTo optimize SQLite database storage and reduce disk I/O, events are not logged continuously per millisecond. Instead, watchers send \"heartbeats\". If a new heartbeat is identical to the previous one (e.g., the user is still on the same URL) and falls within a specific \"pulsetime\" window, the `aw-server` executes a `heartbeat_merge` operation [cite: 27]. The original event's `duration` is simply extended by the time difference, rather than creating a new database row [cite: 27].\n\n## 7. Detecting Actual Coding Activity: The WakaTime Architecture\n\nFor developers, distinguishing between staring blankly at an IDE and actually writing code is critical. WakaTime achieves this via deep integration plugins for over 50 editors (VS Code, JetBrains, Vim) [cite: 28, 29, 30].\n\n### 7.1. IDE Event Triggers\nWakaTime plugins do not use standard OS AFK timers. Instead, they track internal IDE events [cite: 5]. A heartbeat is sent to the WakaTime API only when:\n*   The user types a character in the editor window.\n*   The user saves a file.\n*   The active cursor position changes (indicating reading/navigating code) [cite: 5].\nIf typing ceases for longer than the configured timeout preference, the tracking halts immediately [cite: 5, 6].\n\n### 7.2. Precision and Payload Data\nWakaTime claims a precision of 1 microsecond natively, restricted to ±16 milliseconds on Windows OS clocks [cite: 5]. The JSON payload sent by the open-source CLI (`wakatime-cli`) includes [cite: 5, 6]:\n*   `entity`: The exact file path.\n*   `project`: Extracted via Git repository root directory.\n*   `language`: Inferred from file extension and internal AST parsers.\n*   `category`: e.g., 'Coding', 'Debugging', 'Building' [cite: 6].\n\n### 7.3. AI-Assisted Code Tracking\nWith the proliferation of AI coding assistants, modern implementations like `opencode-wakatime` and `claude-code-wakatime` inject a specific parameter: `--ai-line-changes`. This allows the platform to calculate the ratio of lines written manually by the human versus lines generated autonomously by the AI, integrating directly into the overall productivity analytics [cite: 7, 8, 29].\n\n## 8. Voice Activity and Speech-to-Text as a Productivity Signal\n\nIn an era of endless remote meetings, measuring verbal participation is a potent proxy for engagement. Capturing microphone usage and transcribing speech locally provides deep insight into collaborative productivity [cite: 9, 10, 31].\n\n### 8.1. Voice Activity Detection (VAD)\nConstantly running a high-end speech-to-text model is computationally prohibitive. Instead, tools use Voice Activity Detection (VAD) algorithms like WebRTCVAD or SileroVAD [cite: 32]. VAD operates by analyzing raw PCM audio chunks (typically 16-bit mono, 16000Hz) and determining the probability of human speech presence [cite: 32]. \n\n### 8.2. Local Speech-to-Text Integration\nOnce speech is detected, the audio chunk can be passed to a local inference model to preserve privacy.\n*   **RealtimeSTT**: An open-source Python library that streams audio from the microphone, utilizes SileroVAD for speech verification, and utilizes GPU-accelerated `Faster_Whisper` for instant transcription [cite: 32]. \n*   **Diarization**: Tools like Deepgram offer APIs that recognize *who* is speaking (Speaker 1 vs Speaker 2) [cite: 31]. By tracking the dictionary of `total_speaker_time`, the system can quantify how long an employee spoke during a meeting [cite: 31].\n\n**Implementation Pattern: VAD and Whisper Tracking (Python)**\n```python\n# Utilizing standard audio and STT packages [cite: 32, 33]\nimport speech_recognition as sr\nimport time\n\ndef monitor_voice_activity():\n    \"\"\"\n    Monitors microphone usage as a productive signal [cite: 33].\n    Does not store audio, only logs duration of speaking events.\n    \"\"\"\n    r = sr.Recognizer()\n    mic = sr.Microphone()\n    \n    # Adjust for ambient noise\n    with mic as source:\n        r.adjust_for_ambient_noise(source)\n    \n    while True:\n        with mic as source:\n            print(\"Listening for work-related speech...\")\n            # listen() captures data until silence is detected [cite: 33]\n            try:\n                # Capture speech burst\n                audio = r.listen(source, timeout=5, phrase_time_limit=30)\n                duration = len(audio.frame_data) / (audio.sample_rate * audio.sample_width)\n                \n                # Log the voice activity as a productivity signal\n                log_productivity_event(\n                    event_type=\"voice_activity\", \n                    duration_seconds=duration,\n                    status=\"active_collaboration\"\n                )\n                \n                # Optional: Local Whisper inference for keyword extraction\n                # text = r.recognize_whisper(audio, model=\"base.en\")\n                \n            except sr.WaitTimeoutError:\n                pass # No speech detected\n```\n\n## 9. Advanced Machine Learning for Work Pattern Classification\n\nBeyond basic regex categorization, sophisticated systems utilize machine learning for profound contextual understanding [cite: 11, 18, 21].\n\n1.  **Siamese Convolutional Neural Networks (mmSNN)**: Used in systems like TypeNet, these models take multi-modal sensor data (keystroke timings, mouse vectors) and map them to a latent space. By minimizing the Euclidean distance between a user's normal work rhythm and the current rhythm, the system detects anomalies (fatigue, imposter usage, or automation) without relying on hardcoded thresholds [cite: 21].\n2.  **K-Means Clustering**: Applied to user state spaces to classify generalized work modes (e.g., \"Deep Work\", \"Shallow Work\", \"Distracted\") based on the high-dimensional vector of app switches, WPM, and audio states [cite: 9].\n3.  **NLP Context Extraction**: Applying lightweight NLP (like TF-IDF or local BERT embeddings) to the aggregated active window titles over a day to generate thematic tags (e.g., \"Financial Analysis\", \"Frontend Debugging\") rather than relying purely on the app name.\n\n## 10. Open-Source Ecosystem on Windows\n\nIf you are building a custom Python monitor on Windows, several robust open-source architectures can serve as references or direct dependencies:\n\n*   **ActivityWatch Ecosystem**: The quintessential open-source tracker. Written in Python (and transitioning server storage to Rust for performance) [cite: 34]. It utilizes `aw-core` for the data model, `aw-client` for API interactions, and watchers like `aw-watcher-window` and `aw-watcher-afk` which use Windows API hooks to track states [cite: 1, 3, 34].\n*   **WakaTime / Wakapi / Hakatime**: WakaTime's editor plugins and CLI (`wakatime-cli`) are completely open source [cite: 5, 8, 30]. If you wish to host the backend yourself, **Wakapi** and **Hakatime** are open-source backend implementations compatible with the WakaTime API schema, processing heartbeats and generating statistics locally [cite: 30].\n*   **OpenCode**: A plugin ecosystem focused on tracking AI coding activity, tracking file modifications, and sending heartbeats to a local server [cite: 8].\n\n## 11. Technical Implementation Guide: Python Productivity Monitor Upgrade\n\nTo upgrade your existing Python script (which currently captures window titles and idle time) into a highly intelligent productivity tracker, implement the following architectural enhancements.\n\n### 11.1. Data Schema Architecture\nAdopt an event-driven JSON schema similar to ActivityWatch's canonical events. This structure accommodates app data, browser extensions, and IDE heartbeats [cite: 27, 35].\n\n```json\n{\n  \"timestamp\": \"2025-10-24T14:32:00Z\",\n  \"duration\": 45.5,\n  \"event_type\": \"app.window.active\",\n  \"client\": \"my-custom-python-watcher\",\n  \"data\": {\n    \"app_name\": \"Code.exe\",\n    \"window_title\": \"main.py - Project_X - Visual Studio Code\",\n    \"category\": \"Software Development\",\n    \"productivity_weight\": 2,\n    \"is_audible\": false,\n    \"wpm_estimate\": 45.2,\n    \"input_variance_score\": 0.85\n  }\n}\n```\n\n### 11.2. The Productivity Scoring Formula (RescueTime Pulse)\nImplement a dynamic scoring engine. RescueTime's \"Productivity Pulse\" creates a normalized score out of 100 based on the time-weighted average of categorized activities [cite: 12, 36]. \n\nLet \\( t_{vp}, t_p, t_n, t_d, t_{vd} \\) represent the total duration in seconds spent in Very Productive (+2), Productive (+1), Neutral (0), Distracting (-1), and Very Distracting (-2) states respectively [cite: 12, 13].\n\nThe raw weight sum is:\n\\[ W = (t_{vp} \\times 2) + (t_p \\times 1) + (t_n \\times 0) + (t_d \\times -1) + (t_{vd} \\times -2) \\]\n\nBecause the maximum possible weight for a given total time \\( T_{total} \\) is \\( 2 \\times T_{total} \\) and the minimum is \\( -2 \\times T_{total} \\), the normalized Productivity Pulse score \\( P \\) (from 0 to 100) is:\n\n\\[ P = \\left( \\frac{W + 2 \\times T_{total}}{4 \\times T_{total}} \\right) \\times 100 \\]\n\n**Python Implementation:**\n```python\ndef calculate_productivity_pulse(activity_durations: dict) -> float:\n    \"\"\"\n    Calculates the 0-100 Productivity Pulse score [cite: 12, 36].\n    activity_durations: dict with keys 'vp', 'p', 'n', 'd', 'vd' \n                        containing duration in seconds.\n    \"\"\"\n    t_vp = activity_durations.get('vp', 0)\n    t_p  = activity_durations.get('p', 0)\n    t_n  = activity_durations.get('n', 0)\n    t_d  = activity_durations.get('d', 0)\n    t_vd = activity_durations.get('vd', 0)\n    \n    total_time = t_vp + t_p + t_n + t_d + t_vd\n    if total_time == 0:\n        return 0.0\n        \n    raw_weight = (t_vp * 2) + (t_p * 1) + (t_n * 0) + (t_d * -1) + (t_vd * -2)\n    \n    # Normalize to 0 - 100\n    pulse = ((raw_weight + (2 * total_time)) / (4 * total_time)) * 100\n    return round(pulse, 1)\n\n# Example Usage:\n# 2 hours coding (vp), 1 hour slack (p), 30 min unknown (n), 1 hour youtube (vd)\ndurations = {'vp': 7200, 'p': 3600, 'n': 1800, 'd': 0, 'vd': 3600}\n# Total = 16200 sec (4.5 hours)\n# raw_weight = 14400 + 3600 + 0 + 0 - 7200 = 10800\n# Pulse = ((10800 + 32400) / 64800) * 100 = 66.6\nprint(f\"Productivity Pulse: {calculate_productivity_pulse(durations)}\")\n```\n\n### 11.3. System Architecture Blueprint for the Python Monitor\n\nTo integrate these concepts into your application, structure your Python application using asynchronous thread pools or the `multiprocessing` library to ensure UI and telemetry operations do not block one another [cite: 32].\n\n1.  **Core Event Loop (`aw-server` equivalent)**: A local SQLite database utilizing SQLAlchemy. Expose a local REST API using FastAPI. This allows you to easily inject browser tab data via a Chrome extension in the future.\n2.  **Input Watcher Thread**: Utilize the `pynput` library to attach non-blocking hooks to the OS. \n    *   *Do not log key characters.*\n    *   Maintain a rolling window (e.g., a `collections.deque`) of the last 100 `time.time()` stamps for keypresses and mouse coordinates.\n    *   Calculate WPM and Burstiness dynamically every 60 seconds and flush to the database.\n3.  **Active Window Thread**: Utilize `ctypes.windll.user32.GetForegroundWindow` to poll the active title. Apply your `Rule` regex categorizer immediately to assign the productivity weight [cite: 15].\n4.  **Audio/Meeting Thread**: Utilize `pyaudio` and `webrtcvad` to monitor the local microphone [cite: 32, 33]. Set a flag `is_in_meeting = True` if VAD detects human speech for more than 15% of a sliding 1-minute window.\n5.  **Anomaly Detection Engine**: Run the `analyze_input_rhythm` variance function periodically. If `is_jiggler_suspected` returns true, override the categorization to `Neutral` or tag the database entry with a `fake_activity` flag [cite: 19].\n\nBy merging advanced window parsing, anonymous input variance analysis, heuristic anomaly detection, and real-time voice activity monitoring, your Python desktop monitor will transcend basic idle tracking, offering a sophisticated, enterprise-grade analysis of genuine productivity and digital labor efficiency.\n\n**Sources:**\n1. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==)\n2. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=)\n3. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=)\n4. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpl7WghQZxBlVR2pcK-31aCG_LyYtKc-KKUa2Yqeh47ajGny_xcbjU1Xh7mg1k0Cp6axfa_iKwHFkJMKl4qhBiEarESeHK0GIcGT-sw57fY9ep9r8C8-P5Ra4CQBGZ1y4Nm4kfks0=)\n5. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==)\n6. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw)\n7. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=)\n8. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=)\n9. [neurois.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5)\n10. [reddit.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5)\n11. [gkovacs.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X)\n12. [computer.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==)\n13. [lobehub.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==)\n14. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==)\n15. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=)\n16. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNH02bH8s2B7ulT6x_TsaCKM_Qy_FZQZ3AqCaQA9Z-yyQXcgQatyF4xZx0Ycp9f8KCTJSXviuP4vZmt0USH_PI8tilvaF4bDB3vJmZrSVyBpdOWe4p_05aLXiHyiQBOXPydgUksg1fSIr0jA==)\n17. [wanywhere.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o)\n18. [kickidler.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==)\n19. [activtrak.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=)\n20. [empmonitor.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q)\n21. [researchgate.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==)\n22. [asling.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G)\n23. [questionbase.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5)\n24. [vercel.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEFL-znmgYV8iGwylFwkFhbHyJ83DYtpWSFI6MoIKm3U6pXAuPYTpzuo_YIeoEGArxnG9V2OWIYSLwdIXxMhFznUaAzniXCQmKFbP7TIHgkL1fj_Sx3BrfikQ==)\n25. [kanboapp.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==)\n26. [portersfiveforce.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI)\n27. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=)\n28. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvH8z9m-0TLjOqsbrEyDcX2ufndZ4AoB8fuXZN3RrwOaqhnIJPcDhFNSm29BmQZvpmpGiX4-_ZfVXtv0UomTDAWaMH0hukx-kuTshgNsVi4rw=)\n29. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==)\n30. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=)\n31. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=)\n32. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=)\n33. [realpython.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=)\n34. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==)\n35. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWhO-E7ywHUXgpmWTT3K_6mSIIy8n7DypRRMjbLQG_0M146WsB3pTzgIvQ4nxHjlM9224HN-VyPAe15lMqIj_zmH4pK1A8PER7MZcd6G8vqag2EdJfDijniA1fPFOeL7PcvjwBEnQR3ghSSgnWmFwOQCaD1pl_2O3KLGJNpQ==)\n36. [jibble.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=)\n",
+        "annotations": [
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 2314,
+            "end_index": 2323
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+            "type": "url_citation",
+            "start_index": 2711,
+            "end_index": 2723
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+            "type": "url_citation",
+            "start_index": 2711,
+            "end_index": 2723
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 2919,
+            "end_index": 2928
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 3282,
+            "end_index": 3291
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 3492,
+            "end_index": 3504
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpl7WghQZxBlVR2pcK-31aCG_LyYtKc-KKUa2Yqeh47ajGny_xcbjU1Xh7mg1k0Cp6axfa_iKwHFkJMKl4qhBiEarESeHK0GIcGT-sw57fY9ep9r8C8-P5Ra4CQBGZ1y4Nm4kfks0=",
+            "type": "url_citation",
+            "start_index": 3492,
+            "end_index": 3504
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 3839,
+            "end_index": 3848
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+            "type": "url_citation",
+            "start_index": 3940,
+            "end_index": 3952
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 3940,
+            "end_index": 3952
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+            "type": "url_citation",
+            "start_index": 4105,
+            "end_index": 4117
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 4105,
+            "end_index": 4117
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+            "type": "url_citation",
+            "start_index": 4340,
+            "end_index": 4352
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=",
+            "type": "url_citation",
+            "start_index": 4340,
+            "end_index": 4352
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+            "type": "url_citation",
+            "start_index": 4499,
+            "end_index": 4508
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5",
+            "type": "url_citation",
+            "start_index": 4637,
+            "end_index": 4650
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+            "type": "url_citation",
+            "start_index": 4637,
+            "end_index": 4650
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 5132,
+            "end_index": 5146
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+            "type": "url_citation",
+            "start_index": 5132,
+            "end_index": 5146
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 5267,
+            "end_index": 5281
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 5267,
+            "end_index": 5281
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 5368,
+            "end_index": 5378
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 5445,
+            "end_index": 5455
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 5510,
+            "end_index": 5520
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 5578,
+            "end_index": 5592
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 5578,
+            "end_index": 5592
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+            "type": "url_citation",
+            "start_index": 5914,
+            "end_index": 5928
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+            "type": "url_citation",
+            "start_index": 5914,
+            "end_index": 5928
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+            "type": "url_citation",
+            "start_index": 6042,
+            "end_index": 6056
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNH02bH8s2B7ulT6x_TsaCKM_Qy_FZQZ3AqCaQA9Z-yyQXcgQatyF4xZx0Ycp9f8KCTJSXviuP4vZmt0USH_PI8tilvaF4bDB3vJmZrSVyBpdOWe4p_05aLXiHyiQBOXPydgUksg1fSIr0jA==",
+            "type": "url_citation",
+            "start_index": 6042,
+            "end_index": 6056
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+            "type": "url_citation",
+            "start_index": 6578,
+            "end_index": 6588
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+            "type": "url_citation",
+            "start_index": 7510,
+            "end_index": 7524
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+            "type": "url_citation",
+            "start_index": 7510,
+            "end_index": 7524
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+            "type": "url_citation",
+            "start_index": 7959,
+            "end_index": 7969
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+            "type": "url_citation",
+            "start_index": 8249,
+            "end_index": 8263
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+            "type": "url_citation",
+            "start_index": 8249,
+            "end_index": 8263
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q",
+            "type": "url_citation",
+            "start_index": 8399,
+            "end_index": 8413
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 8399,
+            "end_index": 8413
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 8611,
+            "end_index": 8621
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpgKSTsd5enYTe0WTexCQDz_MggO_ecvoBAa6R3xkT0_-lA3sjlx6XaI_YvXrdq_DdU_hOpGCEHNlUPSLBZfmKeBSwO7NWdGcJbXMLvHvnnk8vXpryjW__XxN7yH9eIlR6mEUaUWbKA_8naB0q",
+            "type": "url_citation",
+            "start_index": 8810,
+            "end_index": 8824
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+            "type": "url_citation",
+            "start_index": 8810,
+            "end_index": 8824
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 9138,
+            "end_index": 9148
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 9389,
+            "end_index": 9399
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+            "type": "url_citation",
+            "start_index": 9762,
+            "end_index": 9780
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+            "type": "url_citation",
+            "start_index": 9762,
+            "end_index": 9780
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 9762,
+            "end_index": 9780
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 10389,
+            "end_index": 10403
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+            "type": "url_citation",
+            "start_index": 10389,
+            "end_index": 10403
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 10799,
+            "end_index": 10809
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 11039,
+            "end_index": 11049
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 11300,
+            "end_index": 11314
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRcnBUJc7lCYsSCZFgbf0MuYCFeS-HRbM_qPs8CLUtflCZGydo3ZTRlc9HgshTWspoPlUY3Qm6kuU5yFef9zJuUQycxc6jGLJA53V-_nunsUhAyMNTVupo9JY4N9DfcTE0uNbVUXxF7hrDK7jqQGgL7cI4canViCF1ba2o",
+            "type": "url_citation",
+            "start_index": 11300,
+            "end_index": 11314
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+            "type": "url_citation",
+            "start_index": 11476,
+            "end_index": 11485
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+            "type": "url_citation",
+            "start_index": 11536,
+            "end_index": 11545
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 12316,
+            "end_index": 12330
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 12316,
+            "end_index": 12330
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+            "type": "url_citation",
+            "start_index": 12956,
+            "end_index": 12970
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 12956,
+            "end_index": 12970
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 13096,
+            "end_index": 13106
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+            "type": "url_citation",
+            "start_index": 13382,
+            "end_index": 13396
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 13382,
+            "end_index": 13396
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWmQuYW6Obt7vDWa6sJNwSnLTTRmUxqm9ChQuTXkthittOxu4jE6y4VcELPV_1kxspuGDobt7I0b8_aOKGqrA9M4vszErkPRKOh5iluuIaS2PlQQ03Ayy8v5hjWY-Yum6OzWipPIB6i0nTWcvibulWjbfn6cmFyt9cOc4G",
+            "type": "url_citation",
+            "start_index": 13522,
+            "end_index": 13536
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 13522,
+            "end_index": 13536
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 13853,
+            "end_index": 13863
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 14239,
+            "end_index": 14249
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+            "type": "url_citation",
+            "start_index": 14569,
+            "end_index": 14587
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEFL-znmgYV8iGwylFwkFhbHyJ83DYtpWSFI6MoIKm3U6pXAuPYTpzuo_YIeoEGArxnG9V2OWIYSLwdIXxMhFznUaAzniXCQmKFbP7TIHgkL1fj_Sx3BrfikQ==",
+            "type": "url_citation",
+            "start_index": 14569,
+            "end_index": 14587
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==",
+            "type": "url_citation",
+            "start_index": 14569,
+            "end_index": 14587
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+            "type": "url_citation",
+            "start_index": 14823,
+            "end_index": 14833
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+            "type": "url_citation",
+            "start_index": 14957,
+            "end_index": 14967
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+            "type": "url_citation",
+            "start_index": 15165,
+            "end_index": 15179
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+            "type": "url_citation",
+            "start_index": 15165,
+            "end_index": 15179
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5eIDch32dmKaK3yM8cXEtbPe-VWGLvjj29OO7bkJO6358kcuhbsp2jStS286Ozx60gkVA2brsHWflONu4HX8lQEDrwo5ZjViGfIW9FN9bwHr4vu6oPoiiwwRfB02AcZsFFE6z4ekaeAoWwpBUFpIaUQCxBiBvjmHMtrWwjSNtaQMY4vQMGWG_MWRvU07Y6pZl2Jx5",
+            "type": "url_citation",
+            "start_index": 15392,
+            "end_index": 15406
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+            "type": "url_citation",
+            "start_index": 15392,
+            "end_index": 15406
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECN0fqYxL0qGEtS-ENQ88WiUjiVdPq1UmEDXnoCO7UW_DJTtqbLotWit4AYE7XjiDGxo0WH2Epv7gAXrFGao_4fSWqQHPdYfRNvrqjrFpifXPAsdQErQVWQ41aNCStXSYEUV-sBwuvQ9FVo8hi08R2X-uKfPseBUjI",
+            "type": "url_citation",
+            "start_index": 15706,
+            "end_index": 15720
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP0X5MTEBQcdAQxc-lWfyqXFdLp2oUIF_K9hcXcd8EN7LmbD9Wjd2ss3MvpfY0ZYFPiES1-TNA455MMDQLVkkMVOGldvkaPIDsh6rlECzWg7eyo0PbI9CkNeNoeGKApT9Fr5p1xFWG-O2kQrymZb50p1CcZZC39yv51Q11MWRFdvCzJmnt94SzomZGFL_uSml57rMmLn9N2t2JYmHYo2pUclTNRtDg6JurxaU8rcFYymkHBN0I4YgGxYfKaMmA99krbp1PMg==",
+            "type": "url_citation",
+            "start_index": 15706,
+            "end_index": 15720
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKlsVUye7aeI4jbQYFRAJ5AFItlgh42jGRsZkNQK9jmyIyY4L_jU7Q5uHe8mO1wdT8VmPrh8TtN4ylg_SfTT1qShzOVLQGHtKYVAPqvW13yvY3yho=",
+            "type": "url_citation",
+            "start_index": 16071,
+            "end_index": 16083
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+            "type": "url_citation",
+            "start_index": 16071,
+            "end_index": 16083
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 16191,
+            "end_index": 16200
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZAnB2V7g8VMKGy1QvrhQin_d7V7DMSZ91dYtzpVMDkVMFOuKCfIxMaDr_vfRU-3e__V1dOCfHYdQeGQ9bItfOD2is36Qzl1MlkzfSjNozQ9RECxn-WW1DQPAlZSbgcmWruMMakb3sAXAvbuIQAnWIwv40YXMqWf4Hkg==",
+            "type": "url_citation",
+            "start_index": 16304,
+            "end_index": 16321
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+            "type": "url_citation",
+            "start_index": 16304,
+            "end_index": 16321
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 16304,
+            "end_index": 16321
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 16554,
+            "end_index": 16563
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+            "type": "url_citation",
+            "start_index": 16999,
+            "end_index": 17009
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+            "type": "url_citation",
+            "start_index": 17126,
+            "end_index": 17136
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+            "type": "url_citation",
+            "start_index": 17408,
+            "end_index": 17426
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==",
+            "type": "url_citation",
+            "start_index": 17408,
+            "end_index": 17426
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvH8z9m-0TLjOqsbrEyDcX2ufndZ4AoB8fuXZN3RrwOaqhnIJPcDhFNSm29BmQZvpmpGiX4-_ZfVXtv0UomTDAWaMH0hukx-kuTshgNsVi4rw=",
+            "type": "url_citation",
+            "start_index": 17408,
+            "end_index": 17426
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 17549,
+            "end_index": 17558
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 17767,
+            "end_index": 17776
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+            "type": "url_citation",
+            "start_index": 17877,
+            "end_index": 17889
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 17877,
+            "end_index": 17889
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 18036,
+            "end_index": 18045
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+            "type": "url_citation",
+            "start_index": 18118,
+            "end_index": 18130
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 18118,
+            "end_index": 18130
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYNoAVflhTuU6CSaMDbugjsCP1T2oZrZztoO2lAus8NlH5m59QjZMr25ErRYIfCyt5V2lmiYw0MdLBpyA4MD5Ue9L93Y-9729QHesBAwa2pThw",
+            "type": "url_citation",
+            "start_index": 18354,
+            "end_index": 18363
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+            "type": "url_citation",
+            "start_index": 18769,
+            "end_index": 18785
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkrfzqW-LWSzXdsvpasob3ZMUyqQyVshlY8_vvTp2f3oRRwP4B8gJ9L5YDkuDEmD-dhzInPApXM7ERIZBdyuMCrt6VjCQFPFmjug==",
+            "type": "url_citation",
+            "start_index": 18769,
+            "end_index": 18785
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnRuDfITyzvR0ZNu8tVOejqpvLnwjhW5N1F3sOJuayVqFHiSlxAOA5_hWITglmZ3j1F4OomsJvYfUpOEBS1RGylZQq2nIIpxGtAiih_qSDRIFNNchnu-hJTb21tCfzLkJFhKf1WlVoXvh_zNxgKQzG6VysmmQJ455kaa6rilE=",
+            "type": "url_citation",
+            "start_index": 18769,
+            "end_index": 18785
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+            "type": "url_citation",
+            "start_index": 19070,
+            "end_index": 19087
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2WtT5uuDKlsedPawNX-ky34gw5msHKL0BIX9gfml5vQOSyJyg28xzRhqurspwNQ37aeiE-S1G4JkbR2PlJOI0VonMMLJ8XZGUUA7ZJt64RIDQVOfgJ-vU8beXr0buBBwGxwH4bUEkV99cHB0bKiDA7576Rpw6LqgMrA9EImIsIR7mJTlXOncfE9toXvyie_hApxgMqKZ5",
+            "type": "url_citation",
+            "start_index": 19070,
+            "end_index": 19087
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+            "type": "url_citation",
+            "start_index": 19070,
+            "end_index": 19087
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 19302,
+            "end_index": 19312
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 19451,
+            "end_index": 19461
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 19817,
+            "end_index": 19827
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+            "type": "url_citation",
+            "start_index": 19940,
+            "end_index": 19950
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF7LBFB9tsFmJN3udCi3mDwUyFwEx_1g8yXjhjiOJ8h0YIYaFaljX7qI3eXGjZbdkx54gEoHVsBRa-1B8GQx7bEarJmYf7C4a8M__PEawPSS1_q0xOp2xQjRZZdI9FKpU_qcQt-ar2BGE_umP4GALEFDWM62MfLqjk_CE6TzBN8GH2jRQ=",
+            "type": "url_citation",
+            "start_index": 20072,
+            "end_index": 20082
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 20201,
+            "end_index": 20215
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+            "type": "url_citation",
+            "start_index": 20201,
+            "end_index": 20215
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+            "type": "url_citation",
+            "start_index": 20352,
+            "end_index": 20362
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+            "type": "url_citation",
+            "start_index": 20760,
+            "end_index": 20770
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn7maG_1Xqd6WobFuZHEYx2f2fVrYH-dHsaykV7oJS-H8KnwLiT2bZCymy3nvUrpcuUpATASAq43Q7PmUbjW2ty8RHUpLFUrO7VzuLRG_Bc5wx5k2CXPyrdacJFgDZzRv7c_LAqLU-gNZoLoVT7kXTIYDwWw-ZxfXvwKvKH2Jaak_X",
+            "type": "url_citation",
+            "start_index": 21731,
+            "end_index": 21749
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMGHYllAHMbH1eTMb_8IBAu9JRULVfiXmbO3Ug21sOo53qIWM2Bgu9tt_BNjaKHhsReDTwX6upMFxA47ta_ZE2Kla95tB_G9losU0GmN7iHBTP7Q0Qyyy6JwVbwXadvLB0yrkWqlbmEvGM6FJkxwdwO6k2n4UCWKx9RLphf-KH6zkSjCv5mubb_uZb_SwLP28BAg==",
+            "type": "url_citation",
+            "start_index": 21731,
+            "end_index": 21749
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 21731,
+            "end_index": 21749
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHypBzezbaA8vZn6ADC27olRNx9QJTqps-X_725qqwdJczHHdwKHBBLqD2TAi-1FyOjAxaVCKtnskj4Tg8uGmTwk9ypoRbq6yxp4-jz3Zd8kpzBLU9d6wt6fjELeJczjjDL2m29KdRJwXiL0Htf_CjRRM0cHyoZi3TPCuIkfrD8QrquDzvFYSmoHcGJGVhvi6NPvg==",
+            "type": "url_citation",
+            "start_index": 22153,
+            "end_index": 22163
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa4ejNBbkTFjOpcZ02yzbPbU2c3ghLiFyp2irjaJtDewtV7okX4zNEbkpLFW5T9-nByoOzijPqdS0Fe-ujqbMTjwfOOzd6XwC8Fyj8WFuaHMJGyR8tA1rSp9TLjXjSPHiFwEoCMecvmsyf364zWlceJ_2PAK0BewHenb2c15t8t10AD9qzC2PfP2s5fawTnfXzOQn5",
+            "type": "url_citation",
+            "start_index": 22383,
+            "end_index": 22392
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==",
+            "type": "url_citation",
+            "start_index": 22999,
+            "end_index": 23009
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQET3rQpmyJvHk4044AcsmNYLkAH60kaQ6flx9RLognl2fUVg5T456AC4ac2S8l8sj8sKDLyRQkcrK2LJGrvMpVuexix-uh7kyI8ETfG5IhuLwu3yOz2wvLqsTu4HPsmf2-kq1wqKChyDMfLdA==",
+            "type": "url_citation",
+            "start_index": 23190,
+            "end_index": 23206
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9bPOsWtChxCcqnfu4W2aSG0jHzfDHZTpdgZRKcwTkLhYYD1YB9LFjoe437CAdMZHjV6Ce7c8K7j5yPrIO6ntLMr6MskNtp9_cH4R8LSFOYmh4R5EitUCvfZquyAms0fks5kcQfORa2HYWKw==",
+            "type": "url_citation",
+            "start_index": 23190,
+            "end_index": 23206
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxbmZDsDVjikuUOfsxYv6CKdtqQgkFarcSWg5JF_EL-XmBmC-7DjrEAgnwkAkHao17Izmf1wWYM9SMLJGm6LOXEqq65krhNiywdjfdIkbqGmK7oL4K8sJnUfYZjdbaXWkvbBh581vt0IO0cScYQ50=",
+            "type": "url_citation",
+            "start_index": 23190,
+            "end_index": 23206
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+            "type": "url_citation",
+            "start_index": 23324,
+            "end_index": 23340
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+            "type": "url_citation",
+            "start_index": 23324,
+            "end_index": 23340
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHz_2OPYGKVhcI_7xVrKGQnHxLFdAZaxBkY0demysWKg2vawcvqDhU50qWorawqGzU4SapnSAtZXNbcLs6kY4fg0MNlvtiR3FFfo6JLkg==",
+            "type": "url_citation",
+            "start_index": 23324,
+            "end_index": 23340
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhjILKkbR0cSkFTAe0gTS4SmoZ13qnZbY9_ozsUykssb4HLwYZDeVmggcr-9-Fzct6tzB9-2i6129e4xLuEzVCRkjr5I3GAOZmXdQQGUXHH_LT91ZfP8qCpNG2wP2ZSHyOFttDd-GBDSjE13zqYi3sa7rjelRotN6wIFQd8is5VOi_fgh0Ziy9248=",
+            "type": "url_citation",
+            "start_index": 23549,
+            "end_index": 23559
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjoK58nAf90CL9sPz8EP4rAjy8vbNvJjCeZpVJyUROte3-mkCb7kcKZUxhlngNHQDmC4DRQQu-ryvHWpmI0btw5cGYY0f1iy7ivrOGOz6D0PuNC-jS7XvF8OVvsICLiWR7z9A=",
+            "type": "url_citation",
+            "start_index": 23708,
+            "end_index": 23717
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWhO-E7ywHUXgpmWTT3K_6mSIIy8n7DypRRMjbLQG_0M146WsB3pTzgIvQ4nxHjlM9224HN-VyPAe15lMqIj_zmH4pK1A8PER7MZcd6G8vqag2EdJfDijniA1fPFOeL7PcvjwBEnQR3ghSSgnWmFwOQCaD1pl_2O3KLGJNpQ==",
+            "type": "url_citation",
+            "start_index": 24182,
+            "end_index": 24196
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1bPzQIsou7o1ukU651QhPkUQ9HsQp0WvktiAiJ1cG353mawNDUo8HYJ1WddUcwr1-bxWCdvW3HBf-_JMbVuiYqYkzfzYkixgRVjfPSPB1LLhfvDDCp4KAiEXGPoeVJjLPYvud6AINV0enJWUAFHkewnMPHeg=",
+            "type": "url_citation",
+            "start_index": 24182,
+            "end_index": 24196
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 24845,
+            "end_index": 24859
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=",
+            "type": "url_citation",
+            "start_index": 24845,
+            "end_index": 24859
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 25068,
+            "end_index": 25082
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3BZS--HiR2tERhKPKcBQ2PSEJwsrkrF-oH2COFCJSna6mLEZ-f8fzCd89WqtvODpJziqoHKLHMCgpiTQw92suQEfV2S3yO7OVkJ3n_1IcFMOjSESI1aNHPhU0e3o9KXqGg-MHmo5KZpKrvQ==",
+            "type": "url_citation",
+            "start_index": 25068,
+            "end_index": 25082
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQWhlXbW0RmPchO9D4h9PyXawOx9tT3hYoP4YWEvtvyliY5DAs3sHr-cJvBC7BSZZLBhyx_kbJic2f26NaJzMTvwK-7nt957MTeWSsxMZ1UmywEfzws4r9XaBQ9NQhWcqb6-oItd5ROqI0u08mHv0mJYNCt4iN2AiaLA==",
+            "type": "url_citation",
+            "start_index": 25679,
+            "end_index": 25693
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGlrHiRbCm-LprdaBnqFh3CDMAk8NsaMIFZPcTh-iYY5kFhpXnWkNOP1hF2rt3vDu8UrNoUGXyCSP2Ra8p4h5-Ei7NQdFyYlSzlLgN3mPDDi_9tl1fIAOhjUo8eY=",
+            "type": "url_citation",
+            "start_index": 25679,
+            "end_index": 25693
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 27002,
+            "end_index": 27012
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY2GTTI4jZP-7skG1kGn242i8oDU7PebhMwVp6tNCiqaZbDd2gCkSHYY5_yhxx5QfgTk8WSFdv9bZyADo91_ek8LtX80LmABEI6KXr_Vuz6ghM1nJFq8rlODsv7OzerihChAmcevP-ZZan60_3KVrk2GFiZT626x3LFL29H5Pj_PI=",
+            "type": "url_citation",
+            "start_index": 27796,
+            "end_index": 27806
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp-xF-Uvg5um1j8MuUfFVJey_OQEL8ifyVKoCFz7BpJ5eDlouQ-c-sTOAORQzgdQ86sr03eGv9JA__RFDC6UntY4gjA7lF9p10Ti3AQEBJHoq_LcrS_EdlDtY=",
+            "type": "url_citation",
+            "start_index": 27904,
+            "end_index": 27918
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mo8kCkJ0SRKCqWgc7iR7ZARyCzMbUk0oDMTjGvbGa6eERBCZPcnLnEyV72hlSRV9Bvu8uP2K_XE0h4vmpuzhQfM-Ut2UT4FZCTLJVKmRxnAz_PZbVPE4IfCF15HSbx96KMcO3W0=",
+            "type": "url_citation",
+            "start_index": 27904,
+            "end_index": 27918
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDp2_wNzAfTSMLkBVsAehuCaFv90yxuSDPqQUWeI6sCfHJ-Rcmhk5Y_zTST-HzrNRzH1G_Y0Rivk4_CoDMFRMGQtTO9055zAkoytItuKzavmc3cBjawEkhar5xGIwlWZAdqZ0Ku4KYuuwe4XHb6j6BW_912K-6DZ00Z35hg9Ml5jN0D0eGISQHq6eAsm8kg83QfnZK52T3tIGYRjOcCa7trMeq5-k=",
+            "type": "url_citation",
+            "start_index": 28262,
+            "end_index": 28272
+          }
+        ],
+        "type": "text"
+      }
+    ],
+    "usage": {
+      "total_tokens": 200790,
+      "total_input_tokens": 10378,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 10378
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 9946,
+      "output_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 9946
+        }
+      ],
+      "total_tool_use_tokens": 164921,
+      "total_thought_tokens": 15545
+    },
+    "role": "agent",
+    "created": "2026-04-10T01:49:34Z",
+    "updated": "2026-04-10T01:49:34Z",
+    "object": "interaction",
+    "agent": "deep-research-pro-preview-12-2025"
+  }
+}

@@ -1,0 +1,987 @@
+{
+  "id": "v1_Chd4LV9YYWQ2bUlkMlVtdGtQeUpEOXdBURIXeC1fWGFkNm1JZDJVbXRrUHlKRDl3QVE",
+  "status": "completed",
+  "created": "2026-04-09T18:28:23Z",
+  "agent": "deep-research-pro-preview-12-2025",
+  "outputs": [
+    {
+      "signature": "",
+      "summary": [
+        {
+          "text": "**Strengthening System Stability**\n\nI am examining the technical hurdles preventing a smooth user experience, particularly focusing on why background processes are persisting as orphans and how to ensure only one instance of the application runs at a time. I'm prioritizing industry-standard Windows patterns—such as using system-level Mutexes or Named Pipes—to replace the current logic that accidentally interferes with other Python-based projects on the machine.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Decoupling Monitoring from Interface**\n\nA key area of my investigation is the structural split between data collection and the visual overlay. I'm exploring how professional-grade productivity trackers architect their background components—specifically comparing the use of persistent background services against standard user-level processes. This transition is essential for ensuring that monitoring remains reliable and resource-efficient even if the user interface encounters issues.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Advancing Deployment and Engagement**\n\nI'm shifting my focus toward professionalizing the delivery and user retention aspects of the software. My next steps involve evaluating secure packaging methods that support automatic updates and researching successful gamification frameworks from leading productivity tools to identify features that effectively drive long-term user engagement.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Optimizing Process Architecture**\n\nI have identified that high-performance productivity trackers prioritize a split architecture, decoupling the background monitoring engine from the user interface. This ensures that a visual crash doesn't halt data collection. I've also found that utilizing system-level mutexes is the most reliable method for managing application instances on Windows, preventing the software from accidentally interfering with other development environments while ensuring only one version runs at a time.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Refining Persistence and User Experience**\n\nI am currently resolving the trade-offs between utilizing a dedicated system service and a lighter user-level background process. While services offer high persistence, they often struggle with visual interactions and trigger intrusive security prompts. I'm synthesizing a approach that favors a modern tray-based architecture, which maintains reliability and offline-first data integrity via local databases without the resource bloat of traditional system services.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Evaluating Deployment and Engagement**\n\nMy next steps involve investigating professional packaging and distribution methods, specifically looking into secure installers and automatic update frameworks to ensure a seamless setup experience. I will also be analyzing specific implementation techniques for desktop overlays and comparing them against established engagement models—such as the growth-based rewards and RPG elements found in leading focus tools—to build a more compelling user loop.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Optimizing Background Architecture**\n\nI have determined that running the monitoring agent as a user-mode background process, rather than a restricted system service, is the most effective way to ensure reliable activity tracking and avoid permissions issues. By utilizing system-level mutual exclusion markers, I can robustly prevent multiple instances of the tracker from running simultaneously, which solves the instability and resource conflicts encountered in standard implementations.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Data Integrity and Visual Performance**\n\nMy synthesis of high-performance trackers confirms that an offline-first architecture using local database storage for batch synchronization is essential for maintaining data integrity during connectivity gaps. I have also concluded that decoupling the data collection logic from the visual interface is vital; moving toward modern web-based overlay frameworks will provide the transparency and aesthetic quality required for a professional feel that legacy interface libraries cannot achieve.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Synthesizing the Professional Roadmap**\n\nI am now integrating these architectural insights with strategies for secure packaging and long-term user retention, including the implementation of progression-based engagement mechanics. My final actions will involve organizing these findings into a comprehensive framework that covers everything from crash-resilient process management to automated deployment pipelines.",
+          "type": "text"
+        },
+        {
+          "text": "**Strengthening Process Reliability**\n\nI am beginning an investigation into robust process management techniques to replace the current file-based locking mechanism, which has proven to be brittle. By exploring the implementation of Windows Named Mutexes, I aim to ensure that only a single instance of the application runs at any time, effectively eliminating the risk of orphaned processes and resource conflicts.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Analyzing Architectural Benchmarks**\n\nTo professionalize the system, I am synthesizing data on industry-standard architectures, specifically looking at how prominent productivity tools decouple background tracking services from user interfaces. I am also evaluating performance claims regarding modern UI frameworks to determine if transitioning away from the current solution could significantly reduce the application's memory footprint and improve overall system responsiveness.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Mapping the Technical Roadmap**\n\nI am moving forward by gathering specific technical details on Windows service integrations and examining effective engagement frameworks from successful productivity applications. This will allow me to verify the feasibility of the proposed upgrades and identify the most impactful features for enhancing the user experience.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Refining System Reliability**\n\nI have successfully verified that utilizing native system locks is the definitive method for ensuring single-instance application control, which effectively resolves the instability seen with basic file-based tracking. My investigation into industry-standard tools confirms that decoupling the monitoring engine into a standalone background service is the most resilient way to maintain data collection even if the user interface fails.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Performance and Motivation Analysis**\n\nBy comparing modern interface frameworks, I've confirmed that utilizing the operating system's native web components can reduce memory consumption by nearly 80% compared to heavy, bundled environments. I have also synthesized diverse gamification strategies—ranging from RPG-style progression to visual focus timers—that provide a clear framework for enhancing long-term user interaction and habit formation.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Concluding the Technical Validation**\n\nI am finalizing the roadmap for distribution and recovery, confirming that modern packaging formats and service management utilities provide the necessary stability for automated updates and crash recovery. Having cross-referenced all architectural patterns and validated the core implementation logic, I have now gathered sufficient information to conclude the research phase.",
+          "type": "text"
+        }
+      ],
+      "type": "thought"
+    },
+    {
+      "text": "# Architecture Review and Professionalization Recommendations for a Desktop Productivity Monitoring System\n\n**Key Points:**\n*   **Process Isolation is Essential:** The current monolithic architecture is prone to race conditions and zombie processes; separating the background tracker from the user interface is the industry standard.\n*   **Kernel-Level Synchronization:** File-based Process ID (PID) checks are inherently flawed; robust single-instance detection necessitates kernel-level synchronization objects, specifically Named Mutexes, often paired with Named Pipes for Inter-Process Communication (IPC).\n*   **Modernizing the Presentation Layer:** The `tkinter` framework is insufficient for professional, frameless overlays. Transitioning to a system-native WebView architecture, such as Tauri, dramatically reduces resource consumption while enabling modern web technologies.\n*   **Data Pipeline Validation:** The existing SQLite to HTTP batch synchronization is highly effective and aligns with best practices for offline-first resilience, precluding the need for resource-intensive WebSockets.\n*   **Psychological Gamification:** Effective productivity gamification leverages operant conditioning, blending positive reinforcement (e.g., Habitica's RPG rewards) with loss aversion (e.g., Forest's withering trees) to sustain user engagement.\n\n**Executive Summary:**\nThis report provides a comprehensive architectural review and professionalization strategy for a desktop productivity monitoring system currently operating on a Python/`tkinter` stack. The current paradigm exhibits significant operational instability, including zombie threads, orphan processes, and cross-application interference. Addressing these issues requires a fundamental architectural paradigm shift from a monolithic application to a decoupled, service-oriented desktop model.\n\n**Methodological Approach:**\nThe recommendations formulated herein are derived from an analysis of enterprise-grade productivity applications, including RescueTime, Hubstaff, Time Doctor, and TimeCamp. The review encompasses process management, system architecture, deployment packaging, data pipeline optimization, presentation layer modernization, system reliability, and behavioral gamification. \n\n**Scope of Recommendations:**\nThe subsequent sections detail a prioritized migration path, transitioning the system toward a robust Windows Service paired with a Tauri-based presentation layer. This report includes a detailed priority matrix, comprehensive technology evaluations, and explicit code patterns for implementing kernel-level synchronization and service recovery mechanisms.\n\n***\n\n## 1. Architectural Context and Problem Analysis\n\nThe transition from a prototype or internal tool to a professional-grade desktop application requires navigating the complexities of operating system resource management, user permissions, and resilient software design. The current architecture—a monolithic Python application utilizing a `tkinter` overlay—is experiencing several critical failures characteristic of prototype-stage desktop software.\n\n### 1.1 Analysis of Current Deficiencies\n\n1.  **Multiple Instances and PID Limitations:** The reliance on a file-based Process ID (PID) for single-instance detection is highly susceptible to race conditions and application crashes. If the application terminates unexpectedly without deleting the PID file, subsequent launches are erroneously blocked. Conversely, simultaneous execution by a user can bypass the file lock, spawning multiple instances that compete for SQLite database access and system resources.\n2.  **Zombie Threads and Orphan Processes:** The persistence of background processes after the user interface (UI) is closed indicates a failure to gracefully terminate daemon threads or release system hooks. Python's Global Interpreter Lock (GIL) and its interaction with blocking Windows API calls often prevent clean shutdowns. Furthermore, the spawning of Visual Basic Scripts (VBS) or Command Prompts (CMD) without proper process tree management results in orphan processes that consume memory indefinitely.\n3.  **Namespace Collision (`pythonw.exe`):** Running the application via the standard `pythonw.exe` interpreter creates namespace collisions in the Windows Task Manager. Terminating `pythonw.exe` forcefully kills all running Python background applications (e.g., the mentioned \"Whisper Key\" project). Professional applications must execute under an isolated, uniquely named executable.\n4.  **UI and Audio Desync:** The phenomenon of audio alerts playing while the system is nominally paused highlights a tight coupling between the UI state and the background execution loop, lacking a robust state machine.\n\nAddressing these issues requires dismantling the monolithic design and adopting a decoupled architecture utilized by industry leaders.\n\n## 2. Recommended Architecture Diagram and Design\n\nTo achieve enterprise-grade stability, the architecture must separate the unprivileged, volatile user interface from the privileged, persistent tracking mechanism. \n\n### 2.1 Target Architecture Overview\n\nThe target architecture is a **Microkernel Desktop Model** consisting of a Headless Background Service (the Core) and a Lightweight Presentation Layer (the Client). \n\n```text\n================================================================================\n                      TARGET SYSTEM ARCHITECTURE DIAGRAM\n================================================================================\n\n[ USER SPACE (Volatile, Interactive) ]\n+------------------------------------------------------------------------------+\n|  +-------------------------+         +------------------------------------+  |\n|  |     Tauri / React App   |         |         System Tray Icon           |  |\n|  |   (Frameless Overlay)   |         |        (Context Menus)             |  |\n|  +-----------+-------------+         +-----------------+------------------+  |\n|              |                                         |                     |\n|              | IPC (Named Pipes / Local HTTP)          |                     |\n+--------------|-----------------------------------------|---------------------+\n               |                                         |\n[ SYSTEM SPACE (Persistent, Isolated) ]                  |\n+--------------|-----------------------------------------|---------------------+\n|  +-----------v-----------------------------------------v------------------+  |\n|  |                        WINDOWS NATIVE SERVICE                          |  |\n|  |                     (Golang, Rust, or C# / .NET)                       |  |\n|  |                                                                        |  |\n|  |  +----------------+  +-------------------+  +-----------------------+  |  |\n|  |  | Event Tracing  |  |  State Machine    |  | Local SQLite Database |  |  |\n|  |  | (ETW) / Win32  |  | (Pomodoro, Idle)  |  | (WAL Mode enabled)    |  |  |\n|  |  +----------------+  +-------------------+  +-----------------------+  |  |\n|  |                                                                        |  |\n|  |  [ Mutex: Global\\MyAppCore ]    [ Recovery: SCM Auto-Restart ]         |  |\n|  +---------------------------------------+--------------------------------+  |\n|                                          |                                   |\n+------------------------------------------|-----------------------------------+\n                                           | HTTPS (Port 443)\n                                           | Batch POST (Every 60s)\n[ CLOUD INFRASTRUCTURE ]                   |\n+------------------------------------------v-----------------------------------+\n|                           NESTJS BACKEND API                                 |\n|  +-----------------+    +----------------------+    +--------------------+   |\n|  | JWT Auth Guard  |    | Batch Ingestion Bulk |    | Analytics Engine   |   |\n|  +-----------------+    +----------------------+    +--------------------+   |\n|                                     |                                        |\n|                         [ POSTGRESQL DATABASE ]                              |\n+------------------------------------------------------------------------------+\n```\n\n### 2.2 Architectural Flow\n\n1.  **System Boot:** The Windows Service Control Manager (SCM) initiates the Core Tracking Service automatically in the background. The service acquires a Global Named Mutex to guarantee exclusivity.\n2.  **Tracking:** The Service utilizes Event Tracing for Windows (ETW) or lightweight Win32 hooks to monitor activity and window focus, recording data to a local SQLite database operating in Write-Ahead Logging (WAL) mode to prevent lock contention.\n3.  **UI Launch:** The user launches the Tauri UI. The UI attempts to acquire a Local Named Mutex. If successful, it establishes an IPC connection (via Named Pipes) to the running background service.\n4.  **Synchronization:** The Background Service independently manages the 60-second HTTP batch POST to the NestJS backend, ensuring data integrity even if the user entirely closes the Tauri UI.\n\n## 3. Technology Decisions: Analysis, Pros, and Cons\n\nThe following sections address the seven specific areas of inquiry, evaluating the underlying technologies and providing definitive professional recommendations.\n\n### 3.1 PROCESS MANAGEMENT: Single-Instance Detection\n\n**Problem:** File-based PIDs fail during crash scenarios. Spawning multiple instances corrupts databases and duplicates data.\n\n**Industry Standard:** The definitive standard for single-instance detection on Windows is the use of a **Named Mutex** (Mutual Exclusion object) managed by the Windows Kernel [cite: 1, 2]. When an application starts, it requests the creation of a Mutex with a specific string identifier (e.g., `Global\\MyProductivityAppMutex`). \n\nIf the Mutex already exists, the operating system returns an `ERROR_ALREADY_EXISTS` code, signaling to the newly launched process that it should terminate immediately [cite: 3, 4].\n\n**Bringing the Existing Instance to the Foreground:**\nA Mutex prevents a second instance from running, but it does not automatically bring the first instance to the user's attention [cite: 1]. To achieve this, modern applications use **Named Pipes** [cite: 2, 5]. The primary instance acts as a Named Pipe server. When the secondary instance detects the Mutex, it connects to the Named Pipe as a client, sends a \"Show Window\" command, and then immediately terminates [cite: 5, 6].\n\n**Decision:**\n*   **Technology:** Named Mutex (`CreateMutex`) combined with a Named Pipe Server for Inter-Process Communication (IPC).\n*   **Pros:** Kernel-level enforcement guarantees no race conditions; automatically cleans up if the application crashes (the OS releases the Mutex); enables elegant foregrounding of the existing UI.\n*   **Cons:** Requires careful management of Mutex security descriptors if crossing user sessions (e.g., using `Global\\` vs `Local\\` namespaces) [cite: 1].\n\n### 3.2 ARCHITECTURE: Service vs. Tray-Only App\n\n**Problem:** `pythonw.exe` creates zombie processes; UI closure does not terminate background threads; tracking stops if the user accidentally closes the app.\n\n**Industry Analysis:** \nEnterprise time-tracking software must balance user privacy with rigorous tracking reliability. \n*   **Hubstaff** and **Time Doctor** utilize a background daemon architecture that runs quietly, consuming virtually no resources, while a separate UI allows users to view data and interact [cite: 7, 8]. \n*   **TimeCamp** leads in hardware efficiency by employing strict process isolation: its desktop agent runs as a dedicated Windows Service, entirely detached from the visual interface, resulting in a minimalist resource profile (as low as 42 MB RAM) [cite: 9].\n*   Running purely as a system tray application is acceptable for lightweight utilities, but a productivity monitor handling local database writes and scheduled HTTP synchronizations benefits immensely from true service isolation.\n\n**Decision:**\n*   **Recommendation:** Split the application into a **Windows Service** (Core Tracker) and a **Tray/Overlay UI** (Client).\n*   **Pros:** The tracker survives UI crashes; zero zombie threads tied to the UI; prevents the user from accidentally halting tracking by closing a window; allows tracking to commence instantly upon Windows boot before user login (if desired).\n*   **Cons:** Windows Services are notoriously difficult to write correctly and debug [cite: 10]; requires elevated administrator privileges during installation; IPC must be established between the Service (running as `SYSTEM`) and the UI (running as `USER`).\n\n*Alternative Consideration:* If requiring administrator privileges for installation is a business blocker, a \"Background Process + Tray UI\" model (where the background process is launched via the `Run` registry key at user logon) is the acceptable fallback.\n\n### 3.3 PACKAGING: Distribution and Auto-Updates\n\n**Problem:** Running raw Python scripts or poorly packaged executables results in AV flags and cross-project interference. \n\n**Industry Analysis:**\n*   **PyInstaller:** While capable of generating a single `.exe` [cite: 11], PyInstaller merely unpacks the Python interpreter and scripts into a temporary directory at runtime [cite: 12]. This results in slow startup times, bloated file sizes, and high false-positive rates from Antivirus software, which heavily scrutinize PyInstaller wrappers [cite: 12].\n*   **Inno Setup:** A highly respected, traditional installer framework for Windows [cite: 13]. It requires custom scripting for updates and dependencies but is incredibly stable.\n*   **MSIX:** Microsoft's modern packaging format. It provides sandboxing, clean uninstalls, and native differential auto-updating directly supported by the OS [cite: 14, 15]. MSIX handles prerequisite management natively (e.g., installing runtimes) [cite: 14].\n\n**Decision:**\n*   **Recommendation:** Migrate from PyInstaller to a compiled language for the service (e.g., Go, Rust, or C#). Package the entire suite (Service + Tauri UI) using **MSIX** or **NSIS/Inno Setup** integrated with `electron-updater` / Tauri's built-in updater.\n*   **Pros (MSIX):** Cryptographic signature enforcement reduces AV false positives; seamless background updates; modern OS integration [cite: 11, 15].\n*   **Cons (MSIX):** Requires an Extended Validation (EV) or Standard Code Signing Certificate, which incurs an annual financial cost; steeper learning curve than Inno Setup.\n\n### 3.4 DATA PIPELINE: Transport and Synchronization\n\n**Problem:** Is SQLite + HTTP Batch optimal, or are WebSockets required?\n\n**Industry Analysis:**\nFor time tracking and productivity monitoring, network resilience is paramount. Users frequently work offline, experience network drops, or utilize VPNs.\n*   **Toggl Track** utilizes an \"offline-first\" sync engine with deterministic conflict resolution based on vector clocks, relying on intermittent synchronization rather than persistent connections [cite: 9].\n*   Persistent connections (like WebSockets) force the system's radio/modem subsystems to remain active, draining laptop batteries and increasing thermal loads [cite: 9]. Constant network polling accelerates hardware degradation [cite: 9].\n\n**Decision:**\n*   **Recommendation:** Retain **SQLite + HTTP Batch POST every 60s**. \n*   **Pros:** Highly resilient to network failures (offline-first by default); respects user battery life and system resources; simplifies the NestJS backend architecture (stateless REST is easier to scale horizontally than stateful WebSockets).\n*   **Refinement:** Implement Exponential Backoff for the HTTP POST. If a 60s sync fails, wait 120s, then 240s, storing all data safely in SQLite. Ensure SQLite is configured to use Write-Ahead Logging (`PRAGMA journal_mode=WAL;`) to allow the UI to read the database while the background service writes to it.\n\n### 3.5 OVERLAY: UI Framework Modernization\n\n**Problem:** `tkinter` is visually archaic, lacks native frameless support, and struggles with modern animations and state management.\n\n**Industry Analysis:**\nTo achieve a professional, gamified overlay, modern web technologies (HTML/CSS/React) are essential.\n*   **Electron:** The dominant framework (Slack, Discord, VS Code). However, it bundles a complete Chromium instance and Node.js runtime, resulting in installers exceeding 100MB and baseline memory usage of 150–300MB [cite: 16, 17]. Running Electron simply for an overlay is a massive waste of user resources.\n*   **Tauri:** A modern alternative built on Rust. Tauri utilizes the operating system's native WebView (Edge WebView2 on Windows). This results in microscopic installer sizes (<10MB) and idle memory usage of merely 30–50MB [cite: 16, 17]. Furthermore, Tauri natively supports frameless windows, transparent backgrounds, and rounded corners via CSS and Win32 composition attributes [cite: 18, 19].\n\n**Decision:**\n*   **Recommendation:** Rebuild the UI using **Tauri + React**.\n*   **Pros:** Leverages existing React knowledge from the dashboard; drastically lower memory footprint compared to Electron [cite: 16]; native OS integration; highly secure (security-by-default architecture) [cite: 16, 17].\n*   **Cons:** Requires learning basic Rust for the backend IPC bindings; debugging WebView2 quirks can occasionally differ from standard Chrome.\n\n### 3.6 RELIABILITY: Crash Recovery and Watchdogs\n\n**Problem:** The application fails silently, requiring manual user intervention to restart.\n\n**Industry Analysis:**\n*   **Windows Task Scheduler:** Excellent for periodic tasks (e.g., daily cleanup), but inappropriate for a continuous 24/7 monitoring loop. Task Scheduler lacks continuous process health monitoring [cite: 10, 20].\n*   **Python Watchdog:** Primarily designed for monitoring file system events (e.g., reacting to a file drop), not for process management [cite: 21].\n*   **Windows Service Control Manager (SCM):** Services possess native, highly configurable recovery options. The SCM can be configured to automatically restart a failed service after 1 minute, execute a script, or reboot the machine upon subsequent failures [cite: 20]. \n\n**Decision:**\n*   **Recommendation:** Utilize **Windows Service Recovery Options**.\n*   **Pros:** Handled entirely by the OS kernel; zero overhead; extremely reliable.\n*   **Implementation:** Configure the service installation script (or MSIX package) to set the `FailureActions`. Set First Failure to Restart, Second Failure to Restart, and reset the fail count after 1 day.\n\n### 3.7 GAMIFICATION: Productivity Psychology\n\n**Problem:** How to implement enterprise-grade gamification to enhance user engagement.\n\n**Industry Analysis:**\nGamification relies on operant conditioning—utilizing rewards and penalties to shape behavior [cite: 22].\n*   **Habitica:** Transforms tasks into an RPG. Relies on positive reinforcement (XP, Gold, Pets) and social accountability (Guilds, Boss Fights) [cite: 23, 24, 25].\n*   **Forest:** Leverages the \"IKEA Effect\" (valuing things we create) and negative reinforcement/loss aversion (leaving the app kills the tree). It also translates virtual success into real-world impact (planting real trees) [cite: 26, 27, 28].\n*   **SuperProductivity / Todoist:** Utilizes subtle karma points and streaks. Visualizing consecutive successful days (streaks) taps into the psychological desire not to \"break the chain\" [cite: 26, 29].\n\n**Decision & Best Practices:**\n1.  **Streaks and Heatmaps:** Implement a GitHub-style contribution heatmap on the React dashboard. Users strive to keep the map \"green\" daily.\n2.  **The Pomodoro Penalty (Loss Aversion):** Emulate *Forest*. If the user initiates a Pomodoro session and the system detects distraction (active window shifts to a banned app like YouTube), present an immediate visual/audio warning. If ignored, a virtual asset (e.g., a streak multiplier or virtual plant) is degraded [cite: 24, 27].\n3.  **XP and Progression:** Assign XP for deep work blocks. Leveling up should unlock UI customization themes within the Tauri app (Dark mode, neon themes, custom sounds).\n4.  **Avoid Bloat:** Ensure the gamification remains a peripheral motivator, not a distraction. The core tracking must remain the focal point.\n\n***\n\n## 4. Migration Path from Current to Target Architecture\n\nMigrating from a monolithic Python script to a decoupled Tauri/Service architecture requires a phased approach to mitigate risk.\n\n### Phase 1: Stabilization (Immediate Action)\n*   **Goal:** Stop the bleeding (zombies, multiple instances).\n*   **Action:** Implement the Python `win32event.CreateMutex` pattern in the existing monolithic code [cite: 3, 4].\n*   **Action:** Replace standard `pythonw.exe` execution with a compiled Nuitka or PyInstaller executable specifically named `ProdMonitor.exe` to isolate it from other Python processes [cite: 12].\n*   **Action:** Ensure the SQLite connection utilizes WAL mode to reduce database locking issues.\n\n### Phase 2: Decoupling (Architecture Shift)\n*   **Goal:** Separate UI from Background Tracking.\n*   **Action:** Extract the `GetLastInputInfo`, active window capture, and SQLite writing logic into a headless Python script (acting as a background process).\n*   **Action:** Rebuild the `tkinter` overlay in Tauri/React. \n*   **Action:** Implement a local HTTP server or Named Pipe in the background process so the Tauri app can query the current tracking state.\n\n### Phase 3: Service Migration (Hardening)\n*   **Goal:** OS-level persistence and recovery.\n*   **Action:** Rewrite the headless Python tracker in a compiled, low-resource language (e.g., Golang or C# .NET Worker Service). Python's GIL and memory footprint are sub-optimal for a background service running 24/7.\n*   **Action:** Register the compiled tracker as a Windows Service with SCM auto-restart recovery actions [cite: 20].\n\n### Phase 4: Professional Distribution\n*   **Goal:** Seamless user installation.\n*   **Action:** Obtain a Code Signing Certificate.\n*   **Action:** Package the Service and the Tauri App using Inno Setup or MSIX. Configure the installer to automatically register and start the Windows Service.\n\n***\n\n## 5. Priority Matrix for Changes\n\nThis matrix categorizes architectural changes based on their Impact (reduction of critical bugs and improvement of UX) versus the Effort required to implement them.\n\n| Feature / Architectural Change | Impact | Effort | Priority | Rationale |\n| :--- | :--- | :--- | :--- | :--- |\n| **Kernel-level Mutex Implementation** | HIGH | LOW | **P0 (Critical)** | Immediately stops database corruption and multiple instance spawning. Requires < 50 lines of code [cite: 3]. |\n| **Rename / Compile Executable** | HIGH | LOW | **P0 (Critical)** | Fixes the issue of `pythonw.exe` mass-kills affecting other projects. Easily achieved via PyInstaller or Nuitka [cite: 12]. |\n| **SQLite WAL Mode Enablement** | MED | LOW | **P1 (High)** | Prevents \"Database is locked\" errors during simultaneous HTTP syncing and local window logging. |\n| **Decouple UI from Tracking Core** | HIGH | HIGH | **P1 (High)** | Solves UI freezing, zombie threads, and sound desync. Fundamental requirement for a professional app. |\n| **Migrate UI to Tauri / React** | HIGH | MED | **P2 (Medium)** | Provides a professional, frameless overlay with 30-50MB RAM usage [cite: 16]. Vastly superior to `tkinter`. |\n| **Migrate Core to Windows Service** | MED | HIGH | **P2 (Medium)** | Provides 24/7 reliability and automatic crash recovery [cite: 20]. Complex to implement and debug. |\n| **MSIX / Inno Setup Packaging** | MED | MED | **P3 (Low)** | Necessary for public distribution and auto-updates, but not critical for internal stability [cite: 13, 15]. |\n| **Advanced Gamification (XP/Pets)** | LOW | MED | **P3 (Low)** | Enhances user retention but should only be built on a stable architectural foundation [cite: 23, 28]. |\n\n***\n\n## 6. Specific Code Patterns and Implementation Guidelines\n\nThe following sections provide concrete implementations for the architectural recommendations, tailored specifically for the Windows operating system.\n\n### 6.1 Process Management: Windows Single-Instance Mutex (Python)\n\nTo resolve the issue of multiple instances spawning, abandon file-based PIDs. Implement a kernel-level Mutex. By holding the Mutex handle for the lifetime of the application, the OS guarantees exclusivity and handles cleanup automatically upon process death [cite: 3, 4].\n\n```python\nimport sys\nimport win32event\nimport win32api\nimport winerror\nimport time\n\nclass SingleInstanceApp:\n    def __init__(self, app_id: str):\n        \"\"\"\n        Creates a named mutex to ensure only one instance of the application runs.\n        app_id should be a unique string (e.g., a GUID).\n        \"\"\"\n        # Using 'Local\\' ensures the mutex is constrained to the current user session.\n        # If tracking across all sessions on the machine is required, use 'Global\\' \n        # (Note: 'Global\\' requires SeCreateGlobalPrivilege).\n        self.mutex_name = f\"Local\\\\{app_id}_Mutex\"\n        \n        # Create the Mutex. The second parameter (True) requests initial ownership.\n        self.mutex = win32event.CreateMutex(None, True, self.mutex_name)\n        self.last_error = win32api.GetLastError()\n\n        # If the Mutex already existed, another instance is running.\n        if self.last_error == winerror.ERROR_ALREADY_EXISTS:\n            print(\"CRITICAL: Another instance of this application is already running.\")\n            # OPTIONAL: Here you would connect to a Named Pipe to tell the \n            # existing instance to bring its UI to the foreground.\n            sys.exit(0)\n            \n    def run(self):\n        print(\"Application initialized successfully. Holding Mutex.\")\n        try:\n            # Main application loop (Tracking, HTTP Sync, etc.)\n            while True:\n                time.sleep(1)\n        except KeyboardInterrupt:\n            pass\n        finally:\n            self.cleanup()\n\n    def cleanup(self):\n        \"\"\"Release and close the Mutex handle upon application exit.\"\"\"\n        if self.mutex:\n            win32event.ReleaseMutex(self.mutex)\n            win32api.CloseHandle(self.mutex)\n            self.mutex = None\n\nif __name__ == \"__main__\":\n    # Ensure this ID is unique to your application to avoid collisions\n    APP_GUID = \"D0E858DF-985E-4907-B7FB-8D732C3FC3B9\"\n    app = SingleInstanceApp(APP_GUID)\n    app.run()\n```\n\n### 6.2 IPC Communication: Named Pipes for UI Foregrounding (C# / .NET Example)\n\nWhen decoupling the architecture, the UI (Client) must communicate with the Background Service. If a user tries to launch the UI while it is already running (hidden in the tray), the secondary process should send a signal to the primary process via a Named Pipe to render the window [cite: 5, 6].\n\n*(While the current stack is Python, C# is highly recommended for Windows desktop services due to superior native API integration).*\n\n```csharp\n// SERVER: Runs in the Primary Background Instance\nusing System.IO.Pipes;\nusing System.IO;\nusing System.Threading.Tasks;\n\npublic class IpcServer\n{\n    public async Task StartListeningAsync()\n    {\n        while (true)\n        {\n            using (var server = new NamedPipeServerStream(\"ProdMonPipe\", PipeDirection.In))\n            {\n                await server.WaitForConnectionAsync();\n                using (var reader = new StreamReader(server))\n                {\n                    string command = await reader.ReadLineAsync();\n                    if (command == \"SHOW_UI\")\n                    {\n                        // Trigger event to bring Tauri window to foreground\n                        System.Console.WriteLine(\"Command received: Bringing UI to front.\");\n                    }\n                }\n            }\n        }\n    }\n}\n\n// CLIENT: Runs in the Secondary Instance that is about to terminate\nusing System.IO.Pipes;\nusing System.IO;\n\npublic class IpcClient\n{\n    public static void SendShowCommand()\n    {\n        try\n        {\n            using (var client = new NamedPipeClientStream(\".\", \"ProdMonPipe\", PipeDirection.Out))\n            {\n                client.Connect(1000); // 1 second timeout\n                using (var writer = new StreamWriter(client))\n                {\n                    writer.AutoFlush = true;\n                    writer.WriteLine(\"SHOW_UI\");\n                }\n            }\n        }\n        catch (TimeoutException)\n        {\n            // Primary instance isn't responding\n        }\n    }\n}\n```\n\n### 6.3 Service Architecture: Configuration and Crash Recovery\n\nTo implement crash-proof reliability, the background tracker should be installed as a Windows Service. The Service Control Manager (SCM) must be configured to execute recovery actions [cite: 20]. \n\nIf using **Inno Setup** to deploy the application, the following configuration defines the service and sets aggressive recovery parameters:\n\n```pascal\n[Setup]\nAppName=Productivity Monitor Core\nAppVersion=1.0\nDefaultDirName={pf}\\ProductivityMonitor\n\n[Files]\n; The compiled background tracker (e.g., written in Go, C#, or PyInstaller wrapper)\nSource: \"ProdMonService.exe\"; DestDir: \"{app}\"; Flags: ignoreversion\n\n[Run]\n; Install the executable as a Windows Service\nFilename: \"{app}\\ProdMonService.exe\"; Parameters: \"install\"; Flags: runhidden\n; Configure SCM Recovery: Restart after 1 minute (60000ms) on 1st, 2nd, and subsequent failures.\n; Reset the failure count after 1 day (86400 seconds).\nFilename: \"sc.exe\"; Parameters: \"failure ProdMonService reset= 86400 actions= restart/60000/restart/60000/restart/60000\"; Flags: runhidden\n; Start the service immediately\nFilename: \"sc.exe\"; Parameters: \"start ProdMonService\"; Flags: runhidden\n\n[UninstallRun]\n; Stop and remove the service upon uninstallation\nFilename: \"sc.exe\"; Parameters: \"stop ProdMonService\"; Flags: runhidden\nFilename: \"{app}\\ProdMonService.exe\"; Parameters: \"uninstall\"; Flags: runhidden\n```\n\n### 6.4 Data Pipeline: SQLite WAL Mode Implementation\n\nTo support the architecture where a Background Service is writing to SQLite while a Tauri UI might be concurrently reading from it, Write-Ahead Logging (WAL) must be enabled. This prevents the `database is locked` error by allowing readers and writers to operate concurrently.\n\n```python\nimport sqlite3\n\ndef init_db(db_path: str):\n    conn = sqlite3.connect(db_path, check_same_thread=False)\n    \n    # Enable WAL mode for high-concurrency read/write\n    conn.execute(\"PRAGMA journal_mode=WAL;\")\n    \n    # Set synchronous to NORMAL for a balance of speed and safety in WAL mode\n    conn.execute(\"PRAGMA synchronous=NORMAL;\")\n    \n    # Increase cache size for better performance\n    conn.execute(\"PRAGMA cache_size=-64000;\") # 64MB Cache\n    \n    conn.commit()\n    return conn\n```\n\n## 7. Conclusion\n\nThe transition from a monolithic Python/`tkinter` script to a microkernel desktop architecture represents a critical maturation phase for this productivity monitoring system. By implementing Kernel-Level Mutexes, the system eradicates instance duplication. By decoupling the tracking logic into a Windows Service, the system achieves true OS-level persistence and fault tolerance. Finally, modernizing the presentation layer with Tauri provides the aesthetic and lightweight performance expected of contemporary enterprise applications, laying a stable foundation for the integration of advanced psychological gamification elements.\n\n**Sources:**\n1. [codemia.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE)\n2. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=)\n3. [activestate.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==)\n4. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==)\n5. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==)\n6. [west-wind.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=)\n7. [slashdot.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHW9GWeUFGH4TQr2G6Z4CzTwfgnGPuS4ijPovZ0bevAbbBqLsT6E7LZ8xThlJtVELrmKaf5iYHQq17ZhvR7JZx7m7pGuLiJXOb9tKPBG46Jnkjlcp5kB2AJvAZa43P9ZsHQRhqrPVaVYZ5ub-jezTB50LF2zQAYbNuc3MVAGO3dCg==)\n8. [sourceforge.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGernq4oGuceW3dWZ19_PINAOSjyXy4YYFBlAkT6N_HJV0Y20uCFWqKJdzDM5Bfs4AA-RE07ee9HmZdUw9IUWF7U0tPryXPHjY-AtDEUOVccBW8vtJUDwqVXnxQfuP8_AQBUErqj5RgI_ylwcWp8_IcBRZM6wRjqrJxIlrGH4FaIYZg2MPJrEdZ)\n9. [alibaba.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=)\n10. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=)\n11. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf)\n12. [anomali.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r)\n13. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT)\n14. [advancedinstaller.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==)\n15. [electronjs.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=)\n16. [openreplay.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==)\n17. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==)\n18. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnjVYsSVYIJnhL-eDeaSxtWYNmuBJQQPy6zRnUItbzUB440DsANLWYAgfINN8DhmAY7UETrZLWcya5PNB9gicm3ZwnDPVyolPgA3zzdRcjIK4oyShgkF66x9fhnneYzOnNDwqa6E7jbZCM8_sCSxGKMtrrquh5qRGVcP5yNfrEGiMZzTMcuO7bufNcbkm_em8dvgDsSpwkd-wn8S0B7uhbUVV0dddHH9FF)\n19. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq9LH2ekiCovgUf2alJsRRzJYFs6BqPg7ITy9uucKY3et3fsoC8Gdvf6t3P8ZjeHmRUj8fDNUUtX2gyytAnB7jtslGAgoqNVFv94kUWA_SZOyaVQb90L0ZJmgpn70kiKf5HafXawcxxu08EHgyrUM8C93i6lgs1j1ZMeY1s6cucVG0FdLcrHDrOtAgedhaRfWpIigFBQuk1Q==)\n20. [serverfault.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==)\n21. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpGnazLmND_f2nOvhsTIJNiLmHKQbeoVr01I-PO4cwTgfzhvnGU_opIIgjTbnhDDDIMUmSOCgKnWzFqlRDjFJGbS8qOuR0yJikODIkHo2QGnDhkVeo8U08f91yNI3o0ezSGDP7USnyqvL4xSMvwxIYqtkylFFaraW8pPqC2WQIYAigfH--Uep_xIqvzG4TL9ZtrA6b26d80-OvQ5klr7py8kkd8nRC1gOUglfSp66hBhDON6QYsOFRKA==)\n22. [ransack.sg](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEN9A1cPLX_rWt9Krc0PiyBAgEUYNtXzB0D4nI5X4PX_jzsScZaR8qD9PBn-Jbhmh-UxRyVVuIYhAKOEqktBI6VwPDhr6L6Q4T69ztzk9sWSnJqRLYqLg9HkYBG-VojU3NTLoK25QCtFwQb)\n23. [zapier.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==)\n24. [beedone.co](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1)\n25. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG40bm4uGZ9dypoNxZ9M31YfjETS-pzmgTer3gomsnEre-JD980_wsTWw9VJPx5gKWoOaCwXeyIeSq_HEhmFkisckriTxyJGeA1lg4crLqeJbr198RvYK-3NJM1TazwK5ZGZquXBeZrfZs7zd6u2AoKOLbWzOFD39U3Qtw7CKEMVb3EUmghLRC3g2tPlZY=)\n26. [trophy.so](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=)\n27. [youtube.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY)\n28. [saasdesigner.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=)\n29. [vacuumlabs.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_XykjinumTcKc8K6znW8OtcSlqL-CXZJUm_h2gOYq9JBdqWRyEVO_OaaqFFQfMMPbwITKiogzrIpFWqDxfFXlLPTXfyS6hTW7szwdwa2XGPshCIihMEYI6m2HvJm5bB8u0NM7HcHSwdIfMtXovj8C6w==)\n",
+      "annotations": [
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+          "type": "url_citation",
+          "start_index": 9747,
+          "end_index": 9759
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=",
+          "type": "url_citation",
+          "start_index": 9747,
+          "end_index": 9759
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+          "type": "url_citation",
+          "start_index": 10069,
+          "end_index": 10081
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+          "type": "url_citation",
+          "start_index": 10069,
+          "end_index": 10081
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+          "type": "url_citation",
+          "start_index": 10266,
+          "end_index": 10275
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=",
+          "type": "url_citation",
+          "start_index": 10334,
+          "end_index": 10346
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+          "type": "url_citation",
+          "start_index": 10334,
+          "end_index": 10346
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+          "type": "url_citation",
+          "start_index": 10551,
+          "end_index": 10563
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=",
+          "type": "url_citation",
+          "start_index": 10551,
+          "end_index": 10563
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+          "type": "url_citation",
+          "start_index": 11046,
+          "end_index": 11055
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGernq4oGuceW3dWZ19_PINAOSjyXy4YYFBlAkT6N_HJV0Y20uCFWqKJdzDM5Bfs4AA-RE07ee9HmZdUw9IUWF7U0tPryXPHjY-AtDEUOVccBW8vtJUDwqVXnxQfuP8_AQBUErqj5RgI_ylwcWp8_IcBRZM6wRjqrJxIlrGH4FaIYZg2MPJrEdZ",
+          "type": "url_citation",
+          "start_index": 11578,
+          "end_index": 11590
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHW9GWeUFGH4TQr2G6Z4CzTwfgnGPuS4ijPovZ0bevAbbBqLsT6E7LZ8xThlJtVELrmKaf5iYHQq17ZhvR7JZx7m7pGuLiJXOb9tKPBG46Jnkjlcp5kB2AJvAZa43P9ZsHQRhqrPVaVYZ5ub-jezTB50LF2zQAYbNuc3MVAGO3dCg==",
+          "type": "url_citation",
+          "start_index": 11578,
+          "end_index": 11590
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+          "type": "url_citation",
+          "start_index": 11843,
+          "end_index": 11852
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=",
+          "type": "url_citation",
+          "start_index": 12555,
+          "end_index": 12565
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf",
+          "type": "url_citation",
+          "start_index": 13252,
+          "end_index": 13262
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+          "type": "url_citation",
+          "start_index": 13364,
+          "end_index": 13374
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+          "type": "url_citation",
+          "start_index": 13533,
+          "end_index": 13543
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT",
+          "type": "url_citation",
+          "start_index": 13629,
+          "end_index": 13639
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==",
+          "type": "url_citation",
+          "start_index": 13885,
+          "end_index": 13899
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+          "type": "url_citation",
+          "start_index": 13885,
+          "end_index": 13899
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==",
+          "type": "url_citation",
+          "start_index": 13975,
+          "end_index": 13985
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf",
+          "type": "url_citation",
+          "start_index": 14398,
+          "end_index": 14412
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+          "type": "url_citation",
+          "start_index": 14398,
+          "end_index": 14412
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+          "type": "url_citation",
+          "start_index": 15093,
+          "end_index": 15102
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+          "type": "url_citation",
+          "start_index": 15264,
+          "end_index": 15273
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+          "type": "url_citation",
+          "start_index": 15333,
+          "end_index": 15342
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+          "type": "url_citation",
+          "start_index": 16513,
+          "end_index": 16527
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+          "type": "url_citation",
+          "start_index": 16513,
+          "end_index": 16527
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+          "type": "url_citation",
+          "start_index": 16832,
+          "end_index": 16846
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+          "type": "url_citation",
+          "start_index": 16832,
+          "end_index": 16846
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq9LH2ekiCovgUf2alJsRRzJYFs6BqPg7ITy9uucKY3et3fsoC8Gdvf6t3P8ZjeHmRUj8fDNUUtX2gyytAnB7jtslGAgoqNVFv94kUWA_SZOyaVQb90L0ZJmgpn70kiKf5HafXawcxxu08EHgyrUM8C93i6lgs1j1ZMeY1s6cucVG0FdLcrHDrOtAgedhaRfWpIigFBQuk1Q==",
+          "type": "url_citation",
+          "start_index": 16990,
+          "end_index": 17004
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnjVYsSVYIJnhL-eDeaSxtWYNmuBJQQPy6zRnUItbzUB440DsANLWYAgfINN8DhmAY7UETrZLWcya5PNB9gicm3ZwnDPVyolPgA3zzdRcjIK4oyShgkF66x9fhnneYzOnNDwqa6E7jbZCM8_sCSxGKMtrrquh5qRGVcP5yNfrEGiMZzTMcuO7bufNcbkm_em8dvgDsSpwkd-wn8S0B7uhbUVV0dddHH9FF",
+          "type": "url_citation",
+          "start_index": 16990,
+          "end_index": 17004
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+          "type": "url_citation",
+          "start_index": 17210,
+          "end_index": 17220
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+          "type": "url_citation",
+          "start_index": 17294,
+          "end_index": 17308
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+          "type": "url_citation",
+          "start_index": 17294,
+          "end_index": 17308
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+          "type": "url_citation",
+          "start_index": 17822,
+          "end_index": 17836
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=",
+          "type": "url_citation",
+          "start_index": 17822,
+          "end_index": 17836
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpGnazLmND_f2nOvhsTIJNiLmHKQbeoVr01I-PO4cwTgfzhvnGU_opIIgjTbnhDDDIMUmSOCgKnWzFqlRDjFJGbS8qOuR0yJikODIkHo2QGnDhkVeo8U08f91yNI3o0ezSGDP7USnyqvL4xSMvwxIYqtkylFFaraW8pPqC2WQIYAigfH--Uep_xIqvzG4TL9ZtrA6b26d80-OvQ5klr7py8kkd8nRC1gOUglfSp66hBhDON6QYsOFRKA==",
+          "type": "url_citation",
+          "start_index": 17976,
+          "end_index": 17986
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+          "type": "url_citation",
+          "start_index": 18247,
+          "end_index": 18257
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEN9A1cPLX_rWt9Krc0PiyBAgEUYNtXzB0D4nI5X4PX_jzsScZaR8qD9PBn-Jbhmh-UxRyVVuIYhAKOEqktBI6VwPDhr6L6Q4T69ztzk9sWSnJqRLYqLg9HkYBG-VojU3NTLoK25QCtFwQb",
+          "type": "url_citation",
+          "start_index": 18893,
+          "end_index": 18903
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG40bm4uGZ9dypoNxZ9M31YfjETS-pzmgTer3gomsnEre-JD980_wsTWw9VJPx5gKWoOaCwXeyIeSq_HEhmFkisckriTxyJGeA1lg4crLqeJbr198RvYK-3NJM1TazwK5ZGZquXBeZrfZs7zd6u2AoKOLbWzOFD39U3Qtw7CKEMVb3EUmghLRC3g2tPlZY=",
+          "type": "url_citation",
+          "start_index": 19051,
+          "end_index": 19069
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1",
+          "type": "url_citation",
+          "start_index": 19051,
+          "end_index": 19069
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==",
+          "type": "url_citation",
+          "start_index": 19051,
+          "end_index": 19069
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=",
+          "type": "url_citation",
+          "start_index": 19297,
+          "end_index": 19315
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=",
+          "type": "url_citation",
+          "start_index": 19297,
+          "end_index": 19315
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY",
+          "type": "url_citation",
+          "start_index": 19297,
+          "end_index": 19315
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_XykjinumTcKc8K6znW8OtcSlqL-CXZJUm_h2gOYq9JBdqWRyEVO_OaaqFFQfMMPbwITKiogzrIpFWqDxfFXlLPTXfyS6hTW7szwdwa2XGPshCIihMEYI6m2HvJm5bB8u0NM7HcHSwdIfMtXovj8C6w==",
+          "type": "url_citation",
+          "start_index": 19506,
+          "end_index": 19520
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=",
+          "type": "url_citation",
+          "start_index": 19506,
+          "end_index": 19520
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1",
+          "type": "url_citation",
+          "start_index": 20019,
+          "end_index": 20033
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY",
+          "type": "url_citation",
+          "start_index": 20019,
+          "end_index": 20033
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+          "type": "url_citation",
+          "start_index": 20755,
+          "end_index": 20767
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+          "type": "url_citation",
+          "start_index": 20755,
+          "end_index": 20767
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+          "type": "url_citation",
+          "start_index": 20954,
+          "end_index": 20964
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+          "type": "url_citation",
+          "start_index": 21945,
+          "end_index": 21955
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+          "type": "url_citation",
+          "start_index": 22744,
+          "end_index": 22753
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+          "type": "url_citation",
+          "start_index": 22938,
+          "end_index": 22948
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+          "type": "url_citation",
+          "start_index": 23419,
+          "end_index": 23429
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+          "type": "url_citation",
+          "start_index": 23589,
+          "end_index": 23599
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+          "type": "url_citation",
+          "start_index": 23790,
+          "end_index": 23804
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT",
+          "type": "url_citation",
+          "start_index": 23790,
+          "end_index": 23804
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=",
+          "type": "url_citation",
+          "start_index": 23961,
+          "end_index": 23975
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==",
+          "type": "url_citation",
+          "start_index": 23961,
+          "end_index": 23975
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+          "type": "url_citation",
+          "start_index": 24523,
+          "end_index": 24535
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+          "type": "url_citation",
+          "start_index": 24523,
+          "end_index": 24535
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+          "type": "url_citation",
+          "start_index": 26879,
+          "end_index": 26891
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=",
+          "type": "url_citation",
+          "start_index": 26879,
+          "end_index": 26891
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+          "type": "url_citation",
+          "start_index": 28838,
+          "end_index": 28848
+        }
+      ],
+      "type": "text"
+    }
+  ],
+  "rawInteraction": {
+    "id": "v1_Chd4LV9YYWQ2bUlkMlVtdGtQeUpEOXdBURIXeC1fWGFkNm1JZDJVbXRrUHlKRDl3QVE",
+    "status": "completed",
+    "outputs": [
+      {
+        "signature": "",
+        "summary": [
+          {
+            "text": "**Strengthening System Stability**\n\nI am examining the technical hurdles preventing a smooth user experience, particularly focusing on why background processes are persisting as orphans and how to ensure only one instance of the application runs at a time. I'm prioritizing industry-standard Windows patterns—such as using system-level Mutexes or Named Pipes—to replace the current logic that accidentally interferes with other Python-based projects on the machine.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Decoupling Monitoring from Interface**\n\nA key area of my investigation is the structural split between data collection and the visual overlay. I'm exploring how professional-grade productivity trackers architect their background components—specifically comparing the use of persistent background services against standard user-level processes. This transition is essential for ensuring that monitoring remains reliable and resource-efficient even if the user interface encounters issues.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Advancing Deployment and Engagement**\n\nI'm shifting my focus toward professionalizing the delivery and user retention aspects of the software. My next steps involve evaluating secure packaging methods that support automatic updates and researching successful gamification frameworks from leading productivity tools to identify features that effectively drive long-term user engagement.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Optimizing Process Architecture**\n\nI have identified that high-performance productivity trackers prioritize a split architecture, decoupling the background monitoring engine from the user interface. This ensures that a visual crash doesn't halt data collection. I've also found that utilizing system-level mutexes is the most reliable method for managing application instances on Windows, preventing the software from accidentally interfering with other development environments while ensuring only one version runs at a time.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Refining Persistence and User Experience**\n\nI am currently resolving the trade-offs between utilizing a dedicated system service and a lighter user-level background process. While services offer high persistence, they often struggle with visual interactions and trigger intrusive security prompts. I'm synthesizing a approach that favors a modern tray-based architecture, which maintains reliability and offline-first data integrity via local databases without the resource bloat of traditional system services.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Evaluating Deployment and Engagement**\n\nMy next steps involve investigating professional packaging and distribution methods, specifically looking into secure installers and automatic update frameworks to ensure a seamless setup experience. I will also be analyzing specific implementation techniques for desktop overlays and comparing them against established engagement models—such as the growth-based rewards and RPG elements found in leading focus tools—to build a more compelling user loop.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Optimizing Background Architecture**\n\nI have determined that running the monitoring agent as a user-mode background process, rather than a restricted system service, is the most effective way to ensure reliable activity tracking and avoid permissions issues. By utilizing system-level mutual exclusion markers, I can robustly prevent multiple instances of the tracker from running simultaneously, which solves the instability and resource conflicts encountered in standard implementations.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Data Integrity and Visual Performance**\n\nMy synthesis of high-performance trackers confirms that an offline-first architecture using local database storage for batch synchronization is essential for maintaining data integrity during connectivity gaps. I have also concluded that decoupling the data collection logic from the visual interface is vital; moving toward modern web-based overlay frameworks will provide the transparency and aesthetic quality required for a professional feel that legacy interface libraries cannot achieve.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Synthesizing the Professional Roadmap**\n\nI am now integrating these architectural insights with strategies for secure packaging and long-term user retention, including the implementation of progression-based engagement mechanics. My final actions will involve organizing these findings into a comprehensive framework that covers everything from crash-resilient process management to automated deployment pipelines.",
+            "type": "text"
+          },
+          {
+            "text": "**Strengthening Process Reliability**\n\nI am beginning an investigation into robust process management techniques to replace the current file-based locking mechanism, which has proven to be brittle. By exploring the implementation of Windows Named Mutexes, I aim to ensure that only a single instance of the application runs at any time, effectively eliminating the risk of orphaned processes and resource conflicts.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Analyzing Architectural Benchmarks**\n\nTo professionalize the system, I am synthesizing data on industry-standard architectures, specifically looking at how prominent productivity tools decouple background tracking services from user interfaces. I am also evaluating performance claims regarding modern UI frameworks to determine if transitioning away from the current solution could significantly reduce the application's memory footprint and improve overall system responsiveness.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Mapping the Technical Roadmap**\n\nI am moving forward by gathering specific technical details on Windows service integrations and examining effective engagement frameworks from successful productivity applications. This will allow me to verify the feasibility of the proposed upgrades and identify the most impactful features for enhancing the user experience.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Refining System Reliability**\n\nI have successfully verified that utilizing native system locks is the definitive method for ensuring single-instance application control, which effectively resolves the instability seen with basic file-based tracking. My investigation into industry-standard tools confirms that decoupling the monitoring engine into a standalone background service is the most resilient way to maintain data collection even if the user interface fails.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Performance and Motivation Analysis**\n\nBy comparing modern interface frameworks, I've confirmed that utilizing the operating system's native web components can reduce memory consumption by nearly 80% compared to heavy, bundled environments. I have also synthesized diverse gamification strategies—ranging from RPG-style progression to visual focus timers—that provide a clear framework for enhancing long-term user interaction and habit formation.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Concluding the Technical Validation**\n\nI am finalizing the roadmap for distribution and recovery, confirming that modern packaging formats and service management utilities provide the necessary stability for automated updates and crash recovery. Having cross-referenced all architectural patterns and validated the core implementation logic, I have now gathered sufficient information to conclude the research phase.",
+            "type": "text"
+          }
+        ],
+        "type": "thought"
+      },
+      {
+        "text": "# Architecture Review and Professionalization Recommendations for a Desktop Productivity Monitoring System\n\n**Key Points:**\n*   **Process Isolation is Essential:** The current monolithic architecture is prone to race conditions and zombie processes; separating the background tracker from the user interface is the industry standard.\n*   **Kernel-Level Synchronization:** File-based Process ID (PID) checks are inherently flawed; robust single-instance detection necessitates kernel-level synchronization objects, specifically Named Mutexes, often paired with Named Pipes for Inter-Process Communication (IPC).\n*   **Modernizing the Presentation Layer:** The `tkinter` framework is insufficient for professional, frameless overlays. Transitioning to a system-native WebView architecture, such as Tauri, dramatically reduces resource consumption while enabling modern web technologies.\n*   **Data Pipeline Validation:** The existing SQLite to HTTP batch synchronization is highly effective and aligns with best practices for offline-first resilience, precluding the need for resource-intensive WebSockets.\n*   **Psychological Gamification:** Effective productivity gamification leverages operant conditioning, blending positive reinforcement (e.g., Habitica's RPG rewards) with loss aversion (e.g., Forest's withering trees) to sustain user engagement.\n\n**Executive Summary:**\nThis report provides a comprehensive architectural review and professionalization strategy for a desktop productivity monitoring system currently operating on a Python/`tkinter` stack. The current paradigm exhibits significant operational instability, including zombie threads, orphan processes, and cross-application interference. Addressing these issues requires a fundamental architectural paradigm shift from a monolithic application to a decoupled, service-oriented desktop model.\n\n**Methodological Approach:**\nThe recommendations formulated herein are derived from an analysis of enterprise-grade productivity applications, including RescueTime, Hubstaff, Time Doctor, and TimeCamp. The review encompasses process management, system architecture, deployment packaging, data pipeline optimization, presentation layer modernization, system reliability, and behavioral gamification. \n\n**Scope of Recommendations:**\nThe subsequent sections detail a prioritized migration path, transitioning the system toward a robust Windows Service paired with a Tauri-based presentation layer. This report includes a detailed priority matrix, comprehensive technology evaluations, and explicit code patterns for implementing kernel-level synchronization and service recovery mechanisms.\n\n***\n\n## 1. Architectural Context and Problem Analysis\n\nThe transition from a prototype or internal tool to a professional-grade desktop application requires navigating the complexities of operating system resource management, user permissions, and resilient software design. The current architecture—a monolithic Python application utilizing a `tkinter` overlay—is experiencing several critical failures characteristic of prototype-stage desktop software.\n\n### 1.1 Analysis of Current Deficiencies\n\n1.  **Multiple Instances and PID Limitations:** The reliance on a file-based Process ID (PID) for single-instance detection is highly susceptible to race conditions and application crashes. If the application terminates unexpectedly without deleting the PID file, subsequent launches are erroneously blocked. Conversely, simultaneous execution by a user can bypass the file lock, spawning multiple instances that compete for SQLite database access and system resources.\n2.  **Zombie Threads and Orphan Processes:** The persistence of background processes after the user interface (UI) is closed indicates a failure to gracefully terminate daemon threads or release system hooks. Python's Global Interpreter Lock (GIL) and its interaction with blocking Windows API calls often prevent clean shutdowns. Furthermore, the spawning of Visual Basic Scripts (VBS) or Command Prompts (CMD) without proper process tree management results in orphan processes that consume memory indefinitely.\n3.  **Namespace Collision (`pythonw.exe`):** Running the application via the standard `pythonw.exe` interpreter creates namespace collisions in the Windows Task Manager. Terminating `pythonw.exe` forcefully kills all running Python background applications (e.g., the mentioned \"Whisper Key\" project). Professional applications must execute under an isolated, uniquely named executable.\n4.  **UI and Audio Desync:** The phenomenon of audio alerts playing while the system is nominally paused highlights a tight coupling between the UI state and the background execution loop, lacking a robust state machine.\n\nAddressing these issues requires dismantling the monolithic design and adopting a decoupled architecture utilized by industry leaders.\n\n## 2. Recommended Architecture Diagram and Design\n\nTo achieve enterprise-grade stability, the architecture must separate the unprivileged, volatile user interface from the privileged, persistent tracking mechanism. \n\n### 2.1 Target Architecture Overview\n\nThe target architecture is a **Microkernel Desktop Model** consisting of a Headless Background Service (the Core) and a Lightweight Presentation Layer (the Client). \n\n```text\n================================================================================\n                      TARGET SYSTEM ARCHITECTURE DIAGRAM\n================================================================================\n\n[ USER SPACE (Volatile, Interactive) ]\n+------------------------------------------------------------------------------+\n|  +-------------------------+         +------------------------------------+  |\n|  |     Tauri / React App   |         |         System Tray Icon           |  |\n|  |   (Frameless Overlay)   |         |        (Context Menus)             |  |\n|  +-----------+-------------+         +-----------------+------------------+  |\n|              |                                         |                     |\n|              | IPC (Named Pipes / Local HTTP)          |                     |\n+--------------|-----------------------------------------|---------------------+\n               |                                         |\n[ SYSTEM SPACE (Persistent, Isolated) ]                  |\n+--------------|-----------------------------------------|---------------------+\n|  +-----------v-----------------------------------------v------------------+  |\n|  |                        WINDOWS NATIVE SERVICE                          |  |\n|  |                     (Golang, Rust, or C# / .NET)                       |  |\n|  |                                                                        |  |\n|  |  +----------------+  +-------------------+  +-----------------------+  |  |\n|  |  | Event Tracing  |  |  State Machine    |  | Local SQLite Database |  |  |\n|  |  | (ETW) / Win32  |  | (Pomodoro, Idle)  |  | (WAL Mode enabled)    |  |  |\n|  |  +----------------+  +-------------------+  +-----------------------+  |  |\n|  |                                                                        |  |\n|  |  [ Mutex: Global\\MyAppCore ]    [ Recovery: SCM Auto-Restart ]         |  |\n|  +---------------------------------------+--------------------------------+  |\n|                                          |                                   |\n+------------------------------------------|-----------------------------------+\n                                           | HTTPS (Port 443)\n                                           | Batch POST (Every 60s)\n[ CLOUD INFRASTRUCTURE ]                   |\n+------------------------------------------v-----------------------------------+\n|                           NESTJS BACKEND API                                 |\n|  +-----------------+    +----------------------+    +--------------------+   |\n|  | JWT Auth Guard  |    | Batch Ingestion Bulk |    | Analytics Engine   |   |\n|  +-----------------+    +----------------------+    +--------------------+   |\n|                                     |                                        |\n|                         [ POSTGRESQL DATABASE ]                              |\n+------------------------------------------------------------------------------+\n```\n\n### 2.2 Architectural Flow\n\n1.  **System Boot:** The Windows Service Control Manager (SCM) initiates the Core Tracking Service automatically in the background. The service acquires a Global Named Mutex to guarantee exclusivity.\n2.  **Tracking:** The Service utilizes Event Tracing for Windows (ETW) or lightweight Win32 hooks to monitor activity and window focus, recording data to a local SQLite database operating in Write-Ahead Logging (WAL) mode to prevent lock contention.\n3.  **UI Launch:** The user launches the Tauri UI. The UI attempts to acquire a Local Named Mutex. If successful, it establishes an IPC connection (via Named Pipes) to the running background service.\n4.  **Synchronization:** The Background Service independently manages the 60-second HTTP batch POST to the NestJS backend, ensuring data integrity even if the user entirely closes the Tauri UI.\n\n## 3. Technology Decisions: Analysis, Pros, and Cons\n\nThe following sections address the seven specific areas of inquiry, evaluating the underlying technologies and providing definitive professional recommendations.\n\n### 3.1 PROCESS MANAGEMENT: Single-Instance Detection\n\n**Problem:** File-based PIDs fail during crash scenarios. Spawning multiple instances corrupts databases and duplicates data.\n\n**Industry Standard:** The definitive standard for single-instance detection on Windows is the use of a **Named Mutex** (Mutual Exclusion object) managed by the Windows Kernel [cite: 1, 2]. When an application starts, it requests the creation of a Mutex with a specific string identifier (e.g., `Global\\MyProductivityAppMutex`). \n\nIf the Mutex already exists, the operating system returns an `ERROR_ALREADY_EXISTS` code, signaling to the newly launched process that it should terminate immediately [cite: 3, 4].\n\n**Bringing the Existing Instance to the Foreground:**\nA Mutex prevents a second instance from running, but it does not automatically bring the first instance to the user's attention [cite: 1]. To achieve this, modern applications use **Named Pipes** [cite: 2, 5]. The primary instance acts as a Named Pipe server. When the secondary instance detects the Mutex, it connects to the Named Pipe as a client, sends a \"Show Window\" command, and then immediately terminates [cite: 5, 6].\n\n**Decision:**\n*   **Technology:** Named Mutex (`CreateMutex`) combined with a Named Pipe Server for Inter-Process Communication (IPC).\n*   **Pros:** Kernel-level enforcement guarantees no race conditions; automatically cleans up if the application crashes (the OS releases the Mutex); enables elegant foregrounding of the existing UI.\n*   **Cons:** Requires careful management of Mutex security descriptors if crossing user sessions (e.g., using `Global\\` vs `Local\\` namespaces) [cite: 1].\n\n### 3.2 ARCHITECTURE: Service vs. Tray-Only App\n\n**Problem:** `pythonw.exe` creates zombie processes; UI closure does not terminate background threads; tracking stops if the user accidentally closes the app.\n\n**Industry Analysis:** \nEnterprise time-tracking software must balance user privacy with rigorous tracking reliability. \n*   **Hubstaff** and **Time Doctor** utilize a background daemon architecture that runs quietly, consuming virtually no resources, while a separate UI allows users to view data and interact [cite: 7, 8]. \n*   **TimeCamp** leads in hardware efficiency by employing strict process isolation: its desktop agent runs as a dedicated Windows Service, entirely detached from the visual interface, resulting in a minimalist resource profile (as low as 42 MB RAM) [cite: 9].\n*   Running purely as a system tray application is acceptable for lightweight utilities, but a productivity monitor handling local database writes and scheduled HTTP synchronizations benefits immensely from true service isolation.\n\n**Decision:**\n*   **Recommendation:** Split the application into a **Windows Service** (Core Tracker) and a **Tray/Overlay UI** (Client).\n*   **Pros:** The tracker survives UI crashes; zero zombie threads tied to the UI; prevents the user from accidentally halting tracking by closing a window; allows tracking to commence instantly upon Windows boot before user login (if desired).\n*   **Cons:** Windows Services are notoriously difficult to write correctly and debug [cite: 10]; requires elevated administrator privileges during installation; IPC must be established between the Service (running as `SYSTEM`) and the UI (running as `USER`).\n\n*Alternative Consideration:* If requiring administrator privileges for installation is a business blocker, a \"Background Process + Tray UI\" model (where the background process is launched via the `Run` registry key at user logon) is the acceptable fallback.\n\n### 3.3 PACKAGING: Distribution and Auto-Updates\n\n**Problem:** Running raw Python scripts or poorly packaged executables results in AV flags and cross-project interference. \n\n**Industry Analysis:**\n*   **PyInstaller:** While capable of generating a single `.exe` [cite: 11], PyInstaller merely unpacks the Python interpreter and scripts into a temporary directory at runtime [cite: 12]. This results in slow startup times, bloated file sizes, and high false-positive rates from Antivirus software, which heavily scrutinize PyInstaller wrappers [cite: 12].\n*   **Inno Setup:** A highly respected, traditional installer framework for Windows [cite: 13]. It requires custom scripting for updates and dependencies but is incredibly stable.\n*   **MSIX:** Microsoft's modern packaging format. It provides sandboxing, clean uninstalls, and native differential auto-updating directly supported by the OS [cite: 14, 15]. MSIX handles prerequisite management natively (e.g., installing runtimes) [cite: 14].\n\n**Decision:**\n*   **Recommendation:** Migrate from PyInstaller to a compiled language for the service (e.g., Go, Rust, or C#). Package the entire suite (Service + Tauri UI) using **MSIX** or **NSIS/Inno Setup** integrated with `electron-updater` / Tauri's built-in updater.\n*   **Pros (MSIX):** Cryptographic signature enforcement reduces AV false positives; seamless background updates; modern OS integration [cite: 11, 15].\n*   **Cons (MSIX):** Requires an Extended Validation (EV) or Standard Code Signing Certificate, which incurs an annual financial cost; steeper learning curve than Inno Setup.\n\n### 3.4 DATA PIPELINE: Transport and Synchronization\n\n**Problem:** Is SQLite + HTTP Batch optimal, or are WebSockets required?\n\n**Industry Analysis:**\nFor time tracking and productivity monitoring, network resilience is paramount. Users frequently work offline, experience network drops, or utilize VPNs.\n*   **Toggl Track** utilizes an \"offline-first\" sync engine with deterministic conflict resolution based on vector clocks, relying on intermittent synchronization rather than persistent connections [cite: 9].\n*   Persistent connections (like WebSockets) force the system's radio/modem subsystems to remain active, draining laptop batteries and increasing thermal loads [cite: 9]. Constant network polling accelerates hardware degradation [cite: 9].\n\n**Decision:**\n*   **Recommendation:** Retain **SQLite + HTTP Batch POST every 60s**. \n*   **Pros:** Highly resilient to network failures (offline-first by default); respects user battery life and system resources; simplifies the NestJS backend architecture (stateless REST is easier to scale horizontally than stateful WebSockets).\n*   **Refinement:** Implement Exponential Backoff for the HTTP POST. If a 60s sync fails, wait 120s, then 240s, storing all data safely in SQLite. Ensure SQLite is configured to use Write-Ahead Logging (`PRAGMA journal_mode=WAL;`) to allow the UI to read the database while the background service writes to it.\n\n### 3.5 OVERLAY: UI Framework Modernization\n\n**Problem:** `tkinter` is visually archaic, lacks native frameless support, and struggles with modern animations and state management.\n\n**Industry Analysis:**\nTo achieve a professional, gamified overlay, modern web technologies (HTML/CSS/React) are essential.\n*   **Electron:** The dominant framework (Slack, Discord, VS Code). However, it bundles a complete Chromium instance and Node.js runtime, resulting in installers exceeding 100MB and baseline memory usage of 150–300MB [cite: 16, 17]. Running Electron simply for an overlay is a massive waste of user resources.\n*   **Tauri:** A modern alternative built on Rust. Tauri utilizes the operating system's native WebView (Edge WebView2 on Windows). This results in microscopic installer sizes (<10MB) and idle memory usage of merely 30–50MB [cite: 16, 17]. Furthermore, Tauri natively supports frameless windows, transparent backgrounds, and rounded corners via CSS and Win32 composition attributes [cite: 18, 19].\n\n**Decision:**\n*   **Recommendation:** Rebuild the UI using **Tauri + React**.\n*   **Pros:** Leverages existing React knowledge from the dashboard; drastically lower memory footprint compared to Electron [cite: 16]; native OS integration; highly secure (security-by-default architecture) [cite: 16, 17].\n*   **Cons:** Requires learning basic Rust for the backend IPC bindings; debugging WebView2 quirks can occasionally differ from standard Chrome.\n\n### 3.6 RELIABILITY: Crash Recovery and Watchdogs\n\n**Problem:** The application fails silently, requiring manual user intervention to restart.\n\n**Industry Analysis:**\n*   **Windows Task Scheduler:** Excellent for periodic tasks (e.g., daily cleanup), but inappropriate for a continuous 24/7 monitoring loop. Task Scheduler lacks continuous process health monitoring [cite: 10, 20].\n*   **Python Watchdog:** Primarily designed for monitoring file system events (e.g., reacting to a file drop), not for process management [cite: 21].\n*   **Windows Service Control Manager (SCM):** Services possess native, highly configurable recovery options. The SCM can be configured to automatically restart a failed service after 1 minute, execute a script, or reboot the machine upon subsequent failures [cite: 20]. \n\n**Decision:**\n*   **Recommendation:** Utilize **Windows Service Recovery Options**.\n*   **Pros:** Handled entirely by the OS kernel; zero overhead; extremely reliable.\n*   **Implementation:** Configure the service installation script (or MSIX package) to set the `FailureActions`. Set First Failure to Restart, Second Failure to Restart, and reset the fail count after 1 day.\n\n### 3.7 GAMIFICATION: Productivity Psychology\n\n**Problem:** How to implement enterprise-grade gamification to enhance user engagement.\n\n**Industry Analysis:**\nGamification relies on operant conditioning—utilizing rewards and penalties to shape behavior [cite: 22].\n*   **Habitica:** Transforms tasks into an RPG. Relies on positive reinforcement (XP, Gold, Pets) and social accountability (Guilds, Boss Fights) [cite: 23, 24, 25].\n*   **Forest:** Leverages the \"IKEA Effect\" (valuing things we create) and negative reinforcement/loss aversion (leaving the app kills the tree). It also translates virtual success into real-world impact (planting real trees) [cite: 26, 27, 28].\n*   **SuperProductivity / Todoist:** Utilizes subtle karma points and streaks. Visualizing consecutive successful days (streaks) taps into the psychological desire not to \"break the chain\" [cite: 26, 29].\n\n**Decision & Best Practices:**\n1.  **Streaks and Heatmaps:** Implement a GitHub-style contribution heatmap on the React dashboard. Users strive to keep the map \"green\" daily.\n2.  **The Pomodoro Penalty (Loss Aversion):** Emulate *Forest*. If the user initiates a Pomodoro session and the system detects distraction (active window shifts to a banned app like YouTube), present an immediate visual/audio warning. If ignored, a virtual asset (e.g., a streak multiplier or virtual plant) is degraded [cite: 24, 27].\n3.  **XP and Progression:** Assign XP for deep work blocks. Leveling up should unlock UI customization themes within the Tauri app (Dark mode, neon themes, custom sounds).\n4.  **Avoid Bloat:** Ensure the gamification remains a peripheral motivator, not a distraction. The core tracking must remain the focal point.\n\n***\n\n## 4. Migration Path from Current to Target Architecture\n\nMigrating from a monolithic Python script to a decoupled Tauri/Service architecture requires a phased approach to mitigate risk.\n\n### Phase 1: Stabilization (Immediate Action)\n*   **Goal:** Stop the bleeding (zombies, multiple instances).\n*   **Action:** Implement the Python `win32event.CreateMutex` pattern in the existing monolithic code [cite: 3, 4].\n*   **Action:** Replace standard `pythonw.exe` execution with a compiled Nuitka or PyInstaller executable specifically named `ProdMonitor.exe` to isolate it from other Python processes [cite: 12].\n*   **Action:** Ensure the SQLite connection utilizes WAL mode to reduce database locking issues.\n\n### Phase 2: Decoupling (Architecture Shift)\n*   **Goal:** Separate UI from Background Tracking.\n*   **Action:** Extract the `GetLastInputInfo`, active window capture, and SQLite writing logic into a headless Python script (acting as a background process).\n*   **Action:** Rebuild the `tkinter` overlay in Tauri/React. \n*   **Action:** Implement a local HTTP server or Named Pipe in the background process so the Tauri app can query the current tracking state.\n\n### Phase 3: Service Migration (Hardening)\n*   **Goal:** OS-level persistence and recovery.\n*   **Action:** Rewrite the headless Python tracker in a compiled, low-resource language (e.g., Golang or C# .NET Worker Service). Python's GIL and memory footprint are sub-optimal for a background service running 24/7.\n*   **Action:** Register the compiled tracker as a Windows Service with SCM auto-restart recovery actions [cite: 20].\n\n### Phase 4: Professional Distribution\n*   **Goal:** Seamless user installation.\n*   **Action:** Obtain a Code Signing Certificate.\n*   **Action:** Package the Service and the Tauri App using Inno Setup or MSIX. Configure the installer to automatically register and start the Windows Service.\n\n***\n\n## 5. Priority Matrix for Changes\n\nThis matrix categorizes architectural changes based on their Impact (reduction of critical bugs and improvement of UX) versus the Effort required to implement them.\n\n| Feature / Architectural Change | Impact | Effort | Priority | Rationale |\n| :--- | :--- | :--- | :--- | :--- |\n| **Kernel-level Mutex Implementation** | HIGH | LOW | **P0 (Critical)** | Immediately stops database corruption and multiple instance spawning. Requires < 50 lines of code [cite: 3]. |\n| **Rename / Compile Executable** | HIGH | LOW | **P0 (Critical)** | Fixes the issue of `pythonw.exe` mass-kills affecting other projects. Easily achieved via PyInstaller or Nuitka [cite: 12]. |\n| **SQLite WAL Mode Enablement** | MED | LOW | **P1 (High)** | Prevents \"Database is locked\" errors during simultaneous HTTP syncing and local window logging. |\n| **Decouple UI from Tracking Core** | HIGH | HIGH | **P1 (High)** | Solves UI freezing, zombie threads, and sound desync. Fundamental requirement for a professional app. |\n| **Migrate UI to Tauri / React** | HIGH | MED | **P2 (Medium)** | Provides a professional, frameless overlay with 30-50MB RAM usage [cite: 16]. Vastly superior to `tkinter`. |\n| **Migrate Core to Windows Service** | MED | HIGH | **P2 (Medium)** | Provides 24/7 reliability and automatic crash recovery [cite: 20]. Complex to implement and debug. |\n| **MSIX / Inno Setup Packaging** | MED | MED | **P3 (Low)** | Necessary for public distribution and auto-updates, but not critical for internal stability [cite: 13, 15]. |\n| **Advanced Gamification (XP/Pets)** | LOW | MED | **P3 (Low)** | Enhances user retention but should only be built on a stable architectural foundation [cite: 23, 28]. |\n\n***\n\n## 6. Specific Code Patterns and Implementation Guidelines\n\nThe following sections provide concrete implementations for the architectural recommendations, tailored specifically for the Windows operating system.\n\n### 6.1 Process Management: Windows Single-Instance Mutex (Python)\n\nTo resolve the issue of multiple instances spawning, abandon file-based PIDs. Implement a kernel-level Mutex. By holding the Mutex handle for the lifetime of the application, the OS guarantees exclusivity and handles cleanup automatically upon process death [cite: 3, 4].\n\n```python\nimport sys\nimport win32event\nimport win32api\nimport winerror\nimport time\n\nclass SingleInstanceApp:\n    def __init__(self, app_id: str):\n        \"\"\"\n        Creates a named mutex to ensure only one instance of the application runs.\n        app_id should be a unique string (e.g., a GUID).\n        \"\"\"\n        # Using 'Local\\' ensures the mutex is constrained to the current user session.\n        # If tracking across all sessions on the machine is required, use 'Global\\' \n        # (Note: 'Global\\' requires SeCreateGlobalPrivilege).\n        self.mutex_name = f\"Local\\\\{app_id}_Mutex\"\n        \n        # Create the Mutex. The second parameter (True) requests initial ownership.\n        self.mutex = win32event.CreateMutex(None, True, self.mutex_name)\n        self.last_error = win32api.GetLastError()\n\n        # If the Mutex already existed, another instance is running.\n        if self.last_error == winerror.ERROR_ALREADY_EXISTS:\n            print(\"CRITICAL: Another instance of this application is already running.\")\n            # OPTIONAL: Here you would connect to a Named Pipe to tell the \n            # existing instance to bring its UI to the foreground.\n            sys.exit(0)\n            \n    def run(self):\n        print(\"Application initialized successfully. Holding Mutex.\")\n        try:\n            # Main application loop (Tracking, HTTP Sync, etc.)\n            while True:\n                time.sleep(1)\n        except KeyboardInterrupt:\n            pass\n        finally:\n            self.cleanup()\n\n    def cleanup(self):\n        \"\"\"Release and close the Mutex handle upon application exit.\"\"\"\n        if self.mutex:\n            win32event.ReleaseMutex(self.mutex)\n            win32api.CloseHandle(self.mutex)\n            self.mutex = None\n\nif __name__ == \"__main__\":\n    # Ensure this ID is unique to your application to avoid collisions\n    APP_GUID = \"D0E858DF-985E-4907-B7FB-8D732C3FC3B9\"\n    app = SingleInstanceApp(APP_GUID)\n    app.run()\n```\n\n### 6.2 IPC Communication: Named Pipes for UI Foregrounding (C# / .NET Example)\n\nWhen decoupling the architecture, the UI (Client) must communicate with the Background Service. If a user tries to launch the UI while it is already running (hidden in the tray), the secondary process should send a signal to the primary process via a Named Pipe to render the window [cite: 5, 6].\n\n*(While the current stack is Python, C# is highly recommended for Windows desktop services due to superior native API integration).*\n\n```csharp\n// SERVER: Runs in the Primary Background Instance\nusing System.IO.Pipes;\nusing System.IO;\nusing System.Threading.Tasks;\n\npublic class IpcServer\n{\n    public async Task StartListeningAsync()\n    {\n        while (true)\n        {\n            using (var server = new NamedPipeServerStream(\"ProdMonPipe\", PipeDirection.In))\n            {\n                await server.WaitForConnectionAsync();\n                using (var reader = new StreamReader(server))\n                {\n                    string command = await reader.ReadLineAsync();\n                    if (command == \"SHOW_UI\")\n                    {\n                        // Trigger event to bring Tauri window to foreground\n                        System.Console.WriteLine(\"Command received: Bringing UI to front.\");\n                    }\n                }\n            }\n        }\n    }\n}\n\n// CLIENT: Runs in the Secondary Instance that is about to terminate\nusing System.IO.Pipes;\nusing System.IO;\n\npublic class IpcClient\n{\n    public static void SendShowCommand()\n    {\n        try\n        {\n            using (var client = new NamedPipeClientStream(\".\", \"ProdMonPipe\", PipeDirection.Out))\n            {\n                client.Connect(1000); // 1 second timeout\n                using (var writer = new StreamWriter(client))\n                {\n                    writer.AutoFlush = true;\n                    writer.WriteLine(\"SHOW_UI\");\n                }\n            }\n        }\n        catch (TimeoutException)\n        {\n            // Primary instance isn't responding\n        }\n    }\n}\n```\n\n### 6.3 Service Architecture: Configuration and Crash Recovery\n\nTo implement crash-proof reliability, the background tracker should be installed as a Windows Service. The Service Control Manager (SCM) must be configured to execute recovery actions [cite: 20]. \n\nIf using **Inno Setup** to deploy the application, the following configuration defines the service and sets aggressive recovery parameters:\n\n```pascal\n[Setup]\nAppName=Productivity Monitor Core\nAppVersion=1.0\nDefaultDirName={pf}\\ProductivityMonitor\n\n[Files]\n; The compiled background tracker (e.g., written in Go, C#, or PyInstaller wrapper)\nSource: \"ProdMonService.exe\"; DestDir: \"{app}\"; Flags: ignoreversion\n\n[Run]\n; Install the executable as a Windows Service\nFilename: \"{app}\\ProdMonService.exe\"; Parameters: \"install\"; Flags: runhidden\n; Configure SCM Recovery: Restart after 1 minute (60000ms) on 1st, 2nd, and subsequent failures.\n; Reset the failure count after 1 day (86400 seconds).\nFilename: \"sc.exe\"; Parameters: \"failure ProdMonService reset= 86400 actions= restart/60000/restart/60000/restart/60000\"; Flags: runhidden\n; Start the service immediately\nFilename: \"sc.exe\"; Parameters: \"start ProdMonService\"; Flags: runhidden\n\n[UninstallRun]\n; Stop and remove the service upon uninstallation\nFilename: \"sc.exe\"; Parameters: \"stop ProdMonService\"; Flags: runhidden\nFilename: \"{app}\\ProdMonService.exe\"; Parameters: \"uninstall\"; Flags: runhidden\n```\n\n### 6.4 Data Pipeline: SQLite WAL Mode Implementation\n\nTo support the architecture where a Background Service is writing to SQLite while a Tauri UI might be concurrently reading from it, Write-Ahead Logging (WAL) must be enabled. This prevents the `database is locked` error by allowing readers and writers to operate concurrently.\n\n```python\nimport sqlite3\n\ndef init_db(db_path: str):\n    conn = sqlite3.connect(db_path, check_same_thread=False)\n    \n    # Enable WAL mode for high-concurrency read/write\n    conn.execute(\"PRAGMA journal_mode=WAL;\")\n    \n    # Set synchronous to NORMAL for a balance of speed and safety in WAL mode\n    conn.execute(\"PRAGMA synchronous=NORMAL;\")\n    \n    # Increase cache size for better performance\n    conn.execute(\"PRAGMA cache_size=-64000;\") # 64MB Cache\n    \n    conn.commit()\n    return conn\n```\n\n## 7. Conclusion\n\nThe transition from a monolithic Python/`tkinter` script to a microkernel desktop architecture represents a critical maturation phase for this productivity monitoring system. By implementing Kernel-Level Mutexes, the system eradicates instance duplication. By decoupling the tracking logic into a Windows Service, the system achieves true OS-level persistence and fault tolerance. Finally, modernizing the presentation layer with Tauri provides the aesthetic and lightweight performance expected of contemporary enterprise applications, laying a stable foundation for the integration of advanced psychological gamification elements.\n\n**Sources:**\n1. [codemia.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE)\n2. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=)\n3. [activestate.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==)\n4. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==)\n5. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==)\n6. [west-wind.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=)\n7. [slashdot.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHW9GWeUFGH4TQr2G6Z4CzTwfgnGPuS4ijPovZ0bevAbbBqLsT6E7LZ8xThlJtVELrmKaf5iYHQq17ZhvR7JZx7m7pGuLiJXOb9tKPBG46Jnkjlcp5kB2AJvAZa43P9ZsHQRhqrPVaVYZ5ub-jezTB50LF2zQAYbNuc3MVAGO3dCg==)\n8. [sourceforge.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGernq4oGuceW3dWZ19_PINAOSjyXy4YYFBlAkT6N_HJV0Y20uCFWqKJdzDM5Bfs4AA-RE07ee9HmZdUw9IUWF7U0tPryXPHjY-AtDEUOVccBW8vtJUDwqVXnxQfuP8_AQBUErqj5RgI_ylwcWp8_IcBRZM6wRjqrJxIlrGH4FaIYZg2MPJrEdZ)\n9. [alibaba.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=)\n10. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=)\n11. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf)\n12. [anomali.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r)\n13. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT)\n14. [advancedinstaller.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==)\n15. [electronjs.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=)\n16. [openreplay.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==)\n17. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==)\n18. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnjVYsSVYIJnhL-eDeaSxtWYNmuBJQQPy6zRnUItbzUB440DsANLWYAgfINN8DhmAY7UETrZLWcya5PNB9gicm3ZwnDPVyolPgA3zzdRcjIK4oyShgkF66x9fhnneYzOnNDwqa6E7jbZCM8_sCSxGKMtrrquh5qRGVcP5yNfrEGiMZzTMcuO7bufNcbkm_em8dvgDsSpwkd-wn8S0B7uhbUVV0dddHH9FF)\n19. [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq9LH2ekiCovgUf2alJsRRzJYFs6BqPg7ITy9uucKY3et3fsoC8Gdvf6t3P8ZjeHmRUj8fDNUUtX2gyytAnB7jtslGAgoqNVFv94kUWA_SZOyaVQb90L0ZJmgpn70kiKf5HafXawcxxu08EHgyrUM8C93i6lgs1j1ZMeY1s6cucVG0FdLcrHDrOtAgedhaRfWpIigFBQuk1Q==)\n20. [serverfault.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==)\n21. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpGnazLmND_f2nOvhsTIJNiLmHKQbeoVr01I-PO4cwTgfzhvnGU_opIIgjTbnhDDDIMUmSOCgKnWzFqlRDjFJGbS8qOuR0yJikODIkHo2QGnDhkVeo8U08f91yNI3o0ezSGDP7USnyqvL4xSMvwxIYqtkylFFaraW8pPqC2WQIYAigfH--Uep_xIqvzG4TL9ZtrA6b26d80-OvQ5klr7py8kkd8nRC1gOUglfSp66hBhDON6QYsOFRKA==)\n22. [ransack.sg](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEN9A1cPLX_rWt9Krc0PiyBAgEUYNtXzB0D4nI5X4PX_jzsScZaR8qD9PBn-Jbhmh-UxRyVVuIYhAKOEqktBI6VwPDhr6L6Q4T69ztzk9sWSnJqRLYqLg9HkYBG-VojU3NTLoK25QCtFwQb)\n23. [zapier.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==)\n24. [beedone.co](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1)\n25. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG40bm4uGZ9dypoNxZ9M31YfjETS-pzmgTer3gomsnEre-JD980_wsTWw9VJPx5gKWoOaCwXeyIeSq_HEhmFkisckriTxyJGeA1lg4crLqeJbr198RvYK-3NJM1TazwK5ZGZquXBeZrfZs7zd6u2AoKOLbWzOFD39U3Qtw7CKEMVb3EUmghLRC3g2tPlZY=)\n26. [trophy.so](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=)\n27. [youtube.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY)\n28. [saasdesigner.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=)\n29. [vacuumlabs.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_XykjinumTcKc8K6znW8OtcSlqL-CXZJUm_h2gOYq9JBdqWRyEVO_OaaqFFQfMMPbwITKiogzrIpFWqDxfFXlLPTXfyS6hTW7szwdwa2XGPshCIihMEYI6m2HvJm5bB8u0NM7HcHSwdIfMtXovj8C6w==)\n",
+        "annotations": [
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+            "type": "url_citation",
+            "start_index": 9747,
+            "end_index": 9759
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=",
+            "type": "url_citation",
+            "start_index": 9747,
+            "end_index": 9759
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+            "type": "url_citation",
+            "start_index": 10069,
+            "end_index": 10081
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+            "type": "url_citation",
+            "start_index": 10069,
+            "end_index": 10081
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+            "type": "url_citation",
+            "start_index": 10266,
+            "end_index": 10275
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe31QBzg1V8d7Q5hu7MUDDsZbjhcOPRUw59AYns0OnQnmc9WG4Cikd4R0Uosm7tg39kez_iyjnTbqKd-7Ipugegg1-71myIISQ0dyna4T2GTWPlD0oSYKZt0YSFUujIxeIV3Q1FzcRnyqybrUnXQcR620T6Y4=",
+            "type": "url_citation",
+            "start_index": 10334,
+            "end_index": 10346
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+            "type": "url_citation",
+            "start_index": 10334,
+            "end_index": 10346
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+            "type": "url_citation",
+            "start_index": 10551,
+            "end_index": 10563
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=",
+            "type": "url_citation",
+            "start_index": 10551,
+            "end_index": 10563
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEw1BCgYCAwfuboCUuO7rdU-fHq2ST5vxHSZLcX-KDhRQzkVbUluwraKfYiYd_yquSsJy_jy83mMjhkdaa9KzgZup3IzrmmxecsExAUkAJFuhqEVoyYLpWdo0-nI4dT9_Ci41MUMTAl4jYti2XKI-VERfpc4hqkyvgi4hamHRWtLgGRHboHhejrZouQikjmIBYAM739dbz7O6GrTmkwQlzE",
+            "type": "url_citation",
+            "start_index": 11046,
+            "end_index": 11055
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGernq4oGuceW3dWZ19_PINAOSjyXy4YYFBlAkT6N_HJV0Y20uCFWqKJdzDM5Bfs4AA-RE07ee9HmZdUw9IUWF7U0tPryXPHjY-AtDEUOVccBW8vtJUDwqVXnxQfuP8_AQBUErqj5RgI_ylwcWp8_IcBRZM6wRjqrJxIlrGH4FaIYZg2MPJrEdZ",
+            "type": "url_citation",
+            "start_index": 11578,
+            "end_index": 11590
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHW9GWeUFGH4TQr2G6Z4CzTwfgnGPuS4ijPovZ0bevAbbBqLsT6E7LZ8xThlJtVELrmKaf5iYHQq17ZhvR7JZx7m7pGuLiJXOb9tKPBG46Jnkjlcp5kB2AJvAZa43P9ZsHQRhqrPVaVYZ5ub-jezTB50LF2zQAYbNuc3MVAGO3dCg==",
+            "type": "url_citation",
+            "start_index": 11578,
+            "end_index": 11590
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+            "type": "url_citation",
+            "start_index": 11843,
+            "end_index": 11852
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=",
+            "type": "url_citation",
+            "start_index": 12555,
+            "end_index": 12565
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf",
+            "type": "url_citation",
+            "start_index": 13252,
+            "end_index": 13262
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+            "type": "url_citation",
+            "start_index": 13364,
+            "end_index": 13374
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+            "type": "url_citation",
+            "start_index": 13533,
+            "end_index": 13543
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT",
+            "type": "url_citation",
+            "start_index": 13629,
+            "end_index": 13639
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==",
+            "type": "url_citation",
+            "start_index": 13885,
+            "end_index": 13899
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+            "type": "url_citation",
+            "start_index": 13885,
+            "end_index": 13899
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETapWOrQwYGEk88cSx2cPHiwWJrDn-_tvrX5A3GHOH20LqD6mRG6zzAjfQs_xOZ6u4dmdG3WRxz-TdEWENpfGeoCZMw-yBQtBj5i9dEXf81yoBRPxzO1fz0xg-4gyc-IhYsX66IsCF_YHLeRNMebgLB2P96uSiCg==",
+            "type": "url_citation",
+            "start_index": 13975,
+            "end_index": 13985
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_W1-A1u2lH6rj4PWty1i0geqmNoEM_Ln2H67wTwn7gFXo4VZ_NA9QMy1UTxKx91fLcTzs0WahhVf-rcGqenaU0vgvfcEF7lvQbYPba_WC9Sx-8pyHWkdgadKE03Zi1jq3xxz2GSYBDy6m0W1RazF248wfrEAI3EV24uhyB0GvcNlzF0EOzzmK7XboNy8Bi0Bs0zGf",
+            "type": "url_citation",
+            "start_index": 14398,
+            "end_index": 14412
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+            "type": "url_citation",
+            "start_index": 14398,
+            "end_index": 14412
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+            "type": "url_citation",
+            "start_index": 15093,
+            "end_index": 15102
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+            "type": "url_citation",
+            "start_index": 15264,
+            "end_index": 15273
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBWqUIqWn_SSTKJm0VJESQgRTW1gMcD43C48on9_YwOiCeHC5n4mf5CvBxTghvJAqowaSwO_3W44v5LsZsT0RUwA3v_sCIeuM_3McMw3qRzWeRm4N9xMD_VUuqyJOGBOr_86QdmYPhJmgSAAlwmbwmRPFG53zfqCP8uHy837it3gncBHi7JUY=",
+            "type": "url_citation",
+            "start_index": 15333,
+            "end_index": 15342
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+            "type": "url_citation",
+            "start_index": 16513,
+            "end_index": 16527
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+            "type": "url_citation",
+            "start_index": 16513,
+            "end_index": 16527
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+            "type": "url_citation",
+            "start_index": 16832,
+            "end_index": 16846
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+            "type": "url_citation",
+            "start_index": 16832,
+            "end_index": 16846
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq9LH2ekiCovgUf2alJsRRzJYFs6BqPg7ITy9uucKY3et3fsoC8Gdvf6t3P8ZjeHmRUj8fDNUUtX2gyytAnB7jtslGAgoqNVFv94kUWA_SZOyaVQb90L0ZJmgpn70kiKf5HafXawcxxu08EHgyrUM8C93i6lgs1j1ZMeY1s6cucVG0FdLcrHDrOtAgedhaRfWpIigFBQuk1Q==",
+            "type": "url_citation",
+            "start_index": 16990,
+            "end_index": 17004
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFnjVYsSVYIJnhL-eDeaSxtWYNmuBJQQPy6zRnUItbzUB440DsANLWYAgfINN8DhmAY7UETrZLWcya5PNB9gicm3ZwnDPVyolPgA3zzdRcjIK4oyShgkF66x9fhnneYzOnNDwqa6E7jbZCM8_sCSxGKMtrrquh5qRGVcP5yNfrEGiMZzTMcuO7bufNcbkm_em8dvgDsSpwkd-wn8S0B7uhbUVV0dddHH9FF",
+            "type": "url_citation",
+            "start_index": 16990,
+            "end_index": 17004
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+            "type": "url_citation",
+            "start_index": 17210,
+            "end_index": 17220
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXizKwazEUUGjb_RJiTBethSfAEmdnryJfPdKq9CTh9-ixG5vIOdthGCh3Xuwm5gHtBw9q6ExnjplqTMGx8xU8HJpGhPglf2GOAyiH7zRh66CWOgcGK04PRJqGVlElRplCHNVp3LNJw3CPuON-mRAfuHbSOWyMMh5TKAkc3OvZSu-TZxhUJPg4n4GMIv4IkvS8L3j5n3t6yQDOfJ-DtUL1Ew==",
+            "type": "url_citation",
+            "start_index": 17294,
+            "end_index": 17308
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+            "type": "url_citation",
+            "start_index": 17294,
+            "end_index": 17308
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+            "type": "url_citation",
+            "start_index": 17822,
+            "end_index": 17836
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl3zzT8lSzfpw7mGMQ4C8373KPXCfW9HAF7HttEluG3wFvPEnY_Rf88Le1fpgUL_C9tQsG_UWc74nXMDdmLFMj9d9IUmaxB3zCIsceYnNc3DJiiFo9OPtDmiqd8pqPUJbuN9FzlJSsDqQUVehN_H5Hqtx2n1pXLeSvmaCQMz10-95pByXqADAnuf551nMziuLMh0iagRnh-HM=",
+            "type": "url_citation",
+            "start_index": 17822,
+            "end_index": 17836
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpGnazLmND_f2nOvhsTIJNiLmHKQbeoVr01I-PO4cwTgfzhvnGU_opIIgjTbnhDDDIMUmSOCgKnWzFqlRDjFJGbS8qOuR0yJikODIkHo2QGnDhkVeo8U08f91yNI3o0ezSGDP7USnyqvL4xSMvwxIYqtkylFFaraW8pPqC2WQIYAigfH--Uep_xIqvzG4TL9ZtrA6b26d80-OvQ5klr7py8kkd8nRC1gOUglfSp66hBhDON6QYsOFRKA==",
+            "type": "url_citation",
+            "start_index": 17976,
+            "end_index": 17986
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+            "type": "url_citation",
+            "start_index": 18247,
+            "end_index": 18257
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEN9A1cPLX_rWt9Krc0PiyBAgEUYNtXzB0D4nI5X4PX_jzsScZaR8qD9PBn-Jbhmh-UxRyVVuIYhAKOEqktBI6VwPDhr6L6Q4T69ztzk9sWSnJqRLYqLg9HkYBG-VojU3NTLoK25QCtFwQb",
+            "type": "url_citation",
+            "start_index": 18893,
+            "end_index": 18903
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG40bm4uGZ9dypoNxZ9M31YfjETS-pzmgTer3gomsnEre-JD980_wsTWw9VJPx5gKWoOaCwXeyIeSq_HEhmFkisckriTxyJGeA1lg4crLqeJbr198RvYK-3NJM1TazwK5ZGZquXBeZrfZs7zd6u2AoKOLbWzOFD39U3Qtw7CKEMVb3EUmghLRC3g2tPlZY=",
+            "type": "url_citation",
+            "start_index": 19051,
+            "end_index": 19069
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1",
+            "type": "url_citation",
+            "start_index": 19051,
+            "end_index": 19069
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==",
+            "type": "url_citation",
+            "start_index": 19051,
+            "end_index": 19069
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=",
+            "type": "url_citation",
+            "start_index": 19297,
+            "end_index": 19315
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=",
+            "type": "url_citation",
+            "start_index": 19297,
+            "end_index": 19315
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY",
+            "type": "url_citation",
+            "start_index": 19297,
+            "end_index": 19315
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_XykjinumTcKc8K6znW8OtcSlqL-CXZJUm_h2gOYq9JBdqWRyEVO_OaaqFFQfMMPbwITKiogzrIpFWqDxfFXlLPTXfyS6hTW7szwdwa2XGPshCIihMEYI6m2HvJm5bB8u0NM7HcHSwdIfMtXovj8C6w==",
+            "type": "url_citation",
+            "start_index": 19506,
+            "end_index": 19520
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGivH9mPY-0QkSPz_HEiRsqsnZJViN-1f50nBjEz4x_3rVNxRMS_twxTX0LiTXxPWZJesev-dmAomBkyn8ogQHX16PshYmJaP29e4kML06r-zB3fDOvsVymWX9NEiUVDhQgkA5WI-JBPUdujlPXb2w=",
+            "type": "url_citation",
+            "start_index": 19506,
+            "end_index": 19520
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv-EfEVZsAJWQOI7svgu6Vrue36O9Pgfcyztx--nwEkd8sV4PgIJDuK3t_XiORiNejkE4_ex2AQSJ_zcrRayglC-1Rl7_6MgjwsLvel2KmkxN-PQsAWB60hfhbR1oLKwVuxk_kOqGiD5mHVWYI9s3ebZ3yCpL1",
+            "type": "url_citation",
+            "start_index": 20019,
+            "end_index": 20033
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDYDAejAp5TrpB0p_ZAOKkkapvDuE0MzOd6IJajU6tD8yEHYsQg3GfpmkGZkxNDHejiFrnNrjsc_I8oXa9oRcXnZaS5qrvo9_sQyNnl0t3sUWB8HXohajU8fJx4DzX6WvY",
+            "type": "url_citation",
+            "start_index": 20019,
+            "end_index": 20033
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+            "type": "url_citation",
+            "start_index": 20755,
+            "end_index": 20767
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+            "type": "url_citation",
+            "start_index": 20755,
+            "end_index": 20767
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+            "type": "url_citation",
+            "start_index": 20954,
+            "end_index": 20964
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+            "type": "url_citation",
+            "start_index": 21945,
+            "end_index": 21955
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+            "type": "url_citation",
+            "start_index": 22744,
+            "end_index": 22753
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHleSrx_5FM0EkamjtkRdWDqyEk7hKpgA32zqfcaGUH7fcSVMas76ow35_eZpcEpKmkDMjhOmtajlIAYulKbzycAmYJAhukFh3Xle4wE5DOwCXX-ZB-IhAxLDU57qu0w5Iz-4ZYbQYs965r",
+            "type": "url_citation",
+            "start_index": 22938,
+            "end_index": 22948
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHj6LLW0ubMloWnHDpWQBkkLI8ufGMML_S9RRzsznX3pXFru2Gih-VbJ_Tu22VbYNc5o3Q11k8Stw_PralZwJxlMLjgmZycBhxVw0EE1xOUBPNYAsvNxc2SyzWlAkv6M17tFtU7FKRaGyaAaWeSi2pOKBqsQjonm1NxFjNL6J4I8A==",
+            "type": "url_citation",
+            "start_index": 23419,
+            "end_index": 23429
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+            "type": "url_citation",
+            "start_index": 23589,
+            "end_index": 23599
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3UMWUUDfh0onODWEmml2uZBW5u4Lw7z_O2i_uJpuXflOcrE55aWuVB-zJSS1-8uWJQq2mK1hcJRs_2k7TefmDBhbLocHP88hzJEaHNxgTOoddyOXd3MsX3DCiIdMCTYfP7k5eFdLBFWI=",
+            "type": "url_citation",
+            "start_index": 23790,
+            "end_index": 23804
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxoHicZzUDdxhPO7_F5XF9E6lbS5xOKrlNAubTrfECI11pfCtWiUMA1OlSskHXvbNtvAWHOa1ZYrly1ldnArIMRUHTm8EEtjUB3-0WRiXmqnAHnFjDImY_0hCFfPBU_DoaEpODXAilSeB5tqfp0PKCHGYXvEQopXMdb0I3mR2Jfyx6mmsMI0sleopVfTDKEB-m4jrT",
+            "type": "url_citation",
+            "start_index": 23790,
+            "end_index": 23804
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dcYG6kdKTz2_b6qHJIp0WTst9QEZdi7-nsSy_eMII97dQHXWyHNyDY0CojGyKjjr0iIU094ZeSVItLtu3C5SNauVn0qmEt7Y4YCnCmUkBpvcsCoRBUQSmCtXRR1n0gAMTPzZ-tL3_m_2gRmyLfmDbExHGi0xC8tIkCaL4iednvv9-N12SNM=",
+            "type": "url_citation",
+            "start_index": 23961,
+            "end_index": 23975
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsGBBvPgCv01MwDOgnnbqv29qWKSZ4M--sRzKR9I4WqR8CHVaUOG4sRslXDaoVEBkMI_4thtJhySR-jFSH1ml6H7xQgNx7XrPQVd2FqLDinYW1IXpPhS4hySdWa_T_Ben7AA==",
+            "type": "url_citation",
+            "start_index": 23961,
+            "end_index": 23975
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcK5faRdPRR9RT1EWHUsp_fYN8Vj-rzSU7NjHFE2i9V6rjJtS0U6oyrBqKuX6YA49MYpw__bQl6V09i-fccvgxfGvENri1iblGVT2XOFS-9bfRbCx5NdhKk3rhnwCaErINqTnc4DUU4YVWJodPjwr2kyv0N1rSoszWN1Pr-nRvhcg0eY_0GISfbA==",
+            "type": "url_citation",
+            "start_index": 24523,
+            "end_index": 24535
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6oF-I4lY7mkT8D8zV7kgAcmgUQZq-0HA5clC3WMop34OEkaU4xBSHyEmxLYuBaAoD4_hqiYYC2pLy5v1W2M1HqsLEka4uv1DbOTMvRaQqvW6DStqJpgv8Y47k5zEzm6liqViQMAjIjf95TuazpRa3_sDYDv4oSUGoQVz-31oPW188CcYQyxflxMlQ8f-6CfS6UClJMA==",
+            "type": "url_citation",
+            "start_index": 24523,
+            "end_index": 24535
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGAc4ax67MvVwl2iDIqUPrBCRGNZMYYwjUjoieQIOEZH0Ti3J0ks3rkhPm1BxkMsyXV63cEIiSjKRKhsXa0YsU0QcOOF9Aa1qRyG7XEGwOkALNwIO86Yx5dVfMeQ1LqnoIRCH1xCg1am9V4in1ijw==",
+            "type": "url_citation",
+            "start_index": 26879,
+            "end_index": 26891
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOd6TV21URwRRBQPVPURfeS6WvQ23jLRwvqp7fvByqT927p24LRQ0fCSHStDqPpLrbh0d4ju6VyHVBWQKopy4OJcKv2l4wjpV-X6vEdofenx60_w7bJQaufg5OErizxlLPl3ZXJx6v09liDhWJlo9jT_1q4ikmFYPMy6hsYGAHt-A35aLuw0D7-HBssh2Rm80zMSle9h81aX-xr7nSbic6FHEMcbtLFeBbKggemPw=",
+            "type": "url_citation",
+            "start_index": 26879,
+            "end_index": 26891
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGqcuuIAIvfGpd2mS0uSubPaA9owcEBM-dKmXjwdvIx7DD_DsLGIhitZbWctBJK4IlJ-pHEoELWCGhyfdA_CWMVssCOoQlee3iqdJBKdsWwg-9m3GTNSpkAlTPKpVvogF1LlZ7tniomno0Qz0Pemo8l3sVtSw0I7eAvJb5P3DWaR6K9XEr5iTntNxljHZeQNnDHXMy3A==",
+            "type": "url_citation",
+            "start_index": 28838,
+            "end_index": 28848
+          }
+        ],
+        "type": "text"
+      }
+    ],
+    "usage": {
+      "total_tokens": 228519,
+      "total_input_tokens": 9437,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 9437
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 9768,
+      "output_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 9768
+        }
+      ],
+      "total_tool_use_tokens": 196134,
+      "total_thought_tokens": 13180
+    },
+    "role": "agent",
+    "created": "2026-04-09T18:28:23Z",
+    "updated": "2026-04-09T18:28:23Z",
+    "object": "interaction",
+    "agent": "deep-research-pro-preview-12-2025"
+  }
+}

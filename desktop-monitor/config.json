@@ -1,0 +1,9 @@
+{
+  "nivel1_seg": 60,
+  "nivel2_seg": 90,
+  "nivel3_seg": 120,
+  "nivel3_repete_seg": 30,
+  "som_nivel1": "1D_gota_agua.wav",
+  "som_nivel2": "2D_nudge_duplo.wav",
+  "som_nivel3": "3A_pulsos_rapidos.wav"
+}

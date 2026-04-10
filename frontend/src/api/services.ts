@@ -294,3 +294,45 @@ export const activityLogApi = {
   getByTask: (taskId: string, limit = 20) =>
     api.get<ActivityLogEntry[]>('/activity-log', { params: { taskId, limit } }),
 };
+
+// Productivity API
+export const productivityApi = {
+  getTodaySummary: () =>
+    api.get('/productivity/analytics/today'),
+
+  getDailySummaries: (from: string, to: string) =>
+    api.get('/productivity/analytics/daily', { params: { from, to } }),
+
+  getTimeline: (date: string) =>
+    api.get('/productivity/analytics/timeline', { params: { date } }),
+
+  getHeartbeats: (date: string) =>
+    api.get('/productivity/analytics/heartbeats', { params: { date } }),
+
+  getPomodoroSessions: (from?: string, to?: string) =>
+    api.get('/productivity/pomodoro/sessions', { params: { from, to } }),
+
+  getMinuteBreakdown: (date: string, hour: number) =>
+    api.get('/productivity/analytics/minutes', { params: { date, hour } }),
+
+  getAppBreakdown: (date: string) =>
+    api.get('/productivity/analytics/apps', { params: { date } }),
+
+  getWindowDetails: (date: string, app?: string) =>
+    api.get('/productivity/analytics/windows', { params: { date, app } }),
+
+  getWeeklyHistory: () =>
+    api.get('/productivity/analytics/weekly'),
+
+  getCategoryBreakdown: (date: string) =>
+    api.get('/productivity/analytics/categories', { params: { date } }),
+
+  getWorkScoreTimeline: (date: string) =>
+    api.get('/productivity/analytics/work-score', { params: { date } }),
+
+  getProductivityPulse: (date: string) =>
+    api.get('/productivity/analytics/pulse', { params: { date } }),
+
+  getIdleResolutions: (date: string) =>
+    api.get('/productivity/idle-resolutions', { params: { date } }),
+};

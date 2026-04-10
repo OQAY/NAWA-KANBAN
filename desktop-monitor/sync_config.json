@@ -1,0 +1,8 @@
+{
+  "api_url": "http://127.0.0.1:7001",
+  "email": "lucas.skyzoc@gmail.com",
+  "password": "Zynncwye2025+",
+  "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDk1ZjU4My04M2MyLTRlZjctYTY5Ni03YWYwZjg5OWE0MjMiLCJlbWFpbCI6Imx1Y2FzLnNreXpvY0BnbWFpbC5jb20iLCJpYXQiOjE3NzU4NDIyOTEsImV4cCI6MTc3NTg0MzE5MX0.q3qrzRYl5B8oavI0MEWc0e6r_UtZObsQDU42rfuw6ic",
+  "sync_interval_seconds": 60,
+  "enabled": true
+}

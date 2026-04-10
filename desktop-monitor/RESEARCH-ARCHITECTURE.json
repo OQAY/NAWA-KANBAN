@@ -1,0 +1,1011 @@
+{
+  "id": "v1_Chd4ZnpXYWJQYkhaSFF6N0lQOXNPTWtROBIXeGZ6V2FiUGJIWkhRejdJUDlzT01rUTg",
+  "status": "completed",
+  "created": "2026-04-09T01:11:33Z",
+  "agent": "deep-research-pro-preview-12-2025",
+  "outputs": [
+    {
+      "signature": "",
+      "summary": [
+        {
+          "text": "**Defining System Architecture**\n\nI am beginning the process of mapping out a comprehensive framework for this productivity tool, focusing on how a desktop monitoring client can effectively communicate with a modern web dashboard. By looking into the structural patterns of established platforms, I'm identifying the optimal way to handle high-frequency activity events and state transitions while ensuring the architecture supports both time-series data and event sourcing.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Balancing Telemetry and Resilience**\n\nOne of the primary complexities I am analyzing is the trade-off between real-time data streaming and efficient batch processing. I am evaluating how to maintain accurate focus tracking and Pomodoro state synchronization even when the system is offline, ensuring that the transition between active and idle periods is recorded with high precision without compromising database performance or network stability.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Investigating Open-Source Benchmarks**\n\nI am now moving to investigate the internal data models and telemetry strategies of prominent open-source tracking tools. This involves synthesizing how they structure activity heartbeats and event logs to calculate complex metrics like focus scores and consistency pulses, which will directly inform my design for the project's database schema and API architecture.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Synthesizing Cross-Platform Architectures**\n\nI have successfully synthesized a comprehensive architectural framework by analyzing diverse productivity models, ranging from time-series event structures to sophisticated privacy-preserving metadata collection. I've uncovered how high-performance systems effectively use heartbeat mechanisms to maintain state consistency without overwhelming network resources, and how these data points are translated into meaningful metrics like focus scores and alignment with ultradian rhythms.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Resolving Synchronization and Privacy Challenges**\n\nI have addressed the critical challenge of maintaining data integrity during offline periods by determining the most effective strategies for local event batching and subsequent synchronization. Furthermore, I've reconciled the tension between granular activity tracking and user privacy, establishing a clear design boundary where metadata collection provides deep behavioral insights without venturing into intrusive surveillance or content logging.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Finalizing the Technical Blueprint**\n\nWith a complete understanding of database schema optimization, API structures, and the logic required for automated focus tracking, I am transitioning from information gathering to the final synthesis phase. I am now preparing to integrate these findings into a detailed technical report that prioritizes scalability, cross-platform compatibility, and an optimized architectural flow for deep work environments.",
+          "type": "text"
+        },
+        {
+          "text": "**Architectural Foundations**\n\nI am initiating a comprehensive review of leading productivity monitoring architectures to establish a technical baseline. I am specifically analyzing the logic behind heartbeat-based event models, which appear to be the industry standard for balancing high-frequency data collection with storage efficiency. By evaluating how existing tools merge discrete user actions into continuous streams, I aim to define a more robust data model for real-time tracking.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Metrics and State Detection**\n\nI am synthesizing information on how sophisticated systems calculate productivity scores and manage complex state transitions, such as automated inactivity detection and specialized 'Flow' blocks. This involves verifying the underlying algorithms used by established platforms to ensure the proposed system can accurately distinguish between deep focus and peripheral activities without relying on manual user input.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Optimizing Data Infrastructure**\n\nMy next focus is investigating specialized database schemas optimized for time-series event data. I will be comparing traditional event sourcing methods against high-performance relational configurations to determine the best approach for scaling a system that requires both granular audit logs and high-level analytical reporting.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Standardizing Event Logic**\n\nI have identified a core architectural pattern where high-frequency activity is captured through a heartbeat mechanism, merging discrete user actions into continuous events based on defined pulse windows. This method effectively balances the need for granular data with storage efficiency by updating event durations in real-time. I've also clarified that sophisticated productivity metrics often rely on weighted scoring across various activity categories rather than simple time ratios, allowing for a more nuanced understanding of deep focus versus administrative tasks.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Refining Focus State Models**\n\nI am currently synthesizing different methodologies for managing workflow sessions, specifically the transition from traditional short intervals to extended 'Flow' blocks tailored for complex tasks like programming. My analysis shows that modern systems are moving away from rigid timers in favor of flexible checkpoints and automated pausing during inactivity. While I have established the baseline data structures for these records, I am now reconciling how to best structure the underlying schema to handle both high-resolution audit logs and long-term analytical reporting.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Optimizing Data Infrastructure**\n\nNext, I will investigate specialized database configurations optimized for time-series data to ensure the tracking system can scale without performance loss. I intend to compare traditional event-sourcing methods against high-performance relational partitioning and explore the technical specifics of how cross-platform frameworks handle inactivity detection to finalize a robust architectural recommendation.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Optimizing Activity Tracking**\n\nI am identifying that a heartbeat-based data model is superior to raw event logging for monitoring user activity. By capturing periodic snapshots of system state and merging identical consecutive entries into single duration-based events, I can significantly reduce storage overhead while preserving granular detail. This approach, paired with local buffering for offline resilience, ensures that high-frequency data collection remains performant and reliable.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Refining Performance Metrics**\n\nI am resolving contradictions regarding how productivity is quantified. Rather than using simple binary classifications of 'productive' versus 'distracting,' I am adopting a more nuanced time-weighted scoring system. This allows for a weighted average that reflects varying intensities of focus. Furthermore, I have determined that traditional event sourcing is less effective for this specific use case than specialized time-series database structures, which are better equipped to handle the high-volume inserts and aggregation required for long-term analytics.",
+          "type": "text"
+        },
+        {
+          "text": "\n\n**Synthesizing Architecture and Flow**\n\nI am now moving to synthesize these insights into a cohesive technical framework. My next steps involve finalizing the specifications for a batch-processing interface that handles synchronization between local environments and centralized storage. I will also be integrating logic for flexible focus blocks that adapt to user behavior, ensuring the tracking system supports deep work sessions through automated state detection and intelligent pausing.",
+          "type": "text"
+        }
+      ],
+      "type": "thought"
+    },
+    {
+      "text": "# Professional Technical Report: Architecture and Implementation of a Productivity Monitoring and Pomodoro System\n\n**Key Points**\n*   Research suggests that a hybrid architecture utilizing time-series databases for high-frequency telemetry and relational models for user states is optimal for productivity tracking.\n*   Batch-based telemetry (periodic POST requests) generally outperforms real-time WebSockets in reliability, specifically for handling offline periods and reducing server load.\n*   Integrating Pomodoro techniques with automated tracking requires flexible, decoupled algorithms—such as auto-pausing on idle rather than voiding timers—to align with developer flow states and ultradian rhythms.\n*   Privacy-first design is critical; minimizing data collection to application window metadata while strictly avoiding keystroke content ensures compliance with data protection standards.\n\n**System Overview**\nThe architecture comprises a Python-based desktop monitor acting as a telemetry agent and a NestJS/PostgreSQL backend serving a React dashboard. This decoupled structure allows the desktop client to operate autonomously during network outages, syncing data in batches once connectivity is restored.\n\n**User Privacy and Ethics**\nActivity monitoring borders on surveillance if not carefully bounded. The consensus among privacy-focused open-source tools is to strictly monitor window titles and application executables without capturing screen contents or keystroke data. Providing users with absolute control over their data retention and local storage options is highly recommended.\n\n**Scalability Considerations**\nWhile initially designed for personal use, utilizing table partitioning or time-series extensions like TimescaleDB ensures the database can ingest millions of heartbeat events seamlessly. Incorporating robust multi-tenant architectural patterns early prevents expensive migrations when transitioning to a multi-user environment.\n\n***\n\n## 1. Introduction to Productivity Monitoring Systems\n\nThe intersection of quantitative self-tracking and structured time-management methodologies has produced a new generation of productivity software. Unlike legacy employee surveillance tools that focus on punitive measures, modern platforms emphasize personal analytics and \"flow state\" optimization [cite: 1, 2]. Building a professional-grade productivity ecosystem requires synthesizing the automated telemetry of tools like ActivityWatch and WakaTime [cite: 3, 4] with the structured focus paradigms of Pomodoro applications like Super Productivity [cite: 2, 5].\n\nThis report details the architectural blueprint for a two-part system: a Python desktop monitor featuring inactivity detection and escalating alerts, and a web dashboard utilizing React, NestJS, and PostgreSQL. The analysis evaluates event architectures, data modeling, algorithm integration, and open-source precedents to deliver actionable implementation specifications.\n\n## 2. Event Architecture and Communication Patterns\n\n### 2.1. Event Sourcing vs. Time-Series Data\nThe fundamental architectural decision for activity tracking is determining the persistence paradigm. Two dominant models exist for historical data tracking: Event Sourcing and Time-Series data.\n\nEvent Sourcing captures all state changes in an application as a sequence of immutable events [cite: 6, 7]. While excellent for auditing and reconstructing complex domain states, it introduces significant complexity in querying and read-projections [cite: 7, 8]. Conversely, Time-Series Data focuses on measuring values across specific time intervals, which is inherently suited for high-throughput metrics, telemetry, and graphing [cite: 9, 10]. \n\nFor a productivity tracking system, **Time-Series Data is the optimal choice for activity events**, while **Standard CRUD (with Audit Logs)** is recommended for configuration and user states. High-frequency desktop telemetry (active window, mouse movements) generates millions of data points that map perfectly to time-series characteristics: they are append-only, timestamped, and queried primarily via aggregations over time windows [cite: 10, 11]. Time-series projections provide a stable foundation for anomaly detection and analytical forecasting [cite: 12].\n\n### 2.2. Desktop to Web API Pattern: WebSocket vs. Batch POST\nMaintaining a persistent WebSocket connection for telemetry is an anti-pattern for desktop monitors. WebSockets are designed for low-latency, bidirectional communication, but activity tracking is primarily a unidirectional, high-volume stream that tolerates latency.\n\nThe **Batch (Periodic POST) pattern** is highly recommended based on industry best practices [cite: 13, 14]. Tools like WakaTime utilize a \"heartbeat\" mechanism, where the client collects events and sends them in bulk via a REST endpoint (e.g., `POST /api/v1/users/current/heartbeats.bulk`) [cite: 15, 16]. \n\n**Advantages of Batch POST:**\n1.  **Offline Resilience:** The desktop application can cache events locally (e.g., using an SQLite database) when the internet is disconnected. Once connectivity is restored, the client flushes the queue in bulk [cite: 17].\n2.  **Server Load Reduction:** Sending an array of 50 events every 2 minutes requires vastly less TCP overhead than 50 individual HTTP requests or maintaining an idle WebSocket connection.\n3.  **Data Deduplication:** Local batching allows the client to compress identical consecutive events into a single duration event before transmission, significantly saving bandwidth [cite: 18].\n\n### 2.3. Handling Offline Periods and Heartbeat Merging\nActivityWatch utilizes a concept called \"Heartbeats,\" which merges adjacent events containing identical data if they occur within a specific time window [cite: 18]. WakaTime similarly relies on a timeout preference to combine heartbeats into durations [cite: 4]. \n\nThe Python monitor should:\n1.  Register an event on every active window change or keyboard/mouse action.\n2.  If the user remains in the same application, update the `end_time` of the current local event rather than creating a new one.\n3.  Upon reaching the sync interval (e.g., 5 minutes) or a threshold of cached items, attempt a `POST` request.\n4.  If the request fails, exponential backoff is applied, and data remains safely in the local SQLite queue.\n\n## 3. Recommended Database Schema (PostgreSQL)\n\nTo handle time-series telemetry effectively, PostgreSQL should be utilized with partitioning (or the TimescaleDB extension) [cite: 9, 19]. The `BRIN` (Block Range Index) is exceptionally efficient for time-series workloads as it tracks the minimum and maximum time values over ranges of pages, accelerating chronological queries [cite: 19].\n\n### 3.1. Exact Table Definitions\n\n```sql\n-- Enable TimescaleDB extension if available, otherwise rely on native partitioning\n-- CREATE EXTENSION IF NOT EXISTS timescaledb;\n\n-- Users Table\nCREATE TABLE users (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    email VARCHAR(255) UNIQUE NOT NULL,\n    password_hash VARCHAR(255) NOT NULL,\n    timezone VARCHAR(50) DEFAULT 'UTC',\n    created_at TIMESTAMPTZ DEFAULT NOW(),\n    updated_at TIMESTAMPTZ DEFAULT NOW()\n);\n\n-- Productivity Categories (Allows users to customize app productivity scores)\nCREATE TABLE productivity_categories (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    app_name VARCHAR(255) NOT NULL,\n    window_title_regex VARCHAR(500),\n    productivity_score INTEGER CHECK (productivity_score BETWEEN -2 AND 2),\n    category_name VARCHAR(100),\n    created_at TIMESTAMPTZ DEFAULT NOW(),\n    UNIQUE (user_id, app_name)\n);\n\n-- Time-Series Table for Activity Heartbeats\nCREATE TABLE activity_heartbeats (\n    id UUID DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    start_time TIMESTAMPTZ NOT NULL,\n    end_time TIMESTAMPTZ NOT NULL,\n    duration_seconds INTEGER NOT NULL,\n    app_name VARCHAR(255) NOT NULL,\n    window_title TEXT,\n    is_afk BOOLEAN DEFAULT FALSE,\n    os_environment VARCHAR(50),\n    PRIMARY KEY (user_id, start_time)\n) PARTITION BY RANGE (start_time);\n\n-- Create initial partition (requires ongoing cron or pg_partman for future partitions)\nCREATE TABLE activity_heartbeats_y2023m10 PARTITION OF activity_heartbeats\n    FOR VALUES FROM ('2023-10-01') TO ('2023-11-01');\n\n-- BRIN Index for fast time-range queries on large datasets\nCREATE INDEX idx_activity_brin_time ON activity_heartbeats \n    USING BRIN (start_time);\n\n-- Pomodoro Sessions Table\nCREATE TABLE pomodoro_sessions (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    task_name VARCHAR(255),\n    planned_duration_seconds INTEGER NOT NULL,\n    actual_duration_seconds INTEGER NOT NULL DEFAULT 0,\n    status VARCHAR(50) CHECK (status IN ('completed', 'interrupted', 'abandoned', 'auto_paused')),\n    started_at TIMESTAMPTZ NOT NULL,\n    ended_at TIMESTAMPTZ,\n    interruption_count INTEGER DEFAULT 0,\n    created_at TIMESTAMPTZ DEFAULT NOW()\n);\n\n-- Daily Analytics Rollup (Materialized View or Cron-populated table)\nCREATE TABLE daily_summaries (\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    summary_date DATE NOT NULL,\n    total_tracked_seconds INTEGER DEFAULT 0,\n    focus_score FLOAT DEFAULT 0.0,\n    productivity_pulse FLOAT DEFAULT 0.0,\n    very_productive_seconds INTEGER DEFAULT 0,\n    distracting_seconds INTEGER DEFAULT 0,\n    PRIMARY KEY (user_id, summary_date)\n);\n```\n\n## 4. Event Data Model (JSON Examples)\n\nThe system requires a robust JSON schema for the API to ingest telemetry efficiently. Learning from WakaTime [cite: 4, 15] and ActivityWatch [cite: 3, 18], the payload must accommodate bulk operations and identify AFK (Away From Keyboard) states.\n\n### 4.1. Bulk Heartbeat Ingestion Payload\nSent from the Python Monitor to the NestJS API via `POST /api/v1/heartbeats/bulk`.\n\n```json\n{\n  \"client_metadata\": {\n    \"hostname\": \"developer-desktop-01\",\n    \"os\": \"Windows 11\",\n    \"version\": \"1.0.4\"\n  },\n  \"events\": [\n    {\n      \"timestamp\": \"2023-10-24T14:30:00.000Z\",\n      \"duration\": 120.5,\n      \"type\": \"window_activity\",\n      \"data\": {\n        \"app_name\": \"Code.exe\",\n        \"window_title\": \"app.controller.ts - project-backend - Visual Studio Code\",\n        \"is_afk\": false\n      }\n    },\n    {\n      \"timestamp\": \"2023-10-24T14:32:00.000Z\",\n      \"duration\": 45.0,\n      \"type\": \"afk_status\",\n      \"data\": {\n        \"app_name\": \"Code.exe\",\n        \"window_title\": \"app.controller.ts - project-backend - Visual Studio Code\",\n        \"is_afk\": true\n      }\n    }\n  ]\n}\n```\n\n### 4.2. Pomodoro Session Sync Payload\n```json\n{\n  \"session_id\": \"uuid-1234-5678\",\n  \"task_name\": \"Implement Rate Limiting\",\n  \"planned_duration\": 3000,\n  \"actual_duration\": 2850,\n  \"status\": \"completed\",\n  \"started_at\": \"2023-10-24T15:00:00.000Z\",\n  \"ended_at\": \"2023-10-24T15:47:30.000Z\",\n  \"metrics\": {\n    \"interruption_count\": 1,\n    \"afk_time_during_session\": 150\n  }\n}\n```\n\n## 5. API Endpoint Specifications (NestJS)\n\nThe API design adheres to RESTful principles. Authentication should rely on Bearer tokens (JWT) or API Keys, mapping to the user's account [cite: 4, 20]. \n\n### 5.1. Authentication and User Management\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/auth/register` | Create a new user account. | None | 5/hour |\n| `POST` | `/api/v1/auth/login` | Authenticate and retrieve JWT token. | None | 10/minute |\n| `GET` | `/api/v1/users/me` | Fetch user profile and preferences. | JWT | 60/minute |\n| `POST` | `/api/v1/users/api-keys` | Generate a static API key for desktop client. | JWT | 5/day |\n\n### 5.2. Telemetry and Heartbeats\nRate limiting on ingestion must be generous enough to handle bulk uploads but strict enough to prevent DDoS. Using WakaTime's standard of 1,000 requests/hour is a solid baseline [cite: 20].\n\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/heartbeats/bulk` | Ingest batched activity events. | API Key | 100/minute |\n| `GET` | `/api/v1/heartbeats` | Query raw time-series data with filters. | JWT | 60/minute |\n\n### 5.3. Pomodoro and Analytics\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/pomodoro/sessions` | Create or sync a completed/paused session. | API Key | 60/minute |\n| `GET` | `/api/v1/pomodoro/sessions` | Retrieve historical focus sessions. | JWT | 60/minute |\n| `GET` | `/api/v1/analytics/daily` | Get aggregated productivity scores by day. | JWT | 60/minute |\n| `GET` | `/api/v1/analytics/timeline` | Get categorical time breakdown for visualizations. | JWT | 60/minute |\n\n## 6. Analytics, Metrics, and KPIs\n\nCalculating meaningful personal productivity metrics demands more than simple summation. Drawing from RescueTime [cite: 21, 22, 23], Super Productivity [cite: 2, 24], and WakaTime [cite: 25, 26], the system requires specific algorithms.\n\n### 6.1. Productivity Pulse Score\nRescueTime calculates a \"Productivity Pulse\" on a scale from 0 to 100 [cite: 22, 27]. Every application is assigned a weight from -2 (Very Distracting) to +2 (Very Productive).\n\nThe algorithm functions as a time-weighted average:\n\\[ \\text{Score}_{raw} = \\frac{\\sum (T_i \\times W_i)}{T_{total}} \\]\nWhere \\( T_i \\) is the time spent in an application, and \\( W_i \\) is its weight. Because \\( \\text{Score}_{raw} \\) ranges from -2 to +2, it is normalized to a 0–100 scale:\n\\[ \\text{Productivity Pulse} = \\left( \\frac{\\text{Score}_{raw} + 2}{4} \\right) \\times 100 \\]\n\n### 6.2. Flow Score and Consistency\n*   **Flow State Detection:** Extending focus without breaks is critical for developers. \"Flow\" is defined by continuous periods of \"Very Productive\" (+2) applications lasting over 20 minutes without AFK or distracting app interruptions. The Flow Score is the percentage of total daily work time spent inside these unbroken contexts [cite: 2, 28].\n*   **Consistency Score:** Measures adherence to defined goals (e.g., \"Code 2 hours a day\") over a rolling 7-day period, mathematically represented as the standard deviation of productive hours divided by the mean.\n\n## 7. Pomodoro and Flow Integration\n\n### 7.1. Aligning Timers with Activity Detection\nTraditional 25-minute Pomodoro cycles are detrimental to software engineers and knowledge workers due to the high cognitive cost of context switching [cite: 5]. According to Super Productivity, intervals should adapt to \"Ultradian Rhythms,\" often requiring 90-minute focus blocks and 20-minute breaks (a 90/20 split) [cite: 2, 29].\n\n### 7.2. Auto-Pause on Idle and Penalty Systems\n**Auto-Pause on AFK:** If the Python monitor detects inactivity (no keyboard/mouse input) exceeding a threshold (e.g., 3 minutes), it should trigger a local event to auto-pause the active Pomodoro session. This prevents \"accidental overworking\" metrics when a user walks away [cite: 5, 30]. \n\n**Handling Interruptions (The Penalty System):**\nRather than voiding a timer when an interruption occurs (which creates negative psychological reinforcement), the system should implement a \"checkpoint\" architecture [cite: 5, 31]. \n*   If an interrupting application (e.g., Slack, Twitter) is brought to the foreground during a Pomodoro block, an escalating audio alert plays via the Python client.\n*   If the user persists, the session is marked with an `interruption_count` increment, but the timer continues.\n*   The \"Penalty\" is reflected in the Analytics Dashboard by lowering the \"Focus Quality\" percentage of that specific session, rather than destroying the session entirely.\n\n## 8. Desktop Monitor Component (Python)\n\nThe Python client operates as a lightweight daemon on Windows. \n\n### 8.1. Monitor Architecture\n1.  **Input Listeners:** Utilize `pynput` or `mouse`/`keyboard` libraries to track the last activity timestamp.\n2.  **Window Polling:** Use Windows API (`ctypes.windll.user32`) to poll the foreground window title and executable path every 2 seconds.\n3.  **Local State Machine:** An SQLite database functions as the append-only queue for events. A background thread processes heartbeat merging [cite: 17, 32].\n4.  **Alerting Engine:** During an active Pomodoro session, if an app categorized as \"Distracting\" is focused, a timer starts. After 15 seconds, an escalating audio chime is played using `playsound` or native `winsound`.\n\n### 8.2. Lessons from ActivityWatch\nActivityWatch's architecture (aw-core, aw-watcher-window, aw-watcher-afk) isolates the tracking logic from the transmission logic [cite: 33]. The Python monitor must implement a robust exponential backoff HTTP client to prevent spamming the NestJS API when the server is down, maintaining data integrity entirely on the local disk until a 200 OK is received [cite: 17].\n\n## 9. Dashboard Component Wireframes (React)\n\nThe React dashboard utilizes UI patterns pioneered by Clockify, WakaTime, and RescueTime [cite: 3, 4, 34].\n\n### 9.1. Main Overview Dashboard\n*   **Top Bar:** Global date range picker (Today, Last 7 Days, Month).\n*   **Hero Metrics:** Three large cards: \"Productivity Pulse (e.g., 78%)\", \"Deep Work Hours (e.g., 4h 12m)\", and \"Pomodoro Sessions (e.g., 5)\".\n*   **Timeline Visualization:** A horizontally scrolling Gantt-style chart (using `Recharts` or `Nivo`). X-axis is time (00:00 to 23:59). Blocks of color represent active applications (Green = Productive, Red = Distracting, Gray = AFK). This directly mimics the ActivityWatch timeline view [cite: 3, 35].\n*   **Categorization Donut Chart:** Breakdown of time spent in Communication, Development, Entertainment, etc. [cite: 27, 36].\n\n### 9.2. Pomodoro Control and Insights Page\n*   **Active Session Widget:** Connects via Server-Sent Events (SSE) or relies on desktop-client syncing to show current Pomodoro progress, current task, and interruption count.\n*   **Session History List:** A table showing historical sessions: Date, Task, Planned Duration, Actual Duration, Focus Efficiency (calculated from idle time vs active time).\n*   **Streak Tracker:** A GitHub-style heatmap showing successful 90-minute deep work blocks over the last year.\n\n## 10. Privacy, Security, and Scalability\n\n### 10.1. Privacy by Design (What NOT to Collect)\nThe consensus across Kimai, ActivityWatch, and WakaTime is categorical: **never log keystroke content, screen captures, or internal document text** [cite: 1, 25, 34]. \n*   **Collect:** Foreground executable name (e.g., `chrome.exe`), Window title (e.g., `Stack Overflow - Google Chrome`), mouse/keyboard binary state (Active/Idle).\n*   **Sanitize:** WakaTime utilizes sophisticated sanitization rules to scrub sensitive file paths, removing branch names or specific directory structures before transmission [cite: 15, 37]. The Python client must include a regex-based blocklist (e.g., sanitizing titles of password managers like `1Password` or `KeePass`).\n\n### 10.2. Scalability and Multi-Tenant Architecture\nThough initially personal, the database schema design explicitly includes `user_id` as a foreign key on every table. This ensures multi-tenancy from day one.\n*   **Teams and Integrations:** Future integrations with Jira or GitHub will require OAuth2 token storage. The `users` table can be expanded into an `organizations` and `workspaces` relational mapping, heavily influenced by Kimai's schema [cite: 38, 39].\n*   **Mobile Support:** The RESTful API relies strictly on JWT and batch POSTs. Adding a mobile client requires zero architectural changes; the mobile app simply becomes another client pushing heartbeats via the identical API endpoints.\n\n### 10.3. GDPR and Data Retention\nTo comply with GDPR, users must have a mechanism to trigger full data deletion. \n*   **Data Retention Policies:** Time-series tables grow exponentially. Implement a PostgreSQL `pg_cron` job to aggregate raw heartbeats older than 90 days into the `daily_summaries` table, subsequently deleting the granular raw events to save disk space and enforce privacy limits.\n\n## 11. System Architecture Diagram (Text Form)\n\n```text\n+-------------------------------------------------------------+\n|                     User Environment                        |\n|                                                             |\n|  +--------------------+       +--------------------------+  |\n|  | Windows Desktop    |       | React Web Dashboard      |  |\n|  | (Python App)       |       | (Browser)                |  |\n|  |                    |       |                          |  |\n|  | - Window Poller    |       | - Recharts/Nivo Graphs   |  |\n|  | - AFK Detector     |       | - Redux/Zustand State    |  |\n|  | - Local SQLite     |       | - Axios API Client       |  |\n|  | - Audio Alarms     |       +-------------+------------+  |\n|  | - Pomodoro State   |                     |               |\n|  +---------+----------+                     |               |\n+------------|--------------------------------|---------------+\n             | (Batch POST via API Key)       | (REST via JWT)\n             v                                v\n+-------------------------------------------------------------+\n|                      Backend Server                         |\n|                                                             |\n|  +-------------------------------------------------------+  |\n|  | NestJS API Gateway                                    |  |\n|  |                                                       |  |\n|  |  [Auth Guard] --> [Rate Limiter] --> [DTO Validation] |  |\n|  |                                                       |  |\n|  |  +----------------+  +----------------+  +---------+  |  |\n|  |  | Heartbeat SvC  |  | Pomodoro Svc   |  | Analytics| |  |\n|  |  +----------------+  +----------------+  +---------+  |  |\n|  +--------------------------+----------------------------+  |\n|                             |                               |\n|  +--------------------------v----------------------------+  |\n|  | PostgreSQL (TimescaleDB / Partitioning)               |  |\n|  | - users & config                                      |  |\n|  | - activity_heartbeats (Time-Series)                   |  |\n|  | - pomodoro_sessions (CRUD)                            |  |\n|  | - daily_summaries (Materialized Aggregations)         |  |\n|  +-------------------------------------------------------+  |\n+-------------------------------------------------------------+\n```\n\n## 12. Implementation Priority Matrix\n\nTo manage the complexity of this architecture, implementation must be staged logically.\n\n| Phase | Component | Priority | Deliverables | Actionable Recommendations |\n| :--- | :--- | :--- | :--- | :--- |\n| **Phase 1** | **Backend / DB** | Critical | PostgreSQL Schema, Auth endpoints, Heartbeat bulk ingestion endpoint. | Prioritize defining the time-series schema correctly. Implement `BRIN` indexes to prevent future migration headaches. |\n| **Phase 2** | **Monitor (Python)** | Critical | AFK detection, Window tracking, SQLite local caching, Sync mechanism. | Start simple. Log data to stdout first. Build the SQLite queue, then implement the HTTP exponential backoff sync. |\n| **Phase 3** | **Dashboard (React)** | High | Basic authentication UI, Timeline visualization, Daily summary tables. | Focus on raw data visualization first. Ensure time zones are parsed consistently between the DB (UTC) and the client. |\n| **Phase 4** | **Pomodoro** | Medium | Desktop audio alarms, Pomodoro API endpoints, Auto-pause logic. | Implement the 90/20 split logic. Link desktop alerts directly to local state rather than waiting for server validation. |\n| **Phase 5** | **Analytics** | Low | Productivity Pulse calculation, Flow Score, GitHub/Jira integrations. | Shift heavy aggregations to PostgreSQL views or cron jobs to prevent NestJS memory bottlenecks during data requests. |\n\nBy adhering to this architectural blueprint—merging time-series robustness with intelligent, developer-focused Pomodoro heuristics—the resulting software will yield a highly professional, privacy-respecting productivity ecosystem capable of operating fully offline and scaling dynamically.\n\n**Sources:**\n1. [memtime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==)\n2. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==)\n3. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==)\n4. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=)\n5. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=)\n6. [baytechconsulting.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqML94imTflRMgotj391UcG7axBmXxyvdHVNg2CUmieZW8KiwQ2YRYUcqzBfWGPVF7Kcy0bwMC3T44LazDF2h1-cy9WIBkVo7XSuTwwHukSYLwIftaiRqU8mrnpRLjrKMlsrskmF8_DiERgQCnM6XMNCJEy7VeUdxJzw==)\n7. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH)\n8. [kurrent.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH28Nuefm7J6a5TkkoFyR7mx4g80oQkAfI6rkpEqEQ8wYQr7eVecKZI1_prWTXD9tJhnLJAvyxn3DllhGtI8Sao8-AeDWAhKrvWe3KOA1_50KWV61PuyMzg5cCF6Kbqo5jqBGTCN5I=)\n9. [oneuptime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=)\n10. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=)\n11. [flowfuse.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuxit2qcDJac5vnBFodmSEHAEOqeYU6HCugTIAxYqlNgrcaEb6XppiVFAV7N29B3vN26d_MZbg78iqbl1h64jdYMrnPf33K1r0nrVsaLMEOGt3APNep3fvSfPhYr4oX5Dof5LlALr1_yv65z3DNxB9JiGNqsa_rABsLgOskx2GrKyX)\n12. [eventsourcing.ai](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEgPFTyWW2ydfAd63bGZFO87G2dyNy42iZQDP3XqlFiM7PigvquTX5SjZ34rpgl3Bs0rFUs8t708J2KAp9Z-2jI8r3abT_-4mVy4QQrhp3Ucd1_ibXb1Ad8RDJJOpgzWFB5vcEUDeVsUjF4AbtPfMiZerEzPJyhWdL1tE0q3Bk4zg-p2D42ES_yOjOi)\n13. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtzlZx8U01qHR6H8JmyUvBSlPt909Was0IvzND_iIJiWdhZD2hy_kyw6M5eOqi36GioiXhsmFfIne0m34KM1m4VAsIj-JQtQvRff4RuKsA7IUcd6o-ANr_LciiUtu5xLsi6Cdxl1wazKYucjUc6nbN4nUFDaqVgaDgTlRoSrk69K_8cym1TzUxSzfz0fMDIugPf-hnTFMhosWskAM3UGwptem2sMyGUlMAt559XNwC)\n14. [oneuptime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfsc05CI0KZ9gdcw9x2mu9Lonpl9vwou6RZ7n-tRZ1Uve2TD61u3WubSI8xMwWnV6kfrzSo8qdyEPsW7a6tzUtbaiqT7KjPux047FvoN16a1m6t-Om0hkackI5IDJYQbPA82vOGvPVrupuIFLLMR_CmVv60_CZV6JomHREmm245yA=)\n15. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU)\n16. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkur2POuD1Sse1wG2bMq8iXvROPeLbuaQqrf3dH7hvJYnsI54JJdlwYgBfMWVs0QuKoGMmoMBsdSxrcA1BA-zV5Qi08K4oHLQul7_9Q_pZDq5H6FjJ2QPmBqhha-qdg6s=)\n17. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7)\n18. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme)\n19. [amazon.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc)\n20. [chronova.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK)\n21. [computer.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy6AnH5lTfZ96CyCfaetPePXAC4m0rO25nKxNW3FlxQW5Hu2a6asnyTey2ICQOGqUPqj0d4kUApQ_d_WM46QGMDXTeovKR-3GcWgcwm2f75SikqvTz4RNr5npz1f6JUD7FzeV2KoA_vuXWK9WRg3p8GuQ9_KLEVBuMJ1c=)\n22. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=)\n23. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWt1N0NBACf96FGqPDbQ6r1Mmh5GtHocfRQKzCz8n4OrOlv8ycweIxYsuNaGRTkduZuq0ntyWN7aWlC4ehqQP-7Q-G5MFmidmo3_zfuTUB6hF1aKP_Dm9OgtkdGdN5ANSMV5pq-LfSyvd6CvcirkUp-D0eew==)\n24. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1ls4uPt6X_FT_SWzIcAoEXuZXWKXPdn1tiW-4LUXdxRzjiJRN6ZSoljwvJKeFxxkOJVSwAk41HCMUXYPwT0TD4jrYT5sYcGDHZs-k_LW7kek_dHnD)\n25. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==)\n26. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIGbvHWEnex8M3zzntBpHrrjz4Y25jC33bUHM4YsV_jUPyWVpy61yArZTsKRNc0U8WZhtw-ARMR90yFPPb-y_7ElGeUUnHkdzD1FWTRE20R_C73umSmObcTMOGuZwDOn0uz7ESVYfLgatybrYATkqRhPfh73PrFMvsGqCv_2QFz1jHM3_Ct5TRvqUM)\n27. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==)\n28. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG05gQdz1FbJ3cw3E9-_KAx_S0_cFZZ575Jgvnu-D9i11eKfHtffISTyPB05cvKHfFufLWJlCoSwpUwgk24sYDqo2jhBFHecyOixmZbOeMeEpcgclVwAC6ysSZjdTbXbeINnolqz9y5NfkgqkAMFX_jdBxy)\n29. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHM-7nrbSAa9No3dOTfY9h1raAjZQRl8ZsPi2665FaAVOfjbXdGoyL6eEWcqNbbb7IOtHwPsITbOucIMANNqMXWvNkDhKk5YY3Fb0L3Hxa6zqZRCGkCi4cD4tAGBGrnbPZe8Mmsrnq-fpqIcc8N-XRAu_NgU2LeVPewuJKSAoLg)\n30. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDvqHvSzMTjmEsU2rhMuSUkrE5KOsmWGSHl_hCRKZLLymvd2RJ0-9W6kW-OnYaHxxI0jS_0AKGpX_ZK0Cag6IR2zNNtBUEl0oWrtFUF9iBCEQg1sRAdM5C2pkwMLjFIvD4uSxx7FDyiiFm5tVS-ryHH9XgEgB8Gy-tTVL8EaJvVLoN)\n31. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFukg5KPJ3n5OOLrCrqv2yzzyeqejLSh6fTW7858Mxvj7Xm0EvQUYLUtJD1P7cmIu1jO-jNBqWXzx7VFcTfUJZc-E5Qslew9OecTCe2odmKDfMMxkzy8ofSbcB44WOE9JPJkuO5uJjerjxoRk8g4A==)\n32. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGM68iqAgD8sqVu7pzOs0W17mREk2AZX0Wg4smJVXAVTW-AYPgJl9p8-r-bnKiAi8r3XWkv66-GdWYIIgFFaN9M-dq6hjwiWLvISpa-sgsep3RdcVMwEqtRGw3l-oh51O_URqhczZ4lUkEv2DLow==)\n33. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQENN9yTbHfEwtnkBvpxYIuhTu9oE2uuPoTj0XfddIQrxjNcqjWT-Hqu2KueIUJlmvUG3eOBJRAuTmt0OXOTfj2EHaCsIxcp0cKVSPao0yqFJaM4dg7rUp6k_4YaKXjLcaAsioQ7HN7EHLIjN7hwJ8WK)\n34. [memtime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==)\n35. [devopsschool.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgzqbT3R7IGBsGPPwfleRF59294dua7IKd7giav5AWFNWD02XzvfbKJh8hy6riWmoUMY4l0UTCmfBpjHOM2jqzlCNKYrF1EQ8hWwBNxVXKQhdhedbKqvEWe1TTHkWPNdzughTOYD7rzAUgPFRRurhq4sUmBSVWZDg3J6OsfUbblHWdXEqP2GlS_-aAYrnLur5YOD1It79jkXr77Dq5T3viaB4lBba3KFBJD-8z)\n36. [apploye.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR7n2kwtL6C1KqBFj5fojfGjMMmNrtk0qDqQLJDnnsNuvFYESrfG6ECcLmEz7DuyVrUe39vrKy8ppXfg66qWiW5VZPYnUu0anirB6o3zzuKNPaoRg266XC0HTf)\n37. [go.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2NHVp77vFXaBUtytIATc3mPtmlHhwoeg7b-WHLV4U-QoijJJAQCY68P6NMcFOjThqgT-MDW86OhdZA8BUjwGhVp-HC6tpMVtcFNUHwYEytz4vN3NMe-WiwAg8m_NBz_OgMtx7ZkOe-EhqoDRTOcXNU79xb56GKw==)\n38. [kimai.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa3OTp_VcMMKislLvtRZj1cAkWCYlofnfVf66BVbyKRUhVdOrW4eagbdleuJXT29s-41rsYiBJRsKSE3FtDIp4nhCwPMFlnPuFNIhn)\n39. [kimai.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGm45W8YhVOm1Q-lUVXI8KvTwpCKsrBnT6fB_-RQnWHo3njAwE3oFLwP5CPTW0aYs8pSqa5qLfy75R2Oqtgu_nqu2_Z8pFZi0In-ToXnsq8UkoDcUpt9abMENGpUWmH-0lfZ48=)\n",
+      "annotations": [
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+          "type": "url_citation",
+          "start_index": 2327,
+          "end_index": 2339
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==",
+          "type": "url_citation",
+          "start_index": 2327,
+          "end_index": 2339
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+          "type": "url_citation",
+          "start_index": 2481,
+          "end_index": 2493
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+          "type": "url_citation",
+          "start_index": 2481,
+          "end_index": 2493
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+          "type": "url_citation",
+          "start_index": 2579,
+          "end_index": 2591
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+          "type": "url_citation",
+          "start_index": 2579,
+          "end_index": 2591
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH",
+          "type": "url_citation",
+          "start_index": 3356,
+          "end_index": 3368
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqML94imTflRMgotj391UcG7axBmXxyvdHVNg2CUmieZW8KiwQ2YRYUcqzBfWGPVF7Kcy0bwMC3T44LazDF2h1-cy9WIBkVo7XSuTwwHukSYLwIftaiRqU8mrnpRLjrKMlsrskmF8_DiERgQCnM6XMNCJEy7VeUdxJzw==",
+          "type": "url_citation",
+          "start_index": 3356,
+          "end_index": 3368
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH",
+          "type": "url_citation",
+          "start_index": 3511,
+          "end_index": 3523
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH28Nuefm7J6a5TkkoFyR7mx4g80oQkAfI6rkpEqEQ8wYQr7eVecKZI1_prWTXD9tJhnLJAvyxn3DllhGtI8Sao8-AeDWAhKrvWe3KOA1_50KWV61PuyMzg5cCF6Kbqo5jqBGTCN5I=",
+          "type": "url_citation",
+          "start_index": 3511,
+          "end_index": 3523
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=",
+          "type": "url_citation",
+          "start_index": 3694,
+          "end_index": 3707
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=",
+          "type": "url_citation",
+          "start_index": 3694,
+          "end_index": 3707
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=",
+          "type": "url_citation",
+          "start_index": 4146,
+          "end_index": 4160
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuxit2qcDJac5vnBFodmSEHAEOqeYU6HCugTIAxYqlNgrcaEb6XppiVFAV7N29B3vN26d_MZbg78iqbl1h64jdYMrnPf33K1r0nrVsaLMEOGt3APNep3fvSfPhYr4oX5Dof5LlALr1_yv65z3DNxB9JiGNqsa_rABsLgOskx2GrKyX",
+          "type": "url_citation",
+          "start_index": 4146,
+          "end_index": 4160
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEgPFTyWW2ydfAd63bGZFO87G2dyNy42iZQDP3XqlFiM7PigvquTX5SjZ34rpgl3Bs0rFUs8t708J2KAp9Z-2jI8r3abT_-4mVy4QQrhp3Ucd1_ibXb1Ad8RDJJOpgzWFB5vcEUDeVsUjF4AbtPfMiZerEzPJyhWdL1tE0q3Bk4zg-p2D42ES_yOjOi",
+          "type": "url_citation",
+          "start_index": 4263,
+          "end_index": 4273
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtzlZx8U01qHR6H8JmyUvBSlPt909Was0IvzND_iIJiWdhZD2hy_kyw6M5eOqi36GioiXhsmFfIne0m34KM1m4VAsIj-JQtQvRff4RuKsA7IUcd6o-ANr_LciiUtu5xLsi6Cdxl1wazKYucjUc6nbN4nUFDaqVgaDgTlRoSrk69K_8cym1TzUxSzfz0fMDIugPf-hnTFMhosWskAM3UGwptem2sMyGUlMAt559XNwC",
+          "type": "url_citation",
+          "start_index": 4699,
+          "end_index": 4713
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfsc05CI0KZ9gdcw9x2mu9Lonpl9vwou6RZ7n-tRZ1Uve2TD61u3WubSI8xMwWnV6kfrzSo8qdyEPsW7a6tzUtbaiqT7KjPux047FvoN16a1m6t-Om0hkackI5IDJYQbPA82vOGvPVrupuIFLLMR_CmVv60_CZV6JomHREmm245yA=",
+          "type": "url_citation",
+          "start_index": 4699,
+          "end_index": 4713
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkur2POuD1Sse1wG2bMq8iXvROPeLbuaQqrf3dH7hvJYnsI54JJdlwYgBfMWVs0QuKoGMmoMBsdSxrcA1BA-zV5Qi08K4oHLQul7_9Q_pZDq5H6FjJ2QPmBqhha-qdg6s=",
+          "type": "url_citation",
+          "start_index": 4897,
+          "end_index": 4911
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+          "type": "url_citation",
+          "start_index": 4897,
+          "end_index": 4911
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+          "type": "url_citation",
+          "start_index": 5158,
+          "end_index": 5168
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+          "type": "url_citation",
+          "start_index": 5542,
+          "end_index": 5552
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+          "type": "url_citation",
+          "start_index": 5764,
+          "end_index": 5774
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+          "type": "url_citation",
+          "start_index": 5863,
+          "end_index": 5872
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=",
+          "type": "url_citation",
+          "start_index": 6505,
+          "end_index": 6518
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc",
+          "type": "url_citation",
+          "start_index": 6505,
+          "end_index": 6518
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc",
+          "type": "url_citation",
+          "start_index": 6710,
+          "end_index": 6720
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+          "type": "url_citation",
+          "start_index": 9676,
+          "end_index": 9689
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+          "type": "url_citation",
+          "start_index": 9676,
+          "end_index": 9689
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+          "type": "url_citation",
+          "start_index": 9708,
+          "end_index": 9721
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+          "type": "url_citation",
+          "start_index": 9708,
+          "end_index": 9721
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK",
+          "type": "url_citation",
+          "start_index": 11211,
+          "end_index": 11224
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+          "type": "url_citation",
+          "start_index": 11211,
+          "end_index": 11224
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK",
+          "type": "url_citation",
+          "start_index": 11939,
+          "end_index": 11949
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWt1N0NBACf96FGqPDbQ6r1Mmh5GtHocfRQKzCz8n4OrOlv8ycweIxYsuNaGRTkduZuq0ntyWN7aWlC4ehqQP-7Q-G5MFmidmo3_zfuTUB6hF1aKP_Dm9OgtkdGdN5ANSMV5pq-LfSyvd6CvcirkUp-D0eew==",
+          "type": "url_citation",
+          "start_index": 12928,
+          "end_index": 12946
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy6AnH5lTfZ96CyCfaetPePXAC4m0rO25nKxNW3FlxQW5Hu2a6asnyTey2ICQOGqUPqj0d4kUApQ_d_WM46QGMDXTeovKR-3GcWgcwm2f75SikqvTz4RNr5npz1f6JUD7FzeV2KoA_vuXWK9WRg3p8GuQ9_KLEVBuMJ1c=",
+          "type": "url_citation",
+          "start_index": 12928,
+          "end_index": 12946
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=",
+          "type": "url_citation",
+          "start_index": 12928,
+          "end_index": 12946
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1ls4uPt6X_FT_SWzIcAoEXuZXWKXPdn1tiW-4LUXdxRzjiJRN6ZSoljwvJKeFxxkOJVSwAk41HCMUXYPwT0TD4jrYT5sYcGDHZs-k_LW7kek_dHnD",
+          "type": "url_citation",
+          "start_index": 12967,
+          "end_index": 12980
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+          "type": "url_citation",
+          "start_index": 12967,
+          "end_index": 12980
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIGbvHWEnex8M3zzntBpHrrjz4Y25jC33bUHM4YsV_jUPyWVpy61yArZTsKRNc0U8WZhtw-ARMR90yFPPb-y_7ElGeUUnHkdzD1FWTRE20R_C73umSmObcTMOGuZwDOn0uz7ESVYfLgatybrYATkqRhPfh73PrFMvsGqCv_2QFz1jHM3_Ct5TRvqUM",
+          "type": "url_citation",
+          "start_index": 12995,
+          "end_index": 13009
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==",
+          "type": "url_citation",
+          "start_index": 12995,
+          "end_index": 13009
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=",
+          "type": "url_citation",
+          "start_index": 13157,
+          "end_index": 13171
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==",
+          "type": "url_citation",
+          "start_index": 13157,
+          "end_index": 13171
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG05gQdz1FbJ3cw3E9-_KAx_S0_cFZZ575Jgvnu-D9i11eKfHtffISTyPB05cvKHfFufLWJlCoSwpUwgk24sYDqo2jhBFHecyOixmZbOeMeEpcgclVwAC6ysSZjdTbXbeINnolqz9y5NfkgqkAMFX_jdBxy",
+          "type": "url_citation",
+          "start_index": 14021,
+          "end_index": 14034
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+          "type": "url_citation",
+          "start_index": 14021,
+          "end_index": 14034
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+          "type": "url_citation",
+          "start_index": 14488,
+          "end_index": 14497
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHM-7nrbSAa9No3dOTfY9h1raAjZQRl8ZsPi2665FaAVOfjbXdGoyL6eEWcqNbbb7IOtHwPsITbOucIMANNqMXWvNkDhKk5YY3Fb0L3Hxa6zqZRCGkCi4cD4tAGBGrnbPZe8Mmsrnq-fpqIcc8N-XRAu_NgU2LeVPewuJKSAoLg",
+          "type": "url_citation",
+          "start_index": 14655,
+          "end_index": 14668
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+          "type": "url_citation",
+          "start_index": 14655,
+          "end_index": 14668
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+          "type": "url_citation",
+          "start_index": 14995,
+          "end_index": 15008
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDvqHvSzMTjmEsU2rhMuSUkrE5KOsmWGSHl_hCRKZLLymvd2RJ0-9W6kW-OnYaHxxI0jS_0AKGpX_ZK0Cag6IR2zNNtBUEl0oWrtFUF9iBCEQg1sRAdM5C2pkwMLjFIvD4uSxx7FDyiiFm5tVS-ryHH9XgEgB8Gy-tTVL8EaJvVLoN",
+          "type": "url_citation",
+          "start_index": 14995,
+          "end_index": 15008
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+          "type": "url_citation",
+          "start_index": 15227,
+          "end_index": 15240
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFukg5KPJ3n5OOLrCrqv2yzzyeqejLSh6fTW7858Mxvj7Xm0EvQUYLUtJD1P7cmIu1jO-jNBqWXzx7VFcTfUJZc-E5Qslew9OecTCe2odmKDfMMxkzy8ofSbcB44WOE9JPJkuO5uJjerjxoRk8g4A==",
+          "type": "url_citation",
+          "start_index": 15227,
+          "end_index": 15240
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+          "type": "url_citation",
+          "start_index": 16226,
+          "end_index": 16240
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGM68iqAgD8sqVu7pzOs0W17mREk2AZX0Wg4smJVXAVTW-AYPgJl9p8-r-bnKiAi8r3XWkv66-GdWYIIgFFaN9M-dq6hjwiWLvISpa-sgsep3RdcVMwEqtRGw3l-oh51O_URqhczZ4lUkEv2DLow==",
+          "type": "url_citation",
+          "start_index": 16226,
+          "end_index": 16240
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQENN9yTbHfEwtnkBvpxYIuhTu9oE2uuPoTj0XfddIQrxjNcqjWT-Hqu2KueIUJlmvUG3eOBJRAuTmt0OXOTfj2EHaCsIxcp0cKVSPao0yqFJaM4dg7rUp6k_4YaKXjLcaAsioQ7HN7EHLIjN7hwJ8WK",
+          "type": "url_citation",
+          "start_index": 16630,
+          "end_index": 16640
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+          "type": "url_citation",
+          "start_index": 16858,
+          "end_index": 16868
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+          "type": "url_citation",
+          "start_index": 17006,
+          "end_index": 17022
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+          "type": "url_citation",
+          "start_index": 17006,
+          "end_index": 17022
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==",
+          "type": "url_citation",
+          "start_index": 17006,
+          "end_index": 17022
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+          "type": "url_citation",
+          "start_index": 17563,
+          "end_index": 17576
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgzqbT3R7IGBsGPPwfleRF59294dua7IKd7giav5AWFNWD02XzvfbKJh8hy6riWmoUMY4l0UTCmfBpjHOM2jqzlCNKYrF1EQ8hWwBNxVXKQhdhedbKqvEWe1TTHkWPNdzughTOYD7rzAUgPFRRurhq4sUmBSVWZDg3J6OsfUbblHWdXEqP2GlS_-aAYrnLur5YOD1It79jkXr77Dq5T3viaB4lBba3KFBJD-8z",
+          "type": "url_citation",
+          "start_index": 17563,
+          "end_index": 17576
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR7n2kwtL6C1KqBFj5fojfGjMMmNrtk0qDqQLJDnnsNuvFYESrfG6ECcLmEz7DuyVrUe39vrKy8ppXfg66qWiW5VZPYnUu0anirB6o3zzuKNPaoRg266XC0HTf",
+          "type": "url_citation",
+          "start_index": 17689,
+          "end_index": 17703
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==",
+          "type": "url_citation",
+          "start_index": 17689,
+          "end_index": 17703
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==",
+          "type": "url_citation",
+          "start_index": 18458,
+          "end_index": 18475
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==",
+          "type": "url_citation",
+          "start_index": 18458,
+          "end_index": 18475
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==",
+          "type": "url_citation",
+          "start_index": 18458,
+          "end_index": 18475
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2NHVp77vFXaBUtytIATc3mPtmlHhwoeg7b-WHLV4U-QoijJJAQCY68P6NMcFOjThqgT-MDW86OhdZA8BUjwGhVp-HC6tpMVtcFNUHwYEytz4vN3NMe-WiwAg8m_NBz_OgMtx7ZkOe-EhqoDRTOcXNU79xb56GKw==",
+          "type": "url_citation",
+          "start_index": 18817,
+          "end_index": 18831
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+          "type": "url_citation",
+          "start_index": 18817,
+          "end_index": 18831
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa3OTp_VcMMKislLvtRZj1cAkWCYlofnfVf66BVbyKRUhVdOrW4eagbdleuJXT29s-41rsYiBJRsKSE3FtDIp4nhCwPMFlnPuFNIhn",
+          "type": "url_citation",
+          "start_index": 19416,
+          "end_index": 19430
+        },
+        {
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGm45W8YhVOm1Q-lUVXI8KvTwpCKsrBnT6fB_-RQnWHo3njAwE3oFLwP5CPTW0aYs8pSqa5qLfy75R2Oqtgu_nqu2_Z8pFZi0In-ToXnsq8UkoDcUpt9abMENGpUWmH-0lfZ48=",
+          "type": "url_citation",
+          "start_index": 19416,
+          "end_index": 19430
+        }
+      ],
+      "type": "text"
+    }
+  ],
+  "rawInteraction": {
+    "id": "v1_Chd4ZnpXYWJQYkhaSFF6N0lQOXNPTWtROBIXeGZ6V2FiUGJIWkhRejdJUDlzT01rUTg",
+    "status": "completed",
+    "outputs": [
+      {
+        "signature": "",
+        "summary": [
+          {
+            "text": "**Defining System Architecture**\n\nI am beginning the process of mapping out a comprehensive framework for this productivity tool, focusing on how a desktop monitoring client can effectively communicate with a modern web dashboard. By looking into the structural patterns of established platforms, I'm identifying the optimal way to handle high-frequency activity events and state transitions while ensuring the architecture supports both time-series data and event sourcing.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Balancing Telemetry and Resilience**\n\nOne of the primary complexities I am analyzing is the trade-off between real-time data streaming and efficient batch processing. I am evaluating how to maintain accurate focus tracking and Pomodoro state synchronization even when the system is offline, ensuring that the transition between active and idle periods is recorded with high precision without compromising database performance or network stability.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Investigating Open-Source Benchmarks**\n\nI am now moving to investigate the internal data models and telemetry strategies of prominent open-source tracking tools. This involves synthesizing how they structure activity heartbeats and event logs to calculate complex metrics like focus scores and consistency pulses, which will directly inform my design for the project's database schema and API architecture.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Synthesizing Cross-Platform Architectures**\n\nI have successfully synthesized a comprehensive architectural framework by analyzing diverse productivity models, ranging from time-series event structures to sophisticated privacy-preserving metadata collection. I've uncovered how high-performance systems effectively use heartbeat mechanisms to maintain state consistency without overwhelming network resources, and how these data points are translated into meaningful metrics like focus scores and alignment with ultradian rhythms.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Resolving Synchronization and Privacy Challenges**\n\nI have addressed the critical challenge of maintaining data integrity during offline periods by determining the most effective strategies for local event batching and subsequent synchronization. Furthermore, I've reconciled the tension between granular activity tracking and user privacy, establishing a clear design boundary where metadata collection provides deep behavioral insights without venturing into intrusive surveillance or content logging.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Finalizing the Technical Blueprint**\n\nWith a complete understanding of database schema optimization, API structures, and the logic required for automated focus tracking, I am transitioning from information gathering to the final synthesis phase. I am now preparing to integrate these findings into a detailed technical report that prioritizes scalability, cross-platform compatibility, and an optimized architectural flow for deep work environments.",
+            "type": "text"
+          },
+          {
+            "text": "**Architectural Foundations**\n\nI am initiating a comprehensive review of leading productivity monitoring architectures to establish a technical baseline. I am specifically analyzing the logic behind heartbeat-based event models, which appear to be the industry standard for balancing high-frequency data collection with storage efficiency. By evaluating how existing tools merge discrete user actions into continuous streams, I aim to define a more robust data model for real-time tracking.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Metrics and State Detection**\n\nI am synthesizing information on how sophisticated systems calculate productivity scores and manage complex state transitions, such as automated inactivity detection and specialized 'Flow' blocks. This involves verifying the underlying algorithms used by established platforms to ensure the proposed system can accurately distinguish between deep focus and peripheral activities without relying on manual user input.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Optimizing Data Infrastructure**\n\nMy next focus is investigating specialized database schemas optimized for time-series event data. I will be comparing traditional event sourcing methods against high-performance relational configurations to determine the best approach for scaling a system that requires both granular audit logs and high-level analytical reporting.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Standardizing Event Logic**\n\nI have identified a core architectural pattern where high-frequency activity is captured through a heartbeat mechanism, merging discrete user actions into continuous events based on defined pulse windows. This method effectively balances the need for granular data with storage efficiency by updating event durations in real-time. I've also clarified that sophisticated productivity metrics often rely on weighted scoring across various activity categories rather than simple time ratios, allowing for a more nuanced understanding of deep focus versus administrative tasks.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Refining Focus State Models**\n\nI am currently synthesizing different methodologies for managing workflow sessions, specifically the transition from traditional short intervals to extended 'Flow' blocks tailored for complex tasks like programming. My analysis shows that modern systems are moving away from rigid timers in favor of flexible checkpoints and automated pausing during inactivity. While I have established the baseline data structures for these records, I am now reconciling how to best structure the underlying schema to handle both high-resolution audit logs and long-term analytical reporting.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Optimizing Data Infrastructure**\n\nNext, I will investigate specialized database configurations optimized for time-series data to ensure the tracking system can scale without performance loss. I intend to compare traditional event-sourcing methods against high-performance relational partitioning and explore the technical specifics of how cross-platform frameworks handle inactivity detection to finalize a robust architectural recommendation.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Optimizing Activity Tracking**\n\nI am identifying that a heartbeat-based data model is superior to raw event logging for monitoring user activity. By capturing periodic snapshots of system state and merging identical consecutive entries into single duration-based events, I can significantly reduce storage overhead while preserving granular detail. This approach, paired with local buffering for offline resilience, ensures that high-frequency data collection remains performant and reliable.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Refining Performance Metrics**\n\nI am resolving contradictions regarding how productivity is quantified. Rather than using simple binary classifications of 'productive' versus 'distracting,' I am adopting a more nuanced time-weighted scoring system. This allows for a weighted average that reflects varying intensities of focus. Furthermore, I have determined that traditional event sourcing is less effective for this specific use case than specialized time-series database structures, which are better equipped to handle the high-volume inserts and aggregation required for long-term analytics.",
+            "type": "text"
+          },
+          {
+            "text": "\n\n**Synthesizing Architecture and Flow**\n\nI am now moving to synthesize these insights into a cohesive technical framework. My next steps involve finalizing the specifications for a batch-processing interface that handles synchronization between local environments and centralized storage. I will also be integrating logic for flexible focus blocks that adapt to user behavior, ensuring the tracking system supports deep work sessions through automated state detection and intelligent pausing.",
+            "type": "text"
+          }
+        ],
+        "type": "thought"
+      },
+      {
+        "text": "# Professional Technical Report: Architecture and Implementation of a Productivity Monitoring and Pomodoro System\n\n**Key Points**\n*   Research suggests that a hybrid architecture utilizing time-series databases for high-frequency telemetry and relational models for user states is optimal for productivity tracking.\n*   Batch-based telemetry (periodic POST requests) generally outperforms real-time WebSockets in reliability, specifically for handling offline periods and reducing server load.\n*   Integrating Pomodoro techniques with automated tracking requires flexible, decoupled algorithms—such as auto-pausing on idle rather than voiding timers—to align with developer flow states and ultradian rhythms.\n*   Privacy-first design is critical; minimizing data collection to application window metadata while strictly avoiding keystroke content ensures compliance with data protection standards.\n\n**System Overview**\nThe architecture comprises a Python-based desktop monitor acting as a telemetry agent and a NestJS/PostgreSQL backend serving a React dashboard. This decoupled structure allows the desktop client to operate autonomously during network outages, syncing data in batches once connectivity is restored.\n\n**User Privacy and Ethics**\nActivity monitoring borders on surveillance if not carefully bounded. The consensus among privacy-focused open-source tools is to strictly monitor window titles and application executables without capturing screen contents or keystroke data. Providing users with absolute control over their data retention and local storage options is highly recommended.\n\n**Scalability Considerations**\nWhile initially designed for personal use, utilizing table partitioning or time-series extensions like TimescaleDB ensures the database can ingest millions of heartbeat events seamlessly. Incorporating robust multi-tenant architectural patterns early prevents expensive migrations when transitioning to a multi-user environment.\n\n***\n\n## 1. Introduction to Productivity Monitoring Systems\n\nThe intersection of quantitative self-tracking and structured time-management methodologies has produced a new generation of productivity software. Unlike legacy employee surveillance tools that focus on punitive measures, modern platforms emphasize personal analytics and \"flow state\" optimization [cite: 1, 2]. Building a professional-grade productivity ecosystem requires synthesizing the automated telemetry of tools like ActivityWatch and WakaTime [cite: 3, 4] with the structured focus paradigms of Pomodoro applications like Super Productivity [cite: 2, 5].\n\nThis report details the architectural blueprint for a two-part system: a Python desktop monitor featuring inactivity detection and escalating alerts, and a web dashboard utilizing React, NestJS, and PostgreSQL. The analysis evaluates event architectures, data modeling, algorithm integration, and open-source precedents to deliver actionable implementation specifications.\n\n## 2. Event Architecture and Communication Patterns\n\n### 2.1. Event Sourcing vs. Time-Series Data\nThe fundamental architectural decision for activity tracking is determining the persistence paradigm. Two dominant models exist for historical data tracking: Event Sourcing and Time-Series data.\n\nEvent Sourcing captures all state changes in an application as a sequence of immutable events [cite: 6, 7]. While excellent for auditing and reconstructing complex domain states, it introduces significant complexity in querying and read-projections [cite: 7, 8]. Conversely, Time-Series Data focuses on measuring values across specific time intervals, which is inherently suited for high-throughput metrics, telemetry, and graphing [cite: 9, 10]. \n\nFor a productivity tracking system, **Time-Series Data is the optimal choice for activity events**, while **Standard CRUD (with Audit Logs)** is recommended for configuration and user states. High-frequency desktop telemetry (active window, mouse movements) generates millions of data points that map perfectly to time-series characteristics: they are append-only, timestamped, and queried primarily via aggregations over time windows [cite: 10, 11]. Time-series projections provide a stable foundation for anomaly detection and analytical forecasting [cite: 12].\n\n### 2.2. Desktop to Web API Pattern: WebSocket vs. Batch POST\nMaintaining a persistent WebSocket connection for telemetry is an anti-pattern for desktop monitors. WebSockets are designed for low-latency, bidirectional communication, but activity tracking is primarily a unidirectional, high-volume stream that tolerates latency.\n\nThe **Batch (Periodic POST) pattern** is highly recommended based on industry best practices [cite: 13, 14]. Tools like WakaTime utilize a \"heartbeat\" mechanism, where the client collects events and sends them in bulk via a REST endpoint (e.g., `POST /api/v1/users/current/heartbeats.bulk`) [cite: 15, 16]. \n\n**Advantages of Batch POST:**\n1.  **Offline Resilience:** The desktop application can cache events locally (e.g., using an SQLite database) when the internet is disconnected. Once connectivity is restored, the client flushes the queue in bulk [cite: 17].\n2.  **Server Load Reduction:** Sending an array of 50 events every 2 minutes requires vastly less TCP overhead than 50 individual HTTP requests or maintaining an idle WebSocket connection.\n3.  **Data Deduplication:** Local batching allows the client to compress identical consecutive events into a single duration event before transmission, significantly saving bandwidth [cite: 18].\n\n### 2.3. Handling Offline Periods and Heartbeat Merging\nActivityWatch utilizes a concept called \"Heartbeats,\" which merges adjacent events containing identical data if they occur within a specific time window [cite: 18]. WakaTime similarly relies on a timeout preference to combine heartbeats into durations [cite: 4]. \n\nThe Python monitor should:\n1.  Register an event on every active window change or keyboard/mouse action.\n2.  If the user remains in the same application, update the `end_time` of the current local event rather than creating a new one.\n3.  Upon reaching the sync interval (e.g., 5 minutes) or a threshold of cached items, attempt a `POST` request.\n4.  If the request fails, exponential backoff is applied, and data remains safely in the local SQLite queue.\n\n## 3. Recommended Database Schema (PostgreSQL)\n\nTo handle time-series telemetry effectively, PostgreSQL should be utilized with partitioning (or the TimescaleDB extension) [cite: 9, 19]. The `BRIN` (Block Range Index) is exceptionally efficient for time-series workloads as it tracks the minimum and maximum time values over ranges of pages, accelerating chronological queries [cite: 19].\n\n### 3.1. Exact Table Definitions\n\n```sql\n-- Enable TimescaleDB extension if available, otherwise rely on native partitioning\n-- CREATE EXTENSION IF NOT EXISTS timescaledb;\n\n-- Users Table\nCREATE TABLE users (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    email VARCHAR(255) UNIQUE NOT NULL,\n    password_hash VARCHAR(255) NOT NULL,\n    timezone VARCHAR(50) DEFAULT 'UTC',\n    created_at TIMESTAMPTZ DEFAULT NOW(),\n    updated_at TIMESTAMPTZ DEFAULT NOW()\n);\n\n-- Productivity Categories (Allows users to customize app productivity scores)\nCREATE TABLE productivity_categories (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    app_name VARCHAR(255) NOT NULL,\n    window_title_regex VARCHAR(500),\n    productivity_score INTEGER CHECK (productivity_score BETWEEN -2 AND 2),\n    category_name VARCHAR(100),\n    created_at TIMESTAMPTZ DEFAULT NOW(),\n    UNIQUE (user_id, app_name)\n);\n\n-- Time-Series Table for Activity Heartbeats\nCREATE TABLE activity_heartbeats (\n    id UUID DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    start_time TIMESTAMPTZ NOT NULL,\n    end_time TIMESTAMPTZ NOT NULL,\n    duration_seconds INTEGER NOT NULL,\n    app_name VARCHAR(255) NOT NULL,\n    window_title TEXT,\n    is_afk BOOLEAN DEFAULT FALSE,\n    os_environment VARCHAR(50),\n    PRIMARY KEY (user_id, start_time)\n) PARTITION BY RANGE (start_time);\n\n-- Create initial partition (requires ongoing cron or pg_partman for future partitions)\nCREATE TABLE activity_heartbeats_y2023m10 PARTITION OF activity_heartbeats\n    FOR VALUES FROM ('2023-10-01') TO ('2023-11-01');\n\n-- BRIN Index for fast time-range queries on large datasets\nCREATE INDEX idx_activity_brin_time ON activity_heartbeats \n    USING BRIN (start_time);\n\n-- Pomodoro Sessions Table\nCREATE TABLE pomodoro_sessions (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    task_name VARCHAR(255),\n    planned_duration_seconds INTEGER NOT NULL,\n    actual_duration_seconds INTEGER NOT NULL DEFAULT 0,\n    status VARCHAR(50) CHECK (status IN ('completed', 'interrupted', 'abandoned', 'auto_paused')),\n    started_at TIMESTAMPTZ NOT NULL,\n    ended_at TIMESTAMPTZ,\n    interruption_count INTEGER DEFAULT 0,\n    created_at TIMESTAMPTZ DEFAULT NOW()\n);\n\n-- Daily Analytics Rollup (Materialized View or Cron-populated table)\nCREATE TABLE daily_summaries (\n    user_id UUID REFERENCES users(id) ON DELETE CASCADE,\n    summary_date DATE NOT NULL,\n    total_tracked_seconds INTEGER DEFAULT 0,\n    focus_score FLOAT DEFAULT 0.0,\n    productivity_pulse FLOAT DEFAULT 0.0,\n    very_productive_seconds INTEGER DEFAULT 0,\n    distracting_seconds INTEGER DEFAULT 0,\n    PRIMARY KEY (user_id, summary_date)\n);\n```\n\n## 4. Event Data Model (JSON Examples)\n\nThe system requires a robust JSON schema for the API to ingest telemetry efficiently. Learning from WakaTime [cite: 4, 15] and ActivityWatch [cite: 3, 18], the payload must accommodate bulk operations and identify AFK (Away From Keyboard) states.\n\n### 4.1. Bulk Heartbeat Ingestion Payload\nSent from the Python Monitor to the NestJS API via `POST /api/v1/heartbeats/bulk`.\n\n```json\n{\n  \"client_metadata\": {\n    \"hostname\": \"developer-desktop-01\",\n    \"os\": \"Windows 11\",\n    \"version\": \"1.0.4\"\n  },\n  \"events\": [\n    {\n      \"timestamp\": \"2023-10-24T14:30:00.000Z\",\n      \"duration\": 120.5,\n      \"type\": \"window_activity\",\n      \"data\": {\n        \"app_name\": \"Code.exe\",\n        \"window_title\": \"app.controller.ts - project-backend - Visual Studio Code\",\n        \"is_afk\": false\n      }\n    },\n    {\n      \"timestamp\": \"2023-10-24T14:32:00.000Z\",\n      \"duration\": 45.0,\n      \"type\": \"afk_status\",\n      \"data\": {\n        \"app_name\": \"Code.exe\",\n        \"window_title\": \"app.controller.ts - project-backend - Visual Studio Code\",\n        \"is_afk\": true\n      }\n    }\n  ]\n}\n```\n\n### 4.2. Pomodoro Session Sync Payload\n```json\n{\n  \"session_id\": \"uuid-1234-5678\",\n  \"task_name\": \"Implement Rate Limiting\",\n  \"planned_duration\": 3000,\n  \"actual_duration\": 2850,\n  \"status\": \"completed\",\n  \"started_at\": \"2023-10-24T15:00:00.000Z\",\n  \"ended_at\": \"2023-10-24T15:47:30.000Z\",\n  \"metrics\": {\n    \"interruption_count\": 1,\n    \"afk_time_during_session\": 150\n  }\n}\n```\n\n## 5. API Endpoint Specifications (NestJS)\n\nThe API design adheres to RESTful principles. Authentication should rely on Bearer tokens (JWT) or API Keys, mapping to the user's account [cite: 4, 20]. \n\n### 5.1. Authentication and User Management\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/auth/register` | Create a new user account. | None | 5/hour |\n| `POST` | `/api/v1/auth/login` | Authenticate and retrieve JWT token. | None | 10/minute |\n| `GET` | `/api/v1/users/me` | Fetch user profile and preferences. | JWT | 60/minute |\n| `POST` | `/api/v1/users/api-keys` | Generate a static API key for desktop client. | JWT | 5/day |\n\n### 5.2. Telemetry and Heartbeats\nRate limiting on ingestion must be generous enough to handle bulk uploads but strict enough to prevent DDoS. Using WakaTime's standard of 1,000 requests/hour is a solid baseline [cite: 20].\n\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/heartbeats/bulk` | Ingest batched activity events. | API Key | 100/minute |\n| `GET` | `/api/v1/heartbeats` | Query raw time-series data with filters. | JWT | 60/minute |\n\n### 5.3. Pomodoro and Analytics\n| Method | Endpoint | Description | Auth | Rate Limit |\n| :--- | :--- | :--- | :--- | :--- |\n| `POST` | `/api/v1/pomodoro/sessions` | Create or sync a completed/paused session. | API Key | 60/minute |\n| `GET` | `/api/v1/pomodoro/sessions` | Retrieve historical focus sessions. | JWT | 60/minute |\n| `GET` | `/api/v1/analytics/daily` | Get aggregated productivity scores by day. | JWT | 60/minute |\n| `GET` | `/api/v1/analytics/timeline` | Get categorical time breakdown for visualizations. | JWT | 60/minute |\n\n## 6. Analytics, Metrics, and KPIs\n\nCalculating meaningful personal productivity metrics demands more than simple summation. Drawing from RescueTime [cite: 21, 22, 23], Super Productivity [cite: 2, 24], and WakaTime [cite: 25, 26], the system requires specific algorithms.\n\n### 6.1. Productivity Pulse Score\nRescueTime calculates a \"Productivity Pulse\" on a scale from 0 to 100 [cite: 22, 27]. Every application is assigned a weight from -2 (Very Distracting) to +2 (Very Productive).\n\nThe algorithm functions as a time-weighted average:\n\\[ \\text{Score}_{raw} = \\frac{\\sum (T_i \\times W_i)}{T_{total}} \\]\nWhere \\( T_i \\) is the time spent in an application, and \\( W_i \\) is its weight. Because \\( \\text{Score}_{raw} \\) ranges from -2 to +2, it is normalized to a 0–100 scale:\n\\[ \\text{Productivity Pulse} = \\left( \\frac{\\text{Score}_{raw} + 2}{4} \\right) \\times 100 \\]\n\n### 6.2. Flow Score and Consistency\n*   **Flow State Detection:** Extending focus without breaks is critical for developers. \"Flow\" is defined by continuous periods of \"Very Productive\" (+2) applications lasting over 20 minutes without AFK or distracting app interruptions. The Flow Score is the percentage of total daily work time spent inside these unbroken contexts [cite: 2, 28].\n*   **Consistency Score:** Measures adherence to defined goals (e.g., \"Code 2 hours a day\") over a rolling 7-day period, mathematically represented as the standard deviation of productive hours divided by the mean.\n\n## 7. Pomodoro and Flow Integration\n\n### 7.1. Aligning Timers with Activity Detection\nTraditional 25-minute Pomodoro cycles are detrimental to software engineers and knowledge workers due to the high cognitive cost of context switching [cite: 5]. According to Super Productivity, intervals should adapt to \"Ultradian Rhythms,\" often requiring 90-minute focus blocks and 20-minute breaks (a 90/20 split) [cite: 2, 29].\n\n### 7.2. Auto-Pause on Idle and Penalty Systems\n**Auto-Pause on AFK:** If the Python monitor detects inactivity (no keyboard/mouse input) exceeding a threshold (e.g., 3 minutes), it should trigger a local event to auto-pause the active Pomodoro session. This prevents \"accidental overworking\" metrics when a user walks away [cite: 5, 30]. \n\n**Handling Interruptions (The Penalty System):**\nRather than voiding a timer when an interruption occurs (which creates negative psychological reinforcement), the system should implement a \"checkpoint\" architecture [cite: 5, 31]. \n*   If an interrupting application (e.g., Slack, Twitter) is brought to the foreground during a Pomodoro block, an escalating audio alert plays via the Python client.\n*   If the user persists, the session is marked with an `interruption_count` increment, but the timer continues.\n*   The \"Penalty\" is reflected in the Analytics Dashboard by lowering the \"Focus Quality\" percentage of that specific session, rather than destroying the session entirely.\n\n## 8. Desktop Monitor Component (Python)\n\nThe Python client operates as a lightweight daemon on Windows. \n\n### 8.1. Monitor Architecture\n1.  **Input Listeners:** Utilize `pynput` or `mouse`/`keyboard` libraries to track the last activity timestamp.\n2.  **Window Polling:** Use Windows API (`ctypes.windll.user32`) to poll the foreground window title and executable path every 2 seconds.\n3.  **Local State Machine:** An SQLite database functions as the append-only queue for events. A background thread processes heartbeat merging [cite: 17, 32].\n4.  **Alerting Engine:** During an active Pomodoro session, if an app categorized as \"Distracting\" is focused, a timer starts. After 15 seconds, an escalating audio chime is played using `playsound` or native `winsound`.\n\n### 8.2. Lessons from ActivityWatch\nActivityWatch's architecture (aw-core, aw-watcher-window, aw-watcher-afk) isolates the tracking logic from the transmission logic [cite: 33]. The Python monitor must implement a robust exponential backoff HTTP client to prevent spamming the NestJS API when the server is down, maintaining data integrity entirely on the local disk until a 200 OK is received [cite: 17].\n\n## 9. Dashboard Component Wireframes (React)\n\nThe React dashboard utilizes UI patterns pioneered by Clockify, WakaTime, and RescueTime [cite: 3, 4, 34].\n\n### 9.1. Main Overview Dashboard\n*   **Top Bar:** Global date range picker (Today, Last 7 Days, Month).\n*   **Hero Metrics:** Three large cards: \"Productivity Pulse (e.g., 78%)\", \"Deep Work Hours (e.g., 4h 12m)\", and \"Pomodoro Sessions (e.g., 5)\".\n*   **Timeline Visualization:** A horizontally scrolling Gantt-style chart (using `Recharts` or `Nivo`). X-axis is time (00:00 to 23:59). Blocks of color represent active applications (Green = Productive, Red = Distracting, Gray = AFK). This directly mimics the ActivityWatch timeline view [cite: 3, 35].\n*   **Categorization Donut Chart:** Breakdown of time spent in Communication, Development, Entertainment, etc. [cite: 27, 36].\n\n### 9.2. Pomodoro Control and Insights Page\n*   **Active Session Widget:** Connects via Server-Sent Events (SSE) or relies on desktop-client syncing to show current Pomodoro progress, current task, and interruption count.\n*   **Session History List:** A table showing historical sessions: Date, Task, Planned Duration, Actual Duration, Focus Efficiency (calculated from idle time vs active time).\n*   **Streak Tracker:** A GitHub-style heatmap showing successful 90-minute deep work blocks over the last year.\n\n## 10. Privacy, Security, and Scalability\n\n### 10.1. Privacy by Design (What NOT to Collect)\nThe consensus across Kimai, ActivityWatch, and WakaTime is categorical: **never log keystroke content, screen captures, or internal document text** [cite: 1, 25, 34]. \n*   **Collect:** Foreground executable name (e.g., `chrome.exe`), Window title (e.g., `Stack Overflow - Google Chrome`), mouse/keyboard binary state (Active/Idle).\n*   **Sanitize:** WakaTime utilizes sophisticated sanitization rules to scrub sensitive file paths, removing branch names or specific directory structures before transmission [cite: 15, 37]. The Python client must include a regex-based blocklist (e.g., sanitizing titles of password managers like `1Password` or `KeePass`).\n\n### 10.2. Scalability and Multi-Tenant Architecture\nThough initially personal, the database schema design explicitly includes `user_id` as a foreign key on every table. This ensures multi-tenancy from day one.\n*   **Teams and Integrations:** Future integrations with Jira or GitHub will require OAuth2 token storage. The `users` table can be expanded into an `organizations` and `workspaces` relational mapping, heavily influenced by Kimai's schema [cite: 38, 39].\n*   **Mobile Support:** The RESTful API relies strictly on JWT and batch POSTs. Adding a mobile client requires zero architectural changes; the mobile app simply becomes another client pushing heartbeats via the identical API endpoints.\n\n### 10.3. GDPR and Data Retention\nTo comply with GDPR, users must have a mechanism to trigger full data deletion. \n*   **Data Retention Policies:** Time-series tables grow exponentially. Implement a PostgreSQL `pg_cron` job to aggregate raw heartbeats older than 90 days into the `daily_summaries` table, subsequently deleting the granular raw events to save disk space and enforce privacy limits.\n\n## 11. System Architecture Diagram (Text Form)\n\n```text\n+-------------------------------------------------------------+\n|                     User Environment                        |\n|                                                             |\n|  +--------------------+       +--------------------------+  |\n|  | Windows Desktop    |       | React Web Dashboard      |  |\n|  | (Python App)       |       | (Browser)                |  |\n|  |                    |       |                          |  |\n|  | - Window Poller    |       | - Recharts/Nivo Graphs   |  |\n|  | - AFK Detector     |       | - Redux/Zustand State    |  |\n|  | - Local SQLite     |       | - Axios API Client       |  |\n|  | - Audio Alarms     |       +-------------+------------+  |\n|  | - Pomodoro State   |                     |               |\n|  +---------+----------+                     |               |\n+------------|--------------------------------|---------------+\n             | (Batch POST via API Key)       | (REST via JWT)\n             v                                v\n+-------------------------------------------------------------+\n|                      Backend Server                         |\n|                                                             |\n|  +-------------------------------------------------------+  |\n|  | NestJS API Gateway                                    |  |\n|  |                                                       |  |\n|  |  [Auth Guard] --> [Rate Limiter] --> [DTO Validation] |  |\n|  |                                                       |  |\n|  |  +----------------+  +----------------+  +---------+  |  |\n|  |  | Heartbeat SvC  |  | Pomodoro Svc   |  | Analytics| |  |\n|  |  +----------------+  +----------------+  +---------+  |  |\n|  +--------------------------+----------------------------+  |\n|                             |                               |\n|  +--------------------------v----------------------------+  |\n|  | PostgreSQL (TimescaleDB / Partitioning)               |  |\n|  | - users & config                                      |  |\n|  | - activity_heartbeats (Time-Series)                   |  |\n|  | - pomodoro_sessions (CRUD)                            |  |\n|  | - daily_summaries (Materialized Aggregations)         |  |\n|  +-------------------------------------------------------+  |\n+-------------------------------------------------------------+\n```\n\n## 12. Implementation Priority Matrix\n\nTo manage the complexity of this architecture, implementation must be staged logically.\n\n| Phase | Component | Priority | Deliverables | Actionable Recommendations |\n| :--- | :--- | :--- | :--- | :--- |\n| **Phase 1** | **Backend / DB** | Critical | PostgreSQL Schema, Auth endpoints, Heartbeat bulk ingestion endpoint. | Prioritize defining the time-series schema correctly. Implement `BRIN` indexes to prevent future migration headaches. |\n| **Phase 2** | **Monitor (Python)** | Critical | AFK detection, Window tracking, SQLite local caching, Sync mechanism. | Start simple. Log data to stdout first. Build the SQLite queue, then implement the HTTP exponential backoff sync. |\n| **Phase 3** | **Dashboard (React)** | High | Basic authentication UI, Timeline visualization, Daily summary tables. | Focus on raw data visualization first. Ensure time zones are parsed consistently between the DB (UTC) and the client. |\n| **Phase 4** | **Pomodoro** | Medium | Desktop audio alarms, Pomodoro API endpoints, Auto-pause logic. | Implement the 90/20 split logic. Link desktop alerts directly to local state rather than waiting for server validation. |\n| **Phase 5** | **Analytics** | Low | Productivity Pulse calculation, Flow Score, GitHub/Jira integrations. | Shift heavy aggregations to PostgreSQL views or cron jobs to prevent NestJS memory bottlenecks during data requests. |\n\nBy adhering to this architectural blueprint—merging time-series robustness with intelligent, developer-focused Pomodoro heuristics—the resulting software will yield a highly professional, privacy-respecting productivity ecosystem capable of operating fully offline and scaling dynamically.\n\n**Sources:**\n1. [memtime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==)\n2. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==)\n3. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==)\n4. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=)\n5. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=)\n6. [baytechconsulting.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqML94imTflRMgotj391UcG7axBmXxyvdHVNg2CUmieZW8KiwQ2YRYUcqzBfWGPVF7Kcy0bwMC3T44LazDF2h1-cy9WIBkVo7XSuTwwHukSYLwIftaiRqU8mrnpRLjrKMlsrskmF8_DiERgQCnM6XMNCJEy7VeUdxJzw==)\n7. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH)\n8. [kurrent.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH28Nuefm7J6a5TkkoFyR7mx4g80oQkAfI6rkpEqEQ8wYQr7eVecKZI1_prWTXD9tJhnLJAvyxn3DllhGtI8Sao8-AeDWAhKrvWe3KOA1_50KWV61PuyMzg5cCF6Kbqo5jqBGTCN5I=)\n9. [oneuptime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=)\n10. [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=)\n11. [flowfuse.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuxit2qcDJac5vnBFodmSEHAEOqeYU6HCugTIAxYqlNgrcaEb6XppiVFAV7N29B3vN26d_MZbg78iqbl1h64jdYMrnPf33K1r0nrVsaLMEOGt3APNep3fvSfPhYr4oX5Dof5LlALr1_yv65z3DNxB9JiGNqsa_rABsLgOskx2GrKyX)\n12. [eventsourcing.ai](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEgPFTyWW2ydfAd63bGZFO87G2dyNy42iZQDP3XqlFiM7PigvquTX5SjZ34rpgl3Bs0rFUs8t708J2KAp9Z-2jI8r3abT_-4mVy4QQrhp3Ucd1_ibXb1Ad8RDJJOpgzWFB5vcEUDeVsUjF4AbtPfMiZerEzPJyhWdL1tE0q3Bk4zg-p2D42ES_yOjOi)\n13. [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtzlZx8U01qHR6H8JmyUvBSlPt909Was0IvzND_iIJiWdhZD2hy_kyw6M5eOqi36GioiXhsmFfIne0m34KM1m4VAsIj-JQtQvRff4RuKsA7IUcd6o-ANr_LciiUtu5xLsi6Cdxl1wazKYucjUc6nbN4nUFDaqVgaDgTlRoSrk69K_8cym1TzUxSzfz0fMDIugPf-hnTFMhosWskAM3UGwptem2sMyGUlMAt559XNwC)\n14. [oneuptime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfsc05CI0KZ9gdcw9x2mu9Lonpl9vwou6RZ7n-tRZ1Uve2TD61u3WubSI8xMwWnV6kfrzSo8qdyEPsW7a6tzUtbaiqT7KjPux047FvoN16a1m6t-Om0hkackI5IDJYQbPA82vOGvPVrupuIFLLMR_CmVv60_CZV6JomHREmm245yA=)\n15. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU)\n16. [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkur2POuD1Sse1wG2bMq8iXvROPeLbuaQqrf3dH7hvJYnsI54JJdlwYgBfMWVs0QuKoGMmoMBsdSxrcA1BA-zV5Qi08K4oHLQul7_9Q_pZDq5H6FjJ2QPmBqhha-qdg6s=)\n17. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7)\n18. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme)\n19. [amazon.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc)\n20. [chronova.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK)\n21. [computer.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy6AnH5lTfZ96CyCfaetPePXAC4m0rO25nKxNW3FlxQW5Hu2a6asnyTey2ICQOGqUPqj0d4kUApQ_d_WM46QGMDXTeovKR-3GcWgcwm2f75SikqvTz4RNr5npz1f6JUD7FzeV2KoA_vuXWK9WRg3p8GuQ9_KLEVBuMJ1c=)\n22. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=)\n23. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWt1N0NBACf96FGqPDbQ6r1Mmh5GtHocfRQKzCz8n4OrOlv8ycweIxYsuNaGRTkduZuq0ntyWN7aWlC4ehqQP-7Q-G5MFmidmo3_zfuTUB6hF1aKP_Dm9OgtkdGdN5ANSMV5pq-LfSyvd6CvcirkUp-D0eew==)\n24. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1ls4uPt6X_FT_SWzIcAoEXuZXWKXPdn1tiW-4LUXdxRzjiJRN6ZSoljwvJKeFxxkOJVSwAk41HCMUXYPwT0TD4jrYT5sYcGDHZs-k_LW7kek_dHnD)\n25. [wakatime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==)\n26. [dev.to](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIGbvHWEnex8M3zzntBpHrrjz4Y25jC33bUHM4YsV_jUPyWVpy61yArZTsKRNc0U8WZhtw-ARMR90yFPPb-y_7ElGeUUnHkdzD1FWTRE20R_C73umSmObcTMOGuZwDOn0uz7ESVYfLgatybrYATkqRhPfh73PrFMvsGqCv_2QFz1jHM3_Ct5TRvqUM)\n27. [rescuetime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==)\n28. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG05gQdz1FbJ3cw3E9-_KAx_S0_cFZZ575Jgvnu-D9i11eKfHtffISTyPB05cvKHfFufLWJlCoSwpUwgk24sYDqo2jhBFHecyOixmZbOeMeEpcgclVwAC6ysSZjdTbXbeINnolqz9y5NfkgqkAMFX_jdBxy)\n29. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHM-7nrbSAa9No3dOTfY9h1raAjZQRl8ZsPi2665FaAVOfjbXdGoyL6eEWcqNbbb7IOtHwPsITbOucIMANNqMXWvNkDhKk5YY3Fb0L3Hxa6zqZRCGkCi4cD4tAGBGrnbPZe8Mmsrnq-fpqIcc8N-XRAu_NgU2LeVPewuJKSAoLg)\n30. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDvqHvSzMTjmEsU2rhMuSUkrE5KOsmWGSHl_hCRKZLLymvd2RJ0-9W6kW-OnYaHxxI0jS_0AKGpX_ZK0Cag6IR2zNNtBUEl0oWrtFUF9iBCEQg1sRAdM5C2pkwMLjFIvD4uSxx7FDyiiFm5tVS-ryHH9XgEgB8Gy-tTVL8EaJvVLoN)\n31. [super-productivity.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFukg5KPJ3n5OOLrCrqv2yzzyeqejLSh6fTW7858Mxvj7Xm0EvQUYLUtJD1P7cmIu1jO-jNBqWXzx7VFcTfUJZc-E5Qslew9OecTCe2odmKDfMMxkzy8ofSbcB44WOE9JPJkuO5uJjerjxoRk8g4A==)\n32. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGM68iqAgD8sqVu7pzOs0W17mREk2AZX0Wg4smJVXAVTW-AYPgJl9p8-r-bnKiAi8r3XWkv66-GdWYIIgFFaN9M-dq6hjwiWLvISpa-sgsep3RdcVMwEqtRGw3l-oh51O_URqhczZ4lUkEv2DLow==)\n33. [activitywatch.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQENN9yTbHfEwtnkBvpxYIuhTu9oE2uuPoTj0XfddIQrxjNcqjWT-Hqu2KueIUJlmvUG3eOBJRAuTmt0OXOTfj2EHaCsIxcp0cKVSPao0yqFJaM4dg7rUp6k_4YaKXjLcaAsioQ7HN7EHLIjN7hwJ8WK)\n34. [memtime.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==)\n35. [devopsschool.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgzqbT3R7IGBsGPPwfleRF59294dua7IKd7giav5AWFNWD02XzvfbKJh8hy6riWmoUMY4l0UTCmfBpjHOM2jqzlCNKYrF1EQ8hWwBNxVXKQhdhedbKqvEWe1TTHkWPNdzughTOYD7rzAUgPFRRurhq4sUmBSVWZDg3J6OsfUbblHWdXEqP2GlS_-aAYrnLur5YOD1It79jkXr77Dq5T3viaB4lBba3KFBJD-8z)\n36. [apploye.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR7n2kwtL6C1KqBFj5fojfGjMMmNrtk0qDqQLJDnnsNuvFYESrfG6ECcLmEz7DuyVrUe39vrKy8ppXfg66qWiW5VZPYnUu0anirB6o3zzuKNPaoRg266XC0HTf)\n37. [go.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2NHVp77vFXaBUtytIATc3mPtmlHhwoeg7b-WHLV4U-QoijJJAQCY68P6NMcFOjThqgT-MDW86OhdZA8BUjwGhVp-HC6tpMVtcFNUHwYEytz4vN3NMe-WiwAg8m_NBz_OgMtx7ZkOe-EhqoDRTOcXNU79xb56GKw==)\n38. [kimai.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa3OTp_VcMMKislLvtRZj1cAkWCYlofnfVf66BVbyKRUhVdOrW4eagbdleuJXT29s-41rsYiBJRsKSE3FtDIp4nhCwPMFlnPuFNIhn)\n39. [kimai.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGm45W8YhVOm1Q-lUVXI8KvTwpCKsrBnT6fB_-RQnWHo3njAwE3oFLwP5CPTW0aYs8pSqa5qLfy75R2Oqtgu_nqu2_Z8pFZi0In-ToXnsq8UkoDcUpt9abMENGpUWmH-0lfZ48=)\n",
+        "annotations": [
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+            "type": "url_citation",
+            "start_index": 2327,
+            "end_index": 2339
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==",
+            "type": "url_citation",
+            "start_index": 2327,
+            "end_index": 2339
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+            "type": "url_citation",
+            "start_index": 2481,
+            "end_index": 2493
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+            "type": "url_citation",
+            "start_index": 2481,
+            "end_index": 2493
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+            "type": "url_citation",
+            "start_index": 2579,
+            "end_index": 2591
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+            "type": "url_citation",
+            "start_index": 2579,
+            "end_index": 2591
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH",
+            "type": "url_citation",
+            "start_index": 3356,
+            "end_index": 3368
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqML94imTflRMgotj391UcG7axBmXxyvdHVNg2CUmieZW8KiwQ2YRYUcqzBfWGPVF7Kcy0bwMC3T44LazDF2h1-cy9WIBkVo7XSuTwwHukSYLwIftaiRqU8mrnpRLjrKMlsrskmF8_DiERgQCnM6XMNCJEy7VeUdxJzw==",
+            "type": "url_citation",
+            "start_index": 3356,
+            "end_index": 3368
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnrqadnkfTFrS6nydNOdCURSC_hl2qTWkrWg-emu_wBx9GBOgJmmU6KycAM9SqxQt1624DR0jKCKYUykAdNr2W0Yjfggnx4Tst-6KEEbL5pXH7VFsDp42i1I-sER5vHceRJcpoHoSmxTuyHusNv4lIrNkewznT9_OZQ2ju563nT5MH",
+            "type": "url_citation",
+            "start_index": 3511,
+            "end_index": 3523
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH28Nuefm7J6a5TkkoFyR7mx4g80oQkAfI6rkpEqEQ8wYQr7eVecKZI1_prWTXD9tJhnLJAvyxn3DllhGtI8Sao8-AeDWAhKrvWe3KOA1_50KWV61PuyMzg5cCF6Kbqo5jqBGTCN5I=",
+            "type": "url_citation",
+            "start_index": 3511,
+            "end_index": 3523
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=",
+            "type": "url_citation",
+            "start_index": 3694,
+            "end_index": 3707
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=",
+            "type": "url_citation",
+            "start_index": 3694,
+            "end_index": 3707
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWdiv8dfUbfzrxt13UbuGf25X7tuL3fHTJz-yx7Zj6xWWMFUbE4zclJ5Sc74kJ8dBv6wVYF-U_zTvGhnY8XsJtwviT85eA6MOfFl7ngD15B18xcbmWJfCoMYvavmNmk_V8VULlE0wpBZ_tNVVhthcnXkpz0-pWWpXB730qF0jLXqol1NU0o_a_uUf7Le4RyxR57Jj3Fs-VYm_7X9Eq3yQoZvPLXv-F2jfSm--689Zqm-CunK08zKg6R6Vy2_Bc1qDGoXSgQL7CXV8ndJ0tMHOiuN8ewc=",
+            "type": "url_citation",
+            "start_index": 4146,
+            "end_index": 4160
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuxit2qcDJac5vnBFodmSEHAEOqeYU6HCugTIAxYqlNgrcaEb6XppiVFAV7N29B3vN26d_MZbg78iqbl1h64jdYMrnPf33K1r0nrVsaLMEOGt3APNep3fvSfPhYr4oX5Dof5LlALr1_yv65z3DNxB9JiGNqsa_rABsLgOskx2GrKyX",
+            "type": "url_citation",
+            "start_index": 4146,
+            "end_index": 4160
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEgPFTyWW2ydfAd63bGZFO87G2dyNy42iZQDP3XqlFiM7PigvquTX5SjZ34rpgl3Bs0rFUs8t708J2KAp9Z-2jI8r3abT_-4mVy4QQrhp3Ucd1_ibXb1Ad8RDJJOpgzWFB5vcEUDeVsUjF4AbtPfMiZerEzPJyhWdL1tE0q3Bk4zg-p2D42ES_yOjOi",
+            "type": "url_citation",
+            "start_index": 4263,
+            "end_index": 4273
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtzlZx8U01qHR6H8JmyUvBSlPt909Was0IvzND_iIJiWdhZD2hy_kyw6M5eOqi36GioiXhsmFfIne0m34KM1m4VAsIj-JQtQvRff4RuKsA7IUcd6o-ANr_LciiUtu5xLsi6Cdxl1wazKYucjUc6nbN4nUFDaqVgaDgTlRoSrk69K_8cym1TzUxSzfz0fMDIugPf-hnTFMhosWskAM3UGwptem2sMyGUlMAt559XNwC",
+            "type": "url_citation",
+            "start_index": 4699,
+            "end_index": 4713
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfsc05CI0KZ9gdcw9x2mu9Lonpl9vwou6RZ7n-tRZ1Uve2TD61u3WubSI8xMwWnV6kfrzSo8qdyEPsW7a6tzUtbaiqT7KjPux047FvoN16a1m6t-Om0hkackI5IDJYQbPA82vOGvPVrupuIFLLMR_CmVv60_CZV6JomHREmm245yA=",
+            "type": "url_citation",
+            "start_index": 4699,
+            "end_index": 4713
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkur2POuD1Sse1wG2bMq8iXvROPeLbuaQqrf3dH7hvJYnsI54JJdlwYgBfMWVs0QuKoGMmoMBsdSxrcA1BA-zV5Qi08K4oHLQul7_9Q_pZDq5H6FjJ2QPmBqhha-qdg6s=",
+            "type": "url_citation",
+            "start_index": 4897,
+            "end_index": 4911
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+            "type": "url_citation",
+            "start_index": 4897,
+            "end_index": 4911
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+            "type": "url_citation",
+            "start_index": 5158,
+            "end_index": 5168
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+            "type": "url_citation",
+            "start_index": 5542,
+            "end_index": 5552
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+            "type": "url_citation",
+            "start_index": 5764,
+            "end_index": 5774
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+            "type": "url_citation",
+            "start_index": 5863,
+            "end_index": 5872
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9vMfvefzjqv1Ipgnnk86uV0-UdB-KBgDqX0Sej8wuwz-LBsK06CGQ04ZrhAlshaScPYXIf1JJJh_DaImfBuHVzmGp5Q6pmOcQD8MkY2C9qeZwtKu2NyaItk4BDeD9_PjLpr4-_4x7K_0HP7bLaT7ZYpooPIjE54BrdqrurrUwIde8zABtshrGopsey1c=",
+            "type": "url_citation",
+            "start_index": 6505,
+            "end_index": 6518
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc",
+            "type": "url_citation",
+            "start_index": 6505,
+            "end_index": 6518
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHaoDO852dSFNERLtp-ije03iOADL_sd40zKbCPkrdRMl4uXQ18Pr0SnpJoDUobth4VfroSZPrQf60JRuibnTCjCoh0C8V_QgCj5Z4GO3EJ1CqZRbU6dTEtdTRH1X0IRpK0k9PLRocv7lAOPhKeUivKghYod5DI9kkGbMCI6Quh-dSoAtfEh7cHR5cI6GjIeRMH1FMf0arsy6rwaNpYh-i0ew9w93QqesznLzKc",
+            "type": "url_citation",
+            "start_index": 6710,
+            "end_index": 6720
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+            "type": "url_citation",
+            "start_index": 9676,
+            "end_index": 9689
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+            "type": "url_citation",
+            "start_index": 9676,
+            "end_index": 9689
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+            "type": "url_citation",
+            "start_index": 9708,
+            "end_index": 9721
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8jV5n8vubn6T5ZC50DJBRQKY3N-oeCf31oxVAhFmyEZ7nLiaIqVTj6lEcuUK4AgcomacjjHzHUqsqrPITBpDXeQk9rW-4gI8-ftYTTEAVda365n-zFuao9htVuDACKMfM-zvodk8_6-mix2G1lY62AGSGFpme",
+            "type": "url_citation",
+            "start_index": 9708,
+            "end_index": 9721
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK",
+            "type": "url_citation",
+            "start_index": 11211,
+            "end_index": 11224
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+            "type": "url_citation",
+            "start_index": 11211,
+            "end_index": 11224
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcSNqI2c2zXU4Mi78H42-CWAJL82tNFSWfO5OrSmFm7vbZRszUoRAf6Dp6ghd23oD1LBQ4JHrPh3TQdrWaDypy-acjGu8mnAHQU-1ikDvoGLMtbIoCjtJK",
+            "type": "url_citation",
+            "start_index": 11939,
+            "end_index": 11949
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWt1N0NBACf96FGqPDbQ6r1Mmh5GtHocfRQKzCz8n4OrOlv8ycweIxYsuNaGRTkduZuq0ntyWN7aWlC4ehqQP-7Q-G5MFmidmo3_zfuTUB6hF1aKP_Dm9OgtkdGdN5ANSMV5pq-LfSyvd6CvcirkUp-D0eew==",
+            "type": "url_citation",
+            "start_index": 12928,
+            "end_index": 12946
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy6AnH5lTfZ96CyCfaetPePXAC4m0rO25nKxNW3FlxQW5Hu2a6asnyTey2ICQOGqUPqj0d4kUApQ_d_WM46QGMDXTeovKR-3GcWgcwm2f75SikqvTz4RNr5npz1f6JUD7FzeV2KoA_vuXWK9WRg3p8GuQ9_KLEVBuMJ1c=",
+            "type": "url_citation",
+            "start_index": 12928,
+            "end_index": 12946
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=",
+            "type": "url_citation",
+            "start_index": 12928,
+            "end_index": 12946
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1ls4uPt6X_FT_SWzIcAoEXuZXWKXPdn1tiW-4LUXdxRzjiJRN6ZSoljwvJKeFxxkOJVSwAk41HCMUXYPwT0TD4jrYT5sYcGDHZs-k_LW7kek_dHnD",
+            "type": "url_citation",
+            "start_index": 12967,
+            "end_index": 12980
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+            "type": "url_citation",
+            "start_index": 12967,
+            "end_index": 12980
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIGbvHWEnex8M3zzntBpHrrjz4Y25jC33bUHM4YsV_jUPyWVpy61yArZTsKRNc0U8WZhtw-ARMR90yFPPb-y_7ElGeUUnHkdzD1FWTRE20R_C73umSmObcTMOGuZwDOn0uz7ESVYfLgatybrYATkqRhPfh73PrFMvsGqCv_2QFz1jHM3_Ct5TRvqUM",
+            "type": "url_citation",
+            "start_index": 12995,
+            "end_index": 13009
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==",
+            "type": "url_citation",
+            "start_index": 12995,
+            "end_index": 13009
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLo-x4OH60q8dgXR5jgv7cxj1TzwXyFCDpdu8TWCV3KKKOEuGHtxXZ28HVgcVFiPDIlCChVEhz1JiJElL5H7dEhesws9NZ0Pf_6P50HJiNigebOFL77KEbQ8kDy6tWJUkY8ksUE0xGH1rDEf2G8Cn27Wet-tthX0bh5b0wO9ELZ6c5su0=",
+            "type": "url_citation",
+            "start_index": 13157,
+            "end_index": 13171
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==",
+            "type": "url_citation",
+            "start_index": 13157,
+            "end_index": 13171
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG05gQdz1FbJ3cw3E9-_KAx_S0_cFZZ575Jgvnu-D9i11eKfHtffISTyPB05cvKHfFufLWJlCoSwpUwgk24sYDqo2jhBFHecyOixmZbOeMeEpcgclVwAC6ysSZjdTbXbeINnolqz9y5NfkgqkAMFX_jdBxy",
+            "type": "url_citation",
+            "start_index": 14021,
+            "end_index": 14034
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+            "type": "url_citation",
+            "start_index": 14021,
+            "end_index": 14034
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+            "type": "url_citation",
+            "start_index": 14488,
+            "end_index": 14497
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHM-7nrbSAa9No3dOTfY9h1raAjZQRl8ZsPi2665FaAVOfjbXdGoyL6eEWcqNbbb7IOtHwPsITbOucIMANNqMXWvNkDhKk5YY3Fb0L3Hxa6zqZRCGkCi4cD4tAGBGrnbPZe8Mmsrnq-fpqIcc8N-XRAu_NgU2LeVPewuJKSAoLg",
+            "type": "url_citation",
+            "start_index": 14655,
+            "end_index": 14668
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXLx3TYX78HElrTERJTvENC3YGhnnW_bpothX8I1tUizB3X628giy-CCh9OMOQ6DomQg-P91gBaLqbweX3LfY_j-fLeN3iANzeChJKAbvSFJY39-qlNhLyrqWVGb-vxNHK3Gw_z5yr5pU0g9kuk1iqfShtvQ==",
+            "type": "url_citation",
+            "start_index": 14655,
+            "end_index": 14668
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+            "type": "url_citation",
+            "start_index": 14995,
+            "end_index": 15008
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDvqHvSzMTjmEsU2rhMuSUkrE5KOsmWGSHl_hCRKZLLymvd2RJ0-9W6kW-OnYaHxxI0jS_0AKGpX_ZK0Cag6IR2zNNtBUEl0oWrtFUF9iBCEQg1sRAdM5C2pkwMLjFIvD4uSxx7FDyiiFm5tVS-ryHH9XgEgB8Gy-tTVL8EaJvVLoN",
+            "type": "url_citation",
+            "start_index": 14995,
+            "end_index": 15008
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLuluY44UQM3AFBn9m2GZIgB3u9yNxIJ2DN0ictAEKDOJKF8_qoSK81s4MSD4UM8xSunjH-Zzy7qxFYIVkvDcIKDlCFSO6U8DSZmbNxN1_0kb7riTwJvZmkdeBgoUHCx_gX0dZoV5xo1AQ6RsgDyI3B1hPeMDAjuc=",
+            "type": "url_citation",
+            "start_index": 15227,
+            "end_index": 15240
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFukg5KPJ3n5OOLrCrqv2yzzyeqejLSh6fTW7858Mxvj7Xm0EvQUYLUtJD1P7cmIu1jO-jNBqWXzx7VFcTfUJZc-E5Qslew9OecTCe2odmKDfMMxkzy8ofSbcB44WOE9JPJkuO5uJjerjxoRk8g4A==",
+            "type": "url_citation",
+            "start_index": 15227,
+            "end_index": 15240
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+            "type": "url_citation",
+            "start_index": 16226,
+            "end_index": 16240
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGM68iqAgD8sqVu7pzOs0W17mREk2AZX0Wg4smJVXAVTW-AYPgJl9p8-r-bnKiAi8r3XWkv66-GdWYIIgFFaN9M-dq6hjwiWLvISpa-sgsep3RdcVMwEqtRGw3l-oh51O_URqhczZ4lUkEv2DLow==",
+            "type": "url_citation",
+            "start_index": 16226,
+            "end_index": 16240
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQENN9yTbHfEwtnkBvpxYIuhTu9oE2uuPoTj0XfddIQrxjNcqjWT-Hqu2KueIUJlmvUG3eOBJRAuTmt0OXOTfj2EHaCsIxcp0cKVSPao0yqFJaM4dg7rUp6k_4YaKXjLcaAsioQ7HN7EHLIjN7hwJ8WK",
+            "type": "url_citation",
+            "start_index": 16630,
+            "end_index": 16640
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0Dyo345R1pRhq_HV2Njalt6h_mAbGLEGs63Gneb5bkuHdxDIQ7wenxSKDVoaJDtKG9a6b8uXu1K9Rrfq3ID8VMVcezM2FClyHvkWxyzIBb7SidCMhT3gz_Nu-xwhwoskfxTaTMjx7",
+            "type": "url_citation",
+            "start_index": 16858,
+            "end_index": 16868
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+            "type": "url_citation",
+            "start_index": 17006,
+            "end_index": 17022
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF68Zp2I6inuoB-KRekVCddp5Mg2h9G9GDXjWpAhwVd349eFLzAnMcT2hnq8UWaqK-YHEM9wRh7ksYwG3k8ziL-Yqikssi1XcPcwC1juso=",
+            "type": "url_citation",
+            "start_index": 17006,
+            "end_index": 17022
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==",
+            "type": "url_citation",
+            "start_index": 17006,
+            "end_index": 17022
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEguA4TViEYVxd5CYmJeu3Tqj8lkEE_ldvn_R2SY35YcOjihk4XTiqVDX31XdTYoREcXRyPefboX3yzqDv3PUPSN1qLV35palEXDsIr3tvAI-KUZAuTMj9F5qWE3OCBzCMkhrA1F6a3FgCPKGzSETQHPCcPK74la5P16A==",
+            "type": "url_citation",
+            "start_index": 17563,
+            "end_index": 17576
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgzqbT3R7IGBsGPPwfleRF59294dua7IKd7giav5AWFNWD02XzvfbKJh8hy6riWmoUMY4l0UTCmfBpjHOM2jqzlCNKYrF1EQ8hWwBNxVXKQhdhedbKqvEWe1TTHkWPNdzughTOYD7rzAUgPFRRurhq4sUmBSVWZDg3J6OsfUbblHWdXEqP2GlS_-aAYrnLur5YOD1It79jkXr77Dq5T3viaB4lBba3KFBJD-8z",
+            "type": "url_citation",
+            "start_index": 17563,
+            "end_index": 17576
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR7n2kwtL6C1KqBFj5fojfGjMMmNrtk0qDqQLJDnnsNuvFYESrfG6ECcLmEz7DuyVrUe39vrKy8ppXfg66qWiW5VZPYnUu0anirB6o3zzuKNPaoRg266XC0HTf",
+            "type": "url_citation",
+            "start_index": 17689,
+            "end_index": 17703
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHnKggUIq7Yb5wjYX7X48Sy18eRmxdqb9hgoMNN6OX715dvq-LvVmAlXof0fJf8O1rtPWnc8YqAHErwt1XpYPUSxhuahJUOAw94NrzQUUPhdYUDoc9hj_fiy08EGHIhHQ==",
+            "type": "url_citation",
+            "start_index": 17689,
+            "end_index": 17703
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxQBEjVaVvvxxA4vKiZB7wiDw2cegSfoqB_W3iiIAmmCQFGBT_Gh-FqcjytMbZENGGnbbTKj3knTjfDVjS2qulukHxtWJ2bkos6-9TKvj9OVCq-V3ZUzX5EE9whf8cUXKzFK6DmhAg8wU-OI7U_g==",
+            "type": "url_citation",
+            "start_index": 18458,
+            "end_index": 18475
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyR_cYdDNlvt1ewRApIPMwfefw90qsmgkN-0AsTx1DOpHx6Jp1HmgUKfpKAeRfqRtPidbtH0ZTyEmEvLlezqZSk4rQgBSjc7ns2n09KxGZdX9pbw==",
+            "type": "url_citation",
+            "start_index": 18458,
+            "end_index": 18475
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHc04r73eeuWa_MaWqBnxSawO_h_9FwajDS3Dlmb23dWqgfw5DUNefV38VtSV_l6QdG9kI8EDgY__FKBARbVS3m1AskPQFVJbckoEcdBTh_dFWWZ992qd4EAekLSntZeoD-ZtkpXxJPZ7F0vPYIZV8cM4FBRMdWIvVO12lVIA==",
+            "type": "url_citation",
+            "start_index": 18458,
+            "end_index": 18475
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2NHVp77vFXaBUtytIATc3mPtmlHhwoeg7b-WHLV4U-QoijJJAQCY68P6NMcFOjThqgT-MDW86OhdZA8BUjwGhVp-HC6tpMVtcFNUHwYEytz4vN3NMe-WiwAg8m_NBz_OgMtx7ZkOe-EhqoDRTOcXNU79xb56GKw==",
+            "type": "url_citation",
+            "start_index": 18817,
+            "end_index": 18831
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVMvIzJLvJYHhty0rBLcuwbCGNvHOH3YcAPg35RWrarNIvejMZnY0GrHc7fHo7GV3g0jnwSHqSg6rvKkJTsaUkM7ie3v0haF71TVkTtM7lHIQC6IhU",
+            "type": "url_citation",
+            "start_index": 18817,
+            "end_index": 18831
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa3OTp_VcMMKislLvtRZj1cAkWCYlofnfVf66BVbyKRUhVdOrW4eagbdleuJXT29s-41rsYiBJRsKSE3FtDIp4nhCwPMFlnPuFNIhn",
+            "type": "url_citation",
+            "start_index": 19416,
+            "end_index": 19430
+          },
+          {
+            "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGm45W8YhVOm1Q-lUVXI8KvTwpCKsrBnT6fB_-RQnWHo3njAwE3oFLwP5CPTW0aYs8pSqa5qLfy75R2Oqtgu_nqu2_Z8pFZi0In-ToXnsq8UkoDcUpt9abMENGpUWmH-0lfZ48=",
+            "type": "url_citation",
+            "start_index": 19416,
+            "end_index": 19430
+          }
+        ],
+        "type": "text"
+      }
+    ],
+    "usage": {
+      "total_tokens": 322066,
+      "total_input_tokens": 8712,
+      "input_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 8712
+        }
+      ],
+      "total_cached_tokens": 0,
+      "total_output_tokens": 8990,
+      "output_tokens_by_modality": [
+        {
+          "modality": "text",
+          "tokens": 8990
+        }
+      ],
+      "total_tool_use_tokens": 292213,
+      "total_thought_tokens": 12151
+    },
+    "role": "agent",
+    "created": "2026-04-09T01:11:33Z",
+    "updated": "2026-04-09T01:11:33Z",
+    "object": "interaction",
+    "agent": "deep-research-pro-preview-12-2025"
+  }
+}
