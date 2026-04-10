@@ -400,6 +400,62 @@ export class AnalyticsService {
     });
   }
 
+  // ---------------------------------------------------------------
+  // TIMESERIES: Adaptive resolution endpoint (1m / 5m / 1h)
+  // Uses PostgreSQL generate_series + interval splitting to return
+  // continuous buckets with no holes, respecting variable-duration heartbeats.
+  // ---------------------------------------------------------------
+
+  async getTimeSeries(userId: string, from: string, to: string, resolution: string) {
+    const VALID: Record<string, string> = {
+      '1m': '1 minute',
+      '5m': '5 minutes',
+      '1h': '1 hour',
+    };
+    const intervalStr = VALID[resolution] ?? '5 minutes';
+
+    const rows: any[] = await this.heartbeatRepo.query(
+      `WITH buckets AS (
+         SELECT generate_series(
+           $1::timestamptz,
+           $2::timestamptz,
+           $3::interval
+         ) AS bucket_start
+       )
+       SELECT
+         b.bucket_start                                                   AS "timestamp",
+         COALESCE(SUM(CASE WHEN hb.is_afk = false
+           THEN GREATEST(0, FLOOR(EXTRACT(EPOCH FROM (
+                  LEAST(hb.end_time,   b.bucket_start + $3::interval)
+                - GREATEST(hb.start_time, b.bucket_start)
+           )))::int) ELSE 0 END), 0)::int                                AS "activeSeconds",
+         COALESCE(SUM(CASE WHEN hb.is_afk = true
+           THEN GREATEST(0, FLOOR(EXTRACT(EPOCH FROM (
+                  LEAST(hb.end_time,   b.bucket_start + $3::interval)
+                - GREATEST(hb.start_time, b.bucket_start)
+           )))::int) ELSE 0 END), 0)::int                                AS "afkSeconds",
+         COALESCE(ROUND(AVG(
+           CASE WHEN hb.work_score > 0 AND hb.is_afk = false
+                THEN hb.work_score END
+         ))::int, 0)                                                     AS "avgWorkScore"
+       FROM buckets b
+       LEFT JOIN productivity_heartbeats hb
+         ON  hb.user_id    = $4
+         AND hb.start_time < b.bucket_start + $3::interval
+         AND hb.end_time   > b.bucket_start
+       GROUP BY b.bucket_start
+       ORDER BY b.bucket_start`,
+      [from, to, intervalStr, userId],
+    );
+
+    return rows.map(r => ({
+      timestamp: new Date(r.timestamp).toISOString(),
+      activeSeconds: Number(r.activeSeconds) || 0,
+      afkSeconds: Number(r.afkSeconds) || 0,
+      avgWorkScore: Number(r.avgWorkScore) || 0,
+    }));
+  }
+
   async getProductivityPulse(userId: string, date: string) {
     const { start, end } = dayRangeUTC(date);
 

@@ -598,8 +598,152 @@
   font-style: normal;
 }
 
-/* Responsive */
+/* ─── Grafana Panel ─────────────────────────────────────── */
+.grafana-panel {
+  background: #12121e;
+  border: 1px solid #2a2a3e;
+  border-radius: 10px;
+  padding: 16px 20px 12px;
+  margin-bottom: 24px;
+}
+
+.grafana-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  min-height: 28px;
+}
+
+.grafana-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+}
+
+.grafana-panel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e66;
+}
+
+.grafana-panel-meta {
+  font-size: 11px;
+  color: #555;
+  font-family: 'Consolas', monospace;
+}
+
+.grafana-panel-loading {
+  font-size: 11px;
+  color: #7c3aed;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Quick range buttons */
+.ts-quick-ranges {
+  display: flex;
+  gap: 4px;
+}
+
+.ts-range-btn {
+  background: #1e1e2e;
+  color: #666;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: 'Consolas', monospace;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ts-range-btn:hover {
+  border-color: #7c3aed;
+  color: #d1d5db;
+}
+
+.ts-range-btn.active {
+  background: #7c3aed22;
+  border-color: #7c3aed;
+  color: #a78bfa;
+}
+
+/* Grafana legend */
+.grafana-panel-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #1e1e2e;
+}
+
+.grafana-panel-legend .legend-item {
+  font-size: 12px;
+  color: #888;
+  gap: 5px;
+}
+
+/* Grafana tooltip */
+.grafana-tooltip {
+  background: #12121e !important;
+  border: 1px solid #2a2a3e !important;
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 20px #00000088;
+  min-width: 160px;
+}
+
+.grafana-tooltip-time {
+  font-family: 'Consolas', monospace;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #2a2a3e;
+  padding-bottom: 5px;
+}
+
+.grafana-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.grafana-tooltip-name {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.grafana-tooltip-value {
+  font-size: 12px;
+  font-family: 'Consolas', monospace;
+  font-weight: 700;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 900px) {
+  .grafana-panel {
+    padding: 12px 14px;
+  }
+  .ts-quick-ranges {
+    gap: 3px;
+  }
+  .ts-range-btn {
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+}
   .charts-grid {
     grid-template-columns: 1fr;
   }

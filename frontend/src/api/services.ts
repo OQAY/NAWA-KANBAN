@@ -335,4 +335,7 @@ export const productivityApi = {
 
   getIdleResolutions: (date: string) =>
     api.get('/productivity/idle-resolutions', { params: { date } }),
+
+  getTimeSeries: (from: string, to: string, resolution: string) =>
+    api.get('/productivity/analytics/timeseries', { params: { from, to, resolution } }),
 };

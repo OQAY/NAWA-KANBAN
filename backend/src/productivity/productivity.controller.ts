@@ -124,6 +124,21 @@ export class ProductivityController {
     return this.analyticsService.getWorkScoreTimeline(req.user.id, d);
   }
 
+  @Get('analytics/timeseries')
+  @ApiOperation({ summary: 'Adaptive time series: resolution=1m|5m|1h, from/to as ISO timestamps' })
+  getTimeSeries(
+    @Query('from') from: string,
+    @Query('to') to: string,
+    @Query('resolution') resolution: string,
+    @Request() req,
+  ) {
+    const now = new Date().toISOString();
+    const f = from || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const t = to || now;
+    const r = ['1m', '5m', '1h'].includes(resolution) ? resolution : '5m';
+    return this.analyticsService.getTimeSeries(req.user.id, f, t, r);
+  }
+
   @Get('analytics/pulse')
   @ApiOperation({ summary: 'Get Productivity Pulse (0-100, RescueTime formula)' })
   getProductivityPulse(@Query('date') date: string, @Request() req) {
